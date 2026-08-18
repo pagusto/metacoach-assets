@@ -1,0 +1,463 @@
+<title>Matriz Canberra Bajo Costo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<style>
+:root{
+  --ground:#F0F3EF; --surface:#FFFFFF; --surface-2:#E6EBE5;
+  --ink:#101A18; --ink-2:#42524E; --ink-3:#6E7C77;
+  --rule:#D2D9D0; --rule-strong:#B6C0B4;
+  --accent:#1E5E51; --accent-soft:#DBE8E2;
+  --signal:#8E5512;
+  --good:#2C6B4C; --warn:#87620F; --crit:#973828;
+  --shadow:0 1px 2px rgba(16,26,24,.06), 0 8px 24px -16px rgba(16,26,24,.35);
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C1412; --surface:#131C1A; --surface-2:#1B2523;
+    --ink:#E9EEEA; --ink-2:#AAB7B2; --ink-3:#7D8A85;
+    --rule:#293533; --rule-strong:#3A4845;
+    --accent:#68BBA2; --accent-soft:#172B26;
+    --signal:#D9A05B;
+    --good:#63AC82; --warn:#C79A3E; --crit:#D3735F;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0C1412; --surface:#131C1A; --surface-2:#1B2523;
+  --ink:#E9EEEA; --ink-2:#AAB7B2; --ink-3:#7D8A85;
+  --rule:#293533; --rule-strong:#3A4845;
+  --accent:#68BBA2; --accent-soft:#172B26;
+  --signal:#D9A05B;
+  --good:#63AC82; --warn:#C79A3E; --crit:#D3735F;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.6;
+  margin:0; padding:0 20px 96px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
+
+/* ---------- encabezado ---------- */
+header{padding-top:56px;display:flex;flex-direction:column;gap:24px}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--accent); margin:0;
+}
+h1{
+  font-family:var(--display); font-weight:700; font-size:clamp(38px,6.2vw,66px);
+  line-height:1.02; letter-spacing:-.025em; margin:0; text-wrap:balance;
+}
+h1 em{font-style:normal;color:var(--accent)}
+.standfirst{font-size:19px;color:var(--ink-2);max-width:62ch;margin:0}
+.meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+}
+.meta div{background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.meta dt,.meta .k{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+}
+.meta .v{font-family:var(--display);font-weight:500;font-size:16px;color:var(--ink)}
+
+/* ---------- secciones ---------- */
+section{display:flex;flex-direction:column;gap:20px}
+h2{
+  font-family:var(--display);font-weight:700;font-size:clamp(24px,3.2vw,32px);
+  letter-spacing:-.02em;margin:0;text-wrap:balance;
+}
+h2 .num{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--accent);vertical-align:super;margin-right:10px}
+.lede{color:var(--ink-2);max-width:68ch;margin:0}
+.rule{height:1px;background:var(--rule-strong);border:0;margin:0}
+
+/* ---------- ranking ---------- */
+.rank{display:flex;flex-direction:column;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.row{
+  background:var(--surface);display:grid;
+  grid-template-columns:56px minmax(0,1.7fr) minmax(0,1.5fr) 120px 108px;
+  gap:20px;align-items:center;padding:18px 20px;
+}
+.row.head{background:var(--surface-2);padding-top:10px;padding-bottom:10px}
+.row.head span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.pos{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+.name{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.01em;line-height:1.2}
+.where{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink-3);text-transform:uppercase;margin-top:4px;display:block}
+.why{font-size:15px;color:var(--ink-2);line-height:1.45}
+.price{font-family:var(--mono);font-weight:600;font-size:24px;font-variant-numeric:tabular-nums;text-align:right}
+.price small{display:block;font-size:10.5px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.score{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.score b{font-size:20px;font-weight:600}
+.score small{display:block;font-size:10.5px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.s-good b{color:var(--good)} .s-warn b{color:var(--warn)} .s-crit b{color:var(--crit)}
+
+/* ---------- tablas ---------- */
+.scroller{overflow-x:auto;border:1px solid var(--rule);border-radius:2px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:880px;font-size:15px}
+caption{text-align:left;padding:14px 18px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);background:var(--surface-2);border-bottom:1px solid var(--rule)}
+th{
+  font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule-strong);white-space:nowrap;
+  background:var(--surface);
+}
+td{padding:13px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.prop{font-family:var(--display);font-weight:500;font-size:16px;line-height:1.25;min-width:190px}
+td.prop small{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;font-weight:400}
+td.note{color:var(--ink-2);font-size:14.5px;line-height:1.45;min-width:230px}
+tbody tr:hover{background:var(--accent-soft)}
+
+.pill{
+  display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;
+}
+.p-good{color:var(--good)} .p-warn{color:var(--warn)} .p-crit{color:var(--crit)} .p-flat{color:var(--ink-3)}
+
+/* ---------- notas ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:2px;overflow:hidden}
+.card{background:var(--surface);padding:20px;display:flex;flex-direction:column;gap:8px}
+.card h3{font-family:var(--display);font-weight:700;font-size:17px;margin:0;letter-spacing:-.01em}
+.card p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.5}
+.card .fig{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
+
+.caveat{
+  border-left:3px solid var(--signal);background:var(--surface);padding:18px 22px;
+  display:flex;flex-direction:column;gap:10px;border-radius:0 2px 2px 0;box-shadow:var(--shadow);
+}
+.caveat h3{font-family:var(--display);font-weight:700;font-size:16px;margin:0}
+.caveat p{margin:0;font-size:15px;color:var(--ink-2);line-height:1.5}
+.caveat ul{margin:0;padding-left:20px;color:var(--ink-2);font-size:15px;line-height:1.55}
+.caveat li{margin-bottom:5px}
+
+footer{color:var(--ink-3);font-size:13.5px;font-family:var(--mono);line-height:1.7;border-top:1px solid var(--rule);padding-top:20px}
+footer a{color:var(--accent)}
+a:focus-visible,tr:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .row{grid-template-columns:40px 1fr;gap:6px 14px;padding:16px}
+  .row .why{grid-column:2}
+  .row .price,.row .score{text-align:left;grid-column:2}
+  .row .price{font-size:21px}
+  .row.head{display:none}
+}
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Investigación de tarifas · Agosto 2026</p>
+  <h1>Dormir barato en <em>Canberra</em> sin dormir mal</h1>
+  <p class="standfirst">Matriz comparativa de las opciones más baratas por noche en Canberra y alrededores (Queanbeyan, Yass, Goulburn, Bungendore), ordenadas por la mejor calidad alcanzable en cada franja de precio.</p>
+  <div class="meta">
+    <div><span class="k">Moneda</span><span class="v">AUD, por noche</span></div>
+    <div><span class="k">Base</span><span class="v">Tarifas «desde», 2 pax</span></div>
+    <div><span class="k">Fechas</span><span class="v">Sin fijar · entre semana</span></div>
+    <div><span class="k">Radio</span><span class="v">Hasta 90 min en auto</span></div>
+    <div><span class="k">Propiedades</span><span class="v">17 evaluadas</span></div>
+  </div>
+</header>
+
+<section>
+  <h2><span class="num">01</span>Las 5 más baratas con calidad defendible</h2>
+  <p class="lede">Orden por precio ascendente. «Calidad» = puntuación de huéspedes agregada (Booking / Trip.com / Tripadvisor convertidas a escala 10). Descarté opciones más baratas cuya puntuación cae por debajo de 6,0 o cuyas reseñas repiten problemas de limpieza.</p>
+
+  <div class="rank">
+    <div class="row head">
+      <span>#</span><span>Propiedad</span><span>Por qué entra</span><span>Desde / noche</span><span>Puntuación</span>
+    </div>
+
+    <div class="row">
+      <div class="pos">1</div>
+      <div><div class="name">Little Drifter Canberra</div><span class="where">City / Braddon · hostel · cama en dormitorio</span></div>
+      <div class="why">El ex-YHA renovado. Es el piso absoluto del mercado y aun así es un edificio moderno y céntrico, a 5 min a pie de Civic Square.</div>
+      <div class="price">$21–40<small>cama dorm.</small></div>
+      <div class="score s-good"><b>8,2</b><small>booking · 313</small></div>
+    </div>
+
+    <div class="row">
+      <div class="pos">2</div>
+      <div><div class="name">Forrest Hotel &amp; Apartments</div><span class="where">Forrest · hotel 3,5★ · privada</span></div>
+      <div class="why">La tarifa mínima más baja vista en habitación privada de hotel real, en el mejor barrio de la lista (Parlamento, Manuka). La tarifa «desde» aparece poco: hay que cazarla.</div>
+      <div class="price">$58–100<small>habitación</small></div>
+      <div class="score s-good"><b>7,8</b><small>booking · 6.394</small></div>
+    </div>
+
+    <div class="row">
+      <div class="pos">3</div>
+      <div><div class="name">Canberra Accommodation Centre</div><span class="where">Braddon · alojamiento económico · baño compartido</span></div>
+      <div class="why">La mejor puntuación por dólar de toda la matriz, con la contra evidente: baños y cocina compartidos, y sin aire acondicionado en parte de las habitaciones.</div>
+      <div class="price">$63–68<small>habitación</small></div>
+      <div class="score s-good"><b>8,7</b><small>trip.com · 142</small></div>
+    </div>
+
+    <div class="row">
+      <div class="pos">4</div>
+      <div><div class="name">Statesman Hotel</div><span class="where">Curtin · hotel · privada</span></div>
+      <div class="why">El punto de equilibrio de la matriz: primera propiedad con puntuación &gt;8 y habitación privada completa por menos de $85.</div>
+      <div class="price">$83<small>habitación</small></div>
+      <div class="score s-good"><b>8,2</b><small>agregado</small></div>
+    </div>
+
+    <div class="row">
+      <div class="pos">5</div>
+      <div><div class="name">Adina Canberra Dickson</div><span class="where">Dickson · apart-hotel 4★ · con cocina</span></div>
+      <div class="why">Ex Aria Hotel. Apartamento con cocina y 4 estrellas por el precio de un motel de ruta: cocinar dos cenas ya paga la diferencia contra el puesto 4.</div>
+      <div class="price">$86<small>apartamento</small></div>
+      <div class="score s-good"><b>8,0</b><small>booking · 2.939</small></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">02</span>Matriz completa · Canberra</h2>
+  <p class="lede">Todo lo evaluado dentro del ACT, ordenado por tarifa mínima. La columna de 5 noches multiplica la tarifa mínima: sirve para comparar, no como presupuesto en firme.</p>
+  <div class="scroller">
+    <table>
+      <caption>Australian Capital Territory · tarifas «desde» en AUD</caption>
+      <thead>
+        <tr>
+          <th>Propiedad</th>
+          <th>Tipo</th>
+          <th class="num">Desde/noche</th>
+          <th class="num">5 noches</th>
+          <th class="num">Puntuación</th>
+          <th>Baño</th>
+          <th>Veredicto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="prop">Little Drifter Canberra<small>Braddon / City</small></td>
+          <td>Hostel · dormitorio</td>
+          <td class="num">$21–40</td>
+          <td class="num">$105–200</td>
+          <td class="num">8,2</td>
+          <td>Compartido</td>
+          <td class="note"><span class="pill p-good">Mejor precio</span> Solo si aceptás dormitorio compartido.</td>
+        </tr>
+        <tr>
+          <td class="prop">Forrest Hotel &amp; Apartments<small>Forrest</small></td>
+          <td>Hotel 3,5★</td>
+          <td class="num">$58</td>
+          <td class="num">$290</td>
+          <td class="num">7,8</td>
+          <td>Privado</td>
+          <td class="note"><span class="pill p-good">Mejor caza</span> El $58 es excepcional; lo normal es $100.</td>
+        </tr>
+        <tr>
+          <td class="prop">ibis budget Canberra<small>Northbourne Ave</small></td>
+          <td>Hotel económico 3★</td>
+          <td class="num">$62–90</td>
+          <td class="num">$310–450</td>
+          <td class="num">6,8</td>
+          <td>Privado</td>
+          <td class="note"><span class="pill p-warn">Calidad justa</span> Puesto 48 de 62 en Canberra. Marca conocida, cuarto mínimo.</td>
+        </tr>
+        <tr>
+          <td class="prop">Canberra Accommodation Centre<small>Braddon</small></td>
+          <td>Económico</td>
+          <td class="num">$63–68</td>
+          <td class="num">$315–340</td>
+          <td class="num">8,7</td>
+          <td>Compartido</td>
+          <td class="note"><span class="pill p-good">Mejor $/calidad</span> Ojo: sin A/A en varias habitaciones.</td>
+        </tr>
+        <tr>
+          <td class="prop">Statesman Hotel<small>Curtin</small></td>
+          <td>Hotel</td>
+          <td class="num">$83</td>
+          <td class="num">$415</td>
+          <td class="num">8,2</td>
+          <td>Privado</td>
+          <td class="note"><span class="pill p-good">Equilibrio</span> Fuera del centro, con auto no molesta.</td>
+        </tr>
+        <tr>
+          <td class="prop">Adina Canberra Dickson<small>Dickson · ex Aria</small></td>
+          <td>Apart-hotel 4★</td>
+          <td class="num">$86</td>
+          <td class="num">$430</td>
+          <td class="num">8,0</td>
+          <td>Privado + cocina</td>
+          <td class="note"><span class="pill p-good">Techo de calidad</span> Con cocina, el ahorro real en 5 noches es mayor.</td>
+        </tr>
+        <tr>
+          <td class="prop">Mercure Canberra Belconnen<small>Belconnen</small></td>
+          <td>Hotel 4★</td>
+          <td class="num">$94</td>
+          <td class="num">$470</td>
+          <td class="num">8,9</td>
+          <td>Privado</td>
+          <td class="note"><span class="pill p-good">Mejor puntuación</span> Admite mascotas. La nota más alta bajo $100.</td>
+        </tr>
+        <tr>
+          <td class="prop">Leumeah Lodge<small>Kingston</small></td>
+          <td>Apartamentos</td>
+          <td class="num">$94</td>
+          <td class="num">$470</td>
+          <td class="num">8,1</td>
+          <td>Privado + cocina</td>
+          <td class="note"><span class="pill p-flat">Alternativa</span> Kingston es la mejor zona para caminar de noche.</td>
+        </tr>
+        <tr>
+          <td class="prop">Little Drifter · habitación privada<small>Braddon / City</small></td>
+          <td>Hostel · privada</td>
+          <td class="num">$95–102</td>
+          <td class="num">$475–510</td>
+          <td class="num">8,2</td>
+          <td>Privado</td>
+          <td class="note"><span class="pill p-flat">Sin ventaja</span> A este precio ya conviene hotel.</td>
+        </tr>
+        <tr>
+          <td class="prop">Alivio Tourist Park<small>O'Connor</small></td>
+          <td>Cabañas / parque</td>
+          <td class="num">$124–141</td>
+          <td class="num">$620–705</td>
+          <td class="num">8,2</td>
+          <td>Privado + cocina</td>
+          <td class="note"><span class="pill p-crit">Caro para lo que es</span> Solo tiene sentido para familia o grupo.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">03</span>Matriz de alrededores</h2>
+  <p class="lede">Salir del ACT casi nunca compensa para una persona sola: el ahorro por noche se lo come la nafta y el tiempo. La excepción real es Queanbeyan, que está a 15 minutos del centro y es prácticamente un suburbio de Canberra.</p>
+  <div class="scroller">
+    <table>
+      <caption>NSW · dentro de 90 minutos en auto</caption>
+      <thead>
+        <tr>
+          <th>Propiedad</th>
+          <th>Localidad</th>
+          <th class="num">Al centro</th>
+          <th class="num">Desde/noche</th>
+          <th class="num">5 noches</th>
+          <th class="num">Puntuación</th>
+          <th>Veredicto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="prop">Australian Hotel Motel<small>Pub con motel</small></td>
+          <td>Yass</td>
+          <td class="num">~55 min</td>
+          <td class="num">$73–75</td>
+          <td class="num">$365–375</td>
+          <td class="num">6,2</td>
+          <td class="note"><span class="pill p-warn">Solo de paso</span> Barato, pero la nota no acompaña.</td>
+        </tr>
+        <tr>
+          <td class="prop">Gordon Hotel<small>Pub, baño compartido</small></td>
+          <td>Goulburn</td>
+          <td class="num">~90 min</td>
+          <td class="num">$77</td>
+          <td class="num">$385</td>
+          <td class="num">8,0</td>
+          <td class="note"><span class="pill p-flat">Buen pub</span> Demasiado lejos para base en Canberra.</td>
+        </tr>
+        <tr>
+          <td class="prop">Hotel Queanbeyan<small>Guesthouse, #1 de su categoría</small></td>
+          <td>Queanbeyan</td>
+          <td class="num">~15 min</td>
+          <td class="num">$88</td>
+          <td class="num">$440</td>
+          <td class="num">8,2</td>
+          <td class="note"><span class="pill p-good">Mejor de afuera</span> La única opción foránea que compite de verdad.</td>
+        </tr>
+        <tr>
+          <td class="prop">Alpine Heritage Motel<small>Motel</small></td>
+          <td>Goulburn</td>
+          <td class="num">~90 min</td>
+          <td class="num">$85</td>
+          <td class="num">$425</td>
+          <td class="num">—</td>
+          <td class="note"><span class="pill p-flat">Ruta</span> Útil si venís manejando desde Sídney.</td>
+        </tr>
+        <tr>
+          <td class="prop">Queanbeyan Motel<small>Motel, admite mascotas</small></td>
+          <td>Queanbeyan</td>
+          <td class="num">~15 min</td>
+          <td class="num">$72–110</td>
+          <td class="num">$360–550</td>
+          <td class="num">6,0</td>
+          <td class="note"><span class="pill p-warn">Irregular</span> El $72 aparece en tarifa deluxe puntual.</td>
+        </tr>
+        <tr>
+          <td class="prop">Best Western Motel Monaro<small>Motel 3★</small></td>
+          <td>Queanbeyan</td>
+          <td class="num">~15 min</td>
+          <td class="num">$139</td>
+          <td class="num">$695</td>
+          <td class="num">8,0</td>
+          <td class="note"><span class="pill p-crit">Fuera de rango</span> Correcto, pero no es económico.</td>
+        </tr>
+        <tr>
+          <td class="prop">Oferta general de Bungendore<small>Pubs y B&amp;B de pueblo</small></td>
+          <td>Bungendore</td>
+          <td class="num">~30 min</td>
+          <td class="num">$105–117</td>
+          <td class="num">$525–585</td>
+          <td class="num">—</td>
+          <td class="note"><span class="pill p-crit">Más caro que la capital</span> Es destino de fin de semana, no refugio barato.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span>Palancas que mueven el precio</h2>
+  <div class="cards">
+    <div class="card">
+      <span class="fig">Domingo</span>
+      <h3>La noche más barata</h3>
+      <p>En Canberra el domingo es el día más barato y el sábado el más caro: es una ciudad de viajeros de trabajo, no de turismo de fin de semana. En Queanbeyan el piso cae el martes (~$69 promedio).</p>
+    </div>
+    <div class="card">
+      <span class="fig">Ago.</span>
+      <h3>Estás en el mes correcto</h3>
+      <p>Mayo, agosto y diciembre son los meses más baratos del año; abril, julio y septiembre los más caros. Si podés estirar las 5 noches dentro de agosto, no las corras a septiembre.</p>
+    </div>
+    <div class="card">
+      <span class="fig">87 d</span>
+      <h3>Anticipación</h3>
+      <p>Para los moteles de la región (medido en Goulburn) el mejor precio aparece reservando ~87 días antes. Dentro de Canberra el patrón es más plano: manda el calendario del Parlamento.</p>
+    </div>
+    <div class="card">
+      <span class="fig">2★→4★</span>
+      <h3>El salto cuesta $23</h3>
+      <p>El promedio de 2 estrellas es $83/noche y el de 3 estrellas $85: dos dólares de diferencia. Pagar la categoría de arriba es, en esta ciudad, la compra más eficiente de la matriz.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="caveat">
+    <h3>Cómo leer estos números antes de reservar</h3>
+    <p>No me diste fechas, así que la matriz está armada con tarifas «desde» publicadas por agregadores en agosto de 2026 para estadías entre semana. Eso implica tres cosas:</p>
+    <ul>
+      <li><strong>La tarifa «desde» es la mínima histórica reciente</strong>, no la que vas a ver hoy: Forrest aparece en $58 en un agregador y en $100 en otro para las mismas fechas.</li>
+      <li><strong>Las puntuaciones vienen de escalas distintas</strong> (Booking sobre 10, Tripadvisor sobre 5, Trip.com sobre 10) y las normalicé a 10. Cuando una propiedad tenía dos notas muy dispares, usé la que tiene más reseñas.</li>
+      <li><strong>Canberra se llena por eventos</strong> —semanas de sesión parlamentaria, Floriade en septiembre, Summernats en enero— y en esas fechas esta matriz entera se corre hacia arriba.</li>
+    </ul>
+    <p>Con fechas concretas puedo volver a correr los precios y dejar la matriz con tarifas firmes en lugar de mínimos.</p>
+  </div>
+</section>
+
+<footer>
+  Fuentes: Booking.com · Tripadvisor · Expedia · Wotif · KAYAK · momondo · Trip.com · Hostelworld · VisitCanberra.<br>
+  Datos recogidos el 18 de agosto de 2026. Precios en dólares australianos, por habitación y noche salvo indicación contraria.
+</footer>
+
+</div>
