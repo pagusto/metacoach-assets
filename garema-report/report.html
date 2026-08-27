@@ -54,8 +54,8 @@ body{
   background:var(--canvas);
   color:var(--ink);
   font-family:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;
-  font-size:8.8pt;
-  line-height:1.36;
+  font-size:8.5pt;
+  line-height:1.34;
   -webkit-font-smoothing:antialiased;
 }
 .sheet{
@@ -66,7 +66,7 @@ body{
   background:var(--paper);
   display:flex;
   flex-direction:column;
-  gap:2.4mm;
+  gap:2.2mm;
 }
 h1,h2,h3,.eyebrow,.tag,.mono{font-family:"Archivo","Arial Narrow",Helvetica,sans-serif}
 .mono,.tag,.eyebrow,.field-label,.ph-id{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
@@ -85,12 +85,12 @@ h1,h2,h3,.eyebrow,.tag,.mono{font-family:"Archivo","Arial Narrow",Helvetica,sans
 
 /* ---------- title block ---------- */
 .title-block h1{
-  font-size:15pt;font-weight:700;line-height:1.1;margin:0 0 1mm;
+  font-size:13.5pt;font-weight:700;line-height:1.1;margin:0 0 .8mm;
   letter-spacing:-.01em;text-wrap:balance;color:var(--ink)}
-.title-block .lede{margin:0;color:var(--slate);font-size:9.2pt;max-width:88ch}
+.title-block .lede{margin:0;color:var(--slate);font-size:8.6pt;max-width:88ch}
 
 /* ---------- project data grid ---------- */
-.datagrid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1pt solid var(--rule);
+.datagrid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1pt solid var(--rule);
   border-left:1pt solid var(--rule)}
 .field{border-right:1pt solid var(--rule);border-bottom:1pt solid var(--rule);padding:1.5mm 2.4mm;background:var(--tint)}
 .field-label{display:block;font-size:6.4pt;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-bottom:.5mm}
@@ -115,12 +115,12 @@ table{width:100%;border-collapse:collapse;font-size:8.8pt}
 thead th{font-family:"IBM Plex Mono";font-size:6.8pt;letter-spacing:.11em;text-transform:uppercase;
   color:var(--slate);text-align:left;font-weight:500;padding:1.4mm 2.2mm;
   border-bottom:1pt solid var(--rule);white-space:nowrap}
-tbody td{padding:1.25mm 2.2mm;border-bottom:.6pt solid var(--rule-soft);vertical-align:top}
+tbody td{padding:0.95mm 2.2mm;border-bottom:.6pt solid var(--rule-soft);vertical-align:top}
 tbody tr:last-child td{border-bottom:1pt solid var(--rule)}
 td.area{font-weight:600;white-space:nowrap}
 td.qty{font-family:"IBM Plex Mono";font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;color:var(--slate)}
-.status{font-family:"IBM Plex Mono";font-size:6.8pt;letter-spacing:.06em;text-transform:uppercase;
-  white-space:nowrap;padding:.25mm 1.6mm;border:.8pt solid currentColor;border-radius:1pt;display:inline-block}
+.status{font-family:"IBM Plex Mono";font-size:6.4pt;letter-spacing:.05em;text-transform:uppercase;
+  white-space:nowrap;padding:.15mm 1.4mm;border:.8pt solid currentColor;border-radius:1pt;display:inline-block}
 .status.done{color:var(--ok)}
 .status.wip{color:var(--steel-2)}
 .status.hold{color:var(--hold)}
@@ -131,11 +131,11 @@ td.qty{font-family:"IBM Plex Mono";font-variant-numeric:tabular-nums;text-align:
 .callout .k{font-family:"IBM Plex Mono";font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--hivis)}
 
 /* ---------- signatures ---------- */
-.sign{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:10mm;padding-top:2.5mm}
+.sign{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:10mm;padding-top:1.5mm}
 .sign .slot{border-top:1pt solid var(--rule);padding-top:2mm}
 .sign .who{font-weight:600;font-size:9pt}
 .sign .role{font-size:8pt;color:var(--slate)}
-.sign .line{margin-top:2.4mm;border-top:.8pt dotted var(--rule);padding-top:1.4mm;
+.sign .line{margin-top:2mm;border-top:.8pt dotted var(--rule);padding-top:1.4mm;
   font-family:"IBM Plex Mono";font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
 
 /* ---------- footer ---------- */
@@ -151,6 +151,7 @@ figure{margin:0;display:flex;flex-direction:column;break-inside:avoid}
 .frame{position:relative;width:100%;aspect-ratio:1/1;background:var(--tint);overflow:hidden;
   border:.8pt solid var(--rule)}
 .frame img{width:100%;height:100%;object-fit:cover;display:block}
+.frame.doc img{object-fit:contain;background:var(--tint)}
 .ph-id{position:absolute;left:0;top:0;background:var(--steel);color:var(--paper);
   font-size:7pt;font-weight:600;letter-spacing:.08em;padding:.9mm 2.2mm}
 figcaption{padding-top:1.8mm;display:flex;flex-direction:column;gap:.8mm}
@@ -211,22 +212,21 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
   </div>
 
   <div class="datagrid">
-    <div class="field"><span class="field-label">Project</span><span class="field-value">The Garema Hotel (5&#8209;Star) &middot; Canberra ACT</span></div>
+    <div class="field"><span class="field-label">Project</span><span class="field-value">The Garema Hotel (5&#8209;Star), ACT</span></div>
     <div class="field"><span class="field-label">Principal Contractor</span><span class="field-value">TP Dynamics</span></div>
     <div class="field"><span class="field-label">Mechanical Contractor</span><span class="field-value">Climatech</span></div>
-    <div class="field"><span class="field-label">Site Supervisor</span><span class="field-value">Keith Morgan &#8212; Climatech</span></div>
+    <div class="field"><span class="field-label">Site Supervisor</span><span class="field-value">Keith Morgan</span></div>
     <div class="field"><span class="field-label">Works By</span><span class="field-value">SA Quality Ductwork</span></div>
     <div class="field"><span class="field-label">Reporting Period</span><span class="field-value">Thu 20 &#8211; Wed 26 Aug 2026</span></div>
     <div class="field"><span class="field-label">Site Crew</span><span class="field-value">P. Agusto, L. Taipe, Eduardo, Anthony</span></div>
     <div class="field"><span class="field-label">Prepared By</span><span class="field-value">Pablo Agusto, Supervisor</span></div>
-    <div class="field"><span class="field-label">Photographic Record</span><span class="field-value">15 records &#8212; PH-01 to PH-15</span></div>
   </div>
 
   <section>
     <h2><span class="num">01</span> Scope of Works Delivered</h2>
-    <p>Works this period focused on the mechanical plant fit&#8209;off: support steelwork, setting of Daikin VRV
-    water&#8209;cooled modules and ducted fan coils on anti&#8209;vibration mounts, hanging of plenum boxes, and connection
-    of insulated ductwork with dampers and access provisions.</p>
+    <p>Works this period covered the mechanical plant fit&#8209;off &#8212; support steelwork, setting of Daikin VRV
+    modules and ducted fan coils on anti&#8209;vibration mounts, plenum hanging and insulated ductwork &#8212; together with
+    the Ground Floor to Level 1 duct run and the material relocation directed by the supervisor.</p>
     <ul class="bullets two">
       <li><span class="lead-in">Support steelwork &#8212;</span> unistrut trapeze and goal&#8209;post frames installed and
         levelled to unit footprints <span class="mono">(PH-02, 03, 05)</span>.</li>
@@ -238,8 +238,12 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
         insulation made good <span class="mono">(PH-08, 09, 12)</span>.</li>
       <li><span class="lead-in">Coordination &#8212;</span> supports set clear of hydraulic, fire and electrical services
         <span class="mono">(PH-07, 13)</span>.</li>
+      <li><span class="lead-in">Ground Floor to Level 1 &#8212;</span> duct runs installed and connected between GF and
+        Level 1 to the revised drawings.</li>
       <li><span class="lead-in">Materials &#8212;</span> duct, dampers and fixings received, checked and staged in the
         basement store <span class="mono">(PH-01)</span>.</li>
+      <li><span class="lead-in">Relocation &#8212;</span> plant relocated to the rooftop store and balance covered,
+        to supervisor direction <span class="mono">(PH-16 to PH-22)</span>.</li>
     </ul>
   </section>
 
@@ -252,6 +256,8 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
         <tr><td class="area">Typical floors</td><td>Ducted FCUs hung on AV hangers; connection points presented</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
         <tr><td class="area">Typical floors</td><td>Plenum boxes hung to soffit with flexible connections</td><td class="qty">&#8212;</td><td><span class="status wip">In progress</span></td></tr>
         <tr><td class="area">Soffit &amp; risers</td><td>Insulated duct runs, damper sets and boxes to drawings</td><td class="qty">&#8212;</td><td><span class="status wip">In progress</span></td></tr>
+        <tr><td class="area">Ground Floor &#8211; L1</td><td>Ductwork installed and connected between Ground Floor and Level 1</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
+        <tr><td class="area">GF store / rooftop</td><td>Plant and cartons relocated to rooftop store; balance covered with tarpaulin</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
         <tr><td class="area">Basement store</td><td>Material receipt, check and staging for distribution</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
         <tr><td class="area">Soffit anchors</td><td>Anchors inspected and marked &#8212; OK / X for replacement</td><td class="qty">&#8212;</td><td><span class="status hold">Direction req.</span></td></tr>
       </tbody>
@@ -263,9 +269,9 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
       <h2><span class="num">03</span> Coordination &amp; Observations</h2>
       <div class="callout">
         <span class="k">Open item &#8212; concrete anchors</span>
-        <p>Existing soffit anchors continue to be found stripped or not holding load. Anchors have been inspected
-        and marked on the slab &#8212; compliant circled <b>OK</b>, defective marked <b>X</b> <span class="mono">(PH-14)</span>.
-        Replacement with HKD drop&#8209;in anchors is recommended before further hanging; written direction is requested.</p>
+        <p>Existing soffit anchors continue to be found stripped or not holding load, and have been marked on the
+        slab &#8212; compliant circled <b>OK</b>, defective marked <b>X</b> <span class="mono">(PH-14)</span>. Replacement
+        with HKD drop&#8209;in anchors is recommended before further hanging.</p>
       </div>
       <ul class="bullets">
         <li><span class="lead-in">Vibration isolation &#8212;</span> units set on AV pads or hangers; final levelling
@@ -281,16 +287,15 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
         <ul class="bullets">
           <li>All personnel site&#8209;inducted; works under the site SWMS with daily pre&#8209;start and toolbox
             attendance. Elevated work from approved platforms; metal cutting under permit.</li>
-          <li>No lost&#8209;time injuries, incidents or environmental events recorded for the period.</li>
+          <li>No lost&#8209;time injuries, incidents or environmental events recorded.</li>
         </ul>
       </section>
       <section>
         <h2><span class="num">05</span> Planned Works &#8212; Next Period</h2>
         <ul class="bullets">
-          <li>Complete plenum hanging and flexible connections at remaining floors; replace defective soffit
-            anchors with HKD drop&#8209;ins and re&#8209;hang affected supports, subject to direction.</li>
-          <li>Continue insulated duct runs, damper sets and access panels; progressive check and sign&#8209;off
-            of completed areas with the site supervisor.</li>
+          <li>Complete plenum hanging and flexible connections at remaining floors; replace defective soffit anchors
+            with HKD drop&#8209;ins, subject to direction.</li>
+          <li>Continue insulated duct runs, damper sets and access panels; progressive sign&#8209;off.</li>
         </ul>
       </section>
     </div>
@@ -309,10 +314,10 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
     </div>
   </div>
 
-  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 1 of 5</span></div>
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 1 of 7</span></div>
 </div>
 
-<!-- ============ SHEET 2 &#8212; PHOTO RECORD ============ -->
+<!-- ============ SHEET 2 ============ -->
 <div class="sheet">
   <header class="masthead">
     <div class="brand">
@@ -323,8 +328,8 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
       <span class="no">THE GAREMA HOTEL &middot; 20&#8211;26 AUG 2026</span></div>
   </header>
 
-  <p class="note"><b>Record note.</b> Photographs taken on site during the reporting period by SA Quality Ductwork.
-  Levels and dates against each record to be confirmed from the daily works dockets before issue to the principal contractor.</p>
+  <p class="note"><b>Record note.</b> 22 photographic records (PH-01 to PH-22) taken on site during the reporting period
+  by SA Quality Ductwork. Levels and dates against each record to be confirmed from the daily works dockets before issue.</p>
 
   <div class="photo-grid">
     <figure><div class="frame"><span class="ph-id">PH-01</span><img src="photos/PH-01.jpg" alt="Basement store with staged ductwork, dampers and plasterboard"></div>
@@ -344,10 +349,10 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
       <span class="cap-d">Water-cooled VRV heat pump module (Ser. E001506) positioned, aligned and seated on the support frame, nameplate left visible for commissioning and asset records.</span></figcaption></figure>
   </div>
 
-  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 2 of 5</span></div>
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 2 of 7</span></div>
 </div>
 
-<!-- ============ SHEET 3 &#8212; PHOTO RECORD ============ -->
+<!-- ============ SHEET 3 ============ -->
 <div class="sheet">
   <header class="masthead">
     <div class="brand">
@@ -376,10 +381,10 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
       <span class="cap-d">Insulated rectangular duct and transition to spiral installed and supported on unistrut, set out to clear the hydraulic and fire services running above.</span></figcaption></figure>
   </div>
 
-  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 3 of 5</span></div>
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 3 of 7</span></div>
 </div>
 
-<!-- ============ SHEET 4 &#8212; PHOTO RECORD ============ -->
+<!-- ============ SHEET 4 ============ -->
 <div class="sheet">
   <header class="masthead">
     <div class="brand">
@@ -408,10 +413,10 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
       <span class="cap-d">Duct run with plenum, filter box and spiral connections installed to the issued mechanical set, with open ends protected pending the following connection.</span></figcaption></figure>
   </div>
 
-  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 4 of 5</span></div>
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 4 of 7</span></div>
 </div>
 
-<!-- ============ SHEET 5 &#8212; PHOTO RECORD ============ -->
+<!-- ============ SHEET 5 ============ -->
 <div class="sheet">
   <header class="masthead">
     <div class="brand">
@@ -436,7 +441,81 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
       <span class="cap-d">Threaded rod hanger double-nutted at the unit bracket with rubber isolation pad between clamp and bracket &#8212; typical detail applied across the hung equipment.</span></figcaption></figure>
 
     <section>
-      <h2><span class="num">06</span> Distribution &amp; Notes</h2>
+      <h2><span class="num">06</span> Supervisor Direction</h2>
+      <div class="dist">
+        <div class="row"><span class="who">Rooftop transfer &#8212; 26/08</span>
+          <span class="meta">&#8220;Take these up to rooftop and store in discussed location.&#8221; Filtration skid,
+          control panel and cartons relocated and stored as directed <span class="mono">(PH-16, 18&#8211;21)</span>.</span></div>
+        <div class="row"><span class="who">Cover in place &#8212; 26/08</span>
+          <span class="meta">&#8220;Leave here and cover with blue tarp.&#8221; Marked pallet left at the Ground Floor
+          store and covered on site <span class="mono">(PH-17, 22)</span>.</span></div>
+      </div>
+      <p class="note">Directions received by message from Climatech and actioned the same day; screenshots retained
+      as PH-21 and PH-22.</p>
+    </section>
+  </div>
+
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 5 of 7</span></div>
+</div>
+
+<!-- ============ SHEET 6 ============ -->
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">
+      <div class="mark"><span class="name">PHOTOGRAPHIC RECORD</span></div>
+      <span class="sub">Section E &#8212; Material relocation &amp; protection</span>
+    </div>
+    <div class="doc-id"><span class="kind">Works Summary Report 02</span>
+      <span class="no">THE GAREMA HOTEL &middot; 20&#8211;26 AUG 2026</span></div>
+  </header>
+
+  <div class="photo-grid">
+    <figure><div class="frame"><span class="ph-id">PH-16</span><img src="photos/PH-16.jpg" alt="Ground floor store with filtration skid and cartons circled in red"></div>
+      <figcaption><span class="tag">Direction</span><span class="cap-t">Items marked for relocation</span>
+      <span class="cap-d">Filtration skid, control panel and associated cartons at the Ground Floor store, marked up by the site supervisor for transfer to the rooftop store.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-17</span><img src="photos/PH-17.jpg" alt="Pallet of red and black protection matting circled in red"></div>
+      <figcaption><span class="tag">Direction</span><span class="cap-t">Pallet marked to remain in place</span>
+      <span class="cap-d">Pallet of protection matting and fixings marked by the site supervisor to stay at the Ground Floor store and be covered on site rather than relocated.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-18</span><img src="photos/PH-18.jpg" alt="Blue tarpaulin over relocated material on the rooftop beside pallets"></div>
+      <figcaption><span class="tag">Relocation</span><span class="cap-t">Material relocated to rooftop</span>
+      <span class="cap-d">Marked items transferred to the rooftop and set down in the agreed storage location, clear of the ductwork run and the access route along the wall.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-19</span><img src="photos/PH-19.jpg" alt="Covered plant on the rooftop deck beside condenser water pipework"></div>
+      <figcaption><span class="tag">Protection</span><span class="cap-t">Stored plant covered on rooftop</span>
+      <span class="cap-d">Relocated plant covered with tarpaulin on the rooftop deck, clear of the cooling tower platform, the condenser water pipework and the walkway.</span></figcaption></figure>
+  </div>
+
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 6 of 7</span></div>
+</div>
+
+<!-- ============ SHEET 7 ============ -->
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">
+      <div class="mark"><span class="name">PHOTOGRAPHIC RECORD</span></div>
+      <span class="sub">Section E &#8212; Rooftop storage &amp; recorded direction</span>
+    </div>
+    <div class="doc-id"><span class="kind">Works Summary Report 02</span>
+      <span class="no">THE GAREMA HOTEL &middot; 20&#8211;26 AUG 2026</span></div>
+  </header>
+
+  <div class="photo-grid">
+    <figure><div class="frame"><span class="ph-id">PH-20</span><img src="photos/PH-20.jpg" alt="Second covered pallet on the rooftop beside the plant platform"></div>
+      <figcaption><span class="tag">Protection</span><span class="cap-t">Second pallet covered and secured</span>
+      <span class="cap-d">Balance of the relocated material covered and weighted down against wind exposure on the open rooftop, clear of plant access and grated walkways.</span></figcaption></figure>
+
+    <figure><div class="frame doc"><span class="ph-id">PH-21</span><img src="photos/PH-21.jpg" alt="Text message from the site supervisor directing transfer to the rooftop"></div>
+      <figcaption><span class="tag">Direction</span><span class="cap-t">Supervisor direction &#8212; rooftop transfer</span>
+      <span class="cap-d">Instruction received from Climatech on 26/08: the marked items to be taken up to the rooftop and stored in the agreed location. Works completed same day.</span></figcaption></figure>
+
+    <figure><div class="frame doc"><span class="ph-id">PH-22</span><img src="photos/PH-22.jpg" alt="Text message from the site supervisor directing the pallet be covered"></div>
+      <figcaption><span class="tag">Direction</span><span class="cap-t">Supervisor direction &#8212; cover in place</span>
+      <span class="cap-d">Instruction received from Climatech on 26/08: the marked pallet to be left in place and covered with tarpaulin. Works completed same day.</span></figcaption></figure>
+
+    <section>
+      <h2><span class="num">07</span> Distribution &amp; Notes</h2>
       <div class="dist">
         <div class="row"><span class="who">Keith Morgan &#8212; Climatech</span>
           <span class="meta">Progress record and direction on open items</span></div>
@@ -446,8 +525,7 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
           <span class="meta">Record of works and photographic evidence</span></div>
       </div>
       <p class="note">This report summarises works performed by SA Quality Ductwork only. Quantities, levels and
-      dates are to be read together with the daily works dockets for the period. Items marked as open require
-      written direction before the affected works can proceed.</p>
+      dates are to be read together with the daily works dockets for the period.</p>
     </section>
   </div>
 
@@ -464,5 +542,5 @@ ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
     </div>
   </div>
 
-  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 5 of 5</span></div>
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 7 of 7</span></div>
 </div>
