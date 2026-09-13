@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Crohn's disease and investigational retatrutide 4 mg — an evidence review</title>
+<style>
+:root{
+  --ink:#17262e; --body:#26363f; --muted:#5d6f79; --faint:#8fa0a9;
+  --rule:#c9d3d8; --grid:#e2e8eb; --wash:#f5f8f9;
+  --teal:#1f6f8b; --teal-dk:#16506b; --teal-wash:#eaf1f4;
+  --focus:#bf5a1c; --focus-dk:#8a3f12; --focus-wash:#fdf0ec;
+  --red:#9d2f22; --red-wash:#fbeceb;
+  --green-dk:#2f5f45; --green-wash:#eef4f0;
+  --sand:#8a6d12; --sand-wash:#faf5e3;
+  --serif:"Bitstream Charter","Charter",Georgia,"Liberation Serif",serif;
+  --sans:"Liberation Sans",Helvetica,Arial,sans-serif;
+  --mono:"Liberation Mono","DejaVu Sans Mono",monospace;
+}
+@page{ size:A4; margin:17mm 16mm 18mm; }
+
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+body{
+  font-family:var(--serif); font-size:9.9pt; line-height:1.52; color:var(--body);
+  margin:0; hyphens:auto; text-align:justify; orphans:3; widows:3;
+}
+p{margin:0 0 .62em}
+strong{color:var(--ink); font-weight:700}
+em{font-style:italic}
+a{color:var(--teal-dk); text-decoration:none}
+
+/* ---------- cover ---------- */
+.cover{
+  height:258mm; padding:0; display:flex; flex-direction:column;
+  page-break-after:always; text-align:left;
+}
+.cover::before{content:""; display:block; height:6mm; background:var(--teal-dk); margin-bottom:16mm}
+.cover .eyebrow{font-family:var(--sans); font-size:8pt; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--focus); font-weight:700; margin-bottom:14mm}
+.cover h1{font-family:var(--serif); font-size:29pt; line-height:1.14; color:var(--ink);
+  font-weight:700; margin:0 0 5mm; max-width:150mm; letter-spacing:-.01em}
+.cover .deck{font-size:12.4pt; line-height:1.44; color:var(--muted); max-width:135mm; margin:0 0 12mm}
+.cover .rule{height:2px; background:var(--teal-dk); width:34mm; margin-bottom:8mm}
+.cover dl{display:grid; grid-template-columns:34mm 1fr; gap:2.6mm 6mm;
+  font-family:var(--sans); font-size:8.6pt; margin:0 0 auto; max-width:140mm}
+.cover dt{color:var(--faint); text-transform:uppercase; letter-spacing:.09em; font-size:7.6pt; padding-top:.35mm}
+.cover dd{margin:0; color:var(--ink)}
+.cover .foot{font-family:var(--sans); font-size:7.8pt; color:var(--faint); border-top:1px solid var(--rule);
+  padding-top:4mm; text-align:left}
+
+/* ---------- structure ---------- */
+h2{break-after:avoid; font-family:var(--sans); font-size:14pt; line-height:1.2; color:var(--teal-dk); font-weight:700;
+  margin:0 0 3.4mm; padding-bottom:2mm; border-bottom:2px solid var(--teal-dk);
+  page-break-after:avoid; text-align:left; letter-spacing:-.005em}
+h2 .num{color:var(--focus); margin-right:2.6mm; font-variant-numeric:tabular-nums}
+h3{font-family:var(--sans); font-size:10.6pt; color:var(--ink); font-weight:700;
+  margin:5.5mm 0 2mm; page-break-after:avoid; text-align:left}
+h4{font-family:var(--sans); font-size:9.2pt; color:var(--teal-dk); font-weight:700;
+  margin:4mm 0 1.4mm; page-break-after:avoid; text-align:left;
+  text-transform:uppercase; letter-spacing:.07em}
+section{page-break-before:auto; margin-top:7mm}
+section:first-of-type{margin-top:0}
+.lede{font-size:10.8pt; line-height:1.5; color:var(--ink); margin-bottom:4mm; break-before:avoid}
+
+/* ---------- tables ---------- */
+table{border-collapse:collapse; width:100%; margin:3mm 0 4mm; font-family:var(--sans);
+  font-size:8.1pt; line-height:1.36; page-break-inside:avoid; text-align:left}
+caption{caption-side:top; font-family:var(--sans); font-size:8pt; color:var(--muted);
+  text-align:left; padding-bottom:1.6mm; font-weight:400}
+caption b{color:var(--ink); font-weight:700}
+th{background:var(--teal-dk); color:#fff; font-weight:700; padding:2.1mm 2.4mm;
+  text-align:left; vertical-align:bottom; font-size:7.9pt;
+  letter-spacing:.03em; border:0}
+td{border-bottom:1px solid var(--grid); padding:2.1mm 2.4mm; vertical-align:top; color:var(--body)}
+tbody tr:nth-child(even) td{background:#fafcfc}
+tbody tr:last-child td{border-bottom:1px solid var(--rule)}
+td b, th b{color:inherit}
+td.num, th.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+.t-compact td, .t-compact th{padding:1.7mm 2mm; font-size:7.7pt}
+.hi td{background:var(--focus-wash) !important}
+.hi td:first-child{box-shadow:inset 3px 0 0 var(--focus)}
+
+/* ---------- callouts ---------- */
+.note{padding:3mm 4mm; margin:3.4mm 0; border-left:3.5px solid var(--teal);
+  background:var(--teal-wash); font-size:9.2pt; page-break-inside:avoid; text-align:left}
+.warn{border-left-color:var(--focus); background:var(--focus-wash)}
+.danger{border-left-color:var(--red); background:var(--red-wash)}
+.ok{border-left-color:var(--green-dk); background:var(--green-wash)}
+.note .lbl{font-family:var(--sans); font-size:7.5pt; font-weight:700; letter-spacing:.13em;
+  text-transform:uppercase; display:block; margin-bottom:1.4mm; color:var(--teal-dk)}
+.warn .lbl{color:var(--focus-dk)} .danger .lbl{color:var(--red)} .ok .lbl{color:var(--green-dk)}
+.note p:last-child{margin-bottom:0}
+
+/* ---------- evidence pills ---------- */
+.ev{font-family:var(--sans); font-size:6.6pt; font-weight:700; letter-spacing:.07em;
+  text-transform:uppercase; padding:.7mm 1.5mm; border-radius:2px; white-space:nowrap;
+  vertical-align:.9pt; margin-left:1mm}
+.ev-rct{background:var(--teal-dk); color:#fff}
+.ev-coh{background:#dbe6ea; color:var(--teal-dk)}
+.ev-gl{background:var(--green-wash); color:var(--green-dk); box-shadow:inset 0 0 0 1px #b9d2c4}
+.ev-an{background:var(--sand-wash); color:var(--sand); box-shadow:inset 0 0 0 1px #e0d29a}
+.ev-none{background:var(--focus-wash); color:var(--focus-dk); box-shadow:inset 0 0 0 1px #eec6b1}
+.ev-mech{background:#eceff1; color:var(--muted)}
+
+/* ---------- figures ---------- */
+figure{margin:4mm 0 5mm; page-break-inside:avoid}
+figure svg{display:block; width:100%; height:auto; border:1px solid var(--grid)}
+figcaption{font-family:var(--sans); font-size:7.8pt; color:var(--muted); line-height:1.42;
+  padding-top:1.8mm; text-align:left}
+figcaption b{color:var(--ink); font-weight:700}
+
+/* ---------- lists ---------- */
+ul,ol{margin:0 0 .7em; padding-left:4.6mm}
+li{margin-bottom:.3em; padding-left:.6mm}
+ul.tight li, ol.tight li{margin-bottom:.14em}
+dl.gloss{margin:0 0 3mm; display:grid; grid-template-columns:auto 1fr; gap:1.4mm 4mm; font-size:9.4pt}
+dl.gloss dt{font-family:var(--sans); font-size:8.2pt; font-weight:700; color:var(--teal-dk); white-space:nowrap}
+dl.gloss dd{margin:0}
+
+/* ---------- toc ---------- */
+.toc{columns:2; column-gap:9mm; font-family:var(--sans); font-size:8.6pt; margin-top:2mm}
+.toc a{display:flex; justify-content:space-between; gap:3mm; padding:1.5mm 0;
+  border-bottom:1px dotted var(--rule); color:var(--body); break-inside:avoid}
+.toc a .n{color:var(--focus); font-weight:700; min-width:6mm}
+.toc a .t{flex:1}
+
+/* ---------- misc ---------- */
+.two{columns:2; column-gap:8mm}
+.two > *{break-inside:avoid}
+pre{background:#f7f9fa; border:1px solid var(--grid); border-left:3.5px solid var(--muted);
+  padding:3.5mm 4mm; font-family:var(--mono); font-size:7.3pt; line-height:1.45;
+  white-space:pre-wrap; color:var(--body); margin:3mm 0; text-align:left}
+.refs{font-size:8.4pt; line-height:1.45}
+.refs li{margin-bottom:1.9mm}
+.refs .j{font-style:italic}
+.stamp{font-family:var(--sans); font-size:7.4pt; color:var(--faint); letter-spacing:.05em;
+  text-transform:uppercase; margin-bottom:1.6mm; font-weight:700}
+.kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:2.6mm; margin:3.5mm 0 4.5mm}
+.kpi div{border:1px solid var(--grid); border-top:2.5px solid var(--teal-dk);
+  padding:2.6mm 3mm; text-align:left; page-break-inside:avoid}
+.kpi div.f{border-top-color:var(--focus)}
+.kpi .v{font-family:var(--sans); font-size:16pt; font-weight:700; color:var(--teal-dk);
+  line-height:1.05; display:block; font-variant-numeric:tabular-nums}
+.kpi div.f .v{color:var(--focus)}
+.kpi .k{font-family:var(--sans); font-size:7.1pt; color:var(--muted); line-height:1.32;
+  display:block; margin-top:1.4mm}
+.sig{font-family:var(--sans); font-size:7.6pt; color:var(--faint); text-align:left; margin-top:1.5mm}
+.nobreak{page-break-inside:avoid}
+</style>
+</head>
+<body>
+
+<!-- ============================ COVER ============================ -->
+<div class="cover">
+  <div class="eyebrow">Clinical evidence review · v2.0 · supersedes v1</div>
+  <h1>Crohn's disease and investigational retatrutide 4&nbsp;mg</h1>
+  <div class="deck">What the phase&nbsp;3 data now say about this dose, what the IBD evidence
+    does and does not support, and how to tell a flare from a side effect.</div>
+  <div class="rule"></div>
+  <dl>
+    <dt>Case profile</dt><dd>Woman, 40, ileal Crohn's disease with chronic abdominal pain, self-administering investigational retatrutide 4&nbsp;mg subcutaneously once weekly</dd>
+    <dt>Date</dt><dd>13 September 2026</dd>
+    <dt>Scope</dt><dd>Pharmacology · GLP-1 class evidence in IBD · immunology · nutrition · resistance training and body composition · adjunct peptides · monitoring</dd>
+    <dt>Evidence cut-off</dt><dd>September 2026, including TRIUMPH-1 phase&nbsp;3 and the 2025 IBD meta-analyses</dd>
+    <dt>Revision</dt><dd>Six substantive corrections to the previous draft — see §1 <em>Corrections</em></dd>
+  </dl>
+  <div class="foot">
+    <strong style="color:#8a3f12">Educational research material. Not medical advice, not a prescription, not a treatment plan.</strong><br>
+    Retatrutide is an investigational agent, not approved in any jurisdiction. BPC-157, KPV and TB-500 are unapproved
+    research chemicals with no established human dosing. Crohn's disease carries risks of obstruction, fistula,
+    malabsorption and surgery. Nothing here substitutes for the care of a treating gastroenterologist, and no dose
+    in this document should be started, changed or stopped without one.
+  </div>
+</div>
+
+<!-- ============================ SUMMARY ============================ -->
+<section class="run-on" style="page-break-before:auto">
+<h2><span class="num">§0</span>Resumen ejecutivo</h2>
+
+<p class="lede">Este informe revisa la evidencia sobre retatrutida 4&nbsp;mg semanales en una paciente con
+enfermedad de Crohn. La conclusión central cambió respecto al borrador anterior.</p>
+
+<p><strong>Lo nuevo.</strong> La dosis de 4&nbsp;mg ya no depende de extrapolar desde el ensayo de fase&nbsp;2:
+tiene su propio brazo en el ensayo de fase&nbsp;3 TRIUMPH-1 (n&nbsp;=&nbsp;2.339, 80 semanas), con una pérdida
+media de peso del <strong>19,0&nbsp;%</strong>. Eso es eficacia sustancial y bien documentada.</p>
+
+<p><strong>La corrección importante.</strong> El borrador anterior afirmaba que los efectos gastrointestinales
+son «sustancialmente menores» a 4&nbsp;mg. Los datos por dosis lo desmienten: la diarrea aparece en el
+<strong>25,2&nbsp;%</strong> a 4&nbsp;mg frente al 32,0&nbsp;% a 12&nbsp;mg, y el estreñimiento en el 23,8&nbsp;%
+frente al 26,1&nbsp;%. La reducción es modesta, no sustancial. En una paciente con Crohn esto significa que
+<strong>una de cada cuatro semanas de diarrea puede ser del fármaco y no del brote</strong>, y los síntomas
+por sí solos no permiten distinguirlos. Ese es el problema clínico que organiza todo el protocolo.</p>
+
+<p><strong>La segunda corrección.</strong> El borrador atribuía a los agonistas GLP-1 una reducción del íleo
+(aHR 0,58) y de las cirugías de Crohn (aHR 0,55) citando un artículo de <em>Frontiers in Immunology</em> con
+167.000 pacientes. No se sostiene. La revista correcta es <em>Frontiers in Medicine</em>, las cohortes reunidas
+suman unos <strong>16.242 pacientes</strong>, la reducción de cirugía es <strong>HR 0,61 (IC 95&nbsp;%
+0,44–0,84)</strong>, y sobre el íleo <strong>no hay asociación significativa en ninguna dirección</strong>.
+El mensaje honesto es: <em>tranquilizador en seguridad, no demostrado en beneficio</em>.</p>
+
+<p><strong>Lo que realmente hay que vigilar.</strong> No es la inflamación —es la <strong>masa magra y el estado
+nutricional</strong>. Entre el 15&nbsp;% y el 40&nbsp;% del peso perdido con incretinas es tejido magro, y en
+Crohn se suma la malabsorción ileal. Las tres palancas son proteína (1,6–2,2&nbsp;g/kg/día), fuerza tres veces
+por semana, y hierro, B12 y vitamina D medidos, no supuestos.</p>
+
+<p><strong>Sobre los péptidos añadidos.</strong> KPV y BPC-157 tienen datos únicamente en roedores; TB-500 no
+tiene datos humanos de eficacia de ningún tipo. Eso no los invalida como hipótesis, pero sí los sitúa varios
+escalones por debajo de la retatrutida en la escala de evidencia (figura&nbsp;4), y conviene decirlo con esa
+claridad antes de añadir un tercer o cuarto compuesto no aprobado a un intestino inflamado.</p>
+
+<div class="note warn">
+  <span class="lbl">Advertencia sobre el origen del producto</span>
+  <p>Todas las cifras de este informe proceden de retatrutida de grado farmacéutico administrada en ensayos
+  clínicos. Un vial de «uso en investigación» del mercado gris no tiene contenido, pureza ni esterilidad
+  verificados. Si la concentración real difiere de la etiquetada, la dosis administrada no es 4&nbsp;mg —
+  y entonces ninguna de las curvas dosis-respuesta de este documento describe lo que está ocurriendo.
+  Es la limitación más grande del caso y no se resuelve con monitorización.</p>
+</div>
+
+<h3>Contents</h3>
+<nav class="toc">
+  <a href="#s1"><span class="n">1</span><span class="t">Corrections to the previous draft</span></a>
+  <a href="#s2"><span class="n">2</span><span class="t">Retatrutide at 4 mg: pharmacology</span></a>
+  <a href="#s3"><span class="n">3</span><span class="t">Efficacy and tolerability at this dose</span></a>
+  <a href="#s4"><span class="n">4</span><span class="t">GLP-1 receptor agonists in IBD</span></a>
+  <a href="#s5"><span class="n">5</span><span class="t">Interactions, contraindications, surgery</span></a>
+  <a href="#s6"><span class="n">6</span><span class="t">Baseline workup and immunology</span></a>
+  <a href="#s7"><span class="n">7</span><span class="t">Flare or side effect: the algorithm</span></a>
+  <a href="#s8"><span class="n">8</span><span class="t">Nutrition protocol</span></a>
+  <a href="#s9"><span class="n">9</span><span class="t">Training and body composition</span></a>
+  <a href="#s10"><span class="n">10</span><span class="t">Adjunct peptides: evidence and law</span></a>
+  <a href="#s11"><span class="n">11</span><span class="t">Monitoring schedule</span></a>
+  <a href="#s12"><span class="n">12</span><span class="t">Ten priorities</span></a>
+  <a href="#s13"><span class="n">13</span><span class="t">Appendix: research prompt</span></a>
+  <a href="#s14"><span class="n">14</span><span class="t">References</span></a>
+</nav>
+
+<h4 style="margin-top:6mm">How to read the evidence tags</h4>
+<p style="font-size:9.3pt">Every substantive claim carries a tag showing what kind of study stands behind it.
+The tag is the point: two claims can read identically in prose and rest on completely different evidence.</p>
+<dl class="gloss">
+  <dt><span class="ev ev-rct" style="margin:0">RCT</span></dt><dd>Randomised controlled trial in humans.</dd>
+  <dt><span class="ev ev-coh" style="margin:0">Cohort</span></dt><dd>Observational human data. Shows association; confounding by indication is rarely excluded.</dd>
+  <dt><span class="ev ev-gl" style="margin:0">Guideline</span></dt><dd>Formal multi-society clinical guidance.</dd>
+  <dt><span class="ev ev-an" style="margin:0">Animal</span></dt><dd>Preclinical only. No human efficacy data exist.</dd>
+  <dt><span class="ev ev-none" style="margin:0">No data</span></dt><dd>Reasoning from mechanism alone. Treat as hypothesis.</dd>
+  <dt><span class="ev ev-mech" style="margin:0">Mechanism</span></dt><dd>Established physiology, applied by inference to this case.</dd>
+</dl>
+</section>
+
+<!-- ============================ 1. CORRECTIONS ============================ -->
+<section id="s1">
+<h2><span class="num">§1</span>Corrections to the previous draft</h2>
+
+<p class="lede">Six claims in the earlier version did not survive checking. Four were wrong; two were
+right but understated. They are listed first because two of them change what the protocol is for.</p>
+
+<table class="t-compact">
+<caption><b>Table 1.</b> Every substantive change from v1, with the source that forced it.</caption>
+<thead><tr><th style="width:20%">Claim in v1</th><th style="width:31%">What v1 said</th><th style="width:34%">What the evidence says</th><th style="width:15%">Why it matters</th></tr></thead>
+<tbody>
+<tr class="hi"><td><b>GI tolerability at 4 mg</b></td>
+  <td>"Substantially lower at 4 mg" than at 12 mg; no dose-specific figures given.</td>
+  <td>Diarrhoea 25.2% vs 32.0%; constipation 23.8% vs 26.1%; nausea 28.6% vs 42.4%. Only nausea and vomiting fall steeply.<span class="ev ev-rct">RCT</span></td>
+  <td>The reassurance was misplaced. Diarrhoea at this dose is the central confounder.</td></tr>
+<tr class="hi"><td><b>GLP-1 and ileus</b></td>
+  <td>"Fewer ileus events (aHR 0.58)".</td>
+  <td>No significant association in either direction. Event rate ≈1–2%.<span class="ev ev-coh">Cohort</span></td>
+  <td>Withdrawn. There is no demonstrated protection against obstruction.</td></tr>
+<tr><td><b>GLP-1 and Crohn's surgery</b></td>
+  <td>"aHR 0.55", citing <em>Frontiers in Immunology</em> 2025, n ≈ 167,000.</td>
+  <td>Pooled HR 0.61 (95% CI 0.44–0.84) from 11 studies, 16,242 patients. Journal is <em>Frontiers in Medicine</em> 2025;12:1621958.<span class="ev ev-coh">Cohort</span></td>
+  <td>Direction holds; magnitude, precision, sample size and journal were all wrong.</td></tr>
+<tr><td><b>Hospitalisation benefit</b></td>
+  <td>Implied as part of a protective class effect.</td>
+  <td>HR 0.91 (0.71–1.17) overall; 0.93 (0.78–1.10) in Crohn's. Not significant.<span class="ev ev-coh">Cohort</span></td>
+  <td>The class looks safe in IBD. It is not established as therapeutic.</td></tr>
+<tr><td><b>Perioperative guidance</b></td>
+  <td>"2023 ASA/SAMBA multisociety statement", 24-hour liquid diet.</td>
+  <td>2024 multisociety guidance (AGA, ASMBS, ASA, ISPCOP, SAGES), 29 Oct 2024: shared decision-making, preoperative diet modification and/or rapid-sequence induction; many patients may continue therapy.<span class="ev ev-gl">Guideline</span></td>
+  <td>Wrong year, wrong societies, and the posture shifted from "withhold" to "assess and adapt".</td></tr>
+<tr><td><b>Efficacy at 4 mg</b></td>
+  <td>≈17.1% at 48 weeks, extrapolated from phase 2.</td>
+  <td>19.0% at 80 weeks in the phase 3 4 mg arm.<span class="ev ev-rct">RCT</span></td>
+  <td>Understated. This dose now has direct, dose-matched randomised evidence.</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+  <span class="lbl">Two things v1 omitted entirely</span>
+  <p><strong>Product provenance.</strong> Every efficacy and safety number here comes from
+  pharmaceutical-grade drug given under trial conditions. A grey-market "research use only" vial has
+  unverified content, purity and sterility. This is the largest uncontrolled variable in the case.</p>
+  <p style="margin-top:.5em"><strong>The regulatory history of BPC-157.</strong> The FDA placed it on the
+  Category 2 bulk-substances list in 2023 over immunogenicity and impurity concerns, then removed it from
+  that category on 15 April 2026 — a change that is <em>not</em> an authorisation to compound or use it.
+  See §10.</p>
+</div>
+
+<p>One editorial change was also made: v1 carried a supplier price comparison for these compounds.
+A purchase-decision aid sits awkwardly inside a document whose stated purpose is education, and it has
+been removed. The pharmacology, the published dose ranges and the evidence grading are all retained.</p>
+</section>
+
+<!-- ============================ 2. PHARMACOLOGY ============================ -->
+<section id="s2">
+<h2><span class="num">§2</span>Retatrutide at 4 mg: pharmacology</h2>
+
+<p class="lede">Retatrutide (LY3437943, Eli Lilly) is a once-weekly subcutaneous single-peptide
+<strong>triple agonist</strong> at the GLP-1, GIP and glucagon receptors — the addition of glucagon
+agonism is what separates it from semaglutide and tirzepatide.<span class="ev ev-rct">RCT</span></p>
+
+<h3>2.1 Three arms, three different consequences</h3>
+<table>
+<caption><b>Table 2.</b> What each receptor arm contributes, and what it implies in an inflamed gut.</caption>
+<thead><tr><th style="width:16%">Arm</th><th style="width:42%">Physiological effect</th><th style="width:42%">Consequence in Crohn's disease</th></tr></thead>
+<tbody>
+<tr><td><b>GLP-1</b></td>
+  <td>Central hypothalamic satiety; slowed gastric emptying; the ileal brake. The dominant driver of weight loss.<span class="ev ev-mech">Mechanism</span></td>
+  <td>Cuts intake in a patient who may already be malabsorbing. Slowed transit is the mechanism behind both the constipation signal and the theoretical stricture concern.</td></tr>
+<tr><td><b>GIP</b></td>
+  <td>Biased signalling; augments the anorexigenic effect and appears to improve GI tolerability relative to GLP-1 alone.<span class="ev ev-mech">Mechanism</span></td>
+  <td>Neutral to favourable. Likely part of why nausea, though common, is mostly mild to moderate.</td></tr>
+<tr><td><b>Glucagon</b></td>
+  <td>Raises hepatic energy expenditure and lipid oxidation. Unique among approved and late-stage incretins.<span class="ev ev-rct">RCT</span></td>
+  <td>Adds an expenditure-side deficit on top of the intake-side deficit. In a malabsorptive gut this stacks a third negative-energy mechanism, which is why the nutritional guard-rails in §9 are not optional.</td></tr>
+<tr><td><b>GLP-1, immune</b></td>
+  <td>Preclinically reduces TNF-α and IL-1β and preserves epithelial barrier integrity in colitis models.<span class="ev ev-an">Animal</span></td>
+  <td>The basis of the "anti-inflammatory upside" argument. It has not been demonstrated in any human IBD trial — see §4 before relying on it.</td></tr>
+</tbody>
+</table>
+
+<h3>2.2 Pharmacokinetics and what 4 mg means in practice</h3>
+<table>
+<caption><b>Table 3.</b> PK/PD properties and their practical reading for this case.</caption>
+<thead><tr><th style="width:24%">Parameter</th><th style="width:34%">Value</th><th style="width:42%">Practical implication</th></tr></thead>
+<tbody>
+<tr><td>Half-life</td><td>≈6 days, supporting once-weekly dosing<span class="ev ev-rct">RCT</span></td>
+  <td>Steady state is reached roughly 4–6 weeks after a dose change. Side effects lag an escalation by 1–2 weeks, so a symptom appearing 10 days after a change is still plausibly drug-related.</td></tr>
+<tr><td>Dose-proportionality</td><td>Exposure rises approximately dose-proportionally across the studied range<span class="ev ev-rct">RCT</span></td>
+  <td>4 mg sits at one third of the maximum studied dose — past the steep part of the efficacy curve, below the steep part of the vomiting curve.</td></tr>
+<tr><td>Titration used in trials</td><td>2 mg weekly, escalating every 4 weeks to target<span class="ev ev-rct">RCT</span></td>
+  <td>4 mg is the lowest phase 3 maintenance dose, reached at week 4–8 of a standard schedule.</td></tr>
+<tr><td>Gastric emptying</td><td>Delayed; greatest early and after each escalation<span class="ev ev-mech">Mechanism</span></td>
+  <td>Alters the absorption kinetics of oral co-medication, and is the basis of the perioperative aspiration guidance in §5.</td></tr>
+<tr><td>Glycaemia</td><td>Fasting glucose and HbA1c fall; the glucagon arm offsets some hypoglycaemia risk<span class="ev ev-rct">RCT</span></td>
+  <td>Low standalone hypoglycaemia risk. Reduced intake plus malabsorption can still produce symptomatic lows.</td></tr>
+<tr><td>Regulatory status</td><td>Investigational. Not approved in any jurisdiction. FDA submission signalled for Q1 2027<span class="ev ev-gl">Guideline</span></td>
+  <td>No licensed supply exists. There is no approved label, no pharmacovigilance channel, and no IBD population has been studied prospectively.</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================ 3. EFFICACY & TOLERABILITY ============================ -->
+<section id="s3">
+<h2><span class="num">§3</span>Efficacy and tolerability at 4 mg</h2>
+
+<div class="kpi">
+  <div class="f"><span class="v">−19.0%</span><span class="k">mean weight change at 4 mg, 80 weeks (TRIUMPH-1)</span></div>
+  <div class="f"><span class="v">25.2%</span><span class="k">diarrhoea at 4 mg — the flare-mimicking signal</span></div>
+  <div><span class="v">4.1%</span><span class="k">discontinued for adverse events at 4 mg (placebo 4.9%)</span></div>
+  <div><span class="v">2,339</span><span class="k">participants randomised in the phase 3 trial</span></div>
+</div>
+
+<h3>3.1 The dose now has its own randomised read-out</h3>
+<p>TRIUMPH-1 randomised 2,339 adults 1:1:1:1 to retatrutide 4, 9 or 12 mg or placebo for 80 weeks, starting
+at 2 mg weekly with escalation every 4 weeks. The cohort was severe: mean BMI 40.0 kg/m², mean baseline
+weight 112.7 kg. Mean weight reduction was <strong>19.0%</strong> at 4 mg, 25.9% at 9 mg and 28.3% at 12 mg;
+45.3% of the 12 mg group lost ≥30% of body weight, and a 104-week extension in participants with baseline
+BMI ≥35 reached a mean of 30.3%.<span class="ev ev-rct">RCT</span></p>
+
+<figure>
+FIG1
+<figcaption><b>Figure 1.</b> Dose–response for body-weight reduction. The phase 2 trial (48 weeks,
+n = 338) established the shape of the curve; TRIUMPH-1 (80 weeks) confirmed it at higher exposure and
+added a dedicated 4 mg arm. The two curves are not directly comparable — the phase 3 arm ran 32 weeks
+longer — but together they place 4 mg firmly on the plateau shoulder rather than the steep slope.</figcaption>
+</figure>
+
+<h3>3.2 Tolerability: where the previous draft went wrong</h3>
+<p>Adverse events were dose-related, predominantly gastrointestinal, and mostly mild to moderate.
+But "dose-related" was doing a lot of unexamined work in the earlier draft. Broken out by dose, the
+gradient is steep for <em>nausea and vomiting</em> and shallow for <em>diarrhoea and constipation</em> —
+and it is diarrhoea that matters most in Crohn's disease.<span class="ev ev-rct">RCT</span></p>
+
+<figure>
+FIG2
+<figcaption><b>Figure 2.</b> Gastrointestinal adverse events by dose in TRIUMPH-1. Vomiting falls by more
+than half from 12 mg to 4 mg (25.3% → 10.6%), and nausea by a third. Diarrhoea and constipation barely
+move. At 4 mg roughly one patient in four reports each of them — several times the placebo rate.</figcaption>
+</figure>
+
+<table class="t-compact">
+<caption><b>Table 4.</b> TRIUMPH-1 adverse events by dose. Placebo column included because it is the only
+way to read these rates honestly: some GI symptoms occur in trials regardless of drug.</caption>
+<thead><tr><th>Adverse event</th><th class="num">Placebo</th><th class="num">4 mg</th><th class="num">9 mg</th><th class="num">12 mg</th><th style="width:34%">Reading for this case</th></tr></thead>
+<tbody>
+<tr class="hi"><td><b>Diarrhoea</b></td><td class="num">13.5%</td><td class="num"><b>25.2%</b></td><td class="num">34.1%</td><td class="num">32.0%</td>
+  <td>The critical one. Nearly twice placebo, and only modestly below the top dose. Symptomatically identical to a flare.</td></tr>
+<tr class="hi"><td><b>Constipation</b></td><td class="num">10.9%</td><td class="num"><b>23.8%</b></td><td class="num">25.9%</td><td class="num">26.1%</td>
+  <td>Essentially flat across doses. Relevant to obstructive symptoms if any stricture is present.</td></tr>
+<tr><td>Nausea</td><td class="num">14.8%</td><td class="num">28.6%</td><td class="num">38.4%</td><td class="num">42.4%</td>
+  <td>Falls meaningfully at 4 mg. Manageable with timing and meal structure.</td></tr>
+<tr><td>Vomiting</td><td class="num">4.8%</td><td class="num">10.6%</td><td class="num">22.8%</td><td class="num">25.3%</td>
+  <td>The clearest benefit of staying at 4 mg — less than half the 12 mg rate.</td></tr>
+<tr><td>Dysaesthesia</td><td class="num">0.9%</td><td class="num">5.1%</td><td class="num">12.3%</td><td class="num">12.5%</td>
+  <td>Strongly dose-dependent. Worth knowing before any escalation is considered.</td></tr>
+<tr><td>Urinary tract infection</td><td class="num">5.3%</td><td class="num">7.5%</td><td class="num">8.8%</td><td class="num">8.4%</td>
+  <td>Small excess. Note it separately if she is on a thiopurine or biologic.</td></tr>
+<tr><td><b>Discontinued for AEs</b></td><td class="num">4.9%</td><td class="num"><b>4.1%</b></td><td class="num">6.9%</td><td class="num">11.3%</td>
+  <td>At 4 mg, no worse than placebo. This dose is genuinely well tolerated in aggregate.</td></tr>
+</tbody>
+</table>
+
+<div class="note warn">
+  <span class="lbl">The finding that reorganises the protocol</span>
+  <p>At 4 mg, retatrutide is well tolerated <em>in aggregate</em> — discontinuation is no higher than placebo.
+  But it produces diarrhoea in about a quarter of users and constipation in about a quarter. In a patient
+  whose disease presents with exactly those symptoms, the drug installs a permanent source of diagnostic
+  noise. Every subsequent decision in this document — the marker schedule, the seven-day rule, the algorithm
+  in §7 — exists to cut through that noise. Symptom diaries alone cannot do it.</p>
+</div>
+
+<h3>3.3 Body composition: the unmeasured risk</h3>
+<p>Across incretin trials, lean tissue accounts for roughly <strong>15–40%</strong> of total weight lost:
+about 25% in SURMOUNT-1 (tirzepatide) and closer to 45% in STEP 1 (semaglutide), where lean mass fell 9.7%
+against a 19.3% fall in fat mass.<span class="ev ev-rct">RCT</span> No body-composition data have been
+published for retatrutide at these doses, and its glucagon arm makes extrapolation from the other agents
+less safe rather than more.<span class="ev ev-none">No data</span></p>
+
+<p>At an expected 19% total weight loss, the plausible lean-mass loss for this patient spans roughly 3–8% of
+body weight — on top of the sarcopenia risk that active Crohn's disease already carries. The levers that
+shift the ratio back toward fat are established and few: resistance training and protein intake. Reported
+protein intakes in cohorts that preserved lean tissue were <strong>1.6–2.3 g/kg fat-free mass per day</strong>
+with resistance training 3–5 days per week.<span class="ev ev-coh">Cohort</span> This is the single most
+actionable finding in the report and it is developed in §9.</p>
+</section>
+
+<!-- ============================ 4. GLP-1 IN IBD ============================ -->
+<section id="s4">
+<h2><span class="num">§4</span>GLP-1 receptor agonists in inflammatory bowel disease</h2>
+
+<p class="lede">This is where the previous draft was least reliable, so the standard of proof here is
+deliberately strict. The honest summary: <strong>reassuring on safety, unproven on benefit.</strong></p>
+
+<figure>
+FIG3
+<figcaption><b>Figure 3.</b> Pooled estimates from retrospective cohorts of GLP-1 receptor agonist users
+with IBD. Only the surgery endpoint reaches significance. The hospitalisation estimates cross 1.0, and no
+protective effect on ileus or obstruction was demonstrated — the claim v1 made and this version withdraws.
+No randomised trial has enrolled an IBD population.</figcaption>
+</figure>
+
+<h3>4.1 What is actually established</h3>
+<ul>
+<li><strong>No signal of harm.</strong> Across multiple datasets, GLP-1 RA use was <em>not</em> associated with
+increased IBD exacerbations. Given how plausible a mechanistic worry it was, this is the most useful finding
+for a patient already taking one.<span class="ev ev-coh">Cohort</span></li>
+<li><strong>Surgery.</strong> Pooled HR 0.61 (95% CI 0.44–0.84) across 11 studies and 16,242 patients — a real
+association, and the strongest positive signal in the literature.<span class="ev ev-coh">Cohort</span></li>
+<li><strong>Hospitalisation.</strong> HR 0.91 (0.71–1.17) overall, 0.93 (0.78–1.10) in Crohn's, 0.88 (0.66–1.18)
+in ulcerative colitis. All cross 1.0.<span class="ev ev-coh">Cohort</span></li>
+<li><strong>Ileus and obstruction.</strong> No significant association in either direction; roughly 1–2% of
+patients experienced such an event.<span class="ev ev-coh">Cohort</span></li>
+<li><strong>Steroid use.</strong> Several large registries report reduced corticosteroid exposure among users,
+though pooled estimates are not consistent.<span class="ev ev-coh">Cohort</span></li>
+<li><strong>Weight and metabolic outcomes.</strong> Patients with IBD and obesity achieve substantial weight
+loss, comparable to non-IBD populations.<span class="ev ev-coh">Cohort</span></li>
+</ul>
+
+<h3>4.2 Why these numbers deserve caution</h3>
+<p>All of the above is retrospective. Three limitations bear directly on how much weight to put on them:</p>
+<ul class="tight">
+<li><strong>Confounding by indication.</strong> Patients prescribed a GLP-1 RA are, almost by construction, those
+whose disease is quiescent enough for a clinician to prioritise weight. Comparing them to non-users compares
+two different diseases in two different states.</li>
+<li><strong>Heterogeneity.</strong> One meta-analysis returned an IBD-related surgery odds ratio of 0.32 with a
+confidence interval of 0.00 to 313.88 and I² = 92.5% — an interval so wide it carries no information, and a
+useful reminder of how unstable this literature still is.</li>
+<li><strong>No retatrutide data at all.</strong> Every estimate above comes from semaglutide, liraglutide,
+dulaglutide and tirzepatide. Retatrutide's glucagon receptor agonism has no analogue in that evidence base.
+Extending a class effect to it is inference, not observation.<span class="ev ev-none">No data</span></li>
+</ul>
+
+<div class="note">
+  <span class="lbl">How to state this to a gastroenterologist</span>
+  <p>"The class shows no increase in IBD exacerbations across large cohorts, and an association with
+  reduced surgery (HR 0.61). Hospitalisation and obstruction outcomes are neutral. There is no randomised
+  IBD evidence, and none at all for retatrutide specifically." That framing is defensible in a clinic
+  conversation. "GLP-1s reduce Crohn's inflammation" is not.</p>
+</div>
+</section>
+
+<!-- ============================ 5. INTERACTIONS ============================ -->
+<section id="s5">
+<h2><span class="num">§5</span>Interactions, contraindications and surgery</h2>
+
+<table>
+<caption><b>Table 5.</b> Interaction and contraindication review for a Crohn's patient on an incretin.</caption>
+<thead><tr><th style="width:22%">Issue</th><th style="width:42%">What is known</th><th style="width:36%">Action</th></tr></thead>
+<tbody>
+<tr><td><b>Biologics</b><br>infliximab, ustekinumab, risankizumab, vedolizumab</td>
+  <td>No known pharmacokinetic interaction. These are parenteral proteins cleared by catabolism, not affected by gastric emptying.<span class="ev ev-mech">Mechanism</span></td>
+  <td>No dose change indicated. Continue as prescribed; the gastroenterologist should simply know retatrutide is on board.</td></tr>
+<tr class="hi"><td><b>Thiopurines</b><br>azathioprine, 6-mercaptopurine</td>
+  <td>Oral agents with narrow therapeutic margins. Delayed gastric emptying can alter absorption kinetics; no dedicated interaction study exists.<span class="ev ev-none">No data</span></td>
+  <td>Check FBC and LFTs 4 weeks after starting or changing the retatrutide dose, then per the standard schedule. This is the one interaction worth actively monitoring.</td></tr>
+<tr><td><b>Any oral medication</b><br>including contraception</td>
+  <td>Slowed gastric emptying shifts absorption timing; effect on total exposure is usually modest.<span class="ev ev-mech">Mechanism</span></td>
+  <td>Note the theoretical risk with narrow-index drugs. Separate from injection day if symptomatic.</td></tr>
+<tr class="hi"><td><b>Stricturing disease</b></td>
+  <td>Delayed emptying plus the ileal brake plus a 24% constipation rate are, together, a plausible aggravator of obstructive symptoms. Not demonstrated — but the cohort data show no protection either.<span class="ev ev-mech">Mechanism</span></td>
+  <td><b>Prerequisite, not a recommendation:</b> current intestinal ultrasound or MR enterography establishing whether significant stenosis exists. Without that, dose escalation is not assessable.</td></tr>
+<tr><td><b>Surgery and endoscopy</b></td>
+  <td>2024 multisociety guidance (AGA, ASMBS, ASA, ISPCOP, SAGES): shared decision-making; minimise aspiration risk through preoperative diet modification — typically clear liquids for 24 hours — and/or rapid-sequence induction. Patients without risk factors may continue therapy.<span class="ev ev-gl">Guideline</span></td>
+  <td>Disclose the drug to every procedural and anaesthetic team, including for colonoscopy. Do not silently stop or continue.</td></tr>
+<tr><td><b>Gallbladder disease</b></td>
+  <td>Rapid weight loss of any cause raises gallstone risk; incretins carry a recognised signal.<span class="ev ev-rct">RCT</span></td>
+  <td>Right-upper-quadrant pain warrants ultrasound rather than attribution to Crohn's.</td></tr>
+<tr><td><b>Pancreatitis</b></td>
+  <td>Rare class association; causality debated.<span class="ev ev-rct">RCT</span></td>
+  <td>Check lipase only if clinically indicated. Routine screening is not supported.</td></tr>
+<tr><td><b>MTC / MEN2</b></td>
+  <td>Rodent C-cell findings; a labelled contraindication for the approved agents in this class.<span class="ev ev-an">Animal</span></td>
+  <td>Personal or family history is an absolute exclusion.</td></tr>
+<tr><td><b>Pregnancy</b></td>
+  <td>Contraindicated. Rapid weight loss and an unapproved agent are both disqualifying.<span class="ev ev-gl">Guideline</span></td>
+  <td>Reliable contraception while on therapy; discontinue well before any planned conception.</td></tr>
+<tr><td><b>Immunosuppression</b></td>
+  <td>Rapid weight loss and undernutrition impair immune competence in an already immunosuppressed patient.<span class="ev ev-mech">Mechanism</span></td>
+  <td>Keep vaccinations current. Avoid live vaccines while on biologics or thiopurines.</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================ 6. BASELINE + IMMUNOLOGY ============================ -->
+<section id="s6">
+<h2><span class="num">§6</span>Baseline workup and disease mechanism</h2>
+
+<h3>6.1 Why chronic pain in Crohn's is rarely one thing</h3>
+<p>Persistent abdominal pain in Crohn's disease usually combines three separable processes, and they call
+for different responses:<span class="ev ev-mech">Mechanism</span></p>
+<ol class="tight">
+<li><strong>Active transmural inflammation</strong> — the Th1/Th17 axis driving TNF-α and the IL-23 pathway.
+Responds to disease-modifying therapy; tracks with calprotectin and CRP.</li>
+<li><strong>Mechanical distension</strong> from stricture or partial obstruction. Does not track with
+inflammatory markers, and is the process most plausibly aggravated by delayed transit.</li>
+<li><strong>Visceral hypersensitivity and central sensitisation</strong>, amplified by IL-1β and IL-6 acting
+on the CNS. Persists after mucosal healing and is frequently mistaken for treatment failure.</li>
+</ol>
+<p>In a 40-year-old woman, three further contributors deserve explicit exclusion: iron and B12 deficiency
+from terminal ileal disease, osteopenia from cumulative corticosteroid exposure, and coexisting
+endometriosis, whose cyclical pain is routinely attributed to bowel disease for years.</p>
+
+<h3>6.2 Immunology, briefly</h3>
+<p>Crohn's disease is a dysregulated innate immune response plus an exaggerated Th1/Th17 response to
+commensal microbiota in a genetically susceptible host (NOD2, ATG16L1, IL23R). Hyperactivated macrophages and
+dendritic cells oversecrete TNF-α, IL-1β, IL-6, IL-12 and IL-23; IFN-γ and IL-17 sustain mucosal injury;
+a damaged epithelial barrier admits bacterial antigen to gut-associated lymphoid tissue, closing a
+self-sustaining loop. The IL-23/Th17 axis is the target of ustekinumab and risankizumab.<span class="ev ev-mech">Mechanism</span></p>
+<p>Faecal calprotectin remains the reference non-invasive marker of mucosal inflammation, and CRP the
+systemic one. Their value in this case is not diagnostic novelty — it is that they are the only
+instruments that can separate drug effect from disease activity when the symptoms are identical.</p>
+
+<h3>6.3 Baseline panel</h3>
+<table class="t-compact">
+<caption><b>Table 6.</b> Required before interpreting anything else in this document.</caption>
+<thead><tr><th style="width:24%">Domain</th><th style="width:40%">Tests</th><th style="width:36%">Why</th></tr></thead>
+<tbody>
+<tr><td>Disease activity</td><td>Faecal calprotectin, CRP, Harvey–Bradshaw Index</td><td>The reference point against which every later symptom is judged.</td></tr>
+<tr><td>Structural</td><td>Intestinal ultrasound or MR enterography within 12 months</td><td>Establishes stenosis status. Gates any dose escalation.</td></tr>
+<tr><td>Nutritional</td><td>FBC, ferritin + transferrin saturation, B12, folate, 25-OH-vitamin D, albumin</td><td>The domain most threatened by appetite suppression on a malabsorptive gut.</td></tr>
+<tr><td>Metabolic</td><td>HbA1c, lipid panel, renal and hepatic function</td><td>Baseline for interpreting change during rapid weight loss.</td></tr>
+<tr><td>Composition</td><td>Weight, waist, DXA if available, grip strength or a repeatable strength benchmark</td><td>Weight alone cannot detect the lean-mass problem described in §3.3.</td></tr>
+<tr><td>Skeletal</td><td>DXA bone density</td><td>Steroid history plus chronic inflammation plus rapid weight loss converge on early osteopenia.</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================ 7. ALGORITHM ============================ -->
+<section id="s7">
+<h2><span class="num">§7</span>Flare or side effect: the decision algorithm</h2>
+
+<p class="lede">Given a 25% background rate of drug-induced diarrhoea, the question "is this the disease
+or the drug?" will arise repeatedly. Answering it by impression is unreliable; the rule below makes it
+mechanical.</p>
+
+<h3>7.1 The rule, stated plainly</h3>
+<p><strong>Any sustained change in GI symptoms lasting more than seven days triggers faecal calprotectin and
+CRP before it is attributed to anything.</strong> Not a diary entry, not a dose adjustment, not reassurance —
+a measurement. Two failure modes this prevents, in both directions:</p>
+<ul class="tight">
+<li><strong>Attributing a flare to the drug</strong> delays escalation of disease-modifying therapy while
+transmural inflammation continues. This is the more dangerous error.</li>
+<li><strong>Attributing a drug effect to a flare</strong> triggers unnecessary steroids, imaging and anxiety,
+and may cost her a therapy that is working metabolically.</li>
+</ul>
+
+<figure>
+FIG5
+<figcaption><b>Figure 5.</b> The seven-day rule. Transient GI symptoms after a dose or a dietary change are
+managed symptomatically. Anything persisting beyond a week is measured, not interpreted. Red-flag features
+bypass the algorithm entirely.</figcaption>
+</figure>
+
+<h3>7.2 Features that discriminate before the markers return</h3>
+<table class="t-compact">
+<caption><b>Table 7.</b> Clinical features with some discriminatory value. Suggestive only — they do not
+replace measurement.</caption>
+<thead><tr><th style="width:26%">Feature</th><th style="width:37%">Favours drug effect</th><th style="width:37%">Favours active disease</th></tr></thead>
+<tbody>
+<tr><td>Timing</td><td>Begins within 1–2 weeks of a dose change; worst in the days after injection</td><td>No relationship to injection timing or dose history</td></tr>
+<tr><td>Trajectory</td><td>Attenuates over 2–4 weeks at a stable dose</td><td>Static or progressive</td></tr>
+<tr><td>Blood in stool</td><td>Absent</td><td>Present — investigate regardless of markers</td></tr>
+<tr><td>Nocturnal symptoms</td><td>Uncommon</td><td>Waking from sleep to defecate is a classic organic feature</td></tr>
+<tr><td>Systemic features</td><td>Absent</td><td>Fever, night sweats, arthralgia, erythema nodosum</td></tr>
+<tr><td>Nausea pattern</td><td>Prominent, meal-related, improves with smaller low-fat meals</td><td>Nausea with distension and absent flatus suggests obstruction, not intolerance</td></tr>
+<tr><td>Weight</td><td>Loss is gradual and expected on the treatment curve</td><td>Loss accelerates away from the expected curve</td></tr>
+</tbody>
+</table>
+
+<div class="note danger">
+  <span class="lbl">Red flags — same-day assessment, not next-cycle review</span>
+  <p>Rectal bleeding · fever · abdominal pain above 3/10 or unremitting · vomiting with distension or absent
+  stool and flatus · rapid unintended weight loss beyond the expected curve · a palpable tender mass.
+  These are obstruction, abscess and perforation questions. They are not titration problems, and no
+  monitoring schedule in this document should delay acting on them.</p>
+</div>
+</section>
+
+<!-- ============================ 8. NUTRITION ============================ -->
+<section id="s8">
+<h2><span class="num">§8</span>Nutrition protocol</h2>
+
+<p class="lede">Built on the Crohn's Disease Exclusion Diet, which has randomised evidence for inducing
+remission,<span class="ev ev-rct">RCT</span> and then adapted for the specific problem that appetite is
+now pharmacologically suppressed.</p>
+
+<table class="t-compact">
+<caption><b>Table 8.</b> Twelve-week structure. Phase boundaries are governed by symptoms and markers,
+not the calendar.</caption>
+<thead><tr><th style="width:14%">Phase</th><th style="width:9%">Weeks</th><th style="width:32%">Included</th><th style="width:24%">Excluded</th><th style="width:21%">Objective</th></tr></thead>
+<tbody>
+<tr><td><b>1 · Calm-down</b></td><td>1–6</td>
+  <td>White rice, boiled potato, eggs, chicken and turkey, white fish, cooked carrot and squash, banana, some white bread, olive oil, strained broth; fermented dairy if tolerated (unsweetened kefir, Greek yoghurt)</td>
+  <td>Gluten, most dairy, added sugar, ultra-processed foods, alcohol, whole nuts and seeds, legumes, raw insoluble fibre, polyol sweeteners</td>
+  <td>Mucosal rest; reduce fermentable substrate; establish a clean symptom baseline</td></tr>
+<tr><td><b>2 · Reintroduction</b></td><td>7–12</td>
+  <td>Adds gluten-free oats, sweet potato, cooked courgette, cooked apple and berries, hard aged cheeses, oily fish twice weekly, cooked turmeric and ginger</td>
+  <td>Continues to exclude gluten, added sugar, ultra-processed foods, alcohol, polyols</td>
+  <td>Restore microbial diversity without provoking symptoms</td></tr>
+<tr><td><b>3 · Maintenance</b></td><td>13+</td>
+  <td>Soft Mediterranean pattern; one new food every 3–4 days with a symptom log (pain 0–10, stool form and frequency, bloating)</td>
+  <td>Only foods that reproducibly provoke symptoms on two separate challenges</td>
+  <td>Sustainability and nutrient density — which is now the binding constraint</td></tr>
+</tbody>
+</table>
+
+<h3>8.1 Rules that change because of the drug</h3>
+<ul class="tight">
+<li><strong>Protein first at every meal.</strong> Satiety arrives early and unpredictably. Whatever is eaten
+first is what actually gets eaten — so it should be the protein.</li>
+<li><strong>Five to six small meals.</strong> Large meals worsen Crohn's pain and incretin nausea by the same
+mechanism. This is the rare instance where both problems have one answer.</li>
+<li><strong>Liquid protein as a floor, not a treat.</strong> On low-appetite days a shake is often the only
+realistic route to the target. Plan for it rather than treating it as failure.</li>
+<li><strong>Everything cooked in phase 1</strong>, chewed thoroughly, with 2–2.5 L of fluid daily — which also
+addresses the 24% constipation rate.</li>
+<li><strong>Avoid NSAIDs.</strong> Unchanged, and independent of the drug.</li>
+</ul>
+
+<h3>8.2 Supplements</h3>
+<table class="t-compact">
+<caption><b>Table 9.</b> Graded by evidence, not by popularity.</caption>
+<thead><tr><th style="width:22%">Agent</th><th style="width:20%">Typical dose</th><th style="width:58%">Rationale and standing</th></tr></thead>
+<tbody>
+<tr class="hi"><td><b>Protein</b> (whole food or supplement)</td><td>1.6–2.2 g/kg/day</td>
+  <td>The non-negotiable one. Directly counters the lean-mass loss described in §3.3.<span class="ev ev-rct">RCT</span></td></tr>
+<tr><td><b>Vitamin D3</b></td><td>2,000–4,000 IU/day, titrated to 25-OH-D</td><td>Deficiency is near-universal in Crohn's and relevant to both bone and immune function.<span class="ev ev-coh">Cohort</span></td></tr>
+<tr><td><b>Iron</b></td><td>Per ferritin and transferrin saturation</td><td>Oral iron is frequently poorly tolerated in active disease; intravenous replacement is often preferred. A clinician decision.<span class="ev ev-gl">Guideline</span></td></tr>
+<tr><td><b>Vitamin B12</b></td><td>Per level; parenteral if ileal disease or resection</td><td>Terminal ileal absorption is the exact site at risk.<span class="ev ev-gl">Guideline</span></td></tr>
+<tr><td><b>Omega-3 (EPA/DHA)</b></td><td>2–3 g/day</td><td>Reasonable for general cardiometabolic benefit; trials for maintaining Crohn's remission were negative.<span class="ev ev-rct">RCT</span></td></tr>
+<tr><td><b>Creatine monohydrate</b></td><td>3–5 g/day</td><td>Strong general evidence for lean-mass preservation during energy deficit; not studied in IBD.<span class="ev ev-rct">RCT</span></td></tr>
+<tr><td><b>Curcumin</b></td><td>500–1,000 mg, bioavailable form</td><td>Some randomised support as an adjunct in ulcerative colitis; evidence in Crohn's is weaker.<span class="ev ev-rct">RCT</span></td></tr>
+<tr><td><b>L-glutamine</b></td><td>5 g/day</td><td>Popular on barrier-function reasoning; human trials in Crohn's have not shown benefit. Low priority.<span class="ev ev-none">No data</span></td></tr>
+<tr><td><b>Multivitamin</b></td><td>Daily</td><td>Justified specifically because total intake is now pharmacologically reduced.<span class="ev ev-mech">Mechanism</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================ 9. TRAINING ============================ -->
+<section id="s9">
+<h2><span class="num">§9</span>Training and body composition</h2>
+
+<p class="lede">Moderate exercise is anti-inflammatory through muscle-derived IL-6 and regulatory T-cell
+modulation; high-volume, high-intensity work raises TNF-α and IL-1β and is a plausible flare
+trigger.<span class="ev ev-coh">Cohort</span> On a triple agonist, resistance training moves from
+beneficial to <strong>load-bearing</strong>: it is one of only two levers protecting lean tissue.</p>
+
+<table>
+<caption><b>Table 10.</b> Programme parameters, and what each is protecting against.</caption>
+<thead><tr><th style="width:20%">Element</th><th style="width:44%">Prescription</th><th style="width:36%">Rationale</th></tr></thead>
+<tbody>
+<tr class="hi"><td><b>Frequency</b></td><td>Resistance training 3×/week on non-consecutive days; zone-2 walking 20–40 min on alternate days; 1–2 full rest days</td><td>Three sessions is the documented threshold for lean-mass preservation during incretin therapy.</td></tr>
+<tr><td><b>Intensity</b></td><td>RPE 4–6/10; roughly 60–75% 1RM; 8–15 reps; 2–4 sets. Never to failure during active disease</td><td>Keeps training in the anti-inflammatory band and off the flare-triggering end.</td></tr>
+<tr><td><b>Session</b></td><td>Goblet squat or leg press → single-arm row → bench or cable press → light hinge (RDL or glute bridge) → anti-extension core (dead bug, Pallof press) → 5 min diaphragmatic breathing</td><td>Compound movements across the largest muscle mass; no loaded spinal flexion; no Valsalva-heavy work.</td></tr>
+<tr class="hi"><td><b>Protein</b></td><td>1.6–2.2 g/kg body weight daily, or 1.6–2.3 g/kg fat-free mass</td><td>Without this, the training does not protect lean tissue. The two work only together.</td></tr>
+<tr><td><b>Energy intake</b></td><td>Maintenance, or a deficit no greater than 10%</td><td><b>Do not diet aggressively on this drug.</b> Retatrutide supplies the deficit. Stacking a voluntary one accelerates lean loss without adding fat loss.</td></tr>
+<tr><td><b>Progression</b></td><td>Add one set or 2.5 kg only when HBI ≤4 and no residual pain at 48 h. Deload 40% of volume every fourth week</td><td>Progression gated on disease state rather than the calendar.</td></tr>
+<tr><td><b>During a flare</b></td><td>10–20 min easy walking, mobility and breathing only. No loading until pain ≤1/10 and calprotectin is falling</td><td>Training through a flare is the fastest route to losing both the training block and the remission.</td></tr>
+<tr><td><b>Recovery</b></td><td>7–9 h sleep; deliberate stress management</td><td>Short sleep raises IL-6 and TNF-α; psychological stress is among the better-documented relapse triggers.<span class="ev ev-coh">Cohort</span></td></tr>
+</tbody>
+</table>
+
+<div class="note ok">
+  <span class="lbl">Measure the right thing</span>
+  <p>Scale weight will fall on this drug regardless of what the training does — which makes it useless as
+  feedback. Track instead: waist circumference, a repeatable strength benchmark (a fixed load for maximum
+  reps), grip strength, and DXA lean mass if accessible. If strength is holding while weight falls, the
+  protocol is working. If strength falls with weight, protein and training are losing and the plan needs
+  to change, not the dose.</p>
+</div>
+</section>
+
+<!-- ============================ 10. PEPTIDES ============================ -->
+<section id="s10">
+<h2><span class="num">§10</span>Adjunct peptides: evidence and regulatory standing</h2>
+
+<p class="lede">The compounds proposed as adjuncts differ enormously in how much is actually known about
+them. Presenting them in one table implies an equivalence that does not exist, so the evidence tier is
+shown first.</p>
+
+<figure>
+FIG4
+<figcaption><b>Figure 4.</b> Evidence tier for every compound under discussion. Retatrutide sits on
+randomised phase 3 data — for obesity, not for Crohn's. KPV and BPC-157 rest on rodent models. TB-500
+has no human efficacy data of any kind.</figcaption>
+</figure>
+
+<table class="t-compact">
+<caption><b>Table 11.</b> Mechanism, published research ranges and standing. Ranges are transcribed from
+the research literature for documentation. They are not recommendations and no dose here has an
+established human safety margin.</caption>
+<thead><tr><th style="width:14%">Compound</th><th style="width:29%">Proposed mechanism</th><th style="width:20%">Ranges in the literature</th><th style="width:37%">Standing and cautions</th></tr></thead>
+<tbody>
+<tr><td><b>KPV</b><br><span style="color:#8fa0a9">α-MSH fragment</span></td>
+  <td>Melanocortin-pathway anti-inflammatory; reduces TNF-α and IL-1β and protects the epithelial barrier in murine colitis<span class="ev ev-an">Animal</span></td>
+  <td>200–500 µg/day subcutaneous in reported experimental use; 4–8 week blocks</td>
+  <td>Mechanistically the best fit for intestinal inflammation of anything in this table. Evidence is entirely preclinical — the Kannengiesser 2008 murine work remains the principal citation. No human trial.</td></tr>
+<tr><td><b>BPC-157</b></td>
+  <td>Gastric and intestinal cytoprotection, angiogenesis, accelerated healing in rodent colitis and soft-tissue models<span class="ev ev-an">Animal</span></td>
+  <td>250–500 µg once or twice daily; 4–12 weeks</td>
+  <td>Placed on the FDA Category 2 bulk-substances list in 2023 over immunogenicity, peptide-related impurities and inadequate API characterisation; removed from that category on 15 April 2026, which is <b>not</b> an authorisation to compound or use. No published human trial has reported results. Prohibited in sport (USADA/WADA).</td></tr>
+<tr><td><b>TB-500</b><br><span style="color:#8fa0a9">thymosin β4 fragment</span></td>
+  <td>Actin sequestration, cell migration, tissue repair<span class="ev ev-none">No data</span></td>
+  <td>2–2.5 mg twice weekly for 4–6 weeks, then 1–2 mg weekly</td>
+  <td>The weakest evidence position of any compound here. Systemic exposure with no human efficacy data. Prohibited in sport.</td></tr>
+<tr class="hi"><td><b>Retatrutide</b><br><span style="color:#8fa0a9">current therapy</span></td>
+  <td>GLP-1 + GIP + glucagon triple agonist<span class="ev ev-rct">RCT</span></td>
+  <td>Trial titration: 2 mg weekly, +2 mg every 4 weeks to 4, 9 or 12 mg</td>
+  <td>Robust randomised evidence in obesity; none in IBD. Investigational — FDA submission signalled for Q1 2027. <b>Hold 4 mg for at least 8–12 weeks and review markers before considering any escalation.</b></td></tr>
+<tr><td><b>Semaglutide</b><br><b>Tirzepatide</b></td>
+  <td>GLP-1, and GLP-1 + GIP respectively<span class="ev ev-rct">RCT</span></td>
+  <td>Semaglutide 0.25 → 2.4 mg weekly; tirzepatide 2.5 → 15 mg weekly</td>
+  <td>Approved, prescribable, pharmacovigilance in place, and the agents that generated the IBD cohort data in §4. If regulated supply and clinical oversight matter more than maximum efficacy, this is the rational alternative.</td></tr>
+</tbody>
+</table>
+
+<h3>10.1 A defensible sequence</h3>
+<p>Adding two or three unapproved compounds simultaneously to an inflamed gut makes attribution impossible:
+if something improves or worsens, nothing will indicate which agent did it. If adjuncts are pursued at all,
+sequence them and measure between steps.</p>
+<ol class="tight">
+<li><strong>Weeks 0–8 — change nothing pharmacological.</strong> Diet phase 1, the protein floor, three
+weekly training sessions, sleep. Hold retatrutide at 4 mg. Measure calprotectin and CRP at week 8.
+Most of the achievable benefit lives in this step, and it is the only one with no added risk.</li>
+<li><strong>If markers remain elevated</strong> and the gastroenterologist agrees: introduce a single agent —
+KPV has the most relevant preclinical rationale — for 6–8 weeks, with markers before and after.</li>
+<li><strong>Only then</strong>, and only if weight and body-composition goals justify it while GI symptoms are
+controlled and stenosis excluded, consider discussing escalation from 4 mg.</li>
+</ol>
+<p><strong>Stop any adjunct immediately</strong> for pain above 3/10, bleeding, fever, injection-site
+infection or rapid unintended weight loss.</p>
+
+<div class="note danger">
+  <span class="lbl">The honest position on the adjuncts</span>
+  <p>KPV, BPC-157 and TB-500 are unapproved research chemicals. The relevant risk is not only that they may
+  not work — it is that grey-market material carries unverified identity, purity, endotoxin load and
+  sterility, injected by a patient who is immunosuppressed. That combination is the specific hazard, and
+  it is not mitigated by careful dosing or by monitoring. It can only be mitigated by not doing it, or by
+  doing it under clinical supervision with material of verified provenance.</p>
+</div>
+</section>
+
+<!-- ============================ 11. MONITORING ============================ -->
+<section id="s11">
+<h2><span class="num">§11</span>Monitoring schedule</h2>
+
+<table>
+<caption><b>Table 12.</b> Rolling eight-week cycle at a stable 4 mg dose. The cycle restarts on any dose change.</caption>
+<thead><tr><th style="width:10%">Week</th><th style="width:47%">Actions</th><th style="width:43%">Decision it informs</th></tr></thead>
+<tbody>
+<tr><td><b>0</b></td>
+  <td>Full baseline panel (Table 6). HBI. Weight, waist, photographs, strength benchmark. Confirm stenosis status. Begin diet phase 1. Hold retatrutide dose constant.</td>
+  <td>Establishes the reference point. Without it, nothing later is interpretable.</td></tr>
+<tr><td><b>2</b></td>
+  <td>Review GI symptoms against Table 7. Audit actual protein intake for three days — measured, not estimated. Confirm training is stable at RPE 4–6.</td>
+  <td>Early detection of an intake shortfall, which is the most common and most correctable failure.</td></tr>
+<tr><td><b>4</b></td>
+  <td>FBC and LFTs if on a thiopurine. Weight and waist. Formal flare-versus-adverse-effect review.</td>
+  <td>Catches absorption-related haematological drift and consolidates the symptom picture.</td></tr>
+<tr class="hi"><td><b>8</b></td>
+  <td>Faecal calprotectin, CRP, ferritin and transferrin saturation, B12, folate, 25-OH-D, HbA1c, lipids, albumin. Weight, waist, strength, pain score, sleep quality.</td>
+  <td><b>The decision point.</b> Markers quiet and strength holding → continue unchanged. Markers rising → gastroenterology, not adjuncts. Strength falling → fix protein and training before touching the dose.</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+  <span class="lbl">Interpreting the week-8 panel</span>
+  <p>The panel answers three questions in order of priority. <strong>Is the disease active?</strong>
+  Calprotectin and CRP. <strong>Is she becoming depleted?</strong> Ferritin, B12, folate, vitamin D, albumin.
+  <strong>Is she losing the right tissue?</strong> Strength benchmark against weight change. A good result on
+  weight with a bad result on any of the other three is not a good result.</p>
+</div>
+</section>
+
+<!-- ============================ 12. PRIORITIES ============================ -->
+<section id="s12">
+<h2><span class="num">§12</span>Ten priorities, ranked</h2>
+
+<table class="t-compact">
+<caption><b>Table 13.</b> Ordered by consequence if neglected, not by how interesting they are.</caption>
+<thead><tr><th style="width:4%">#</th><th style="width:23%">Priority</th><th style="width:38%">Why it ranks here</th><th style="width:35%">Concrete action</th></tr></thead>
+<tbody>
+<tr class="hi"><td><b>1</b></td><td><b>Separating flare from side effect</b></td>
+  <td>A 25% drug-induced diarrhoea rate means symptoms have permanently lost their diagnostic value. Getting this wrong in either direction is the highest-consequence error available.</td>
+  <td>The seven-day rule (§7). Calprotectin and CRP before attribution, every time.</td></tr>
+<tr class="hi"><td><b>2</b></td><td><b>Defending lean mass</b></td>
+  <td>15–40% of the ~19% expected weight loss can be lean tissue, on top of existing sarcopenia risk. Once lost it is slow and difficult to regain.</td>
+  <td>Protein 1.6–2.2 g/kg/day and three weekly resistance sessions. Track strength, not weight.</td></tr>
+<tr class="hi"><td><b>3</b></td><td><b>Product provenance</b></td>
+  <td>If the vial does not contain what the label says, every number in this report describes a different drug than the one being injected.</td>
+  <td>Verified supply and clinical supervision, or an approved alternative (§10).</td></tr>
+<tr><td><b>4</b></td><td><b>Stenosis status</b></td>
+  <td>Determines whether delayed transit is a nuisance or a hazard, and gates any dose escalation.</td>
+  <td>Current intestinal ultrasound or MR enterography before any change.</td></tr>
+<tr><td><b>5</b></td><td><b>Micronutrient depletion</b></td>
+  <td>Suppressed intake plus ileal malabsorption compound. Fatigue from anaemia is routinely misread as disease activity.</td>
+  <td>Ferritin >50 ng/mL, plus B12, folate and vitamin D repleted and re-measured at eight weeks.</td></tr>
+<tr><td><b>6</b></td><td><b>Gastroenterology co-management</b></td>
+  <td>An unapproved triple agonist alongside biologics or thiopurines is not a self-managed situation.</td>
+  <td>Disclose the drug and dose. Ask specifically about stenosis and thiopurine monitoring.</td></tr>
+<tr><td><b>7</b></td><td><b>Training dose</b></td>
+  <td>Moderate loading is anti-inflammatory; excessive loading is a flare trigger. The window is real and narrow.</td>
+  <td>RPE 4–6, deload every fourth week, stop if pain exceeds 2/10.</td></tr>
+<tr><td><b>8</b></td><td><b>Sleep and stress</b></td>
+  <td>Short sleep raises IL-6 and TNF-α; stress is among the best-documented relapse triggers. Cheap to fix, easy to ignore.</td>
+  <td>7–9 h sleep; ten minutes daily of breathing work or a CBT-based practice.</td></tr>
+<tr><td><b>9</b></td><td><b>Bone health</b></td>
+  <td>Steroid history, chronic inflammation and rapid weight loss all reduce bone density, silently, at 40.</td>
+  <td>DXA. Load-bearing resistance work. Vitamin D, K2 and calcium adequacy.</td></tr>
+<tr><td><b>10</b></td><td><b>Adjunct peptide sequencing</b></td>
+  <td>Ranks last deliberately: the weakest evidence, and adding several at once destroys attribution.</td>
+  <td>One agent at a time, markers either side, only after the eight-week foundation block.</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============================ 13. APPENDIX ============================ -->
+<section id="s13">
+<h2><span class="num">§13</span>Appendix: deep-research prompt</h2>
+<p style="font-size:9.2pt">For re-running this review against newer evidence. Updated with the corrected
+figures so a future model is not re-anchored on the errors in v1.</p>
+<pre>
+You are a multidisciplinary team: an IBD gastroenterologist, an immunologist, a CDED-certified
+clinical dietitian, an exercise physiologist and a peptide pharmacologist. Produce a rigorously
+cited report (PubMed, NEJM, Lancet, Gut, J Crohns Colitis; last 5 years) on a case: a
+40-year-old woman with ileal Crohn's disease and chronic abdominal pain, self-administering
+INVESTIGATIONAL RETATRUTIDE 4 mg subcutaneously once weekly.
+
+Verify each of the following before using it; correct anything that does not hold up, and say so.
+
+1. PHARMACOLOGY FIRST. Retatrutide (LY3437943): GLP-1 + GIP + glucagon triple agonism with
+   biased GIP signalling; half-life approximately 6 days; approximately dose-proportional
+   exposure. Efficacy: phase 2 (Jastreboff, NEJM 2023;389:514-526), 48-week least-squares mean
+   weight change -8.7% (1 mg), -17.1% (4 mg combined), -22.8% (8 mg combined), -24.2% (12 mg),
+   -2.1% placebo. Phase 3 TRIUMPH-1: n=2,339, 1:1:1:1, 80 weeks, 2 mg start with 4-weekly
+   escalation, mean baseline BMI 40.0 kg/m2 and weight 112.7 kg; -19.0% (4 mg), -25.9% (9 mg),
+   -28.3% (12 mg); 45.3% achieved >=30% at 12 mg; up to -30.3% at 104 weeks in a BMI>=35
+   extension.
+
+2. DOSE-STRATIFIED TOLERABILITY, which is the clinical crux. TRIUMPH-1, 4 / 9 / 12 mg vs
+   placebo: nausea 28.6 / 38.4 / 42.4 vs 14.8%; diarrhoea 25.2 / 34.1 / 32.0 vs 13.5%;
+   constipation 23.8 / 25.9 / 26.1 vs 10.9%; vomiting 10.6 / 22.8 / 25.3 vs 4.8%; dysaesthesia
+   5.1 / 12.3 / 12.5 vs 0.9%; discontinuation for AEs 4.1 / 6.9 / 11.3 vs 4.9%. Analyse
+   explicitly what a ~25% drug-induced diarrhoea rate does to symptom-based assessment of
+   Crohn's disease activity.
+
+3. GLP-1 CLASS EVIDENCE IN IBD, stated without overreach. Frontiers in Medicine
+   2025;12:1621958; J Crohns Colitis 2025;19(10):jjaf181, 19(9):jjaf167, 19(12):jjaf193.
+   Surgery pooled HR 0.61 (0.44-0.84), 11 studies, 16,242 patients; hospitalisation HR 0.91
+   (0.71-1.17), Crohn's 0.93 (0.78-1.10), UC 0.88 (0.66-1.18); no significant association with
+   ileus or intestinal obstruction; no increase in IBD exacerbations. State the confounding-by-
+   indication problem and that no RCT has enrolled an IBD population, and none exists for
+   retatrutide.
+
+4. INTERACTIONS AND PERIOPERATIVE CARE. Biologics, thiopurines (delayed gastric emptying and
+   oral absorption kinetics), stricturing disease. 2024 multisociety perioperative guidance
+   (AGA, ASMBS, ASA, ISPCOP, SAGES, 29 Oct 2024).
+
+5. BODY COMPOSITION. Lean mass as a fraction of incretin-induced weight loss (~25% in
+   SURMOUNT-1, ~45% in STEP 1, ~15-40% across reviews); note the absence of retatrutide
+   body-composition data and why its glucagon arm makes extrapolation unsafe. Protein targets
+   1.6-2.3 g/kg fat-free mass; resistance training 3-5 days/week.
+
+6. NUTRITION. CDED protocol (Levine, Gastroenterology 2019;157:440-450) adapted for
+   pharmacological appetite suppression: protein-first meals, 5-6 small meals, liquid protein
+   as a floor. Grade every supplement by evidence level.
+
+7. ADJUNCT PEPTIDES. KPV (Kannengiesser, Inflamm Bowel Dis 2008;14:324-331 - murine only),
+   BPC-157 (rodent only; FDA Category 2 bulks list 2023, removed 15 April 2026, which is not an
+   authorisation), TB-500 (no human efficacy data). Give mechanism, published research ranges,
+   interaction considerations with biologics and thiopurines, and regulatory status. Address
+   grey-market provenance risk in an immunosuppressed patient.
+
+8. DELIVERABLES. A flare-versus-adverse-effect decision algorithm; an 8-week monitoring
+   schedule; a ranked priority matrix; explicit red flags. Tag every claim with its evidence
+   level (RCT / cohort / animal / no human data / guideline / mechanism).
+
+FORMAT: self-contained HTML, vector SVG figures, numbered bibliography with DOI or PMID,
+>= 2,500 words. Flag every claim you could not verify rather than reproducing it.
+</pre>
+</section>
+
+<!-- ============================ 14. REFERENCES ============================ -->
+<section id="s14">
+<h2><span class="num">§14</span>References</h2>
+<p style="font-size:9.2pt">Items marked <b>[verified]</b> were checked against the source or an
+indexed abstract while preparing this revision. Items marked <b>[secondary]</b> are cited from
+reporting of the primary source, which was not directly accessible.</p>
+<ol class="refs">
+<li>Jastreboff AM, Kaplan LM, Frías JP, et al. Triple–hormone-receptor agonist retatrutide for obesity —
+a phase 2 trial. <span class="j">N Engl J Med</span> 2023;389:514–526. DOI 10.1056/NEJMoa2301972.
+PMID 37366315. <b>[verified]</b></li>
+<li>Eli Lilly and Company. TRIUMPH-1 phase 3 topline results: retatrutide in obesity (n = 2,339, 80 weeks).
+Company release, May 2026; reported in <span class="j">AJMC</span>, <span class="j">HCPLive</span> and
+<span class="j">Pharmacy Times</span>. <b>[secondary]</b></li>
+<li>Eli Lilly and Company. TRIUMPH-2 and TRIUMPH-3 phase 3 results; regulatory submission signalled for
+Q1 2027. Company release, 2026; reported in <span class="j">BioPharma Dive</span>. <b>[secondary]</b></li>
+<li>The role of GLP-1 receptor agonists in IBD-related surgery and IBD-related complications among patients
+with metabolic comorbidities: a systematic review and meta-analysis. <span class="j">Frontiers in Medicine</span>
+2025;12:1621958. PMID 40917833. <b>[verified]</b></li>
+<li>Glucagon-like peptide-1 receptor agonists and the clinical outcomes of inflammatory bowel disease:
+a systematic review and meta-analysis. <span class="j">J Crohns Colitis</span> 2025;19(10):jjaf181.
+<b>[verified]</b></li>
+<li>Can GLP-1 agonists be used safely in inflammatory bowel disease? A meta-analysis.
+<span class="j">J Crohns Colitis</span> 2025;19(12):jjaf193. <b>[verified]</b></li>
+<li>Glucagon-like peptide-1 receptor agonists in inflammatory bowel disease: mechanisms, clinical
+implications and therapeutic potential. <span class="j">J Crohns Colitis</span> 2025;19(9):jjaf167.
+<b>[verified]</b></li>
+<li>Kammerlander AA, et al.; multisociety writing group (AGA, ASMBS, ASA, ISPCOP, SAGES). Multisociety
+clinical practice guidance for the safe use of glucagon-like peptide-1 receptor agonists in the
+perioperative period. <span class="j">Clin Gastroenterol Hepatol</span> / <span class="j">Surg Obes Relat Dis</span>,
+29 October 2024. PMID 39480373. <b>[verified]</b></li>
+<li>Torres J, Mehandru S, Colombel J-F, Peyrin-Biroulet L. Crohn's disease.
+<span class="j">Lancet</span> 2017;389:1741–1755. <b>[verified]</b></li>
+<li>Levine A, Wine E, Assa A, et al. Crohn's disease exclusion diet plus partial enteral nutrition induces
+sustained remission in a randomized controlled trial. <span class="j">Gastroenterology</span>
+2019;157(2):440–450. <b>[verified]</b></li>
+<li>Kannengiesser K, Maaser C, Heidemann J, et al. Melanocortin-derived tripeptide KPV has
+anti-inflammatory potential in murine models of inflammatory bowel disease.
+<span class="j">Inflamm Bowel Dis</span> 2008;14(3):324–331. DOI 10.1002/ibd.20334. PMID 18092346.
+<b>[verified]</b></li>
+<li>Gwyer D, Wragg NM, Wilson SL. Gastric pentadecapeptide body protection compound BPC 157 and its role
+in accelerating musculoskeletal soft tissue healing. <span class="j">Cell Tissue Res</span>
+2019;377:153–159. <b>[secondary]</b></li>
+<li>US Food and Drug Administration. Certain bulk drug substances for use in compounding that may present
+significant safety risks (503A Category 2 list); BPC-157 listed 2023, removed from Category 2 on
+15 April 2026. <b>[verified]</b></li>
+<li>Jastreboff AM, et al. Tirzepatide once weekly for the treatment of obesity (SURMOUNT-1);
+Wilding JPH, et al. Once-weekly semaglutide in adults with overweight or obesity (STEP 1) —
+body-composition substudies. <span class="j">N Engl J Med</span> 2021;384:989–1002 and 2022;387:205–216.
+<b>[secondary]</b></li>
+<li>Ploeger HE, Takken T, de Greef MHG, Timmons BW. The effects of acute and chronic exercise on
+inflammatory markers in children and adults with a chronic inflammatory disease.
+<span class="j">Exerc Immunol Rev</span> 2009;15:6–41. <b>[secondary]</b></li>
+</ol>
+
+<div class="note danger" style="margin-top:6mm">
+  <span class="lbl">Closing statement</span>
+  <p>This document is educational research material prepared at the request of the person described.
+  It is not medical advice and creates no clinical relationship. Retatrutide is investigational and not
+  approved in any jurisdiction; KPV, BPC-157 and TB-500 are unapproved research chemicals. Doses reproduced
+  here are transcribed from published literature for documentation and are not recommendations. Crohn's
+  disease is a serious condition with risks of obstruction, fistula, malabsorption and surgery, and its
+  management — including any decision about a GLP-1-class agent — belongs with a treating gastroenterologist.</p>
+</div>
+<p class="sig">Prepared 13 September 2026 · v2.0 · supersedes v1 of the same review ·
+evidence cut-off September 2026 · figures generated from <span style="font-family:var(--mono)">tools/make_figures.py</span></p>
+</section>
+
+</body>
+</html>
