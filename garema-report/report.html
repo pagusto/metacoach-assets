@@ -1,0 +1,492 @@
+<title>Garema Ductwork Week 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --paper:#FFFFFF;
+  --canvas:#DFE4E4;
+  --ink:#10171D;
+  --steel:#2E4756;
+  --steel-2:#4B6373;
+  --slate:#5A6B77;
+  --rule:#C9D2D5;
+  --rule-soft:#E3E9EA;
+  --tint:#EFF2F2;
+  --hivis:#D98A11;
+  --ok:#2F6B4F;
+  --hold:#9A5B12;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#151B20;
+    --canvas:#0B0F12;
+    --ink:#EAF0F2;
+    --steel:#A9C2CE;
+    --steel-2:#89A4B1;
+    --slate:#9FB0B9;
+    --rule:#2C373E;
+    --rule-soft:#222C32;
+    --tint:#1B2329;
+    --hivis:#E9A62E;
+    --ok:#6FBF95;
+    --hold:#D69B4A;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#151B20;
+  --canvas:#0B0F12;
+  --ink:#EAF0F2;
+  --steel:#A9C2CE;
+  --steel-2:#89A4B1;
+  --slate:#9FB0B9;
+  --rule:#2C373E;
+  --rule-soft:#222C32;
+  --tint:#1B2329;
+  --hivis:#E9A62E;
+  --ok:#6FBF95;
+  --hold:#D69B4A;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:8.5pt;
+  line-height:1.34;
+  -webkit-font-smoothing:antialiased;
+}
+.sheet{
+  width:210mm;
+  min-height:297mm;
+  margin:0 auto 8mm;
+  padding:9.5mm 12mm 7mm;
+  background:var(--paper);
+  display:flex;
+  flex-direction:column;
+  gap:2.2mm;
+}
+h1,h2,h3,.eyebrow,.tag,.mono{font-family:"Archivo","Arial Narrow",Helvetica,sans-serif}
+.mono,.tag,.eyebrow,.field-label,.ph-id{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* ---------- masthead ---------- */
+.masthead{display:flex;justify-content:space-between;align-items:flex-end;gap:10mm;
+  border-bottom:2.5pt solid var(--steel);padding-bottom:2.5mm}
+.brand{display:flex;flex-direction:column;gap:1mm}
+.brand .mark{display:flex;align-items:center;gap:3mm}
+.mark svg{display:block}
+.brand .name{font-family:"Archivo";font-weight:700;font-size:14pt;letter-spacing:.02em;line-height:1;color:var(--ink)}
+.brand .sub{font-family:"IBM Plex Mono";font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+.doc-id{text-align:right;display:flex;flex-direction:column;gap:1.2mm}
+.doc-id .kind{font-family:"Archivo";font-weight:600;font-size:11.5pt;letter-spacing:.01em;color:var(--steel)}
+.doc-id .no{font-family:"IBM Plex Mono";font-size:7.4pt;letter-spacing:.08em;color:var(--slate);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ---------- title block ---------- */
+.title-block h1{
+  font-size:13.5pt;font-weight:700;line-height:1.1;margin:0 0 .8mm;
+  letter-spacing:-.01em;text-wrap:balance;color:var(--ink)}
+.title-block .lede{margin:0;color:var(--slate);font-size:8.6pt;max-width:88ch}
+
+/* ---------- project data grid ---------- */
+.datagrid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1pt solid var(--rule);
+  border-left:1pt solid var(--rule)}
+.field{border-right:1pt solid var(--rule);border-bottom:1pt solid var(--rule);padding:1.5mm 2.4mm;background:var(--tint)}
+.field-label{display:block;font-size:6.4pt;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-bottom:.5mm}
+.field-value{font-size:8.4pt;font-weight:600;color:var(--ink);line-height:1.25}
+.field-value small{display:block;font-weight:400;font-size:7.3pt;color:var(--slate)}
+
+/* ---------- sections ---------- */
+section{display:flex;flex-direction:column;gap:2mm}
+h2{display:flex;align-items:baseline;gap:2.5mm;margin:0;font-size:9.8pt;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--steel);
+  border-bottom:1pt solid var(--rule);padding-bottom:1.3mm}
+h2 .num{font-family:"IBM Plex Mono";font-size:8.4pt;font-weight:600;color:var(--hivis);letter-spacing:0}
+h3{margin:0;font-size:9.6pt;font-weight:600;letter-spacing:.02em;color:var(--ink)}
+p{margin:0}
+ul.bullets{margin:0;padding-left:4.5mm;display:flex;flex-direction:column;gap:.8mm}
+ul.bullets li{padding-left:.8mm}
+ul.bullets li::marker{color:var(--hivis)}
+.lead-in{font-weight:600;color:var(--ink)}
+
+/* ---------- table ---------- */
+table{width:100%;border-collapse:collapse;font-size:8.8pt}
+thead th{font-family:"IBM Plex Mono";font-size:6.8pt;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--slate);text-align:left;font-weight:500;padding:1.4mm 2.2mm;
+  border-bottom:1pt solid var(--rule);white-space:nowrap}
+tbody td{padding:0.95mm 2.2mm;border-bottom:.6pt solid var(--rule-soft);vertical-align:top}
+tbody tr:last-child td{border-bottom:1pt solid var(--rule)}
+td.area{font-weight:600;white-space:nowrap}
+td.qty{font-family:"IBM Plex Mono";font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;color:var(--slate)}
+.status{font-family:"IBM Plex Mono";font-size:6.4pt;letter-spacing:.05em;text-transform:uppercase;
+  white-space:nowrap;padding:.15mm 1.4mm;border:.8pt solid currentColor;border-radius:1pt;display:inline-block}
+.status.done{color:var(--ok)}
+.status.wip{color:var(--steel-2)}
+.status.hold{color:var(--hold)}
+
+/* ---------- callout ---------- */
+.callout{border-left:2.5pt solid var(--hivis);background:var(--tint);padding:2.2mm 3mm;
+  display:flex;flex-direction:column;gap:1.5mm}
+.callout .k{font-family:"IBM Plex Mono";font-size:7pt;letter-spacing:.12em;text-transform:uppercase;color:var(--hivis)}
+
+/* ---------- signatures ---------- */
+.sign{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:10mm;padding-top:1mm}
+.sign .slot{border-top:1pt solid var(--rule);padding-top:2mm}
+.sign .who{font-weight:600;font-size:9pt}
+.sign .role{font-size:8pt;color:var(--slate)}
+.sign .line{margin-top:1.6mm;border-top:.8pt dotted var(--rule);padding-top:1.4mm;
+  font-family:"IBM Plex Mono";font-size:7pt;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+
+/* ---------- footer ---------- */
+.foot{display:flex;justify-content:space-between;font-family:"IBM Plex Mono";font-size:7pt;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--slate);
+  border-top:1pt solid var(--rule);padding-top:2mm}
+
+/* ---------- photo record ---------- */
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4.5mm;flex:1;align-content:space-between}
+figure{margin:0;display:flex;flex-direction:column;break-inside:avoid}
+.frame{position:relative;width:100%;aspect-ratio:10/9;background:var(--tint);overflow:hidden;
+  border:.8pt solid var(--rule)}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.frame.doc img{object-fit:contain;background:var(--tint)}
+.ph-id{position:absolute;left:0;top:0;background:var(--steel);color:var(--paper);
+  font-size:6.4pt;font-weight:600;letter-spacing:.06em;padding:.7mm 1.7mm}
+figcaption{padding-top:1.4mm;display:flex;flex-direction:column;gap:.6mm}
+figcaption .cap-t{font-family:"Archivo";font-weight:600;font-size:8pt;line-height:1.2;color:var(--ink)}
+figcaption .cap-d{font-size:7.2pt;line-height:1.3;color:var(--slate)}
+.tag{font-family:"IBM Plex Mono";font-size:6.1pt;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--steel-2);border:.7pt solid var(--rule);padding:.4mm 1.6mm;align-self:flex-start;border-radius:1pt}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:6mm;align-items:start}
+.cols > section{gap:1.8mm}
+ul.bullets.two{display:block;columns:2;column-gap:6mm;padding-left:4.2mm}
+ul.bullets.two li{break-inside:avoid;margin-bottom:1.2mm}
+.dist{display:flex;flex-direction:column;gap:1.6mm;margin-top:.5mm}
+.dist .row{display:flex;flex-direction:column;gap:.3mm;padding-bottom:1.4mm;border-bottom:.6pt solid var(--rule-soft)}
+.dist .row:last-child{border-bottom:none}
+.dist .who{font-weight:600;font-size:8.8pt}
+.dist .meta{font-size:8pt;color:var(--slate)}
+.note{font-size:8.2pt;color:var(--slate)}
+.note b{color:var(--ink);font-weight:600}
+
+@media print{
+  body{background:#fff}
+  .sheet{margin:0;box-shadow:none;page-break-after:always;min-height:294mm;overflow:hidden}
+  .sheet:last-child{page-break-after:auto}
+}
+@page{size:A4;margin:0}
+
+@media screen and (max-width:230mm){
+  .sheet{width:100%;min-height:0;padding:8mm 6mm}
+  .datagrid{grid-template-columns:1fr 1fr}
+  .photo-grid{grid-template-columns:1fr 1fr}
+  .cols{grid-template-columns:1fr}
+}
+</style>
+
+<!-- ============ SHEET 1 &#8212; EXECUTIVE SUMMARY ============ -->
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">
+      <div class="mark">
+        <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+          <rect x="1" y="1" width="24" height="24" fill="none" stroke="#2E4756" stroke-width="2"/>
+          <path d="M6 19 L13 7 L20 19" fill="none" stroke="#D98A11" stroke-width="2"/>
+          <path d="M6 19 H20" fill="none" stroke="#2E4756" stroke-width="2"/>
+        </svg>
+        <span class="name">SA QUALITY DUCTWORK</span>
+      </div>
+      <span class="sub">Mechanical Ductwork Installation &middot; ACT</span>
+    </div>
+    <div class="doc-id">
+      <span class="kind">Works Summary Report</span>
+      <span class="no">REF SAQD-GAR-002 &middot; ISSUE 26/08/2026</span>
+    </div>
+  </header>
+
+  <div class="title-block">
+    <h1>Executive Summary &#8212; Plant, Ductwork &amp; Seismic Bracing</h1>
+    <p class="lede">Works completed by SA Quality Ductwork for the reporting week, issued to Climatech.</p>
+  </div>
+
+  <div class="datagrid">
+    <div class="field"><span class="field-label">Project</span><span class="field-value">The Garema Hotel (5&#8209;Star), ACT</span></div>
+    <div class="field"><span class="field-label">Principal Contractor</span><span class="field-value">TP Dynamics</span></div>
+    <div class="field"><span class="field-label">Mechanical Contractor</span><span class="field-value">Climatech</span></div>
+    <div class="field"><span class="field-label">Site Supervisor</span><span class="field-value">Keith Morgan</span></div>
+    <div class="field"><span class="field-label">Works By</span><span class="field-value">SA Quality Ductwork</span></div>
+    <div class="field"><span class="field-label">Reporting Period</span><span class="field-value">Thu 20 &#8211; Wed 26 Aug 2026</span></div>
+    <div class="field"><span class="field-label">Site Crew</span><span class="field-value">P. Agusto, L. Taipe, Eduardo, Anthony</span></div>
+    <div class="field"><span class="field-label">Prepared By</span><span class="field-value">P. Agusto &amp; L. Taipe</span></div>
+  </div>
+
+  <section>
+    <h2><span class="num">01</span> Scope of Works Delivered</h2>
+    <ul class="bullets two">
+      <li><span class="lead-in">Support steelwork &#8212;</span> trapeze and goal&#8209;post frames installed and levelled
+        <span class="mono">(PH-02, 03, 05)</span>.</li>
+      <li><span class="lead-in">Unit setting &#8212;</span> VRV modules and FXSQ fan coils set on AV mounts
+        <span class="mono">(PH-04, 06, 11, 15)</span>.</li>
+      <li><span class="lead-in">Plenums &#8212;</span> hung on AV hangers with flexible connections <span class="mono">(PH-10)</span>.</li>
+      <li><span class="lead-in">Ductwork &#8212;</span> insulated duct, transitions and damper sets <span class="mono">(PH-08, 09, 12)</span>.</li>
+      <li><span class="lead-in">Seismic bracing &#8212;</span> braces changed out to direction <span class="mono">(PH-13, 26)</span>.</li>
+      <li><span class="lead-in">Ground Floor to Level 1 &#8212;</span> duct run installed and connected.</li>
+      <li><span class="lead-in">Level 1 to scaffold &#8212;</span> parts changed out from the EWP <span class="mono">(PH-25, 26)</span>.</li>
+      <li><span class="lead-in">Ground Floor to Basement 3 &#8212;</span> all ductwork taken down and re&#8209;stored
+        <span class="mono">(PH-23, 24)</span>.</li>
+      <li><span class="lead-in">Relocation &#8212;</span> plant moved to the rooftop store, balance covered
+        <span class="mono">(PH-16 to PH-22)</span>.</li>
+      <li><span class="lead-in">Materials &#8212;</span> duct, dampers and fixings received and staged <span class="mono">(PH-01)</span>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span> Progress by Work Front</h2>
+    <table>
+      <thead><tr><th>Work front</th><th>Works performed</th><th style="text-align:right">Qty</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="area">Plant room / riser</td><td>Frames installed; VRV modules set on AV mounts and levelled</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
+        <tr><td class="area">Typical floors</td><td>Ducted FCUs and plenums hung; connection points presented</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
+        <tr><td class="area">Typical floors</td><td>Seismic braces changed out to supervisor direction</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
+        <tr><td class="area">Soffit &amp; risers</td><td>Insulated duct runs, damper sets and boxes to drawings</td><td class="qty">&#8212;</td><td><span class="status wip">In progress</span></td></tr>
+        <tr><td class="area">Ground Floor &#8211; L1</td><td>Duct run installed and connected between the two levels</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
+        <tr><td class="area">Level 1 / scaffold</td><td>Parts changed out at the soffit, worked from the EWP</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
+        <tr><td class="area">GF &#8211; Basement 3</td><td>All Ground Floor ductwork taken down and re-stored in B3</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
+        <tr><td class="area">GF store / rooftop</td><td>Plant relocated to the rooftop store; balance covered</td><td class="qty">&#8212;</td><td><span class="status done">Complete</span></td></tr>
+        <tr><td class="area">Soffit anchors</td><td>Anchors inspected and marked &#8212; OK / X for replacement</td><td class="qty">&#8212;</td><td><span class="status hold">Direction req.</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="cols">
+    <section>
+      <h2><span class="num">03</span> Coordination &amp; Observations</h2>
+      <div class="callout">
+        <span class="k">Open item &#8212; concrete anchors</span>
+        <p>Soffit anchors are still being found stripped or not holding. Marked on the slab &#8212; compliant circled
+        <b>OK</b>, defective marked <b>X</b> <span class="mono">(PH-14)</span>. HKD drop&#8209;ins recommended before
+        further hanging.</p>
+      </div>
+      <ul class="bullets">
+        <li><span class="lead-in">Seismic bracing &#8212;</span> braces changed as directed; fixings depend on the
+          anchors above.</li>
+        <li><span class="lead-in">Insulation &#8212;</span> made good at supports; permanent reinstatement to be programmed.</li>
+      </ul>
+    </section>
+
+    <div style="display:flex;flex-direction:column;gap:3.2mm">
+      <section>
+        <h2><span class="num">04</span> Safety &amp; Compliance</h2>
+        <ul class="bullets">
+          <li>All crew inducted; works under the site SWMS with daily pre&#8209;start and toolbox attendance.</li>
+          <li>Height work from EWP and approved platforms. No injuries or incidents recorded.</li>
+        </ul>
+      </section>
+      <section>
+        <h2><span class="num">05</span> Planned Works &#8212; Next Period</h2>
+        <ul class="bullets">
+          <li>Finish plenum hanging and flexible connections at the remaining floors.</li>
+          <li>Replace defective anchors with HKD drop&#8209;ins, subject to direction.</li>
+          <li>Continue duct runs, damper sets and access panels; progressive sign&#8209;off.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="sign">
+    <div class="slot">
+      <div class="who">Pablo Agusto &amp; Lewis Taipe</div>
+      <div class="role">SA Quality Ductwork</div>
+      <div class="line">Signature / Date</div>
+    </div>
+    <div class="slot">
+      <div class="who">Keith Morgan</div>
+      <div class="role">Climatech</div>
+      <div class="line">Signature / Date</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 1 of 4</span></div>
+</div>
+
+<!-- ============ SHEET 2 ============ -->
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">
+      <div class="mark"><span class="name">PHOTOGRAPHIC RECORD</span></div>
+      <span class="sub">Section A &#8212; Materials, support steelwork &amp; unit setting</span>
+    </div>
+    <div class="doc-id"><span class="kind">Works Summary Report 02</span>
+      <span class="no">THE GAREMA HOTEL &middot; 20&#8211;26 AUG 2026</span></div>
+  </header>
+
+  <div class="photo-grid">
+    <figure><div class="frame"><span class="ph-id">PH-01</span><img src="photos/PH-01.jpg" alt="Basement store with staged ductwork and dampers"></div>
+      <figcaption><span class="tag">Materials</span><span class="cap-t">Basement material store</span>
+      <span class="cap-d">Duct, dampers and plenums received, checked and staged clear of access routes.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-02</span><img src="photos/PH-02.jpg" alt="Unistrut trapeze frames in the plant area"></div>
+      <figcaption><span class="tag">Support steel</span><span class="cap-t">Support frames, plant area</span>
+      <span class="cap-d">Trapeze and goal-post frames installed to slab and soffit, levelled to the unit footprints.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-03</span><img src="photos/PH-03.jpg" alt="Row of support frames with units on anti-vibration rails"></div>
+      <figcaption><span class="tag">Support steel</span><span class="cap-t">Frame run set out</span>
+      <span class="cap-d">Frames held to a common line and level so connections and clearances stay uniform.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-04</span><img src="photos/PH-04.jpg" alt="Daikin RWEYQ10TYM module on its support frame"></div>
+      <figcaption><span class="tag">Unit setting</span><span class="cap-t">Daikin RWEYQ10TYM set</span>
+      <span class="cap-d">Water-cooled VRV module, Ser. E001506, positioned and seated on its frame.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-05</span><img src="photos/PH-05.jpg" alt="Anti-vibration pads between unit base and support rail"></div>
+      <figcaption><span class="tag">Vibration</span><span class="cap-t">AV pads at unit base</span>
+      <span class="cap-d">Rubber pads between base rail and steel so the unit bears fully on the isolator.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-06</span><img src="photos/PH-06.jpg" alt="Capped water connection on the VRV module"></div>
+      <figcaption><span class="tag">Unit setting</span><span class="cap-t">Water connection presented</span>
+      <span class="cap-d">Condenser water connections capped and presented clear for the hydraulic trade.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-07</span><img src="photos/PH-07.jpg" alt="Support bracket being tightened with cabling alongside"></div>
+      <figcaption><span class="tag">Bracketry</span><span class="cap-t">Bracket fixed and tightened</span>
+      <span class="cap-d">Wall bracket tensioned; refrigerant and control cabling dressed to saddles.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-08</span><img src="photos/PH-08.jpg" alt="Insulated duct transition supported on unistrut"></div>
+      <figcaption><span class="tag">Ductwork</span><span class="cap-t">Insulated duct transition</span>
+      <span class="cap-d">Insulated duct and spiral transition on unistrut, set clear of the services above.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-09</span><img src="photos/PH-09.jpg" alt="Riser duct with damper and insulation at the support"></div>
+      <figcaption><span class="tag">Ductwork</span><span class="cap-t">Riser duct and damper</span>
+      <span class="cap-d">Riser duct on threaded rod with damper set; insulation made good at the support.</span></figcaption></figure>
+  </div>
+
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 2 of 4</span></div>
+</div>
+
+<!-- ============ SHEET 3 ============ -->
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">
+      <div class="mark"><span class="name">PHOTOGRAPHIC RECORD</span></div>
+      <span class="sub">Section B &#8212; Hanging, seismic bracing, anchors &amp; relocation</span>
+    </div>
+    <div class="doc-id"><span class="kind">Works Summary Report 02</span>
+      <span class="no">THE GAREMA HOTEL &middot; 20&#8211;26 AUG 2026</span></div>
+  </header>
+
+  <div class="photo-grid">
+    <figure><div class="frame"><span class="ph-id">PH-10</span><img src="photos/PH-10.jpg" alt="Plenum hung from the soffit on threaded rods"></div>
+      <figcaption><span class="tag">Hanging</span><span class="cap-t">Plenum hung to soffit</span>
+      <span class="cap-d">Plenum on threaded rod with rubber-in-shear hangers and flexible connection.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-11</span><img src="photos/PH-11.jpg" alt="Underside of a Daikin ducted fan coil"></div>
+      <figcaption><span class="tag">Unit setting</span><span class="cap-t">Ducted FCU hung</span>
+      <span class="cap-d">Daikin FXSQ fan coil on four rods; refrigerant, drain and electrical points left accessible.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-12</span><img src="photos/PH-12.jpg" alt="Duct run with plenum and filter boxes at the soffit"></div>
+      <figcaption><span class="tag">Ductwork</span><span class="cap-t">Duct run to drawings</span>
+      <span class="cap-d">Plenum, filter box and spiral to the issued set, open ends protected.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-13</span><img src="photos/PH-13.jpg" alt="Restraint cables and braces at a hung unit"></div>
+      <figcaption><span class="tag">Seismic</span><span class="cap-t">Seismic braces changed</span>
+      <span class="cap-d">Restraint cables and braces changed out to direction; cabling and drain redressed.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-14</span><img src="photos/PH-14.jpg" alt="Soffit anchor circled OK next to one marked X"></div>
+      <figcaption><span class="tag">Open item</span><span class="cap-t">Anchors marked on slab</span>
+      <span class="cap-d">Compliant anchor circled OK, defective marked X. HKD drop-ins recommended.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-15</span><img src="photos/PH-15.jpg" alt="Threaded rod hanger with rubber pad at a bracket"></div>
+      <figcaption><span class="tag">Vibration</span><span class="cap-t">AV hanger detail</span>
+      <span class="cap-d">Rod double-nutted at the bracket with a rubber pad between clamp and bracket.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-16</span><img src="photos/PH-16.jpg" alt="Ground floor store with plant circled in red"></div>
+      <figcaption><span class="tag">Direction</span><span class="cap-t">Items marked for relocation</span>
+      <span class="cap-d">Filtration skid, control panel and cartons marked up at the Ground Floor store.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-17</span><img src="photos/PH-17.jpg" alt="Pallet of protection matting circled in red"></div>
+      <figcaption><span class="tag">Direction</span><span class="cap-t">Pallet marked to stay</span>
+      <span class="cap-d">Protection matting and fixings marked to stay on site and be covered.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-18</span><img src="photos/PH-18.jpg" alt="Tarpaulin over relocated material on the rooftop"></div>
+      <figcaption><span class="tag">Relocation</span><span class="cap-t">Relocated to rooftop</span>
+      <span class="cap-d">Marked items set down in the agreed rooftop location, clear of the duct run.</span></figcaption></figure>
+  </div>
+
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 3 of 4</span></div>
+</div>
+
+<!-- ============ SHEET 4 ============ -->
+<div class="sheet">
+  <header class="masthead">
+    <div class="brand">
+      <div class="mark"><span class="name">PHOTOGRAPHIC RECORD</span></div>
+      <span class="sub">Section C &#8212; Rooftop storage, direction &amp; relocation</span>
+    </div>
+    <div class="doc-id"><span class="kind">Works Summary Report 02</span>
+      <span class="no">THE GAREMA HOTEL &middot; 20&#8211;26 AUG 2026</span></div>
+  </header>
+
+  <div class="photo-grid">
+    <figure><div class="frame"><span class="ph-id">PH-19</span><img src="photos/PH-19.jpg" alt="Covered plant on the rooftop deck"></div>
+      <figcaption><span class="tag">Protection</span><span class="cap-t">Stored plant covered</span>
+      <span class="cap-d">Relocated plant covered on the rooftop deck, clear of walkways.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-20</span><img src="photos/PH-20.jpg" alt="Second covered pallet on the rooftop"></div>
+      <figcaption><span class="tag">Protection</span><span class="cap-t">Second pallet covered</span>
+      <span class="cap-d">Balance covered and weighted down against wind exposure.</span></figcaption></figure>
+
+    <figure><div class="frame doc"><span class="ph-id">PH-21</span><img src="photos/PH-21.jpg" alt="Message directing transfer of the marked items to the rooftop"></div>
+      <figcaption><span class="tag">Direction</span><span class="cap-t">Rooftop transfer</span>
+      <span class="cap-d">26/08: marked items to be taken to the rooftop and stored in the agreed location.</span></figcaption></figure>
+
+    <figure><div class="frame doc"><span class="ph-id">PH-22</span><img src="photos/PH-22.jpg" alt="Message directing the marked pallet be covered in place"></div>
+      <figcaption><span class="tag">Direction</span><span class="cap-t">Cover in place</span>
+      <span class="cap-d">26/08: marked pallet to be left in place and covered with tarpaulin.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-23</span><img src="photos/PH-23.jpg" alt="Ductwork and plenum boxes stored in the basement"></div>
+      <figcaption><span class="tag">Relocation</span><span class="cap-t">Ductwork down to Basement 3</span>
+      <span class="cap-d">All Ground Floor ductwork taken down and re-stored in Basement 3.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-24</span><img src="photos/PH-24.jpg" alt="Stacked plenum boxes with wrapped ends in the basement store"></div>
+      <figcaption><span class="tag">Relocation</span><span class="cap-t">Plenums stored in B3</span>
+      <span class="cap-d">Plenum boxes stacked with ends wrapped, clear of plant and access.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-25</span><img src="photos/PH-25.jpg" alt="Scissor lift set up at a level with pipework overhead"></div>
+      <figcaption><span class="tag">Access</span><span class="cap-t">EWP set up at Level 1</span>
+      <span class="cap-d">Scissor lift set up for the changeover between Level 1 and the scaffold.</span></figcaption></figure>
+
+    <figure><div class="frame"><span class="ph-id">PH-26</span><img src="photos/PH-26.jpg" alt="Two workers changing fixings at the soffit from a scissor lift"></div>
+      <figcaption><span class="tag">Seismic</span><span class="cap-t">Parts changed from the EWP</span>
+      <span class="cap-d">Braces and fixings changed out at the soffit from the platform.</span></figcaption></figure>
+
+    <section>
+      <h2><span class="num">06</span> Direction &amp; Distribution</h2>
+      <div class="dist">
+        <div class="row"><span class="who">Rooftop transfer &#8212; 26/08</span>
+          <span class="meta">&#8220;Take these up to rooftop and store in discussed location.&#8221; Actioned same day
+          <span class="mono">(PH-16, 18&#8211;21)</span>.</span></div>
+        <div class="row"><span class="who">Cover in place &#8212; 26/08</span>
+          <span class="meta">&#8220;Leave here and cover with blue tarp.&#8221; Actioned same day
+          <span class="mono">(PH-17, 22)</span>.</span></div>
+        <div class="row"><span class="who">Issued to</span>
+          <span class="meta">Keith Morgan (Climatech), TP Dynamics site management, project file. Quantities and
+          levels to be read with the daily dockets.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="sign">
+    <div class="slot">
+      <div class="who">Pablo Agusto &amp; Lewis Taipe</div>
+      <div class="role">SA Quality Ductwork</div>
+      <div class="line">Signature / Date</div>
+    </div>
+    <div class="slot">
+      <div class="who">Keith Morgan</div>
+      <div class="role">Climatech</div>
+      <div class="line">Signature / Date</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>SA Quality Ductwork &middot; The Garema Hotel</span><span>Report 02 &middot; Page 4 of 4</span></div>
+</div>
