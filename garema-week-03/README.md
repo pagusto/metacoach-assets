@@ -6,6 +6,7 @@ Package issued to Climatech (Keith Morgan) for The Garema Hotel, covering 5–14
 | --- | --- |
 | `HANDOFF.md` | The brief for finishing the works summary report — read this first. |
 | `email-to-keith.md` | Email body, ready to copy. |
+| `guion-respuestas.md` | Internal — prepared replies for each way Keith may answer. Not sent. |
 | `ncr-response.html` | Source of the one-page non-conformance response. |
 | `direction-record.html` | Source of the six-page message annexe (generated). |
 | `_base.html` | Shared stylesheet for all three documents. |
