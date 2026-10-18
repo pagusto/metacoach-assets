@@ -1,0 +1,22 @@
+# Cantidades semanales de partida (gramos, crudo) para ~170 g de proteína/día y ~1.880 kcal/día
+# desde el catálogo. El resto hasta el objetivo calórico (≈470 kcal/día con 2.350) queda para
+# aceite de oliva, fruta y salsas. La skill /compras escala estas cantidades al perfil personal.
+semana_g:
+  pollo_pechuga: 1000
+  ternera_picada_5: 500
+  ternera_filete: 250
+  wagyu_f1: 300
+  canguro: 400
+  huevos: 700          # una docena de 700 g = 12 huevos ≈ 2 al día
+  yogur_proteina: 1000
+  whey_isolate: 175    # 25 g al día, un cacito
+  salmon: 300          # 2 raciones de 150 g: omega-3
+  atun_lata: 190       # 2 latas de 95 g
+  avena: 420           # 60 g al día
+  arroz: 800
+  patata: 1500
+  verduras_congeladas: 2100
+  frutos_rojos: 700
+referencia:
+  proteina_g_dia: 171
+  kcal_dia_catalogo: 1878

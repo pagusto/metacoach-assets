@@ -1,0 +1,14 @@
+{
+  "_comentario": "Copia a perfil.local.json (está en .gitignore: tus datos no se suben al repo).",
+  "peso_kg": 80,
+  "grasa_pct_estimada": 20,
+  "objetivo": "recomposicion",
+  "kcal_dia": 2300,
+  "proteina_g_dia": 160,
+  "grasa_g_dia": 70,
+  "fibra_g_dia": 35,
+  "presupuesto_semanal_aud": 250,
+  "congelador_litros": 60,
+  "proveedores_preferidos": ["woolworths", "themeatstore"],
+  "excluir_items": []
+}

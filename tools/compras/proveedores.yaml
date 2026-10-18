@@ -1,0 +1,86 @@
+# Proveedores online con entrega en Sydney. Las condiciones de envío se tomaron de búsquedas web
+# y están marcadas verificado: false hasta comprobarlas en la web de cada tienda.
+#
+# tipo: woolworths | coles | shopify | manual
+#   shopify -> se consulta /products.json (o /collections/<coleccion>/products.json)
+#   manual  -> precios en precios_manuales.csv (tiendas que bloquean o sin catálogo legible)
+
+proveedores:
+  - id: woolworths
+    nombre: Woolworths
+    tipo: woolworths
+    categoria: supermercado
+    envio: "Delivery Unlimited $17/mes o $149/año: envío gratis en pedidos de más de $75"
+    fuente_envio: https://www.mozo.com.au/best/online-grocery-delivery-services
+    verificado: false
+
+  - id: coles
+    nombre: Coles
+    tipo: coles
+    categoria: supermercado
+    envio: "Coles Plus $19/mes: envío gratis en pedidos de más de $50"
+    fuente_envio: https://www.mozo.com.au/best/online-grocery-delivery-services
+    verificado: false
+
+  - id: themeatstore
+    nombre: The Meat Store
+    tipo: shopify
+    base_url: https://themeatstore.com.au
+    categoria: carniceria
+    envio: "Toda Sydney; mismo día pidiendo antes de las 10:00. Piezas enteras de pasto cortadas a pedido"
+    fuente_envio: https://themeatstore.com.au/pages/buy-bulk-grass-fed-meat-online-sydney
+    verificado: false
+
+  - id: stockmansteaks
+    nombre: Stockman Steaks
+    tipo: shopify
+    base_url: https://stockmansteaks.com.au
+    categoria: carniceria
+    envio: "Sydney metropolitano. Carne 100 % de pasto, congelada al momento; caja a medida"
+    fuente_envio: https://stockmansteaks.com.au/collections/meat-delivery-sydney
+    verificado: false
+
+  - id: kingfishersbend
+    nombre: Kingfisher's Bend Farm
+    tipo: shopify
+    base_url: https://www.kingfishersbendfarm.com
+    coleccion: f1-wagyu
+    categoria: granja
+    envio: "Sin confirmar. Granja en Middle Pocket (noreste de NSW); F1 Wagyu terminado a pasto, «menos de $30/kg» según un perfil de prensa sin fecha"
+    fuente_envio: https://www.farmonline.com.au/story/9161552/
+    verificado: false
+
+  - id: pryde
+    nombre: Pryde Butchery
+    tipo: manual
+    base_url: https://prydebutchery.com.au
+    categoria: carniceria
+    envio: "Sydney y NSW regional. Cobra recargo con tarjeta de crédito según una reseña"
+    fuente_envio: https://prydebutchery.com.au/
+    verificado: false
+
+  - id: butchercrowd
+    nombre: ButcherCrowd
+    tipo: manual
+    base_url: https://www.butchercrowd.com.au
+    categoria: carniceria
+    envio: "Cajas por suscripción: ternera y cordero terminados a pasto, pollo y cerdo camperos. «Desde $4,98 por comida»"
+    fuente_envio: https://www.butchercrowd.com.au/
+    verificado: false
+
+  - id: bulknutrients
+    nombre: Bulk Nutrients
+    tipo: manual
+    base_url: https://www.bulknutrients.com.au
+    categoria: suplementos
+    envio: "Pendiente de verificar"
+    verificado: false
+
+  - id: amazon_au
+    nombre: Amazon AU
+    tipo: manual
+    base_url: https://www.amazon.com.au
+    categoria: suplementos
+    envio: "Prime: envío gratis. Precios de proteína según nestpath.com.au (5 ago 2026)"
+    fuente_envio: https://nestpath.com.au/homeowner-hub/best-protein-powder-australia
+    verificado: false
