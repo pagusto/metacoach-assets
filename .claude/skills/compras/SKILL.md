@@ -33,8 +33,16 @@ Herramienta en `tools/compras/`. Todo se ejecuta desde ese directorio con `pytho
    - **Consolidación de pedidos:** si la lista reparte artículos baratos entre muchas tiendas,
      propón juntar el pedido en una o dos, comparando el ahorro con el pedido mínimo y el envío
      de cada tienda (`proveedores.yaml`). Un ahorro de $2 no compensa un envío de $10.
-   - Carne a granel: si el perfil tiene `congelador_litros`, sugiere una caja mensual que quepa
-     (≈0,8–1 kg de carne envasada al vacío por litro).
+   - Carne a granel: si el perfil tiene `congelador_litros`, calcula cuánta carne cabe antes de
+     sugerir una caja. Resta primero el espacio de los congelados de la semana (verdura, frutos
+     rojos: unos 1,5–2 L por kilo, porque las bolsas son voluminosas) y cuenta **≈0,4 kg de carne
+     por litro restante**, en paquetes planos (deja margen para huecos, la puerta y la forma del
+     hueco). Ejemplo: 18 L con 2,8 kg de congelados a la semana → quedan unos 13 L → caben unos
+     5 kg de carne; dedicado entero a carne, unos 7 kg. No 15. Si el congelador es pequeño, propón
+     pedidos más frecuentes a una tienda con entrega local en vez de una caja grande.
+   - **Envío frente a lo que cabe:** divide el envío de cada tienda entre los kilos que caben. Si
+     ese envío por kilo supera el 20 % del precio por kilo de la carne, desaconseja el pedido y
+     dilo con la cifra (p. ej. $89 de envío / 5 kg = $18/kg sobre una carne de $30/kg: un 60 % más).
 
 ## Reglas
 
