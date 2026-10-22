@@ -1,0 +1,151 @@
+# Alimentos que se comparan. Valores nutricionales por 100 g del producto tal como se vende
+# (crudo salvo indicación). Son valores típicos de etiqueta y tablas australianas (AUSNUT/FSANZ):
+# si un producto concreto difiere, se corrige aquí.
+#
+# busquedas: por proveedor, la consulta y los filtros para quedarse con el producto correcto.
+#   incluir: todas deben aparecer en el nombre (alternativas separadas por '|')
+#   excluir: ninguna puede aparecer
+# La clave "_shopify" vale para todas las tiendas de tipo shopify.
+
+items:
+  - id: pollo_pechuga
+    nombre: Pechuga de pollo
+    categoria: proteina
+    proteina_100g: 23.0
+    kcal_100g: 115
+    busquedas:
+      woolworths: {q: chicken breast fillets, incluir: [chicken, breast], excluir: [marinated, crumbed, schnitzel, kiev, skewer, tender, thigh, roast, bbq, mini]}
+      coles: {q: chicken breast fillets, incluir: [chicken, breast], excluir: [marinated, crumbed, schnitzel, kiev, skewer, tender, thigh, roast, bbq, mini]}
+      _shopify: {incluir: [chicken, breast], excluir: [marinated, crumbed, schnitzel, kiev, skewer, thigh]}
+
+  - id: ternera_picada_5
+    nombre: Carne picada magra (5 estrellas, máx. 5 % grasa)
+    categoria: proteina
+    proteina_100g: 21.0
+    kcal_100g: 130
+    busquedas:
+      woolworths: {q: beef mince 5 star, incluir: [beef, mince, "5 star|heart smart|extra lean|lean"], excluir: [premium wagyu, pork, lamb, chicken]}
+      coles: {q: beef mince 5 star, incluir: [beef, mince, "5 star|extra lean|lean|heart"], excluir: [pork, lamb, chicken]}
+      _shopify: {incluir: [mince, "lean|5 star|premium"], excluir: [pork, lamb, chicken, sausage]}
+
+  - id: ternera_filete
+    nombre: Filete de ternera de pasto (rump/round)
+    categoria: proteina
+    proteina_100g: 21.5
+    kcal_100g: 140
+    busquedas:
+      woolworths: {q: grass fed beef rump steak, incluir: [beef, "rump|round", "grass"], excluir: [marinated, wagyu]}
+      coles: {q: grass fed beef rump steak, incluir: [beef, "rump|round"], excluir: [marinated, wagyu]}
+      _shopify: {incluir: ["rump|round"], excluir: [marinated, lamb, pork, wagyu]}
+
+  - id: wagyu_f1
+    nombre: Wagyu F1 (cortes premium)
+    categoria: proteina_premium
+    proteina_100g: 19.0
+    kcal_100g: 240
+    nota: Estimación para F1 terminado a pasto, menos infiltrado que el wagyu de grano. Varía mucho por corte.
+    busquedas:
+      _shopify: {incluir: [wagyu], excluir: [burger, sausage, jerky, gift, voucher, fat, tallow]}
+
+  - id: canguro
+    nombre: Canguro (filete o picada)
+    categoria: proteina
+    proteina_100g: 23.5
+    kcal_100g: 105
+    busquedas:
+      woolworths: {q: kangaroo, incluir: [kangaroo], excluir: [sausage, burger, pet, dog, jerky, marinated]}
+      coles: {q: kangaroo, incluir: [kangaroo], excluir: [sausage, burger, pet, dog, jerky, marinated]}
+      _shopify: {incluir: [kangaroo], excluir: [sausage, burger, pet, dog, jerky]}
+
+  - id: huevos
+    nombre: Huevos camperos (700 g la docena)
+    categoria: proteina
+    proteina_100g: 12.6
+    kcal_100g: 143
+    busquedas:
+      woolworths: {q: free range eggs 700g, incluir: [egg, "free range|cage free"], excluir: [easter, chocolate, liquid, white]}
+      coles: {q: free range eggs 700g, incluir: [egg, "free range|cage free"], excluir: [easter, chocolate, liquid, white]}
+
+  - id: yogur_proteina
+    nombre: Yogur natural alto en proteína / skyr
+    categoria: proteina
+    proteina_100g: 10.0
+    kcal_100g: 62
+    nota: Comprobar la etiqueta del producto elegido; los «high protein» van de 8 a 12 g/100 g.
+    busquedas:
+      woolworths: {q: high protein natural yoghurt, incluir: ["protein|skyr|yopro"], excluir: [pouch, kids, vanilla bean, strawberry, mango, passionfruit, blueberry, chocolate, drink]}
+      coles: {q: high protein natural yoghurt, incluir: ["protein|skyr|yopro"], excluir: [pouch, kids, strawberry, mango, passionfruit, blueberry, chocolate, drink]}
+
+  - id: whey_isolate
+    nombre: Proteína whey isolate
+    categoria: proteina
+    proteina_100g: 88.0
+    kcal_100g: 370
+    busquedas:
+      woolworths: {q: whey protein isolate, incluir: [whey, "isolate|wpi"], excluir: [bar, ready to drink, rtd, cookie]}
+      coles: {q: whey protein isolate, incluir: [whey, "isolate|wpi"], excluir: [bar, ready to drink, rtd, cookie]}
+      _shopify: {incluir: ["whey isolate|wpi|protein isolate"], excluir: [bar, sample, sachet]}
+
+  - id: salmon
+    nombre: Salmón fresco (omega-3)
+    categoria: proteina
+    proteina_100g: 20.0
+    kcal_100g: 200
+    busquedas:
+      woolworths: {q: tasmanian salmon fillets skin on, incluir: [salmon], excluir: [smoked, marinated, crumbed, canned, tin, pet, cat]}
+      coles: {q: tasmanian salmon fillets, incluir: [salmon], excluir: [smoked, marinated, crumbed, canned, tin, pet, cat]}
+
+  - id: atun_lata
+    nombre: Atún en agua (lata)
+    categoria: proteina
+    proteina_100g: 22.0
+    kcal_100g: 100
+    nota: Por peso neto. Las etiquetas australianas varían entre 20 y 26 g según midan escurrido o no.
+    busquedas:
+      woolworths: {q: tuna in springwater, incluir: [tuna, "springwater|spring water|brine"], excluir: [oil, flavoured, chilli, lemon, pet, cat, sandwich]}
+      coles: {q: tuna in springwater, incluir: [tuna, "springwater|spring water|brine"], excluir: [oil, flavoured, chilli, lemon, pet, cat]}
+
+  - id: avena
+    nombre: Avena en copos
+    categoria: carbohidrato
+    proteina_100g: 12.4
+    kcal_100g: 368
+    busquedas:
+      woolworths: {q: rolled oats, incluir: [oats, "rolled|traditional"], excluir: [sachet, bar, flavoured, honey, sachets]}
+      coles: {q: rolled oats, incluir: [oats, "rolled|traditional"], excluir: [sachet, bar, flavoured, honey]}
+
+  - id: arroz
+    nombre: Arroz (crudo)
+    categoria: carbohidrato
+    proteina_100g: 7.0
+    kcal_100g: 355
+    busquedas:
+      woolworths: {q: jasmine rice 5kg, incluir: [rice], excluir: [microwave, cup, cups, pouch, flavoured, cracker, noodle, sushi]}
+      coles: {q: jasmine rice 5kg, incluir: [rice], excluir: [microwave, cup, pouch, flavoured, cracker, noodle, sushi]}
+
+  - id: patata
+    nombre: Patata
+    categoria: carbohidrato
+    proteina_100g: 2.2
+    kcal_100g: 70
+    busquedas:
+      woolworths: {q: washed potatoes bag, incluir: [potato], excluir: [sweet, chips, crisps, wedges, mash, frozen, baby]}
+      coles: {q: washed potatoes bag, incluir: [potato], excluir: [sweet, chips, crisps, wedges, mash, frozen]}
+
+  - id: verduras_congeladas
+    nombre: Verdura congelada mixta
+    categoria: verdura
+    proteina_100g: 3.0
+    kcal_100g: 50
+    busquedas:
+      woolworths: {q: frozen mixed vegetables, incluir: ["veg|vegetable"], excluir: [rice, pasta, stir fry sauce, chips, pie, burger]}
+      coles: {q: frozen mixed vegetables, incluir: ["veg|vegetable"], excluir: [rice, pasta, sauce, chips, pie, burger]}
+
+  - id: frutos_rojos
+    nombre: Frutos rojos congelados
+    categoria: fruta
+    proteina_100g: 1.0
+    kcal_100g: 45
+    busquedas:
+      woolworths: {q: frozen mixed berries, incluir: ["berr"], excluir: [yoghurt, smoothie, ice cream, sorbet]}
+      coles: {q: frozen mixed berries, incluir: ["berr"], excluir: [yoghurt, smoothie, ice cream, sorbet]}

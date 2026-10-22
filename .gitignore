@@ -1,0 +1,7 @@
+# Herramienta de compras: datos personales y capturas locales no se suben (repo público)
+tools/compras/perfil.local.json
+tools/compras/precios_manuales.csv
+tools/compras/datos/
+__pycache__/
+.pytest_cache/
+*.pyc

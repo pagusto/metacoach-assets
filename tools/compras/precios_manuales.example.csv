@@ -1,0 +1,4 @@
+proveedor,item,nombre,precio,peso_g,url
+# Copia este archivo a precios_manuales.csv y añade una línea por producto.
+# peso_g: peso del envase en gramos (1 kg = 1000). Ejemplo:
+# butchercrowd,ternera_picada_5,Grass fed lean mince 1kg,24.00,1000,https://www.butchercrowd.com.au/...
