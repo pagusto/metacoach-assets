@@ -4,6 +4,9 @@
 export type TipoFuente = 'Servicio' | 'Recurrente' | 'Producto' | 'Digital' | 'Activo';
 export type EstadoFuente = 'idea' | 'probando' | 'ingresando';
 
+export const TIPOS_FUENTE: readonly TipoFuente[] = ['Servicio', 'Recurrente', 'Producto', 'Digital', 'Activo'];
+export const ESTADOS_FUENTE: readonly EstadoFuente[] = ['idea', 'probando', 'ingresando'];
+
 export interface Fuente {
   id: string;
   nombre: string;

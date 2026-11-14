@@ -1,0 +1,49 @@
+---
+// Palacio: el marco de cada pieza dentro del cuadrado Lo Shu.
+// Cabecera con número, título, rótulo a la derecha y localizador; debajo, el contenido.
+//
+//   <Palacio n={4} titulo="La cifra" etiqueta="Riqueza">
+//     <p>contenido</p>
+//     <Fragment slot="pie">pie del palacio</Fragment>
+//   </Palacio>
+//
+// Ranuras: la principal (cuerpo), «pie» (se pega abajo) y «graf» (marca gráfica: abajo a la
+// derecha en escritorio; columna derecha en la forma «tira»).
+import MiniLoShu from './MiniLoShu.astro';
+import { caja } from '../lib/loshu';
+
+interface Props {
+  /** Número Lo Shu del palacio (1 a 9). Si la pieza ocupa varios, el de su esquina. */
+  n: number;
+  /** Título del palacio (h2). */
+  titulo: string;
+  /** Rótulo corto a la derecha de la cabecera. */
+  etiqueta?: string;
+  /** Palacios que ocupa en escritorio. Por defecto, [n]. Ej.: [4, 9, 3, 5]. */
+  celdas?: number[];
+  /** Forma en la tira de una columna (móvil): cuadrado 1:1, dos-tercios 3:2, tira 3:1, libre. */
+  forma?: 'cuadrado' | 'dos-tercios' | 'tira' | 'libre';
+  /** id de la sección (para enlaces #ancla). */
+  id?: string;
+  /** Clases extra para la sección. */
+  clase?: string;
+  /** Nivel del título. Por defecto 2. */
+  nivel?: 2 | 3;
+}
+const { n, titulo, etiqueta, celdas = [n], forma = 'libre', id, clase = '', nivel = 2 } = Astro.props;
+const c = caja(celdas);
+const idTitulo = `h-${id ?? `p${n}`}`;
+const estilo = `--col:${c.col + 1} / span ${c.cols};--fil:${c.fila + 1} / span ${c.filas}`;
+const H = `h${nivel}` as 'h2';
+---
+<section id={id} class:list={['pal', `pal-${forma}`, `p${n}`, clase]} style={estilo} aria-labelledby={idTitulo}>
+  <header class="pal-cab">
+    <span class="pal-n cifra" aria-hidden="true">{n}</span>
+    <H id={idTitulo}>{titulo}</H>
+    {etiqueta && <span class="pal-area" data-etiqueta>{etiqueta}</span>}
+    <MiniLoShu celdas={celdas} />
+  </header>
+  <div class="pal-cuerpo"><slot /></div>
+  {Astro.slots.has('graf') && <div class="pal-graf"><slot name="graf" /></div>}
+  {Astro.slots.has('pie') && <footer class="pal-pie"><slot name="pie" /></footer>}
+</section>

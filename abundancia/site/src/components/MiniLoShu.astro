@@ -1,0 +1,21 @@
+---
+// Localizador: un cuadrado Lo Shu de 3 × 3 que marca qué palacio (o palacios) ocupa una pieza.
+//   <MiniLoShu celdas={[4]} />            una casilla
+//   <MiniLoShu celdas={[4, 9, 3, 5]} />   cuatro casillas fundidas
+import { caja } from '../lib/loshu';
+
+interface Props {
+  /** Números Lo Shu que ocupa la pieza (1 a 9). */
+  celdas: number[];
+  /** Lado en píxeles. Por defecto 25. */
+  tam?: number;
+  /** Clases extra. */
+  clase?: string;
+}
+const { celdas, tam = 25, clase = '' } = Astro.props;
+const c = caja(celdas);
+---
+<svg class:list={['loc', clase]} viewBox="0 0 25 25" width={tam} height={tam} aria-hidden="true">
+  <rect x={0.5 + c.col * 8} y={0.5 + c.fila * 8} width={c.cols * 8} height={c.filas * 8} />
+  <path d="M.5 .5h24v24h-24zM8.5 .5v24M16.5 .5v24M.5 8.5h24M.5 16.5h24" fill="none" stroke="currentColor" />
+</svg>

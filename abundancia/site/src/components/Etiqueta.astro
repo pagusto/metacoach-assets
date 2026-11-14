@@ -1,0 +1,31 @@
+---
+// Etiqueta de evidencia: dice qué clase de afirmación es. Tipográfica: filete, marca y palabra.
+//   <Etiqueta tipo="estudio" />
+//   <Etiqueta tipo="tradicion" texto="Aplicación moderna" />
+type Tipo = 'tradicion' | 'documentado' | 'estudio' | 'anecdota' | 'mito';
+
+interface Props {
+  /** tradicion, documentado, estudio, anecdota o mito. */
+  tipo: Tipo;
+  /** Texto alternativo al nombre por defecto. */
+  texto?: string;
+}
+const { tipo, texto } = Astro.props;
+const NOMBRE: Record<Tipo, string> = {
+  tradicion: 'Tradición',
+  documentado: 'Documentado',
+  estudio: 'Estudio',
+  anecdota: 'Anécdota',
+  mito: 'Mito',
+};
+---
+<span class:list={['etiqueta', `etiqueta-${tipo}`]}>
+  <svg viewBox="0 0 10 10" aria-hidden="true">
+    {tipo === 'tradicion' && <circle cx="5" cy="5" r="4.25" />}
+    {tipo === 'documentado' && <circle class="lleno" cx="5" cy="5" r="5" />}
+    {tipo === 'estudio' && <><circle cx="5" cy="5" r="4.25" /><path class="lleno" d="M5 0a5 5 0 0 1 0 10z" /></>}
+    {tipo === 'anecdota' && <circle cx="5" cy="5" r="4.25" stroke-dasharray="2 1.8" />}
+    {tipo === 'mito' && <><circle cx="5" cy="5" r="4.25" /><path d="M1.5 8.5l7-7" /></>}
+  </svg>
+  <span class="etiqueta-t">{texto ?? NOMBRE[tipo] ?? tipo}</span>
+</span>

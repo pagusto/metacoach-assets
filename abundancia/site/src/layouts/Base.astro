@@ -1,17 +1,176 @@
 ---
-import '@fontsource-variable/inter';
-interface Props { title: string }
-const { title } = Astro.props;
+// Base: la página entera. Cabecera (marca, conmutador de tema, nueve entradas),
+// <main id="contenido"> con el ancho del cuadrado y el pie con la clave del sistema.
+//
+//   <Base title="Ritual" description="El ritual diario, paso a paso.">
+//     <TituloPagina titulo="Ritual" />
+//     <Cuadrado>…</Cuadrado>
+//   </Base>
+import '@fontsource-variable/archivo/standard.css';
+import '@fontsource-variable/frank-ruhl-libre/index.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import { LO_SHU } from '../lib/loshu';
+
+interface Props {
+  /** Título de la página; se completa con « · Shefa». */
+  title: string;
+  /** Descripción para buscadores y para compartir (una frase llana). */
+  description?: string;
+  /** Clases extra para <body>. */
+  clase?: string;
+}
+const {
+  title,
+  description = 'Shefa es un sistema personal de práctica de riqueza: tradición y datos, con una cifra, un ritual diario y un tablero en forma de Árbol de la Vida.',
+  clase = '',
+} = Astro.props;
+
+const NAV = [
+  { n: 1, texto: 'Hoy', href: '/' },
+  { n: 2, texto: 'Árbol', href: '/arbol' },
+  { n: 3, texto: 'Ritual', href: '/ritual' },
+  { n: 4, texto: 'Tradición', href: '/tradicion' },
+  { n: 5, texto: 'Espacio', href: '/espacio' },
+  { n: 6, texto: 'Datos', href: '/datos' },
+  { n: 7, texto: 'Videoteca', href: '/videoteca' },
+  { n: 8, texto: 'Colores', href: '/colores' },
+  { n: 9, texto: 'Agentes', href: '/agentes' },
+];
+const limpia = (p: string) => (p.replace(/\/+$/, '') || '/');
+const ruta = limpia(Astro.url.pathname);
+const actual = (href: string) => (href === '/' ? ruta === '/' : ruta === href || ruta.startsWith(href + '/'));
+const titulo = title === 'Shefa' ? 'Shefa' : `${title} · Shefa`;
+const canonica = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+
+const ELEMENTOS = [
+  { id: 'madera', han: '木', nombre: 'Madera', papel: 'tinta: texto y estructura', r: 5 },
+  { id: 'fuego', han: '火', nombre: 'Fuego', papel: 'sello: el presente', r: 5 },
+  { id: 'tierra', han: '土', nombre: 'Tierra', papel: 'papel: el fondo', r: 4.5 },
+  { id: 'metal', han: '金', nombre: 'Metal', papel: 'oro: lo medido', r: 5 },
+  { id: 'agua', han: '水', nombre: 'Agua', papel: 'azul de Zúrich: flujo y acción', r: 5 },
+];
 ---
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <meta name="color-scheme" content="light dark" />
+    <title>{titulo}</title>
+    <meta name="description" content={description} />
+    {canonica && <link rel="canonical" href={canonica} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Shefa" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={description} />
+    {canonica && <meta property="og:url" content={canonica} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script is:inline>
+      /* Aplica el tema guardado antes de pintar. Clave «shefa-tema»: light, dark o nada (sistema). */
+      (function () {
+        var r = document.documentElement;
+        r.classList.add('js');
+        try {
+          var t = localStorage.getItem('shefa-tema');
+          if (t === 'light' || t === 'dark') {
+            r.dataset.theme = t;
+            var c = t === 'dark' ? '#121211' : '#FAF9F6';
+            document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.setAttribute('content', c); });
+          }
+        } catch (e) {}
+        /* Red de seguridad: si el script de la página no llega, el contenido vivo se ve igual. */
+        setTimeout(function () { r.classList.add('listo'); }, 2500);
+      })();
+    </script>
   </head>
-  <body><slot /></body>
+  <body class={clase}>
+    <a class="salto" href="#contenido">Saltar al contenido</a>
+
+    <header class="cab pagina">
+      <a class="marca" href="/" aria-label="Shefa, inicio">
+        <svg class="marca-moneda" viewBox="0 0 36 36" aria-hidden="true">
+          <path fill-rule="evenodd" d="M18 0a18 18 0 1 0 0 36a18 18 0 1 0 0-36zM12 12h12v12H12z" />
+        </svg>
+        <span class="marca-n">Shefa</span>
+        <span class="marca-he he" lang="he" dir="rtl">שפע</span>
+      </a>
+      <button class="tema" type="button" aria-label="Cambiar entre tema claro y oscuro" data-tema>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><rect x=".75" y=".75" width="14.5" height="14.5" /><circle cx="8" cy="8" r="4" /></svg>
+        <span class="tema-a-oscuro">Tema oscuro</span><span class="tema-a-claro">Tema claro</span>
+      </button>
+      <nav class="nav" aria-label="Principal">
+        <ol>
+          {NAV.map((e) => (
+            <li>
+              <a href={e.href} aria-current={actual(e.href) ? 'page' : undefined}>
+                <span class="nav-n" aria-hidden="true">{e.n}</span>{e.texto}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </header>
+
+    <main id="contenido" class="pagina">
+      <slot />
+    </main>
+
+    <footer class="pie pagina">
+      <div>
+        <p class="aviso">Información general, no asesoramiento financiero</p>
+        <p class="pie-metodo"><a href="/metodo">Método y fuentes</a></p>
+      </div>
+      <div>
+        <h2>Cuadrado Lo Shu</h2>
+        <div class="clave-loshu">
+          <table aria-label="Cuadrado Lo Shu">
+            <tbody>
+              {LO_SHU.map((fila) => <tr>{fila.map((n) => <td>{n}</td>)}</tr>)}
+            </tbody>
+          </table>
+          <p>Nueve palacios, un asunto en cada uno. Cada fila, columna y diagonal suma 15.</p>
+        </div>
+      </div>
+      <div>
+        <h2>Cinco elementos, cinco colores</h2>
+        <ul class="elementos">
+          {ELEMENTOS.map((e) => (
+            <li>
+              <svg class={`el el-${e.id}`} viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15" /><circle cx="8" cy="8" r={e.r} /></svg>
+              <span class="han" lang="zh-Hans">{e.han}</span>
+              <b>{e.nombre}</b>
+              <span>{e.papel}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </footer>
+
+    <script>
+      // Conmutador de tema. Si lo elegido coincide con el sistema, no se guarda nada.
+      const raiz = document.documentElement;
+      const CLAVE = 'shefa-tema';
+      const sistemaOscuro = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.querySelector<HTMLButtonElement>('[data-tema]')?.addEventListener('click', () => {
+        const oscuro = raiz.dataset.theme ? raiz.dataset.theme === 'dark' : sistemaOscuro();
+        const nuevo = oscuro ? 'light' : 'dark';
+        const esSistema = (nuevo === 'dark') === sistemaOscuro();
+        raiz.dataset.theme = nuevo;
+        try {
+          if (esSistema) localStorage.removeItem(CLAVE);
+          else localStorage.setItem(CLAVE, nuevo);
+        } catch {
+          /* sin almacenamiento: el tema vale para esta visita */
+        }
+        const color = nuevo === 'dark' ? '#121211' : '#FAF9F6';
+        document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', color));
+      });
+    </script>
+  </body>
 </html>
-<style is:global>
-  body { font-family: 'Inter Variable', system-ui, sans-serif; margin: 2rem; }
-</style>

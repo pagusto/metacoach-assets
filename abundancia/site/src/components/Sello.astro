@@ -1,0 +1,13 @@
+---
+// Sello: el cuadrado rojo que marca el presente (el día de hoy, lo elegido).
+// Uno solo por pantalla.
+//   <Sello>14</Sello>
+interface Props {
+  /** «m» (48 px; 72 px en escritorio) o «s» (24 px). */
+  tam?: 'm' | 's';
+  /** Clases extra. */
+  clase?: string;
+}
+const { tam = 'm', clase = '' } = Astro.props;
+---
+<span class:list={['sello', 'cifra', tam === 's' && 'sello-s', clase]}><slot /></span>

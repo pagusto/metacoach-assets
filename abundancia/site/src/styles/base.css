@@ -312,13 +312,13 @@ main.pagina { container-type: inline-size; }
 .entrada::placeholder, .campo input::placeholder, .campo textarea::placeholder { color: var(--texto-3); opacity: 1; }
 input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-select.entrada, .campo select {
-  appearance: none; -webkit-appearance: none; padding-right: 32px;
-  background-image:
-    linear-gradient(45deg, transparent 50%, currentColor 50%),
-    linear-gradient(135deg, currentColor 50%, transparent 50%);
-  background-position: calc(100% - 17px) 55%, calc(100% - 12px) 55%;
-  background-size: 5px 5px; background-repeat: no-repeat;
+select.entrada, .campo select { appearance: none; -webkit-appearance: none; padding-right: 32px; cursor: pointer; }
+/* El selector lleva su flecha dibujada con dos filetes: envuelve el <select> en .selector */
+.selector { position: relative; display: block; min-width: 0; }
+.selector::after {
+  content: ""; position: absolute; right: 14px; top: 50%;
+  width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translateY(-70%) rotate(45deg); pointer-events: none;
 }
 .campo-u { color: var(--texto-2); }
 .campo-estado { min-height: var(--lh-00); font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-2); }

@@ -1,0 +1,274 @@
+{
+ "resumen": "Shefa tiene un equipo de agentes siempre listo en el repositorio: tres directores, uno por pilar, y doce especialistas. Todos leen la misma base de conocimiento verificada, citan con etiqueta de evidencia y describen cada tradición en sus propios términos. Ninguno promete resultados ni da consejo financiero personal.",
+ "pilares": [
+  {
+   "id": "material",
+   "nombre": "Riqueza material",
+   "director": "riqueza-material",
+   "descripcion": "Lo que se gana, se cobra, se conserva y se protege: ingresos, precios, ahorro, deuda y defensa frente al fraude. Aquí manda el número, con su fuente y sus supuestos."
+  },
+  {
+   "id": "espiritual",
+   "nombre": "Riqueza espiritual",
+   "director": "riqueza-espiritual",
+   "descripcion": "Lo que enseñan las tradiciones sobre sustento, dar y contentamiento: enseñanzas judías, hermetismo, maestros de la prosperidad y feng shui. Cada una en sus propios términos y con su fuente exacta."
+  },
+  {
+   "id": "abundancia",
+   "nombre": "Abundancia",
+   "director": "abundancia",
+   "descripcion": "Donde los dos pilares se unen en la práctica diaria: el ritual, la mentalidad, la verificación y el conocimiento que entra cada día. Una prioridad y un paso."
+  }
+ ],
+ "agentes": [
+  {
+   "id": "riqueza-material",
+   "nombre": "Director de riqueza material",
+   "pilar": "material",
+   "tipo": "director",
+   "rol": "Coordina ingresos, precios, ahorro y protección. Cuantitativo: cada recomendación lleva cifra, fuente y supuestos.",
+   "cuando": "Tu pregunta de dinero cruza varias áreas o quieres un plan material completo.",
+   "ejemplo": "Gano 2.400 al mes y debo 6.000: ¿por dónde empiezo?",
+   "conocimiento": [
+    "conocimiento/base/datos-de-riqueza.md",
+    "conocimiento/base/practicas-con-evidencia.md"
+   ]
+  },
+  {
+   "id": "riqueza-espiritual",
+   "nombre": "Director de riqueza espiritual",
+   "pilar": "espiritual",
+   "tipo": "director",
+   "rol": "Reúne lo que enseñan la tradición judía, el hermetismo, los maestros de la prosperidad y el feng shui. Contemplativo y exacto con las fuentes.",
+   "cuando": "Buscas sentido más que números, o quieres comparar varias tradiciones.",
+   "ejemplo": "¿Qué enseñan las tradiciones sobre dar cuando uno tiene poco?",
+   "conocimiento": [
+    "conocimiento/base/cabala-y-sustento.md",
+    "conocimiento/base/hermetismo.md",
+    "conocimiento/base/maestros-de-la-prosperidad.md",
+    "conocimiento/base/feng-shui.md",
+    "conocimiento/base/practicas-con-evidencia.md"
+   ]
+  },
+  {
+   "id": "abundancia",
+   "nombre": "Director de abundancia",
+   "pilar": "abundancia",
+   "tipo": "director",
+   "rol": "El integrador: une los dos pilares, diseña el ritual diario, fija una sola prioridad y responde en Tradición, Dato, Acción.",
+   "cuando": "No sabes por dónde empezar o la pregunta mezcla dinero y sentido.",
+   "ejemplo": "¿Cuál debería ser mi única prioridad esta semana?",
+   "conocimiento": [
+    "conocimiento/INDICE.md",
+    "conocimiento/base/practicas-con-evidencia.md",
+    "conocimiento/base/datos-de-riqueza.md",
+    "conocimiento/base/cabala-y-sustento.md"
+   ]
+  },
+  {
+   "id": "estratega-ingresos",
+   "nombre": "Estratega de ingresos",
+   "pilar": "material",
+   "tipo": "especialista",
+   "rol": "Diseña, puntúa y ordena fuentes de ingreso, empezando por mejorar la actual, y propone una prueba de dos semanas.",
+   "cuando": "Quieres ideas de ingreso, evaluar un negocio o decidir cuál abrir primero.",
+   "ejemplo": "Soy diseñadora autónoma: ¿qué segunda fuente pruebo primero?",
+   "conocimiento": [
+    "conocimiento/base/datos-de-riqueza.md",
+    "notebooklm/04-fuentes-de-ingreso.md"
+   ]
+  },
+  {
+   "id": "analista-datos",
+   "nombre": "Analista de datos",
+   "pilar": "material",
+   "tipo": "especialista",
+   "rol": "Busca y comprueba estadísticas y hace con python la aritmética de interés compuesto y tasa de ahorro, con supuestos a la vista.",
+   "cuando": "Necesitas una cifra con fuente o un cálculo exacto.",
+   "ejemplo": "Si ahorro el 30 %, ¿cuántos años hasta 25 veces mi gasto?",
+   "conocimiento": [
+    "conocimiento/base/datos-de-riqueza.md",
+    "conocimiento/base/practicas-con-evidencia.md",
+    "site/src/data/datos.json"
+   ]
+  },
+  {
+   "id": "maestro-precios-y-ventas",
+   "nombre": "Maestro de precios y ventas",
+   "pilar": "material",
+   "tipo": "especialista",
+   "rol": "Calcula el efecto de subir precios, redacta la oferta y prepara la conversación de venta y las objeciones.",
+   "cuando": "Quieres cobrar más, fijar un precio o preparar una venta.",
+   "ejemplo": "Cobro 40 por sesión: ¿qué pasa si subo a 48?",
+   "conocimiento": [
+    "conocimiento/base/datos-de-riqueza.md",
+    "conocimiento/base/practicas-con-evidencia.md"
+   ]
+  },
+  {
+   "id": "guardian-patrimonio",
+   "nombre": "Guardián del patrimonio",
+   "pilar": "material",
+   "tipo": "especialista",
+   "rol": "Ordena ahorro automático, deuda y fondo de emergencia, y revisa señales de fraude y el registro del regulador.",
+   "cuando": "Quieres ahorrar, salir de deudas o revisar una oportunidad dudosa.",
+   "ejemplo": "Me ofrecen un 3 % mensual garantizado: ¿lo reviso contigo?",
+   "conocimiento": [
+    "conocimiento/base/datos-de-riqueza.md",
+    "conocimiento/base/practicas-con-evidencia.md",
+    "site/src/data/datos.json"
+   ]
+  },
+  {
+   "id": "guia-cabala",
+   "nombre": "Guía de cábala y sustento",
+   "pilar": "espiritual",
+   "tipo": "especialista",
+   "rol": "Explica las enseñanzas judías sobre sustento, dar y contentamiento con la fuente exacta y con respeto, separando la aplicación moderna.",
+   "cuando": "Preguntas por shefa, sefirot, tsedacá, diezmo, Shabat o confianza y esfuerzo.",
+   "ejemplo": "¿Dónde dice el Talmud «diezma para que te enriquezcas»?",
+   "conocimiento": [
+    "conocimiento/base/cabala-y-sustento.md",
+    "conocimiento/base/hermetismo.md"
+   ]
+  },
+  {
+   "id": "guia-hermetico",
+   "nombre": "Guía hermético",
+   "pilar": "espiritual",
+   "tipo": "especialista",
+   "rol": "Explica los siete principios y a los maestros de la prosperidad, de Wattles a Tracy, con su biografía documentada.",
+   "cuando": "Preguntas por el Kybalion, la alquimia, Napoleon Hill, Brian Tracy u otro maestro.",
+   "ejemplo": "¿Qué enseñaba Napoleon Hill y qué se sabe de su vida?",
+   "conocimiento": [
+    "conocimiento/base/hermetismo.md",
+    "conocimiento/base/maestros-de-la-prosperidad.md"
+   ]
+  },
+  {
+   "id": "guia-feng-shui",
+   "nombre": "Guía de feng shui",
+   "pilar": "espiritual",
+   "tipo": "especialista",
+   "rol": "Audita tu espacio de trabajo por los nueve palacios y empareja cada regla con la psicología ambiental.",
+   "cuando": "Quieres revisar tu escritorio, despacho o casa-oficina.",
+   "ejemplo": "Mi mesa da la espalda a la puerta: ¿qué cambio primero?",
+   "conocimiento": [
+    "conocimiento/base/feng-shui.md",
+    "conocimiento/base/color-y-riqueza.md"
+   ]
+  },
+  {
+   "id": "guia-ritual",
+   "nombre": "Guía del ritual",
+   "pilar": "abundancia",
+   "tipo": "especialista",
+   "rol": "Diseña y conduce la práctica diaria: respiración, declaración, visualización del proceso y plan si-entonces.",
+   "cuando": "Quieres crear, ajustar o hacer ahora tu ritual.",
+   "ejemplo": "Tengo ocho minutos por la mañana: diséñame el ritual.",
+   "conocimiento": [
+    "conocimiento/base/practicas-con-evidencia.md",
+    "notebooklm/03-reprogramacion-mental.md"
+   ]
+  },
+  {
+   "id": "coach-mentalidad",
+   "nombre": "Coach de mentalidad",
+   "pilar": "abundancia",
+   "tipo": "especialista",
+   "rol": "Trabaja creencias sobre el dinero, redacta tu declaración y convierte bloqueos en planes si-entonces con técnicas estudiadas.",
+   "cuando": "Hay miedo a cobrar, procrastinación o sensación de escasez.",
+   "ejemplo": "Me da vergüenza decir mi precio: ¿cómo lo trabajo?",
+   "conocimiento": [
+    "conocimiento/base/practicas-con-evidencia.md",
+    "conocimiento/base/maestros-de-la-prosperidad.md",
+    "notebooklm/03-reprogramacion-mental.md"
+   ]
+  },
+  {
+   "id": "verificador-evidencia",
+   "nombre": "Verificador de evidencia",
+   "pilar": "abundancia",
+   "tipo": "especialista",
+   "rol": "Auditor: etiqueta cada afirmación y comprueba fuentes, estudios y videos con las herramientas; también detecta señales de estafa.",
+   "cuando": "Antes de creer, publicar o pagar algo.",
+   "ejemplo": "¿Es verdad lo del estudio de Yale sobre metas escritas?",
+   "conocimiento": [
+    "conocimiento/base/cabala-y-sustento.md",
+    "conocimiento/base/hermetismo.md",
+    "conocimiento/base/maestros-de-la-prosperidad.md",
+    "conocimiento/base/practicas-con-evidencia.md",
+    "conocimiento/base/feng-shui.md",
+    "conocimiento/base/color-y-riqueza.md",
+    "conocimiento/base/datos-de-riqueza.md"
+   ]
+  },
+  {
+   "id": "curador-videoteca",
+   "nombre": "Curador de la videoteca",
+   "pilar": "abundancia",
+   "tipo": "especialista",
+   "rol": "Busca videos de YouTube, comprueba que existen y propone entradas para la videoteca con el esquema del sitio.",
+   "cuando": "Quieres videos fiables de un maestro, una tradición o un tema.",
+   "ejemplo": "Búscame tres videos en español de Brian Tracy sobre metas.",
+   "conocimiento": [
+    "conocimiento/base/maestros-de-la-prosperidad.md",
+    "site/src/data/videoteca.json"
+   ]
+  },
+  {
+   "id": "nutridor-conocimiento",
+   "nombre": "Nutridor de conocimiento",
+   "pilar": "abundancia",
+   "tipo": "especialista",
+   "rol": "Cada día busca un hallazgo por pilar, lo verifica, escribe el diario y compila el sitio. Nunca edita la base.",
+   "cuando": "Se ejecuta solo cada día, o cuando escribes /nutrir.",
+   "ejemplo": "/nutrir",
+   "conocimiento": [
+    "conocimiento/INDICE.md",
+    "site/src/content/diario/",
+    "conocimiento/base/datos-de-riqueza.md",
+    "conocimiento/base/cabala-y-sustento.md",
+    "conocimiento/base/practicas-con-evidencia.md"
+   ]
+  }
+ ],
+ "comandos": [
+  {
+   "comando": "/consejo-abundancia",
+   "descripcion": "Convoca de dos a cuatro especialistas en paralelo y sintetiza su respuesta en Tradición, Dato y Acción, nombrando cualquier desacuerdo.",
+   "ejemplo": "/consejo-abundancia ¿subo mis precios?"
+  },
+  {
+   "comando": "/nutrir",
+   "descripcion": "Ejecuta a mano la nutrición diaria: tres hallazgos verificados, la entrada del diario y la compilación del sitio.",
+   "ejemplo": "/nutrir"
+  },
+  {
+   "comando": "/ritual-abundancia",
+   "descripcion": "Guía paso a paso la sesión de la mañana (12 minutos) o el cierre de la noche (3 minutos).",
+   "ejemplo": "/ritual-abundancia mañana"
+  },
+  {
+   "comando": "/revision-semanal",
+   "descripcion": "Revisión de 20 minutos: ingresos por fuente, constancia, obstáculo, un WOOP nuevo y una sola prioridad.",
+   "ejemplo": "/revision-semanal"
+  },
+  {
+   "comando": "/notebooklm",
+   "descripcion": "Investiga un tema y lo convierte en un archivo de fuente etiquetado para subir a NotebookLM.",
+   "ejemplo": "/notebooklm cómo construyó su fortuna Oprah"
+  }
+ ],
+ "nutricion": {
+  "cuando": "cada día",
+  "que_hace": [
+   "Lee el índice y las siete últimas entradas del diario para no repetir temas ni fuentes.",
+   "Busca un hallazgo nuevo por pilar: una cifra o estudio, una enseñanza con fuente primaria y una práctica o un video.",
+   "Verifica que cada fuente existe y dice lo que se afirma; etiqueta la evidencia y descarta lo que no se puede comprobar.",
+   "Escribe la entrada del día y, si un video pasó la comprobación, lo añade a la videoteca.",
+   "Compila el sitio e informa de lo añadido, lo descartado y las correcciones que propone para la base, que nunca edita."
+  ],
+  "donde": "Se ejecuta como tarea programada diaria y llega como pull request para que tú lo revises y lo fusiones. La entrada queda en el diario del sitio."
+ }
+}

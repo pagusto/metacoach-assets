@@ -1,0 +1,15 @@
+---
+// AvisoMuestra: franja discreta que avisa de que se ven datos de muestra.
+// Se muestra sola mientras el estado tenga ejemplos; la conecta iniciarAvisoMuestra()
+// de src/lib/muestra.ts (llámala en el <script> de la página).
+//   <AvisoMuestra />
+interface Props {
+  /** Clases extra. */
+  clase?: string;
+}
+const { clase = '' } = Astro.props;
+---
+<div class:list={['muestra', clase]} data-muestra hidden>
+  <p>Estos son datos de muestra</p>
+  <button class="boton-2 boton-s" type="button">Empezar con mis datos</button>
+</div>
