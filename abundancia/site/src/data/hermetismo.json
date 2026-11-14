@@ -1,0 +1,260 @@
+{
+  "titulo": "Hermetismo y esoterismo occidental",
+  "resumen": "Las enseñanzas modernas de abundancia citan a Hermes, la alquimia y el Kybalion. Aquí ves qué dicen de verdad esos textos, de cuándo son y quién los escribió, y cómo usar sus símbolos como herramientas de atención y hábito, sin promesas.",
+  "contexto": "«Hermetismo» nombra los textos atribuidos a Hermes Trismegisto, figura legendaria que une al Hermes griego con el Thoth egipcio. Los tratados filosóficos del Corpus Hermeticum se escribieron en griego entre los siglos II y III d. C.; la Tabla Esmeralda aparece en árabe hacia los siglos VIII-IX. En el Renacimiento, Ficino y Agrippa los unieron a la astrología y a una cábala reinterpretada. El Kybalion, la fuente más citada hoy, es un libro estadounidense de 1908 ligado al Nuevo Pensamiento. Los historiadores (Faivre, Hanegraaff, Copenhaver) estudian estas corrientes como parte de la cultura occidental, sin validar sus afirmaciones sobre el mundo. Úsalas así: como un lenguaje simbólico para pensar tu trabajo y tu dinero. Ninguna sustituye a las cuentas ni garantiza resultados.",
+  "principios": [
+    {
+      "numero": 1,
+      "nombre": "Mentalismo",
+      "original": "The Principle of Mentalism",
+      "enunciado": "EL TODO es Mente; el Universo es Mental.",
+      "enunciado_original": "THE ALL IS MIND; The Universe is Mental.",
+      "aplicacion": "La forma en que interpretas tu situación guía tus decisiones de dinero. Revisar esa interpretación es el primer trabajo, antes de cambiar nada fuera.",
+      "practica": "Escribe la creencia que dirige tu decisión económica de esta semana y, al lado, un dato concreto que la contradiga.",
+      "limite": "Pensar no mueve dinero. No hay evidencia de que el pensamiento altere por sí solo hechos externos como un sueldo o un mercado."
+    },
+    {
+      "numero": 2,
+      "nombre": "Correspondencia",
+      "original": "The Principle of Correspondence",
+      "enunciado": "Como es arriba, es abajo; como es abajo, es arriba.",
+      "enunciado_original": "As above, so below; as below, so above.",
+      "aplicacion": "Cómo manejas lo pequeño suele parecerse a cómo manejas lo grande. Tus gastos de una semana muestran patrones que se repiten en decisiones mayores.",
+      "practica": "Revisa siete días de gastos y nombra un patrón. Pregúntate dónde más aparece ese patrón en tu trabajo.",
+      "limite": "Una analogía no es una prueba. Que algo funcione a pequeña escala no garantiza que funcione a gran escala."
+    },
+    {
+      "numero": 3,
+      "nombre": "Vibración",
+      "original": "The Principle of Vibration",
+      "enunciado": "Nada reposa; todo se mueve; todo vibra.",
+      "enunciado_original": "Nothing rests; everything moves; everything vibrates.",
+      "aplicacion": "Nada está quieto: tu estado de ánimo y tus cuentas cambian cada día. Lo que cambia se puede medir, y lo que mides lo puedes ajustar.",
+      "practica": "Antes de una negociación o una tarea difícil, respira tres minutos y anota tu estado de 1 a 10.",
+      "limite": "Una «frecuencia» emocional no atrae dinero. Es una metáfora de 1908, no un concepto de la física."
+    },
+    {
+      "numero": 4,
+      "nombre": "Polaridad",
+      "original": "The Principle of Polarity",
+      "enunciado": "Todo es doble; todo tiene polos; todo tiene su par de opuestos; lo semejante y lo desemejante son lo mismo; los opuestos son idénticos en naturaleza, pero distintos en grado; los extremos se tocan; todas las verdades son solo medias verdades; todas las paradojas pueden reconciliarse.",
+      "enunciado_original": "Everything is Dual; everything has poles; everything has its pair of opposites; like and unlike are the same; opposites are identical in nature, but different in degree; extremes meet; all truths are but half-truths; all paradoxes may be reconciled.",
+      "aplicacion": "Escasez y holgura son grados de una misma escala. No se salta de un extremo al otro: se avanza un grado cada vez.",
+      "practica": "Sitúa tu situación económica de 1 a 10 y escribe la acción concreta que te llevaría al número siguiente.",
+      "limite": "Cambiar el nombre de una situación no cambia el saldo ni las causas estructurales de la pobreza."
+    },
+    {
+      "numero": 5,
+      "nombre": "Ritmo",
+      "original": "The Principle of Rhythm",
+      "enunciado": "Todo fluye, hacia fuera y hacia dentro; todo tiene sus mareas; todas las cosas suben y bajan; la oscilación del péndulo se manifiesta en todo; la medida de la oscilación a la derecha es la medida de la oscilación a la izquierda; el ritmo compensa.",
+      "enunciado_original": "Everything flows, out and in; everything has its tides; all things rise and fall; the pendulum-swing manifests in everything; the measure of the swing to the right is the measure of the swing to the left; rhythm compensates.",
+      "aplicacion": "Los ingresos, la energía y los mercados tienen ciclos. Quien cuenta con la bajada guarda en la subida y no se asusta cuando llega.",
+      "practica": "Marca los meses altos y bajos de tus ingresos del último año y fija una reserva para los bajos.",
+      "limite": "No predice cuándo gira un ciclo ni cuánto dura. No sirve para elegir el momento de comprar o vender."
+    },
+    {
+      "numero": 6,
+      "nombre": "Causa y efecto",
+      "original": "The Principle of Cause and Effect",
+      "enunciado": "Toda causa tiene su efecto; todo efecto tiene su causa; todo sucede conforme a la Ley; el azar no es más que un nombre para la Ley no reconocida; hay muchos planos de causación, pero nada escapa a la Ley.",
+      "enunciado_original": "Every Cause has its Effect; every Effect has its Cause; everything happens according to Law; Chance is but a name for Law not recognized; there are many planes of causation, but nothing escapes the Law.",
+      "aplicacion": "Cada ingreso tiene causas que puedes rastrear: una llamada, una habilidad, una relación. Conocerlas te permite repetir las que dependen de ti.",
+      "practica": "Anota tres causas concretas de tu último ingreso y repite una de ellas esta semana.",
+      "limite": "El texto niega el azar; los datos no. La suerte y el punto de partida pesan, y no todo resultado depende de ti."
+    },
+    {
+      "numero": 7,
+      "nombre": "Género",
+      "original": "The Principle of Gender",
+      "enunciado": "El género está en todo; todo tiene sus principios masculino y femenino; el género se manifiesta en todos los planos.",
+      "enunciado_original": "Gender is in everything; everything has its Masculine and Feminine Principles; Gender manifests on all planes.",
+      "aplicacion": "Todo proyecto necesita dos fases: una receptiva, que genera ideas, y otra activa, que decide y ejecuta. Si falta una, el proyecto no nace o no termina.",
+      "practica": "Dedica veinte minutos a generar ideas sin juzgarlas y cuarenta a ejecutar una sola.",
+      "limite": "Es una metáfora de 1908. No describe a hombres y mujeres reales ni justifica repartos de papeles."
+    }
+  ],
+  "ensenanzas": [
+    {
+      "id": "tabla-esmeralda",
+      "titulo": "La Tabla Esmeralda y «como es arriba»",
+      "tradicion": "La tradición atribuye a Hermes un texto breve que enseña que lo alto y lo bajo forman una sola cosa. Los alquimistas medievales lo leyeron como instrucción para la piedra filosofal. La frase corta «como es arriba, es abajo» es una paráfrasis moderna de su segundo verso.",
+      "fuente_tradicion": {
+        "cita": "Wikipedia, «Emerald Tablet» (texto latino de la vulgata según Steele y Singer, 1927)",
+        "url": "https://en.wikipedia.org/wiki/Emerald_Tablet"
+      },
+      "cita": {
+        "texto": "Lo que está arriba es como lo que está abajo, y lo que está abajo es como lo que está arriba, para realizar los milagros de una sola cosa.",
+        "original": "Quod est superius est sicut quod inferius, et quod inferius est sicut quod est superius. Ad preparanda miracula rei unius.",
+        "referencia": "Tabla Esmeralda, vulgata latina, versos 2-3"
+      },
+      "practica": "Elige un hábito pequeño con el dinero y obsérvalo una semana. Pregúntate qué dice de tu manera de decidir en lo grande.",
+      "dato": "La versión más antigua está en árabe, en el «Libro del secreto de la creación», de finales del siglo VIII o comienzos del IX. Allí dice «procede de», no «es como». Se tradujo al latín hacia 1145-1151.",
+      "fuente_dato": {
+        "cita": "Wikipedia, «As above, so below» (cita a Kraus 1942-1943, vol. II, pp. 274-275, y Weisser 1980, p. 54)",
+        "url": "https://en.wikipedia.org/wiki/As_above,_so_below"
+      },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "corpus-hermeticum",
+      "titulo": "El Corpus Hermeticum no habla de dinero",
+      "tradicion": "Los tratados herméticos enseñan que el ser humano puede conocer a Dios y sanar su alma mediante el conocimiento interior o gnosis. Su tema es la reverencia y la unión con lo divino. En el Renacimiento se creyó que eran anteriores a Moisés.",
+      "fuente_tradicion": {
+        "cita": "Copenhaver, B. (1992), Hermetica, Cambridge University Press, pp. xl-l, citado en Wikipedia, «Hermetica»",
+        "url": "https://en.wikipedia.org/wiki/Hermetica"
+      },
+      "cita": null,
+      "practica": "Cuando un autor cite a «Hermes» para prometer riqueza, busca qué texto cita y de qué año es. Anota la respuesta.",
+      "dato": "Son 17 tratados griegos escritos en su mayoría entre los años 100 y 300 d. C. Ficino empezó a traducirlos en 1462 y su versión latina se imprimió en 1471. Casaubon demostró su fecha tardía a comienzos del siglo XVII.",
+      "fuente_dato": {
+        "cita": "Wikipedia, «Hermetica» (cita a Copenhaver 1992, p. xliv, y Ebeling 2007, p. 92)",
+        "url": "https://en.wikipedia.org/wiki/Hermetica"
+      },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "kybalion-1908",
+      "titulo": "El Kybalion es un libro de 1908",
+      "tradicion": "El Kybalion se presenta como comentario a máximas antiguas de Hermes y enseña siete principios para la «transmutación mental». Advierte que quien niega las leyes del mundo por creerlo irreal actúa como un necio: su método es transformar, no negar.",
+      "fuente_tradicion": {
+        "cita": "Three Initiates (1908), The Kybalion, Yogi Publication Society, caps. II y VI (Project Gutenberg, ebook 14209)",
+        "url": "https://www.gutenberg.org/cache/epub/14209/pg14209.txt"
+      },
+      "cita": {
+        "texto": "La transmutación, no la negación presuntuosa, es el arma del Maestro.",
+        "original": "Transmutation, not presumptuous denial, is the weapon of the Master.",
+        "referencia": "The Kybalion, cap. VI"
+      },
+      "practica": "Toma una situación que te incomoda con el dinero. No la niegues: escribe qué parte puedes transformar esta semana.",
+      "dato": "Se publicó en Chicago en 1908 con el seudónimo «Three Initiates». La investigación lo atribuye a William Walker Atkinson (1862-1932), autor del Nuevo Pensamiento. No se conoce ninguna fuente anterior a 1908 con sus «máximas».",
+      "fuente_dato": {
+        "cita": "Chapel, N. E. (2013), «The Kybalion's New Clothes», Journal of the Western Mystery Tradition 3(24)",
+        "url": "http://www.jwmt.org/v3n24/chapel.html"
+      },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "alquimia-colores",
+      "titulo": "La alquimia y sus cuatro colores",
+      "tradicion": "La alquimia describe la Gran Obra en cuatro fases: nigredo (negro), albedo (blanco), citrinitas (amarillo) y rubedo (rojo). El oro es a la vez metal y símbolo de lo perfeccionado. El cuervo, el cisne y el fénix representan el paso de un color a otro.",
+      "fuente_tradicion": {
+        "cita": "Wikipedia, «Magnum opus (alchemy)» (cita a Needham 1974, p. 23)",
+        "url": "https://en.wikipedia.org/wiki/Magnum_opus_(alchemy)"
+      },
+      "cita": null,
+      "practica": "Sitúa un proyecto en su fase: negro (ver las cuentas tal como están), blanco (ordenar), amarillo (primeros resultados) o rojo (resultado estable).",
+      "dato": "El esquema de cuatro colores se remonta al menos al siglo I; Zósimo de Panópolis lo atribuye a María la Judía. Desde el siglo XV muchos autores lo reducen a tres fases.",
+      "fuente_dato": {
+        "cita": "Wikipedia, «Magnum opus (alchemy)» (cita a Bogdan, Western Esotericism and Rituals of Initiation, p. 197)",
+        "url": "https://en.wikipedia.org/wiki/Magnum_opus_(alchemy)"
+      },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "correspondencias-planetarias",
+      "titulo": "Júpiter, Venus y el Sol",
+      "tradicion": "La magia renacentista de Ficino y Agrippa enseña que Júpiter, Venus y el Sol son planetas benéficos. A Júpiter le corresponden el jueves, el estaño y los tonos zafiro; a Venus, el viernes, el cobre y el verde; al Sol, el domingo, el oro y el dorado.",
+      "fuente_tradicion": {
+        "cita": "Agrippa, H. C. (1533), De occulta philosophia, libro I, caps. 26 y 49 (traducción inglesa de 1651)",
+        "url": "https://sacred-texts.com/eso/pnm/pnm58.htm"
+      },
+      "cita": null,
+      "practica": "Usa los días como anclas: jueves para revisar y ampliar ingresos, viernes para cuidar relaciones, domingo para repasar tu visión.",
+      "dato": "Ficino publicó De vita libri tres el 3 de diciembre de 1489. Agrippa presentó su borrador en 1510 y la edición completa salió en Colonia en 1533. Los días toman su nombre del planeta de su primera hora.",
+      "fuente_dato": {
+        "cita": "Wikipedia, «Three Books of Occult Philosophy», «De vita libri tres» y «Planetary hours»",
+        "url": "https://en.wikipedia.org/wiki/Three_Books_of_Occult_Philosophy"
+      },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "tarot-de-oros",
+      "titulo": "El tarot de oros",
+      "tradicion": "El tarot ocultista asocia el palo de oros o pentáculos con la tierra, el cuerpo y los bienes. El Ocho muestra a un artesano en su banco: trabajo, oficio y paciencia. El Cuatro advierte del apego; el Nueve y el Diez hablan de bienestar y patrimonio.",
+      "fuente_tradicion": {
+        "cita": "Wikipedia, «Suit of coins» y «Eight of Coins» (significados según A. E. Waite)",
+        "url": "https://en.wikipedia.org/wiki/Suit_of_coins"
+      },
+      "cita": null,
+      "practica": "Pon el Ocho de Oros a la vista. Elige una habilidad que te da ingresos y practícala treinta minutos al día.",
+      "dato": "El nombre «pentáculos» procede de la baraja Rider–Waite de 1909 y no tiene base en el uso original de las cartas, que eran un juego. Así lo documenta Michael Dummett en The Game of Tarot (1980).",
+      "fuente_dato": {
+        "cita": "Dummett, M. (1980), The Game of Tarot, Duckworth, citado en Wikipedia, «Suit of coins»",
+        "url": "https://en.wikipedia.org/wiki/Suit_of_coins"
+      },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "formas-de-pensamiento",
+      "titulo": "Las formas de pensamiento",
+      "tradicion": "La Teosofía de Besant y Leadbeater enseña, como visión clarividente de sus autores, que cada pensamiento crea una vibración y una forma con color. En su tabla, el marrón rojizo apagado indica avaricia y el gris parduzco, egoísmo.",
+      "fuente_tradicion": {
+        "cita": "Besant, A. y Leadbeater, C. W., Thought-Forms, Theosophical Publishing House, Londres (Project Gutenberg, ebook 16269)",
+        "url": "https://www.gutenberg.org/cache/epub/16269/pg16269.txt"
+      },
+      "cita": {
+        "texto": "Cada pensamiento definido produce un doble efecto: una vibración que irradia y una forma que flota.",
+        "original": "Each definite thought produces a double effect—a radiating vibration and a floating form.",
+        "referencia": "Thought-Forms, «The Two Effects of Thought»"
+      },
+      "practica": "Dibuja en dos minutos, con forma y color, lo que sientes al pensar en dinero. Repite en un mes y compara.",
+      "dato": "Muchas reimpresiones dicen «First Printed 1901», pero el estudio bibliográfico de John L. Crow (2012) concluye que la primera edición es de 1905.",
+      "fuente_dato": {
+        "cita": "Crow, J. L. (2012), «Thought Forms: A Bibliographic Error», Theosophical History 16, citado en Wikipedia, «Thought-Forms»",
+        "url": "https://en.wikipedia.org/wiki/Thought-Forms"
+      },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "cabala-hermetica-frente-a-judia",
+      "titulo": "Cábala hermética frente a Cábala judía",
+      "tradicion": "La cábala hermética de la Golden Dawn y Dion Fortune usa el Árbol de la Vida como mapa de correspondencias: planetas, cartas del tarot, dioses griegos y egipcios. La Cábala judía enseña las sefirot dentro del estudio de la Torá y la práctica de los preceptos.",
+      "fuente_tradicion": {
+        "cita": "Fortune, D. (1935), The Mystical Qabalah, pp. 37-44 de la reimpresión de 1987, citado en Wikipedia, «Hermetic Qabalah»",
+        "url": "https://en.wikipedia.org/wiki/Hermetic_Qabalah"
+      },
+      "cita": null,
+      "practica": "Cuando leas una correspondencia «cabalística», anota su origen: Zóhar y tradición judía, o Golden Dawn y ocultismo moderno.",
+      "dato": "La Cábala floreció en la España del siglo XIII con el Zóhar. Pico della Mirandola (1463-1494) la llevó a círculos cristianos y la Golden Dawn, fundada en 1887, unió las 22 cartas mayores del tarot a las 22 letras hebreas.",
+      "fuente_dato": {
+        "cita": "My Jewish Learning, «Kabbalah and Mysticism 101»; Wikipedia, «Christian Kabbalah» y «Hermetic Order of the Golden Dawn»",
+        "url": "https://www.myjewishlearning.com/article/kabbalah-mysticism-101/"
+      },
+      "etiqueta": "tradicion"
+    }
+  ],
+  "glosario": [
+    { "termino": "Hermes Trismegisto", "original": "Ἑρμῆς ὁ Τρισμέγιστος", "definicion": "Figura legendaria, «tres veces grande», que combina al dios griego Hermes con el egipcio Thoth. A él se atribuyen los textos herméticos." },
+    { "termino": "Hermetica", "original": "Hermetica", "definicion": "Conjunto de textos atribuidos a Hermes. Unos son filosóficos y religiosos; otros, técnicos: astrología, medicina, alquimia y magia." },
+    { "termino": "Corpus Hermeticum", "original": "Corpus Hermeticum", "definicion": "Selección de diecisiete tratados griegos de los siglos II-III d. C., reunida por editores bizantinos y traducida al latín por Ficino." },
+    { "termino": "Tabla Esmeralda", "original": "Tabula Smaragdina", "definicion": "Texto breve y enigmático atribuido a Hermes. Su versión más antigua es árabe, de los siglos VIII-IX." },
+    { "termino": "Kybalion", "original": "The Kybalion", "definicion": "Libro publicado en Chicago en 1908 por «Three Initiates». La palabra parece griega, pero no tiene significado conocido en esa lengua." },
+    { "termino": "Nuevo Pensamiento", "original": "New Thought", "definicion": "Movimiento estadounidense de finales del siglo XIX que enseña que la mente influye en la salud y la prosperidad. A él pertenecía Atkinson." },
+    { "termino": "Gran Obra", "original": "Magnum opus", "definicion": "Proceso alquímico de trabajar la materia prima hasta obtener la piedra filosofal. También se usa como imagen de transformación personal." },
+    { "termino": "Nigredo", "original": "nigredo", "definicion": "Primera fase de la Gran Obra, el ennegrecimiento. Le siguen albedo (blanco), citrinitas (amarillo) y rubedo (rojo)." },
+    { "termino": "Correspondencias", "original": "correspondances", "definicion": "Idea de que existen vínculos reales y simbólicos entre todas las cosas del universo. Es el primer rasgo del esoterismo según Antoine Faivre." },
+    { "termino": "Pentáculos", "original": "Pentacles", "definicion": "Nombre del palo de oros en la baraja Rider–Waite de 1909. Se asocia a la tierra, el cuerpo y los bienes materiales." },
+    { "termino": "Forma de pensamiento", "original": "thought-form", "definicion": "En la Teosofía, figura con color y contorno que un pensamiento crearía en una materia sutil. Es doctrina, no un hecho observado." },
+    { "termino": "Cábala hermética", "original": "Hermetic Qabalah", "definicion": "Adaptación sincrética de la Cábala judía, nacida de la cábala cristiana del Renacimiento. Incorpora astrología, alquimia y tarot." },
+    { "termino": "Conocimiento rechazado", "original": "rejected knowledge", "definicion": "Expresión de Wouter Hanegraaff para el esoterismo: saberes que ni la ciencia ni las iglesias establecidas aceptaron." }
+  ],
+  "fuentes": [
+    { "cita": "Three Initiates (1908), The Kybalion: A Study of the Hermetic Philosophy of Ancient Egypt and Greece, Yogi Publication Society (Project Gutenberg, ebook 14209)", "url": "https://www.gutenberg.org/cache/epub/14209/pg14209.txt" },
+    { "cita": "Besant, A. y Leadbeater, C. W., Thought-Forms, Theosophical Publishing House (Project Gutenberg, ebook 16269)", "url": "https://www.gutenberg.org/cache/epub/16269/pg16269.txt" },
+    { "cita": "Chapel, N. E. (2013), «The Kybalion's New Clothes: An Early 20th Century Text's Dubious Association with Hermeticism», Journal of the Western Mystery Tradition 3(24)", "url": "http://www.jwmt.org/v3n24/chapel.html" },
+    { "cita": "Horowitz, M. (2019), «The New Age and Gnosticism: Terms of Commonality», Gnosis: Journal of Gnostic Studies 4(2), 191-215", "url": "https://doi.org/10.1163/2451859X-12340073" },
+    { "cita": "Deslippe, P. (2011), The Kybalion: The Definitive Edition, Tarcher/Penguin, pp. 18-19", "url": null },
+    { "cita": "Copenhaver, B. P. (1992), Hermetica: The Greek Corpus Hermeticum and the Latin Asclepius in a New English Translation, Cambridge University Press", "url": null },
+    { "cita": "Faivre, A. (1994), Access to Western Esotericism, State University of New York Press, pp. 10-15", "url": null },
+    { "cita": "Hanegraaff, W. J. (2012), Esotericism and the Academy: Rejected Knowledge in Western Culture, Cambridge University Press", "url": null },
+    { "cita": "Hanegraaff, W. J. (2022), Hermetic Spirituality and the Historical Imagination: Altered States of Knowledge in Late Antiquity, Cambridge University Press", "url": "https://dare.uva.nl/id/2f1d8052-4be5-4640-96e9-4c677bb11653" },
+    { "cita": "Wikipedia, «Emerald Tablet» (consultado el 14 de noviembre de 2026)", "url": "https://en.wikipedia.org/wiki/Emerald_Tablet" },
+    { "cita": "Wikipedia, «Hermetica» (consultado el 14 de noviembre de 2026)", "url": "https://en.wikipedia.org/wiki/Hermetica" },
+    { "cita": "Wikipedia, «The Kybalion» (consultado el 14 de noviembre de 2026)", "url": "https://en.wikipedia.org/wiki/The_Kybalion" },
+    { "cita": "Wikipedia, «Western esotericism» (consultado el 14 de noviembre de 2026)", "url": "https://en.wikipedia.org/wiki/Western_esotericism" },
+    { "cita": "Wikipedia, «Metals of antiquity» (consultado el 14 de noviembre de 2026)", "url": "https://en.wikipedia.org/wiki/Metals_of_antiquity" },
+    { "cita": "Agrippa, H. C. (1533), De occulta philosophia libri tres, libro I, cap. 49", "url": "https://sacred-texts.com/eso/pnm/pnm58.htm" },
+    { "cita": "My Jewish Learning, «Kabbalah and Mysticism 101»", "url": "https://www.myjewishlearning.com/article/kabbalah-mysticism-101/" }
+  ]
+}

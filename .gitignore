@@ -7,6 +7,5 @@ __pycache__/
 .DS_Store
 abundancia/design/explorations/*/shots/
 abundancia/video/frames/
-abundancia/video/salida/*.wav
-abundancia/video/salida/escena-*.jpg
+abundancia/video/salida/
 abundancia/site/qa/

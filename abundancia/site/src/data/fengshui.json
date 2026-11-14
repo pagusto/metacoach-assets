@@ -1,0 +1,235 @@
+{
+  "titulo": "Feng shui del espacio de trabajo",
+  "resumen": "El feng shui ordena el espacio con nueve palacios, cinco elementos y unas pocas reglas de colocación. Aquí lo describimos en sus propios términos y lo ponemos al lado de lo que la psicología ambiental ha medido sobre orden, luz, plantas y vistas. La tradición no está probada; algunos de sus consejos coinciden con los datos.",
+  "contexto": "Feng shui significa «viento-agua». Es una geomancia china usada durante siglos para orientar tumbas, casas y palacios. La rama de la Forma, la más antigua, lee el paisaje y el agua. La rama de la Brújula calcula con direcciones y tiempo: incluye las Ocho Mansiones y las Estrellas Voladoras. La escuela BTB, difundida por Lin Yun en Estados Unidos en los años ochenta, no usa brújula: coloca el mapa según la puerta y sitúa la riqueza al fondo a la izquierda. Las tres pueden señalar rincones distintos de la misma habitación, así que elige una y sé coherente. No hay evidencia empírica de que el feng shui produzca riqueza. Úsalo como un lenguaje para cuidar tu espacio, con respeto por su origen, y deja las decisiones de dinero a los números.",
+  "lo_shu": [[4, 9, 2], [3, 5, 7], [8, 1, 6]],
+  "palacios": [
+    {
+      "numero": 4, "trigrama": "Xun", "simbolo": "☴", "direccion": "Sureste", "posicion_btb": "fondo izquierda",
+      "elemento": "madera", "colores": ["verde", "púrpura"], "area": "Riqueza",
+      "en_el_trabajo": "La tradición lo asocia con el viento y el crecimiento paulatino. Es el lugar para una planta sana y para lo que representa tus fuentes de ingreso, siempre ordenado.",
+      "pregunta": "¿Qué fuente de ingreso creció esta semana y cuál descuidé?"
+    },
+    {
+      "numero": 9, "trigrama": "Li", "simbolo": "☲", "direccion": "Sur", "posicion_btb": "fondo centro",
+      "elemento": "fuego", "colores": ["rojo"], "area": "Fama",
+      "en_el_trabajo": "Trigrama del fuego y la claridad. En el mapa BTB es la pared que ves al entrar: pon ahí buena luz y aquello por lo que quieres ser reconocido.",
+      "pregunta": "¿Qué trabajo mío vieron otras personas esta semana?"
+    },
+    {
+      "numero": 2, "trigrama": "Kun", "simbolo": "☷", "direccion": "Suroeste", "posicion_btb": "fondo derecha",
+      "elemento": "tierra", "colores": ["amarillo", "ocre"], "area": "Relaciones",
+      "en_el_trabajo": "Trigrama de la tierra receptiva. La BTB lo dedica a las relaciones: socios, clientes y pareja. Un buen sitio para dos sillas o para la agenda de contactos.",
+      "pregunta": "¿A quién debo una respuesta, un pago o un agradecimiento?"
+    },
+    {
+      "numero": 3, "trigrama": "Zhen", "simbolo": "☳", "direccion": "Este", "posicion_btb": "centro izquierda",
+      "elemento": "madera", "colores": ["verde"], "area": "Familia",
+      "en_el_trabajo": "Trigrama del trueno y de los comienzos. La BTB lo vincula con la familia y las raíces. Sirve para los proyectos que empiezan y para lo que te sostiene.",
+      "pregunta": "¿Qué empecé esta semana y quién me apoyó?"
+    },
+    {
+      "numero": 5, "trigrama": "Centro", "simbolo": "☯", "direccion": "Centro", "posicion_btb": "centro",
+      "elemento": "tierra", "colores": ["amarillo"], "area": "Salud",
+      "en_el_trabajo": "El centro no tiene trigrama y toca a los otros ocho palacios. La BTB lo dedica a la salud. Mantenlo libre de obstáculos para poder moverte.",
+      "pregunta": "¿Dormí, comí y me moví lo suficiente para trabajar bien?"
+    },
+    {
+      "numero": 7, "trigrama": "Dui", "simbolo": "☱", "direccion": "Oeste", "posicion_btb": "centro derecha",
+      "elemento": "metal", "colores": ["blanco"], "area": "Hijos y creatividad",
+      "en_el_trabajo": "Trigrama del lago y la alegría. La BTB lo dedica a los hijos y a lo que creas. Buen lugar para prototipos, bocetos y trabajos terminados.",
+      "pregunta": "¿Qué terminé y entregué esta semana?"
+    },
+    {
+      "numero": 8, "trigrama": "Gen", "simbolo": "☶", "direccion": "Noreste", "posicion_btb": "entrada izquierda",
+      "elemento": "tierra", "colores": ["amarillo", "azul"], "area": "Conocimiento",
+      "en_el_trabajo": "Trigrama de la montaña y la quietud. La BTB lo dedica al estudio. Es el rincón natural para los libros, los cursos y un asiento para leer.",
+      "pregunta": "¿Qué aprendí esta semana que mejora mi oficio?"
+    },
+    {
+      "numero": 1, "trigrama": "Kan", "simbolo": "☵", "direccion": "Norte", "posicion_btb": "entrada centro",
+      "elemento": "agua", "colores": ["negro"], "area": "Carrera",
+      "en_el_trabajo": "Trigrama del agua. En el mapa BTB coincide con la zona de la puerta y representa el camino profesional. Mantén el paso libre y a la vista tu próxima meta.",
+      "pregunta": "¿Cuál es mi siguiente paso profesional concreto?"
+    },
+    {
+      "numero": 6, "trigrama": "Qian", "simbolo": "☰", "direccion": "Noroeste", "posicion_btb": "entrada derecha",
+      "elemento": "metal", "colores": ["blanco", "gris"], "area": "Benefactores y viajes",
+      "en_el_trabajo": "Trigrama del cielo. La BTB lo dedica a quienes te ayudan y a los viajes. Buen sitio para el teléfono, las tarjetas y las notas de agradecimiento.",
+      "pregunta": "¿A quién pedí ayuda y a quién ayudé yo?"
+    }
+  ],
+  "elementos": [
+    { "id": "madera", "nombre": "Madera", "color": "verde", "genera": "fuego", "controla": "tierra", "formas": "rectangulares y verticales", "materiales": "madera, plantas, papel, fibras vegetales", "cualidad": "Crecimiento y comienzo; la tradición la asocia con Xun y Zhen." },
+    { "id": "fuego", "nombre": "Fuego", "color": "rojo", "genera": "tierra", "controla": "metal", "formas": "triangulares y en punta", "materiales": "luz, velas, lámparas", "cualidad": "Claridad y visibilidad; es el elemento del Periodo 9." },
+    { "id": "tierra", "nombre": "Tierra", "color": "amarillo", "genera": "metal", "controla": "agua", "formas": "cuadradas y bajas", "materiales": "cerámica, barro, piedra", "cualidad": "Estabilidad y sostén; ocupa el centro del cuadrado." },
+    { "id": "metal", "nombre": "Metal", "color": "blanco", "genera": "agua", "controla": "madera", "formas": "redondas y ovaladas", "materiales": "metales, monedas, herrajes", "cualidad": "Precisión y cierre; corta la madera si hay demasiado." },
+    { "id": "agua", "nombre": "Agua", "color": "negro", "genera": "madera", "controla": "fuego", "formas": "onduladas e irregulares", "materiales": "agua, vidrio, espejos", "cualidad": "Flujo y reserva; nutre la madera del área de riqueza." }
+  ],
+  "lista": [
+    {
+      "id": "posicion-de-mando", "titulo": "Escritorio en posición de mando",
+      "tradicion": "Siéntate donde veas la puerta sin quedar en línea con ella, mejor en diagonal, con una pared sólida a la espalda. Si no puedes, la práctica propone un espejo que te deje ver la entrada.",
+      "dato": "La teoría de prospecto y refugio de Appleton (1975) sostiene que preferimos lugares desde los que se ve sin quedar expuesto. Es una teoría de preferencia: no encontramos un experimento controlado sobre la orientación del escritorio.",
+      "fuente_dato": { "cita": "Appleton (1975), The Experience of Landscape, Wiley; resumen en Wikipedia: Jay Appleton", "url": "https://en.wikipedia.org/wiki/Jay_Appleton" },
+      "peso": 2
+    },
+    {
+      "id": "mesa-despejada", "titulo": "Despeja la mesa cada tarde",
+      "tradicion": "La práctica enseña que lo acumulado estanca el qi y que cada objeto sin sitio pide atención. Se recomienda retirar papeles viejos y dejar la superficie libre al terminar.",
+      "dato": "En 60 cónyuges de parejas con dos ingresos, las mujeres que describían su casa con más palabras de desorden tuvieron un perfil de cortisol más plano y más ánimo deprimido a lo largo del día. Es una correlación.",
+      "fuente_dato": { "cita": "Saxbe y Repetti (2010), Personality and Social Psychology Bulletin 36(1): 71–81", "url": "https://doi.org/10.1177/0146167209352864" },
+      "peso": 3
+    },
+    {
+      "id": "decidir-que-se-va", "titulo": "Decide hoy qué se va",
+      "tradicion": "La tradición pide soltar lo que ya no se usa para dejar entrar lo nuevo. En la práctica: una caja de salida y una fecha fija para vaciarla.",
+      "dato": "Ferrari y Roster asociaron la procrastinación habitual con los problemas de desorden en adultos de tres generaciones: posponer la decisión de tirar va de la mano con acumular.",
+      "fuente_dato": { "cita": "Ferrari y Roster (2018), Current Psychology 37: 426–431", "url": "https://doi.org/10.1007/s12144-017-9679-4" },
+      "peso": 3
+    },
+    {
+      "id": "luz-natural", "titulo": "Trabaja cerca de la luz natural",
+      "tradicion": "La práctica favorece los espacios luminosos; los practicantes del Periodo 9, de elemento fuego, insisten en la buena luz y en un «salón luminoso» despejado.",
+      "dato": "En un estudio piloto con 49 oficinistas, quienes tenían ventanas recibieron un 173 % más de luz blanca en horario laboral y durmieron 46 minutos más por noche. No prueba causalidad.",
+      "fuente_dato": { "cita": "Boubekri et al. (2014), Journal of Clinical Sleep Medicine 10(6): 603–611", "url": "https://doi.org/10.5664/jcsm.3780" },
+      "peso": 3
+    },
+    {
+      "id": "planta-viva", "titulo": "Una planta viva a la vista",
+      "tradicion": "La madera es el elemento del área de riqueza y representa el crecimiento. La práctica recomienda plantas sanas y pide retirar las secas o enfermas.",
+      "dato": "Tres experimentos de campo en oficinas hallaron más satisfacción, concentración declarada y calidad de aire percibida con plantas. El «15 % más de productividad» viene de la nota de prensa y no fue consistente en todas las medidas.",
+      "fuente_dato": { "cita": "Nieuwenhuis, Knight, Postmes y Haslam (2014), Journal of Experimental Psychology: Applied 20(3): 199–214", "url": "https://doi.org/10.1037/xap0000024" },
+      "peso": 3
+    },
+    {
+      "id": "vista-natural", "titulo": "Una vista a algo natural",
+      "tradicion": "La escuela de la Forma lee el paisaje que rodea la casa y prefiere vistas abiertas y amables frente a muros o aristas que apunten hacia ti.",
+      "dato": "En un hospital, 23 pacientes con vista a árboles tuvieron estancias más cortas y tomaron menos analgésicos potentes que 23 pacientes emparejados con vista a un muro de ladrillo.",
+      "fuente_dato": { "cita": "Ulrich (1984), Science 224(4647): 420–421", "url": "https://doi.org/10.1126/science.6143402" },
+      "peso": 2
+    },
+    {
+      "id": "entrada-despejada", "titulo": "Entrada libre y bien iluminada",
+      "tradicion": "La práctica llama a la puerta la boca del qi: por ahí entra la energía de la casa. Se pide que abra del todo, sin trastos detrás ni delante.",
+      "dato": null,
+      "fuente_dato": null,
+      "peso": 1
+    },
+    {
+      "id": "altura-del-techo", "titulo": "Elige la altura según la tarea",
+      "tradicion": "La práctica desaconseja trabajar bajo vigas o techos opresivos y propone moverse a un lugar más abierto para pensar en grande.",
+      "dato": "En tres experimentos, los techos de unos tres metros favorecieron el pensamiento abstracto y relacional, y los de unos 2,4 metros, el concreto y de detalle.",
+      "fuente_dato": { "cita": "Meyers-Levy y Zhu (2007), Journal of Consumer Research 34(2): 174–186", "url": "https://doi.org/10.1086/519146" },
+      "peso": 2
+    },
+    {
+      "id": "color-segun-tarea", "titulo": "Color según la tarea",
+      "tradicion": "Cada elemento tiene su color: verde para la madera, rojo para el fuego, amarillo para la tierra, blanco para el metal y negro para el agua. Se usan en acentos, no en todo.",
+      "dato": "En una serie de experimentos, el rojo mejoró el rendimiento en tareas de detalle y el azul en tareas creativas (estudios 2 y 3, con 208 y 118 participantes).",
+      "fuente_dato": { "cita": "Mehta y Zhu (2009), Science 323(5918): 1226–1229", "url": "https://doi.org/10.1126/science.1169144" },
+      "peso": 2
+    },
+    {
+      "id": "rincon-xun", "titulo": "Cuida el rincón de la riqueza",
+      "tradicion": "Xun es el sureste en la brújula y el fondo a la izquierda desde la puerta en la BTB. La tradición pide tenerlo limpio, con algo vivo y sin objetos rotos.",
+      "dato": null,
+      "fuente_dato": null,
+      "peso": 1
+    },
+    {
+      "id": "agua-limpia", "titulo": "Agua limpia y hacia dentro",
+      "tradicion": "Un texto clásico dice que el qi se dispersa con el viento y se retiene con el agua. La práctica pide fuentes pequeñas, limpias, que corran hacia el interior, y nunca en el dormitorio.",
+      "dato": null,
+      "fuente_dato": null,
+      "peso": 1
+    },
+    {
+      "id": "cinco-elementos", "titulo": "Equilibra los cinco elementos",
+      "tradicion": "Madera, fuego, tierra, metal y agua se generan y se controlan en ciclo. Se busca que ninguno domine: demasiado metal, por ejemplo, corta la madera del área de riqueza.",
+      "dato": null,
+      "fuente_dato": null,
+      "peso": 1
+    },
+    {
+      "id": "un-simbolo", "titulo": "Un solo símbolo, con intención",
+      "tradicion": "Monedas con cordón rojo, sapo de tres patas o jarrón del tesoro: la tradición los trata como recordatorios de prosperidad. Mejor uno elegido con sentido que muchos acumulados.",
+      "dato": null,
+      "fuente_dato": null,
+      "peso": 1
+    },
+    {
+      "id": "numeros", "titulo": "Números: creencia que mueve precios",
+      "tradicion": "El 8 suena como «prosperar» y el 4 como «muerte»; por eso se busca uno y se evita el otro en direcciones, pisos y teléfonos.",
+      "dato": "En unas 117.000 ventas de casas, las direcciones terminadas en 4 se vendieron un 2,2 % más baratas y las terminadas en 8 un 2,5 % más caras, sobre todo en barrios con más residentes chinos.",
+      "fuente_dato": { "cita": "Fortin, Hill y Huang (2014), Economic Inquiry 52(3): 974–993", "url": "https://doi.org/10.1111/ecin.12066" },
+      "peso": 2
+    },
+    {
+      "id": "revision-semanal", "titulo": "Revisa el espacio cada semana",
+      "tradicion": "El feng shui clásico entiende que el qi cambia con el tiempo y revisa la casa por periodos y años. Aplicado a tu mesa: recorre los nueve palacios con sus preguntas una vez por semana.",
+      "dato": "El desorden de posesiones se asocia con menor bienestar subjetivo; revisar con regularidad evita que se acumule.",
+      "fuente_dato": { "cita": "Roster, Ferrari y Jurkat (2016), Journal of Environmental Psychology 46: 32–41", "url": "https://doi.org/10.1016/j.jenvp.2016.03.003" },
+      "peso": 2
+    }
+  ],
+  "simbolos": [
+    { "nombre": "Moneda redonda con hueco cuadrado", "historia": "Circuló en China desde el siglo IV a. C. hasta 1912. El hueco servía para ensartarlas. La lectura tradicional es «cielo redondo, tierra cuadrada»; en feng shui se atan con cordón rojo, color auspicioso.", "etiqueta": "documentado" },
+    { "nombre": "Sapo del dinero (Jin Chan)", "historia": "Sapo de tres patas sobre un montón de monedas, con una en la boca. Acompaña a Liu Haichan, inmortal taoísta del siglo X. La tradición pide no orientarlo hacia la puerta principal.", "etiqueta": "tradicion" },
+    { "nombre": "Árbol del dinero (Pachira)", "historia": "Árbol de humedales de Centro y Sudamérica. La trenza de cinco troncos se atribuye a un camionero taiwanés en los años ochenta; la planta trenzada que exporta Taiwán suele ser Pachira glabra.", "etiqueta": "anecdota" },
+    { "nombre": "Bambú de la suerte", "historia": "No es un bambú: es Dracaena sanderiana, nativa de África central y nombrada por el jardinero Henry Sander (1847–1920). «Lucky bamboo» es un nombre comercial.", "etiqueta": "documentado" },
+    { "nombre": "Planta de jade", "historia": "Crassula ovata, suculenta nativa de Sudáfrica y Mozambique, descrita en Inglaterra en 1768. También se la llama planta o árbol del dinero, apodo que comparte con la Pachira.", "etiqueta": "documentado" },
+    { "nombre": "Citrino", "historia": "Variedad amarilla del cuarzo. Buena parte del citrino que se vende es amatista tratada con calor. Su uso como piedra de la prosperidad es una creencia sin respaldo empírico.", "etiqueta": "documentado" },
+    { "nombre": "Jarrón del tesoro", "historia": "Uno de los ocho símbolos auspiciosos del budismo, de origen indio. En el budismo tibetano representa una fuente inagotable de larga vida y prosperidad; el feng shui popular usa un jarrón parecido.", "etiqueta": "tradicion" }
+  ],
+  "periodo": {
+    "nombre": "Periodo 9",
+    "anios": "2024–2043",
+    "texto": "Las Estrellas Voladoras dividen el tiempo en periodos de veinte años. El actual corresponde al trigrama Li, al fuego y al sur. Los practicantes lo asocian con visibilidad, tecnología y luz. Son interpretaciones, no predicciones comprobadas."
+  },
+  "estudios_economicos": [
+    {
+      "hallazgo": "En cerca de 117.000 ventas de casas en Norteamérica, las direcciones terminadas en 4 se vendieron con un 2,2 % de descuento y las terminadas en 8 con un 2,5 % de prima.",
+      "fuente": { "cita": "Fortin, Hill y Huang (2014), Superstition in the Housing Market, Economic Inquiry 52(3): 974–993", "url": "https://doi.org/10.1111/ecin.12066" }
+    },
+    {
+      "hallazgo": "En Chengdu (2004–2006), los pisos de segunda mano en plantas terminadas en 8 valían unos 235 yuanes más por metro cuadrado; en obra nueva no había prima, pero se vendían 6,9 días antes.",
+      "fuente": { "cita": "Shum, Sun y Ye (2014), Superstition and «lucky» apartments, Journal of Comparative Economics 42(1): 109–117", "url": "https://doi.org/10.1016/j.jce.2013.10.001" }
+    },
+    {
+      "hallazgo": "En 2.164 ventas de casas (1989–1996) en dos suburbios de Auckland con mucha población china, los números de la suerte quedaron incorporados al precio de venta.",
+      "fuente": { "cita": "Bourassa y Peng (1999), Hedonic Prices and House Numbers: The Influence of Feng Shui, International Real Estate Review 2(1): 79–93", "url": "https://ideas.repec.org/a/ire/issued/v02n011999p79-93.html" }
+    }
+  ],
+  "fuentes": [
+    { "cita": "Wikipedia (en), Feng shui (cita a Bruun 2003, Komjathy 2012 y Emmons 1992)", "url": "https://en.wikipedia.org/wiki/Feng_shui" },
+    { "cita": "Bruun (2003), Fengshui in China: Geomantic Divination Between State Orthodoxy and Popular Religion, University of Hawai‘i Press, pp. 52–60", "url": null },
+    { "cita": "Guo Pu, Zangshu (Libro del entierro), traducción de Stephen L. Field", "url": "https://fengshuigate.com/zangshu.html" },
+    { "cita": "Wikipedia (en), Luoshu Square (cita a Cammann 1961)", "url": "https://en.wikipedia.org/wiki/Luoshu_Square" },
+    { "cita": "Wikipedia (en), Bagua", "url": "https://en.wikipedia.org/wiki/Bagua" },
+    { "cita": "Wikipedia (en), Flying Star Feng Shui (tabla de periodos)", "url": "https://en.wikipedia.org/wiki/Flying_Star_Feng_Shui" },
+    { "cita": "Wikipedia (en), Wuxing (ciclos, colores y formas)", "url": "https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)" },
+    { "cita": "Yun Lin Temple, introducción a la escuela de Lin Yun (fuente de la propia escuela)", "url": "https://sites.google.com/site/yunlintempleusa/introduction" },
+    { "cita": "Anjie Cho, How to Lay the Bagua in BTB Feng Shui (practicante BTB)", "url": "https://www.anjiecho.com/holistic-spaces-blog/qa-sunday-btb-feng-shui-bagua" },
+    { "cita": "Wikipedia (en), Cash coins in feng shui", "url": "https://en.wikipedia.org/wiki/Cash_coins_in_feng_shui" },
+    { "cita": "Wikipedia (en), Jin Chan", "url": "https://en.wikipedia.org/wiki/Jin_Chan" },
+    { "cita": "Wikipedia (en), Pachira aquatica", "url": "https://en.wikipedia.org/wiki/Pachira_aquatica" },
+    { "cita": "Wikipedia (en), Dracaena sanderiana", "url": "https://en.wikipedia.org/wiki/Dracaena_sanderiana" },
+    { "cita": "Wikipedia (en), Crassula ovata", "url": "https://en.wikipedia.org/wiki/Crassula_ovata" },
+    { "cita": "Wikipedia (en), Citrine", "url": "https://en.wikipedia.org/wiki/Citrine" },
+    { "cita": "Encyclopedia of Buddhism, Eight auspicious symbols", "url": "https://encyclopediaofbuddhism.org/wiki/Ashtamangala" },
+    { "cita": "Wikipedia (en), Chinese numerology", "url": "https://en.wikipedia.org/wiki/Chinese_numerology" },
+    { "cita": "Saxbe y Repetti (2010), Personality and Social Psychology Bulletin 36(1): 71–81", "url": "https://doi.org/10.1177/0146167209352864" },
+    { "cita": "Ferrari y Roster (2018), Current Psychology 37: 426–431", "url": "https://doi.org/10.1007/s12144-017-9679-4" },
+    { "cita": "Roster, Ferrari y Jurkat (2016), Journal of Environmental Psychology 46: 32–41", "url": "https://doi.org/10.1016/j.jenvp.2016.03.003" },
+    { "cita": "Nieuwenhuis, Knight, Postmes y Haslam (2014), Journal of Experimental Psychology: Applied 20(3): 199–214", "url": "https://doi.org/10.1037/xap0000024" },
+    { "cita": "Boubekri et al. (2014), Journal of Clinical Sleep Medicine 10(6): 603–611", "url": "https://doi.org/10.5664/jcsm.3780" },
+    { "cita": "Appleton (1975), The Experience of Landscape, Wiley", "url": "https://en.wikipedia.org/wiki/Jay_Appleton" },
+    { "cita": "Meyers-Levy y Zhu (2007), Journal of Consumer Research 34(2): 174–186", "url": "https://doi.org/10.1086/519146" },
+    { "cita": "Ulrich (1984), Science 224(4647): 420–421", "url": "https://doi.org/10.1126/science.6143402" },
+    { "cita": "Mehta y Zhu (2009), Science 323(5918): 1226–1229", "url": "https://doi.org/10.1126/science.1169144" },
+    { "cita": "Fortin, Hill y Huang (2014), Economic Inquiry 52(3): 974–993", "url": "https://doi.org/10.1111/ecin.12066" },
+    { "cita": "Shum, Sun y Ye (2014), Journal of Comparative Economics 42(1): 109–117", "url": "https://doi.org/10.1016/j.jce.2013.10.001" },
+    { "cita": "Bourassa y Peng (1999), International Real Estate Review 2(1): 79–93", "url": "https://ideas.repec.org/a/ire/issued/v02n011999p79-93.html" }
+  ]
+}
