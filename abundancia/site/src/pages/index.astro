@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import Caja from '../components/Caja.astro';
+import datos from '../data/prueba.json';
+const entradas = import.meta.glob('../content/diario/*.md', { eager: true });
+const lista = Object.values(entradas) as any[];
+---
+<Base title="Shefa">
+  <h1>Shefa</h1>
+  {datos.items.map((i) => <Caja titulo={i.titulo}><p>{i.id}</p></Caja>)}
+  <ul>{lista.map((e) => <li>{e.frontmatter.titulo} — <Fragment set:html={e.compiledContent ? '' : ''} /></li>)}</ul>
+  <p id="out"></p>
+</Base>
+<script>
+  import { hola } from '../lib/store';
+  const el = document.getElementById('out');
+  if (el) el.textContent = hola('mundo');
+</script>

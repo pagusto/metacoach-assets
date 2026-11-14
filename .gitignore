@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.vercel/
+__pycache__/
+*.pyc
+.DS_Store
+abundancia/design/explorations/*/shots/
+abundancia/video/frames/
