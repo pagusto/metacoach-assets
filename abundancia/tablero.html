@@ -1,0 +1,431 @@
+<title>Tablero de Abundancia</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: un libro mayor. Arriba la declaración y la cifra; en el centro el
+   registro de fuentes de ingreso; al lado el ritual diario; debajo el plan y la evidencia. */
+:root{
+  --paper:#EDF1EC; --surface:#F8FAF7; --ink:#14231C; --muted:#5B6B62; --rule:#C9D3CB;
+  --green:#1F5A41; --brass:#8F6A14; --good:#1F7A4D; --warn:#9A5B00;
+  --display:"Bodoni Moda","Didot","Georgia",serif;
+  --body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0D1512; --surface:#141E1A; --ink:#E6EEE8; --muted:#93A69B; --rule:#2A3A32;
+  --green:#6FCB9F; --brass:#D9B45A; --good:#6FCB9F; --warn:#E6A94B; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --paper:#0D1512; --surface:#141E1A; --ink:#E6EEE8; --muted:#93A69B; --rule:#2A3A32;
+  --green:#6FCB9F; --brass:#D9B45A; --good:#6FCB9F; --warn:#E6A94B; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1120px;margin:0 auto;padding-block:28px 56px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
+  display:flex;flex-direction:column;gap:32px}
+h1,h2{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.05}
+h2{font-size:22px}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hint{color:var(--muted);font-size:13px;margin:0;max-width:65ch}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+
+/* cabecera */
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;
+  border-bottom:3px double var(--rule);padding-bottom:16px}
+.top .meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.06em;border:1px solid var(--rule);border-radius:99px;padding:3px 10px;color:var(--muted)}
+.pill[data-s="ok"]{color:var(--good);border-color:var(--good)}
+.pill[data-s="local"]{color:var(--warn);border-color:var(--warn)}
+
+/* declaración + cifra */
+.creed{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:stretch}
+.creed > div{min-width:0;display:flex;flex-direction:column;gap:8px}
+textarea,input[type=text],input[type=number],select{background:transparent;border:0;border-bottom:1px solid var(--rule);
+  padding:6px 2px;width:100%;border-radius:0}
+textarea{resize:vertical;min-height:72px}
+#manifesto{font-family:var(--display);font-size:clamp(18px,2.4vw,23px);line-height:1.35;min-height:120px;
+  border:1px solid var(--rule);padding:14px 16px;background:var(--surface)}
+.mirror{border:1px solid var(--brass);background:var(--surface);padding:16px;gap:6px!important;justify-content:center}
+.mirror input{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,56px);line-height:1.1;
+  color:var(--brass);border:0;padding:0;font-variant-numeric:tabular-nums}
+.mirror .row{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.mirror .row input{font:inherit;font-family:var(--mono);font-size:13px;color:var(--ink);border-bottom:1px solid var(--rule);width:auto;flex:1 1 120px;padding:4px 2px}
+
+/* resumen */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-block:1px solid var(--rule)}
+.stat{padding:14px 16px 14px 0;min-width:0}
+.stat + .stat{border-left:1px solid var(--rule);padding-left:16px}
+.stat b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(24px,4vw,36px);line-height:1.15;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.stat span{color:var(--muted);font-size:13px}
+.meter{height:14px;border:1px solid var(--rule);background:var(--surface);display:flex;gap:2px;padding:2px;margin-top:10px}
+.meter i{display:block;background:var(--green);min-width:2px}
+.meter-cap{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px;gap:8px}
+
+/* cuerpo */
+.cols{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:32px}
+.cols > section{min-width:0;display:flex;flex-direction:column;gap:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.btn{border:1px solid var(--ink);background:transparent;padding:6px 12px;cursor:pointer;font-weight:500;font-size:13px}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.quiet{border-color:var(--rule);color:var(--muted)}
+.x{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:4px 6px}
+.x:hover{color:var(--warn)}
+
+/* libro de fuentes */
+.ledger{border-top:2px solid var(--ink)}
+.lrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,.9fr) minmax(0,.8fr) 28px;gap:10px;align-items:end;
+  padding:10px 0;border-bottom:1px solid var(--rule)}
+.lrow.lhead{padding:6px 0;align-items:center}
+.lrow .next{grid-column:1 / -1}
+.lrow .next input{border-bottom:0;color:var(--muted)}
+.lrow input.amt{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.lrow .tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
+.lrow label{display:none}
+.banner{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  border:1px dashed var(--brass);padding:8px 12px;font-size:13px;color:var(--muted)}
+
+/* ritual */
+.ritual{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.ritual li{border-bottom:1px solid var(--rule)}
+.ritual label{display:flex;gap:10px;align-items:flex-start;padding:10px 0;cursor:pointer}
+.ritual input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--green);flex:none}
+.ritual input:checked + span{color:var(--muted);text-decoration:line-through}
+.ritual small{display:block;color:var(--muted);font-size:12px}
+.strip{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:3px}
+.strip i{display:block;aspect-ratio:1;border:1px solid var(--rule);background:var(--green);--o:0}
+.strip i{background:color-mix(in srgb, var(--green) calc(var(--o) * 100%), var(--surface))}
+.strip i.today{outline:2px solid var(--brass);outline-offset:1px}
+
+/* woop + evidencias */
+.woop{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 24px}
+.woop div{min-width:0;display:flex;flex-direction:column;gap:4px}
+.wins{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.wins li{display:flex;gap:12px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--rule)}
+.wins time{font-family:var(--mono);font-size:11px;color:var(--muted);flex:none}
+.wins span{flex:1;min-width:0;overflow-wrap:anywhere}
+.add{display:flex;gap:10px;align-items:end}
+.add input{flex:1;min-width:0}
+.empty{color:var(--muted);font-size:13px;padding:10px 0}
+
+/* notas de evidencia */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-top:3px double var(--rule);padding-top:20px}
+.facts div{min-width:0}
+.facts h3{font-family:var(--body);font-size:14px;font-weight:600;margin:4px 0}
+.facts p{margin:0;color:var(--muted);font-size:13px}
+
+@media (max-width:760px){
+  .creed,.cols,.facts{grid-template-columns:minmax(0,1fr)}
+  .stats{grid-template-columns:minmax(0,1fr)}
+  .stat + .stat{border-left:0;border-top:1px solid var(--rule);padding-left:0}
+  .lrow.lhead{display:none}
+  .lrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 28px}
+  .lrow .name{grid-column:1 / -1}
+  .lrow .amt-c{grid-column:1 / 3}
+  .lrow label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .woop{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="label" id="today"></div>
+      <h1>Tablero de Abundancia</h1>
+    </div>
+    <div class="meta">
+      <span class="pill" id="status" data-s="load">Cargando…</span>
+    </div>
+  </header>
+
+  <section class="creed" aria-label="Declaración y cifra">
+    <div>
+      <label class="label" for="manifesto">Mi declaración · léela en voz alta cada mañana</label>
+      <textarea id="manifesto" placeholder="Soy… Trabajo así… Voy a dominar…"></textarea>
+      <p class="hint">En presente: quién eres y cómo trabajas. Michael Jackson escribió la suya a los 21 años en el reverso de un itinerario de gira: nuevo nombre, nuevo personaje y el compromiso de estudiar y entrenar hasta dominar su oficio.</p>
+    </div>
+    <div class="mirror">
+      <label class="label" for="number">La cifra en el espejo</label>
+      <input type="text" id="number" inputmode="text" placeholder="10.000 / mes" autocomplete="off">
+      <div class="row">
+        <label class="label" for="deadline">Para</label>
+        <input type="text" id="deadline" placeholder="fecha concreta" autocomplete="off">
+      </div>
+      <p class="hint">Una sola cifra con fecha. Abajo se mide contra lo que realmente entra.</p>
+    </div>
+  </section>
+
+  <section aria-label="Resumen">
+    <div class="stats">
+      <div class="stat"><span class="label">Ingreso mensual real</span><b id="s-total">0</b><span id="s-pct"></span></div>
+      <div class="stat"><span class="label">Fuentes que ya ingresan</span><b id="s-live">0</b><span id="s-pipe"></span></div>
+      <div class="stat"><span class="label">Racha del ritual</span><b id="s-streak">0</b><span>días seguidos con 4 de 5 pasos</span></div>
+    </div>
+    <div class="meter" id="meter" role="img" aria-label="Ingreso por fuente frente a la meta"></div>
+    <div class="meter-cap"><span>0</span><span id="meter-goal"></span></div>
+  </section>
+
+  <div class="cols">
+    <section>
+      <div class="head">
+        <h2>Fuentes de ingreso</h2>
+        <div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap">
+          <label class="label" for="goal">Meta / mes</label>
+          <input type="number" id="goal" min="0" step="100" style="width:110px;font-family:var(--mono);text-align:right">
+          <button class="btn" id="add-stream" type="button">Añadir fuente</button>
+        </div>
+      </div>
+      <p class="hint">Primero una fuente que ingrese de verdad; después la segunda. Cada fila necesita una próxima acción concreta.</p>
+      <div class="banner" id="ex-banner" hidden><span>Las filas marcadas «ejemplo» son de muestra, no son tus datos.</span><button class="btn quiet" id="clear-ex" type="button">Borrar ejemplos</button></div>
+      <div class="ledger" id="ledger"></div>
+    </section>
+
+    <section>
+      <div class="head"><h2>Ritual de hoy</h2><span class="label" id="r-count"></span></div>
+      <ul class="ritual" id="ritual"></ul>
+      <div>
+        <div class="label" style="margin-bottom:6px">Últimos 14 días</div>
+        <div class="strip" id="strip"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="cols">
+    <section>
+      <div class="head"><h2>Plan WOOP de la semana</h2></div>
+      <p class="hint">Contraste mental (Oettingen): imaginar el resultado y, enseguida, el obstáculo interno. Fantasear solo con el resultado reduce el esfuerzo.</p>
+      <div class="woop">
+        <div><label class="label" for="w-wish">Deseo (alcanzable en 7 días)</label><textarea id="w-wish"></textarea></div>
+        <div><label class="label" for="w-outcome">Resultado (cómo se sentirá)</label><textarea id="w-outcome"></textarea></div>
+        <div><label class="label" for="w-obstacle">Obstáculo (dentro de mí)</label><textarea id="w-obstacle"></textarea></div>
+        <div><label class="label" for="w-plan">Plan: si [obstáculo], entonces [acción]</label><textarea id="w-plan"></textarea></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="head"><h2>Evidencias</h2></div>
+      <p class="hint">Hechos, no deseos: un cliente nuevo, una factura cobrada, un «sí».</p>
+      <form class="add" id="win-form">
+        <input type="text" id="win-text" placeholder="Hoy conseguí…" autocomplete="off" aria-label="Nueva evidencia">
+        <button class="btn" type="submit">Anotar</button>
+      </form>
+      <ul class="wins" id="wins"></ul>
+    </section>
+  </div>
+
+  <section class="facts" aria-label="Qué está documentado">
+    <div><span class="label">Michael Jackson</span><h3>La declaración funcionó junto a la propiedad</h3><p>Escribió su manifiesto en 1979. Su fortuna vino de ser dueño: compró el catálogo ATV por 47,5 millones de dólares en 1985. Aun así murió con más de 500 millones en deudas, porque gastaba más de lo que entraba.</p></div>
+    <div><span class="label">Informe Gateway</span><h3>Es un informe del Ejército, no una prueba</h3><p>El documento de 1983, desclasificado por la CIA en 2003, describe unas cintas de relajación profunda con audio. No demuestra que la mente atraiga dinero. Úsalo como técnica de enfoque, nada más.</p></div>
+    <div><span class="label">Reprogramación</span><h3>Lo que sí cambia la conducta</h3><p>Visualizar el proceso, planes «si… entonces…», repetición diaria durante unos dos meses y un entorno que haga fácil la acción. Desconfía de cualquier método que prometa dinero rápido.</p></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var K = "tablero-abundancia-v1";
+  var RITUAL = [
+    ["Leer mi declaración en voz alta", "2 min"],
+    ["Visualizar el proceso de hoy, paso a paso", "5 min, con respiración lenta"],
+    ["Nombrar el obstáculo de hoy y mi «si… entonces…»", "1 min"],
+    ["Bloque sin distracciones en la acción que genera ingreso", "90 min"],
+    ["Anotar el dinero que entró y salió, y una evidencia", "noche, 3 min"]
+  ];
+  var TYPES = ["Servicio", "Producto", "Digital", "Activo"];
+  var STATES = ["idea", "probando", "ingresando"];
+  var state = {
+    manifesto: "", number: "", deadline: "", goal: 10000,
+    streams: [
+      {id:"e1", name:"Servicio principal (lo que ya sé vender)", type:"Servicio", status:"ingresando", amount:3200, next:"Subir precio 10 % a clientes nuevos", ej:true},
+      {id:"e2", name:"Contratos recurrentes mensuales", type:"Servicio", status:"probando", amount:600, next:"Ofrecer plan mensual a 5 clientes actuales", ej:true},
+      {id:"e3", name:"Guía o curso digital de mi oficio", type:"Digital", status:"idea", amount:0, next:"Escribir el índice y validarlo con 3 personas", ej:true}
+    ],
+    ritual: {}, woop: {wish:"", outcome:"", obstacle:"", plan:""}, wins: []
+  };
+  var ref = null, saveTimer = null, saving = false, dirty = false;
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+  var money = function(n){ return new Intl.NumberFormat("es", {maximumFractionDigits:0}).format(n || 0); };
+  var dayKey = function(d){ return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); };
+  var todayKey = dayKey(new Date());
+  var uid = function(){ return "s" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); };
+
+  function merge(d){
+    var s = Object.assign({}, state, d || {});
+    s.streams = Array.isArray(s.streams) ? s.streams : [];
+    s.wins = Array.isArray(s.wins) ? s.wins : [];
+    s.ritual = s.ritual && typeof s.ritual === "object" ? s.ritual : {};
+    s.woop = Object.assign({wish:"", outcome:"", obstacle:"", plan:""}, s.woop || {});
+    return s;
+  }
+  function setStatus(s){
+    var el = $("status"); el.dataset.s = s;
+    el.textContent = {load:"Cargando…", ok:"Guardado en tu cuenta", saving:"Guardando…", local:"Guardado solo en este dispositivo", err:"No se pudo guardar"}[s];
+  }
+  function changed(){
+    try { localStorage.setItem(K, JSON.stringify(state)); } catch(e){}
+    if (!ref) return;
+    dirty = true; setStatus("saving");
+    clearTimeout(saveTimer); saveTimer = setTimeout(flush, 900);
+  }
+  function flush(){
+    if (!ref || saving || !dirty) return;
+    saving = true; dirty = false;
+    ref.set(JSON.parse(JSON.stringify(state))).then(function(){
+      saving = false; if (dirty) flush(); else setStatus("ok");
+    }, function(){ saving = false; setStatus("err"); });
+  }
+
+  function doneCount(k){ var a = state.ritual[k] || []; return a.filter(Boolean).length; }
+  function streak(){
+    var d = new Date(), n = 0;
+    if (doneCount(dayKey(d)) < 4) d.setDate(d.getDate() - 1);
+    while (doneCount(dayKey(d)) >= 4) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+  function renderSummary(){
+    var total = 0, live = 0, pipe = 0, segs = "";
+    state.streams.forEach(function(s){ var a = +s.amount || 0; total += a; if (s.status === "ingresando") live++; else pipe++; });
+    var goal = +state.goal || 0, scale = Math.max(goal, total, 1);
+    state.streams.forEach(function(s){ var a = +s.amount || 0; if (a > 0) segs += '<i style="width:' + (a / scale * 100) + '%" title="' + esc(s.name) + ": " + money(a) + '"></i>'; });
+    $("s-total").textContent = money(total);
+    $("s-pct").textContent = goal ? Math.round(total / goal * 100) + " % de la meta de " + money(goal) : "Define tu meta mensual";
+    $("s-live").textContent = live;
+    $("s-pipe").textContent = pipe + (pipe === 1 ? " más en preparación" : " más en preparación");
+    $("s-streak").textContent = streak();
+    $("meter").innerHTML = segs;
+    $("meter-goal").textContent = "meta " + money(scale);
+  }
+  function opts(list, v){ return list.map(function(o){ return '<option' + (o === v ? " selected" : "") + ">" + o + "</option>"; }).join(""); }
+  function renderLedger(){
+    var h = '<div class="lrow lhead"><span class="label">Fuente</span><span class="label">Tipo</span><span class="label">Estado</span><span class="label" style="text-align:right">Al mes</span><span></span></div>';
+    if (!state.streams.length) h += '<div class="empty">Aún no hay fuentes. Añade la primera: lo que ya sabes vender hoy.</div>';
+    state.streams.forEach(function(s){
+      var i = esc(s.id);
+      h += '<div class="lrow" data-id="' + i + '">' +
+        '<div class="name">' + (s.ej ? '<span class="tag">ejemplo</span>' : "") + '<label for="n-' + i + '">Fuente</label><input type="text" id="n-' + i + '" data-f="name" value="' + esc(s.name) + '" placeholder="Nombre de la fuente"></div>' +
+        '<div><label for="t-' + i + '">Tipo</label><select id="t-' + i + '" data-f="type" aria-label="Tipo">' + opts(TYPES, s.type) + '</select></div>' +
+        '<div><label for="e-' + i + '">Estado</label><select id="e-' + i + '" data-f="status" aria-label="Estado">' + opts(STATES, s.status) + '</select></div>' +
+        '<div class="amt-c"><label for="a-' + i + '">Al mes</label><input class="amt" type="number" min="0" step="50" id="a-' + i + '" data-f="amount" value="' + esc(s.amount) + '" aria-label="Ingreso mensual"></div>' +
+        '<button class="x" type="button" data-del="' + i + '" aria-label="Quitar ' + esc(s.name) + '">×</button>' +
+        '<div class="next"><input type="text" id="x-' + i + '" data-f="next" value="' + esc(s.next) + '" placeholder="Próxima acción concreta" aria-label="Próxima acción"></div>' +
+      '</div>';
+    });
+    $("ledger").innerHTML = h;
+    $("ex-banner").hidden = !state.streams.some(function(s){ return s.ej; });
+  }
+  function renderRitual(){
+    var a = state.ritual[todayKey] || [];
+    $("ritual").innerHTML = RITUAL.map(function(r, i){
+      return '<li><label><input type="checkbox" id="r-' + i + '" data-r="' + i + '"' + (a[i] ? " checked" : "") + '><span>' + r[0] + '<small>' + r[1] + '</small></span></label></li>';
+    }).join("");
+    renderStrip();
+  }
+  function renderStrip(){
+    var h = "", d = new Date(); d.setDate(d.getDate() - 13);
+    for (var i = 0; i < 14; i++) {
+      var k = dayKey(d), n = doneCount(k);
+      h += '<i style="--o:' + (n / RITUAL.length) + '"' + (k === todayKey ? ' class="today"' : "") + ' title="' + k + ": " + n + " de " + RITUAL.length + '"></i>';
+      d.setDate(d.getDate() + 1);
+    }
+    $("strip").innerHTML = h;
+    $("r-count").textContent = doneCount(todayKey) + " de " + RITUAL.length;
+  }
+  function renderWins(){
+    $("wins").innerHTML = state.wins.length ? state.wins.map(function(w){
+      return '<li><time>' + esc(w.date) + '</time><span>' + esc(w.text) + '</span><button class="x" type="button" data-win="' + esc(w.id) + '" aria-label="Quitar">×</button></li>';
+    }).join("") : '<li class="empty">Tu primera evidencia aparecerá aquí.</li>';
+  }
+  function renderAll(){
+    $("today").textContent = new Date().toLocaleDateString("es", {weekday:"long", day:"numeric", month:"long", year:"numeric"});
+    $("manifesto").value = state.manifesto; $("number").value = state.number; $("deadline").value = state.deadline;
+    $("goal").value = state.goal;
+    $("w-wish").value = state.woop.wish; $("w-outcome").value = state.woop.outcome;
+    $("w-obstacle").value = state.woop.obstacle; $("w-plan").value = state.woop.plan;
+    renderLedger(); renderRitual(); renderWins(); renderSummary();
+  }
+
+  // campos simples
+  [["manifesto","manifesto"],["number","number"],["deadline","deadline"]].forEach(function(p){
+    $(p[0]).addEventListener("input", function(e){ state[p[1]] = e.target.value; changed(); });
+  });
+  $("goal").addEventListener("input", function(e){ state.goal = +e.target.value || 0; renderSummary(); changed(); });
+  ["wish","outcome","obstacle","plan"].forEach(function(f){
+    $("w-" + f).addEventListener("input", function(e){ state.woop[f] = e.target.value; changed(); });
+  });
+
+  // fuentes
+  function onLedger(e){
+    var f = e.target.dataset.f; if (!f) return;
+    var row = e.target.closest(".lrow"), s = state.streams.find(function(x){ return x.id === row.dataset.id; });
+    if (!s) return;
+    s[f] = f === "amount" ? (+e.target.value || 0) : e.target.value;
+    if (s.ej) { delete s.ej; var t = row.querySelector(".tag"); if (t) t.remove(); $("ex-banner").hidden = !state.streams.some(function(x){ return x.ej; }); }
+    renderSummary(); changed();
+  }
+  $("ledger").addEventListener("input", onLedger);
+  $("ledger").addEventListener("change", onLedger);
+  $("ledger").addEventListener("click", function(e){
+    var id = e.target.dataset.del; if (!id) return;
+    state.streams = state.streams.filter(function(x){ return x.id !== id; });
+    renderLedger(); renderSummary(); changed();
+  });
+  $("add-stream").addEventListener("click", function(){
+    var s = {id:uid(), name:"", type:"Servicio", status:"idea", amount:0, next:""};
+    state.streams.push(s); renderLedger(); renderSummary(); changed();
+    var el = $("n-" + s.id); if (el) el.focus();
+  });
+  $("clear-ex").addEventListener("click", function(){
+    state.streams = state.streams.filter(function(x){ return !x.ej; });
+    renderLedger(); renderSummary(); changed();
+  });
+
+  // ritual
+  $("ritual").addEventListener("change", function(e){
+    var i = e.target.dataset.r; if (i == null) return;
+    var a = (state.ritual[todayKey] || []).slice();
+    for (var j = 0; j < RITUAL.length; j++) a[j] = !!a[j];
+    a[+i] = e.target.checked; state.ritual[todayKey] = a;
+    renderStrip(); renderSummary(); changed();
+  });
+
+  // evidencias
+  $("win-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var t = $("win-text").value.trim(); if (!t) return;
+    state.wins.unshift({id:uid(), date:todayKey, text:t}); $("win-text").value = "";
+    renderWins(); changed();
+  });
+  $("wins").addEventListener("click", function(e){
+    var id = e.target.dataset.win; if (!id) return;
+    state.wins = state.wins.filter(function(w){ return w.id !== id; });
+    renderWins(); changed();
+  });
+
+  // arranque: primero lo local, luego la cuenta
+  var local = null;
+  try { var raw = localStorage.getItem(K); if (raw) local = JSON.parse(raw); } catch(e){}
+  if (local) state = merge(local);
+  renderAll();
+
+  var settled = false;
+  var timer = setTimeout(function(){ if (!settled) { settled = true; setStatus("local"); } }, 10000);
+  (async function(){
+    try {
+      var c = window.claude;
+      if (!c || !c.use) throw 0;
+      var got = await Promise.all([c.use("db"), c.use("user")]);
+      var db = got[0], user = got[1], id = user ? await user.id() : null;
+      if (!db || !id) throw 0;
+      var r = db.doc("data/users/" + id + "/tablero");
+      var snap = await r.get();
+      ref = r;
+      if (snap.exists) { state = merge(snap.data()); renderAll(); try { localStorage.setItem(K, JSON.stringify(state)); } catch(e){} }
+      settled = true; clearTimeout(timer); setStatus("ok");
+      if (!snap.exists && local) { dirty = true; flush(); }
+    } catch(e) {
+      settled = true; clearTimeout(timer); setStatus("local");
+    }
+  })();
+})();
+</script>
