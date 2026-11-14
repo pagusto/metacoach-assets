@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Riquezas y colores · Shefa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Frank+Ruhl+Libre:wght@300..900&display=block" rel="stylesheet">
+<style>
+/* ==========================================================================
+   «Riquezas y colores» · película tipográfica de Shefa
+   Escenario fijo de 1920 × 1080. Márgenes de seguridad de 96 px.
+   Retícula de nueve palacios: 3 × 3 celdas de 640 × 360.
+   Todo el movimiento vive en una sola línea de tiempo de GSAP, en pausa.
+   ========================================================================== */
+:root {
+  --papel: #FAF9F6;
+  --tinta: #141412;
+  --oro: #D9B65A;
+  --agua: #0070B4;
+  --fuego: #D5281B;
+  --fuente: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --fuente-he: "Frank Ruhl Libre", serif;
+}
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #0B0B0A; }
+#escenario {
+  position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden;
+  transform-origin: 0 0; background: var(--papel);
+  font-family: var(--fuente); font-synthesis: none;
+  -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision;
+  font-kerning: normal; cursor: pointer;
+}
+#escenario * { box-sizing: border-box; }
+p, h1, h2 { margin: 0; font-weight: inherit; }
+
+/* ---------- Escena ---------- */
+.esc {
+  position: absolute; inset: 0; overflow: hidden; visibility: hidden;
+  background: var(--bg); color: var(--fg);
+  --fg2: color-mix(in srgb, var(--fg) 80%, var(--bg));
+  --fg3: color-mix(in srgb, var(--fg) 24%, var(--bg));
+}
+#e1 { visibility: visible; }
+
+/* Entrada por la retícula: nueve celdas que se abren */
+.esc.rej {
+  -webkit-mask-image: linear-gradient(#000,#000), linear-gradient(#000,#000), linear-gradient(#000,#000),
+    linear-gradient(#000,#000), linear-gradient(#000,#000), linear-gradient(#000,#000),
+    linear-gradient(#000,#000), linear-gradient(#000,#000), linear-gradient(#000,#000);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: 0 0, 640px 0, 1280px 0, 0 360px, 640px 360px, 1280px 360px, 0 720px, 640px 720px, 1280px 720px;
+  -webkit-mask-size:
+    calc(var(--w1) * 641px) calc(var(--h1) * 361px), calc(var(--w2) * 641px) calc(var(--h2) * 361px), calc(var(--w3) * 641px) calc(var(--h3) * 361px),
+    calc(var(--w4) * 641px) calc(var(--h4) * 361px), calc(var(--w5) * 641px) calc(var(--h5) * 361px), calc(var(--w6) * 641px) calc(var(--h6) * 361px),
+    calc(var(--w7) * 641px) calc(var(--h7) * 361px), calc(var(--w8) * 641px) calc(var(--h8) * 361px), calc(var(--w9) * 641px) calc(var(--h9) * 361px);
+}
+/* Entrada por la moneda: el hueco cuadrado se abre hasta ocupar el cuadro */
+.esc.mon {
+  --s: 0; --cx: 960; --cy: 540;
+  -webkit-mask-image: linear-gradient(#000,#000);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: calc(var(--s) * 1px) calc(var(--s) * 1px);
+  -webkit-mask-position: calc((var(--cx) - var(--s) / 2) * 1px) calc((var(--cy) - var(--s) / 2) * 1px);
+}
+.disco {
+  position: absolute; inset: 0; visibility: hidden; --r: 0; --cx: 960; --cy: 540;
+  clip-path: circle(calc(var(--r) * 1px) at calc(var(--cx) * 1px) calc(var(--cy) * 1px));
+}
+
+/* ---------- Cabecera, filete, pie y línea de avance ---------- */
+.cab { position: absolute; left: 96px; right: 96px; top: 96px; height: 48px; display: flex; align-items: center; }
+.cab-n { font: 700 50px/48px var(--fuente); font-stretch: 75%; margin-right: 18px; min-width: 22px; }
+.cab-t { font: 600 28px/48px var(--fuente); letter-spacing: -0.005em; }
+.cab-k { margin-left: auto; margin-right: 20px; font: 400 26px/48px var(--fuente); color: var(--fg2); }
+.cab .loc { width: 48px; height: 48px; flex: none; }
+.cab .moneda { width: 40px; height: 40px; margin-right: 14px; flex: none; fill: currentColor; }
+.cab .he { font: 500 30px/48px var(--fuente-he); margin-left: 14px; color: var(--fg2); }
+.filete { position: absolute; left: 96px; right: 96px; top: 166px; height: 2px; background: var(--fg); }
+.pie {
+  position: absolute; left: 96px; right: 96px; bottom: 116px; height: 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  font: 400 24px/32px var(--fuente); letter-spacing: 0.002em; color: var(--fg2);
+}
+.pie .moneda { width: 28px; height: 28px; fill: var(--fg); flex: none; margin-left: auto; }
+.prog { position: absolute; left: 96px; right: 96px; bottom: 96px; height: 2px; background: var(--fg3); }
+.prog i { display: block; width: 100%; height: 100%; background: var(--fg); transform-origin: 0 50%; }
+
+/* ---------- Tipografía ---------- */
+.l { display: block; overflow: hidden; white-space: nowrap; padding: .16em .12em .24em 0; margin: -.16em -.12em -.24em 0; }
+.l > span { display: inline-block; }
+.cifra {
+  position: absolute; left: 96px;
+  font: 700 480px/0.9 var(--fuente); font-stretch: 75%; letter-spacing: -0.012em; white-space: nowrap;
+}
+.cifra .l { padding: 0 .1em .14em 0; margin: 0 -.1em -.14em 0; }
+.cifra .c { display: inline-block; }
+.cifra .u {
+  display: inline-block; margin-left: 30px;
+  font: 500 68px/1 var(--fuente); font-stretch: 100%; letter-spacing: -0.02em;
+}
+.voz { position: absolute; left: 96px; font: 500 68px/76px var(--fuente); letter-spacing: -0.02em; }
+.voz, .titulo, .lema, .rot { display: flex; flex-direction: column; align-items: flex-start; }
+.nota { font-weight: 400; font-size: 44px; line-height: 52px; letter-spacing: -0.012em; }
+.pre { position: absolute; left: 96px; font: 500 40px/48px var(--fuente); letter-spacing: -0.01em; }
+i, cite { font-style: italic; }
+.g { position: absolute; }
+
+/* ---------- 1 · Título ---------- */
+.titulo { position: absolute; left: 96px; top: 276px; font: 600 212px/1.03 var(--fuente); letter-spacing: -0.038em; }
+.titulo .l { padding: .1em .12em .16em 0; margin: -.1em -.12em -.16em 0; }
+#e1 .sub { top: 752px; }
+.cons { position: absolute; left: 1284px; top: 270px; width: 540px; height: 540px; overflow: visible; }
+.cons .marco { fill: none; stroke: var(--tinta); stroke-width: 2; }
+.cons .hilo { fill: none; stroke: var(--tinta); stroke-width: 1; }
+.cons .canto { fill: none; stroke: var(--tinta); stroke-width: 2; }
+.cons text { font: 700 36px var(--fuente); font-stretch: 75%; fill: var(--tinta); }
+
+/* ---------- 2 · Oro ---------- */
+#e2 .moneda-lidia { left: 1384px; top: 252px; width: 440px; height: 440px; border-radius: 50%; background: var(--tinta); }
+
+/* ---------- 3 · Púrpura ---------- */
+#e3 .cifra { font-size: 320px; }
+#e3 .puntos { left: 1408px; top: 236px; width: 416px; height: 504px; }
+#e3 .ribete { left: 1408px; top: 729px; width: 400px; height: 2px; background: var(--fg); transform-origin: 100% 50%; }
+#e3 .puntos i { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--fg); }
+
+/* ---------- 4 · Malva ---------- */
+#e4 .tachado { position: relative; }
+#e4 .tachado b { position: absolute; left: -6px; right: -6px; top: 54%; height: 5px; background: var(--fg); transform-origin: 0 50%; font-size: 0; }
+#e4 .muestra { left: 1384px; top: 252px; width: 440px; height: 440px; }
+#e4 .muestra .tinte { position: absolute; inset: 0; background: #5B2A6E; transform-origin: 50% 100%; }
+#e4 .muestra .gota { position: absolute; left: 110px; top: 110px; width: 220px; height: 220px; border-radius: 50%; background: var(--bg); }
+#e4 .muestra svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+#e4 .muestra rect { fill: none; stroke: var(--fg); stroke-width: 3; }
+
+/* ---------- 5 · Verde ---------- */
+#e5 .billete { left: 1264px; top: 318px; width: 560px; height: 239px; }
+#e5 .billete > div { position: absolute; inset: 0; }
+#e5 .anv { background: var(--papel); }
+#e5 .rev { background: #58B089; }
+#e5 .billete svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+#e5 .anv svg * { fill: none; stroke: #1E5C45; stroke-width: 2; }
+#e5 .rev svg * { fill: none; stroke: #1E5C45; stroke-width: 2; }
+#e5 .rev svg .lleno { fill: #1E5C45; stroke: none; }
+
+/* ---------- 6 · Rojo, sobre ---------- */
+#e6 .sobre { left: 1304px; top: 252px; width: 520px; height: 624px; background: var(--fuego); }
+#e6 .sobre svg.solapa { position: absolute; inset: 0; width: 100%; height: 100%; }
+#e6 .sobre svg.solapa path { fill: none; stroke: var(--papel); stroke-width: 3; }
+#e6 .broche { position: absolute; left: 212px; top: 182px; width: 96px; height: 96px; }
+#e6 .broche path { fill: var(--oro); }
+#e6 .movil { left: 1414px; top: 252px; width: 300px; height: 624px; overflow: visible; }
+#e6 .movil rect { fill: none; stroke: var(--tinta); stroke-width: 4; }
+
+/* ---------- 7 · Dhanteras ---------- */
+#e7 .cifra { font-size: 300px; letter-spacing: -0.008em; }
+#e7 .trece { left: 96px; top: 526px; width: 1112px; height: 56px; }
+#e7 .trece i { position: absolute; top: 0; width: 56px; height: 56px; border-radius: 50%; border: 3px solid var(--fg); }
+#e7 .trece i b { position: absolute; inset: -3px; border-radius: 50%; background: var(--fg); font-size: 0; }
+
+/* ---------- 8 · Negro ---------- */
+#e8 .pagina { left: 1424px; top: 252px; width: 400px; height: 560px; }
+#e8 .pagina svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+#e8 .pagina rect { fill: none; stroke: var(--fg); stroke-width: 2; }
+#e8 .lamina { position: absolute; left: 32px; top: 32px; width: 336px; height: 396px; background: var(--fg); transform-origin: 50% 0; }
+#e8 .vestido { position: absolute; left: 158px; top: 72px; width: 84px; height: 316px; background: var(--bg); transform-origin: 50% 0; }
+#e8 .pagina .regla { position: absolute; left: 32px; height: 2px; background: var(--fg); transform-origin: 0 50%; }
+
+/* ---------- 9 · Azul ---------- */
+#e9 .muestrario { left: 1264px; top: 252px; width: 560px; height: 272px; }
+#e9 .muestrario i { position: absolute; width: 56px; height: 56px; border: 2px solid var(--fg); }
+#e9 .muestrario i b { position: absolute; inset: -2px; background: var(--fg); transform-origin: 50% 100%; font-size: 0; }
+
+/* ---------- 10 · Rojo, estudio ---------- */
+#e10 .cifra { font-size: 340px; }
+#e10 .barra { left: 1384px; top: 252px; width: 440px; height: 624px; background: var(--fuego); transform-origin: 50% 100%; }
+#e10 .base { left: 1384px; top: 876px; width: 440px; height: 2px; background: var(--fg); transform-origin: 0 50%; }
+
+/* ---------- 11 · Paleta ---------- */
+#e11 .banda { position: absolute; top: 328px; width: 336px; height: 548px; }
+#e11 .banda .campo { position: absolute; inset: 0; background: var(--c); transform-origin: 50% 100%; }
+#e11 .banda.tierra .campo { box-shadow: inset 0 0 0 2px var(--tinta); }
+#e11 .banda .clave { position: absolute; left: 24px; top: 24px; width: 56px; height: 56px; }
+#e11 .banda .clave * { vector-effect: non-scaling-stroke; }
+#e11 .banda .rot { position: absolute; left: 24px; bottom: 24px; color: var(--t); }
+#e11 .banda .rot .n { display: block; font: 600 48px/56px var(--fuente); letter-spacing: -0.015em; }
+#e11 .banda .rot .m { display: block; font: 400 34px/42px var(--fuente); letter-spacing: -0.008em; }
+
+/* ---------- 12 · Cierre ---------- */
+#e12 .lema { position: absolute; left: 96px; top: 330px; font: 500 104px/118px var(--fuente); letter-spacing: -0.03em; }
+#e12 .marca { position: absolute; left: 96px; top: 360px; height: 220px; display: flex; align-items: center; }
+#e12 .marca .moneda { width: 164px; height: 164px; fill: var(--fg); margin-right: 44px; flex: none; }
+#e12 .marca .nombre { font: 700 200px/220px var(--fuente); letter-spacing: -0.03em; }
+#e12 .marca .he { font: 500 176px/220px var(--fuente-he); margin-left: 52px; color: var(--fg2); }
+#e12 .firma { top: 628px; }
+</style>
+</head>
+<body>
+<main id="escenario" aria-label="Riquezas y colores, película tipográfica de Shefa">
+
+<!-- 1 · Título -->
+<section class="esc" id="e1" data-pie="Tradición y datos" style="--bg:#FAF9F6;--fg:#141412">
+  <h1 class="titulo" data-b><span class="l"><span>Riquezas</span></span><span class="l"><span>y colores</span></span></h1>
+  <p class="voz nota sub" data-b><span class="l"><span>Nueve hechos sobre el color y la riqueza</span></span></p>
+  <svg class="cons" viewBox="0 0 540 540" aria-hidden="true">
+    <rect class="marco" x="1" y="1" width="538" height="538"/>
+    <path class="hilo" d="M180 0V540"/><path class="hilo" d="M360 0V540"/>
+    <path class="hilo" d="M0 180H540"/><path class="hilo" d="M0 360H540"/>
+    <g class="nums"></g>
+    <circle class="canto" cx="270" cy="270" r="269" transform="rotate(-90 270 270)"/>
+  </svg>
+</section>
+
+<!-- 2 · Oro -->
+<section class="esc" id="e2" data-n="1" data-color="Oro" data-clase="Historia" data-fuente="Metcalf, 2016, vía Wikipedia" style="--bg:#D9B65A;--fg:#141412">
+  <p class="pre" style="top:206px" data-b><span class="l"><span>hacia</span></span></p>
+  <p class="cifra" style="top:226px" data-b><span class="l"><span class="fig">550</span><span class="u">a. C.</span></span></p>
+  <p class="voz" style="top:660px" data-b><span class="l"><span>El oro puro se vuelve moneda.</span></span></p>
+  <p class="voz nota" style="top:756px" data-b><span class="l"><span>Atribuido a Creso de Lidia.</span></span></p>
+  <div class="g moneda-lidia"></div>
+</section>
+
+<!-- 3 · Púrpura -->
+<section class="esc" id="e3" data-n="2" data-color="Púrpura" data-clase="Historia" data-fuente="Friedländer, 1909 · Wolk y Frimer, 2010" style="--bg:#4A1942;--fg:#FAF9F6">
+  <p class="cifra" style="top:200px" data-b><span class="l"><span class="fig">12.000</span><span class="u">caracoles</span></span></p>
+  <p class="cifra" style="top:488px" data-b><span class="l"><span class="fig">1,4</span><span class="u">gramos de tinte</span></span></p>
+  <p class="voz" style="top:800px" data-b><span class="l"><span>Solo el ribete de una prenda.</span></span></p>
+  <div class="g puntos"></div>
+  <div class="g ribete"></div>
+</section>
+
+<!-- 4 · Malva -->
+<section class="esc" id="e4" data-n="3" data-color="Malva" data-clase="Historia" data-fuente="Wikipedia, «Mauveine»" style="--bg:#B48CC2;--fg:#141412">
+  <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">1856</span></span></p>
+  <p class="voz" style="top:660px" data-b><span class="l"><span>Perkin busca <span class="tachado">quinina<b></b></span>.</span></span></p>
+  <p class="voz" style="top:736px" data-b><span class="l"><span>Halla un tinte malva,</span></span><span class="l"><span>de los primeros sintéticos.</span></span></p>
+  <div class="g muestra"><div class="tinte"></div><div class="gota"></div><svg viewBox="0 0 440 440"><rect x="1.5" y="1.5" width="437" height="437"/></svg></div>
+</section>
+
+<!-- 5 · Verde -->
+<section class="esc" id="e5" data-n="4" data-color="Verde" data-clase="Historia" data-fuente="Wikipedia, «Demand Note»" style="--bg:#1E5C45;--fg:#FAF9F6">
+  <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">1861</span></span></p>
+  <p class="voz" style="top:660px" data-b><span class="l"><span>Estados Unidos autoriza billetes</span></span><span class="l"><span>de reverso verde.</span></span></p>
+  <p class="voz" style="top:812px" data-b><span class="l"><span>De ahí «greenback».</span></span></p>
+  <div class="g billete">
+    <div class="anv"><svg viewBox="0 0 520 222"><rect x="15" y="15" width="490" height="192"/><circle cx="260" cy="111" r="56"/><path d="M47 111H172M348 111H473"/></svg></div>
+    <div class="rev"><svg viewBox="0 0 520 222"><rect x="15" y="15" width="490" height="192"/><ellipse class="lleno" cx="260" cy="111" rx="150" ry="56"/><circle cx="71" cy="71" r="24"/><circle cx="449" cy="71" r="24"/><circle cx="71" cy="151" r="24"/><circle cx="449" cy="151" r="24"/></svg></div>
+  </div>
+</section>
+
+<!-- 6 · Rojo: el sobre -->
+<section class="esc" id="e6" data-n="5" data-color="Rojo" data-clase="Tradición" data-fuente="Wikipedia, «Red envelope»" style="--bg:#FAF9F6;--fg:#141412">
+  <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">2014</span></span></p>
+  <p class="voz" style="top:660px" data-b><span class="l"><span>En China, el sobre rojo</span></span><span class="l"><span>de Año Nuevo se vuelve digital.</span></span></p>
+  <div class="g sobre">
+    <svg class="solapa" viewBox="0 0 520 624"><path d="M0 0L260 230L520 0"/></svg>
+    <svg class="broche" viewBox="0 0 96 96"><path fill-rule="evenodd" d="M48 0a48 48 0 1 0 0 96a48 48 0 1 0 0-96zM32 32h32v32H32z"/></svg>
+  </div>
+  <svg class="g movil" viewBox="0 0 300 624"><rect x="2" y="2" width="296" height="620" rx="40"/></svg>
+</section>
+
+<!-- 7 · Oro: Dhanteras -->
+<section class="esc" id="e7" data-n="6" data-color="Oro" data-clase="Tradición" data-fuente="Wikipedia, «Dhanteras»" style="--bg:#E0932A;--fg:#141412">
+  <p class="cifra" style="top:196px" data-b><span class="l"><span class="fig">Dhanteras</span></span></p>
+  <div class="g trece"></div>
+  <p class="voz" style="top:660px" data-b><span class="l"><span>Dhana: riqueza. Teras: día trece.</span></span></p>
+  <p class="voz" style="top:736px" data-b><span class="l"><span>Abre Diwali: día propicio</span></span><span class="l"><span>para comprar oro.</span></span></p>
+</section>
+
+<!-- 8 · Negro -->
+<section class="esc" id="e8" data-n="7" data-color="Negro" data-clase="Historia" data-fuente="FIDM Museum · Wikipedia" style="--bg:#141412;--fg:#F1EFE9">
+  <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">1926</span></span></p>
+  <p class="voz" style="top:660px" data-b><span class="l"><span><i>Vogue</i> publica un vestido negro</span></span><span class="l"><span>de Chanel y lo compara con un Ford.</span></span></p>
+  <div class="g pagina">
+    <svg viewBox="0 0 400 560"><rect x="1" y="1" width="398" height="558"/></svg>
+    <div class="lamina"></div><div class="vestido"></div>
+    <div class="regla" style="top:468px;width:336px"></div>
+    <div class="regla" style="top:496px;width:210px"></div>
+  </div>
+</section>
+
+<!-- 9 · Azul -->
+<section class="esc" id="e9" data-n="8" data-color="Azul" data-clase="Estudio" data-fuente="Palmer y Schloss, &lt;i&gt;PNAS&lt;/i&gt;, 2010 · EE. UU." style="--bg:#0070B4;--fg:#FFFFFF">
+  <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">32</span><span class="u">colores</span></span></p>
+  <p class="voz" style="top:660px" data-b><span class="l"><span>48 personas los puntúan.</span></span></p>
+  <p class="voz" style="top:736px" data-b><span class="l"><span>Ganan los azules:</span></span><span class="l"><span>cielo despejado, agua limpia.</span></span></p>
+  <div class="g muestrario"></div>
+</section>
+
+<!-- 10 · Rojo: el estudio -->
+<section class="esc" id="e10" data-n="9" data-color="Rojo" data-clase="Estudio" data-fuente="Gnambs, &lt;i&gt;Psychon. Bull. Rev.&lt;/i&gt;, 2020" style="--bg:#FAF9F6;--fg:#141412">
+  <p class="voz" style="top:204px" data-b><span class="l"><span>¿Ver rojo empeora un examen?</span></span></p>
+  <p class="pre" style="top:324px" data-b><span class="l"><span>Metaanálisis de 2020</span></span></p>
+  <p class="cifra" style="top:352px" data-b><span class="l"><span class="fig">67</span><span class="u">efectos</span></span></p>
+  <p class="voz" style="top:716px" data-b><span class="l"><span>Corregido el sesgo de publicación:</span></span><span class="l"><span>casi cero.</span></span></p>
+  <div class="g barra"></div><div class="g base"></div>
+</section>
+
+<!-- 11 · La paleta de Shefa -->
+<section class="esc" id="e11" data-color="Paleta" data-clase="Diseño" data-fuente="Convención de diseño de Shefa" style="--bg:#FAF9F6;--fg:#141412">
+  <p class="voz" style="top:204px" data-b><span class="l"><span>Cinco colores, cinco elementos.</span></span></p>
+  <div class="bandas"></div>
+</section>
+
+<!-- 12 · Cierre -->
+<section class="esc" id="e12" data-pie="Información general, no asesoramiento financiero" style="--bg:#FAF9F6;--fg:#141412">
+  <p class="lema" data-b><span class="l"><span>El color no crea riqueza.</span></span><span class="l"><span>Ayuda a ordenar la atención.</span></span></p>
+  <div class="marca" data-b>
+    <svg class="moneda" viewBox="0 0 96 96" aria-hidden="true"><path fill-rule="evenodd" d="M48 0a48 48 0 1 0 0 96a48 48 0 1 0 0-96zM32 32h32v32H32z"/></svg>
+    <span class="nombre l"><span>Shefa</span></span>
+    <span class="he" lang="he" dir="rtl">שפע</span>
+  </div>
+  <p class="voz firma" data-b><span class="l"><span>Tradición y datos</span></span></p>
+</section>
+
+</main>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="node_modules/gsap/dist/DrawSVGPlugin.min.js"></script>
+<script>
+(async function () {
+  'use strict';
+  const RENDER = new URLSearchParams(location.search).has('render');
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const esc = $$('.esc');
+  const escenario = $('#escenario');
+
+  /* ---------- Tiempos: inicio de cada escena y duración total ---------- */
+  const T = [0, 6.5, 14, 21.5, 29, 36.5, 43.5, 51.5, 58.5, 67, 77, 85.5];
+  const DUR = 94.5;
+  const fin = (i) => (i + 1 < T.length ? T[i + 1] : DUR);
+
+  /* ---------- Ficha de cada escena (para el guion y los subtítulos) ---------- */
+  const FICHA = [
+    { nombre: 'Título', color: 'Papel #FAF9F6 y tinta #141412', hecho: 'Sin dato: presenta la película y la retícula de nueve palacios con la moneda.', fuente: 'Shefa, dirección «Lo Shu»' },
+    { nombre: 'Oro', color: 'Oro #D9B65A', hecho: 'Hacia 550 a. C. se atribuyen a Creso, rey de Lidia, las primeras monedas de oro de pureza estandarizada.', fuente: 'Wikipedia, «Croeseid», que cita a Metcalf, The Oxford Handbook of Greek and Roman Coinage, 2016' },
+    { nombre: 'Púrpura', color: 'Púrpura #4A1942 (tono propio, no histórico)', hecho: '12.000 caracoles Murex brandaris dan como mucho 1,4 g de tinte puro, lo justo para el ribete de una prenda.', fuente: 'Friedländer, Berichte 42, 1909; confirmado en Wolk y Frimer, Molecules, 2010 (PMC6264235)' },
+    { nombre: 'Malva', color: 'Malva #B48CC2 (tono propio)', hecho: 'En 1856 William Henry Perkin, que intentaba sintetizar quinina, descubrió la mauveína, uno de los primeros tintes sintéticos.', fuente: 'Wikipedia, «Mauveine» (cita a St Clair, 2016)' },
+    { nombre: 'Verde', color: 'Verde #1E5C45 (tono propio)', hecho: 'El Congreso de EE. UU. autorizó los Demand Notes el 17 de julio de 1861; su reverso iba en tinta verde y de ahí el apodo «greenback».', fuente: 'Wikipedia, «Demand Note»' },
+    { nombre: 'Rojo', color: 'Papel con un solo rojo, sello #D5281B', hecho: 'WeChat lanzó el sobre rojo digital en el Año Nuevo chino de 2014.', fuente: 'Wikipedia, «Red envelope» y «WeChat red envelope»' },
+    { nombre: 'Oro (Dhanteras)', color: 'Azafrán #E0932A (tono propio)', hecho: 'Dhanteras abre Diwali; «dhana» es «riqueza» en sánscrito y «teras», el día trece en hindi; la tradición hindú lo considera propicio para comprar oro.', fuente: 'Wikipedia, «Dhanteras»' },
+    { nombre: 'Negro', color: 'Tinta #141412', hecho: 'En 1926 la edición estadounidense de Vogue publicó un vestido negro de Chanel y lo comparó con un Ford.', fuente: 'FIDM Museum; Wikipedia, «Little black dress»' },
+    { nombre: 'Azul', color: 'Azul #0070B4', hecho: '48 participantes valoraron 32 colores; la preferencia tiene un pico amplio en el azul. Gustan los colores asociados a cosas que gustan (cielo despejado, agua limpia). Muestra de EE. UU.', fuente: 'Palmer y Schloss, PNAS 107(19), 2010' },
+    { nombre: 'Rojo (estudio)', color: 'Papel con un solo rojo, sello #D5281B', hecho: 'Un metaanálisis de 67 tamaños de efecto sobre el rojo y el rendimiento deja el efecto, tras corregir el sesgo de publicación, cerca de cero.', fuente: 'Gnambs, Psychonomic Bulletin & Review 27, 2020 (PMC7704521)' },
+    { nombre: 'Paleta de Shefa', color: 'Tinta #141412, sello #D5281B, papel #FAF9F6, oro #D9B65A, azul #0070B4', hecho: 'Sin dato externo: Shefa nombra sus cinco colores como los cinco elementos. Es una convención de diseño, no una afirmación de eficacia.', fuente: 'Shefa, tokens de la dirección «Lo Shu»' },
+    { nombre: 'Cierre', color: 'Papel #FAF9F6 y tinta #141412', hecho: 'Sin dato nuevo: conclusión sobria y marca.', fuente: 'Shefa' }
+  ];
+
+  /* ---------- Construcción estática: cabeceras, pies y gráficos ---------- */
+  const MONEDA = '<svg class="moneda" viewBox="0 0 96 96" aria-hidden="true"><path fill-rule="evenodd" d="M48 0a48 48 0 1 0 0 96a48 48 0 1 0 0-96zM32 32h32v32H32z"/></svg>';
+  const LOSHU = [[4, 9, 2], [3, 5, 7], [8, 1, 6]];
+  const casilla = (n) => { for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) if (LOSHU[r][c] === n) return [r, c]; };
+  const loc = (n) => {
+    const [r, c] = casilla(n);
+    return '<svg class="loc" viewBox="0 0 49 49" aria-hidden="true"><rect x="' + (c * 16 + 0.5) + '" y="' + (r * 16 + 0.5) + '" width="16" height="16" fill="currentColor"/>' +
+      '<path d="M.5 .5h48v48h-48zM16.5 .5v48M32.5 .5v48M.5 16.5h48M.5 32.5h48" fill="none" stroke="currentColor"/></svg>';
+  };
+  esc.forEach((s) => {
+    const d = s.dataset;
+    let cab = '<header class="cab">';
+    if (d.n) cab += '<span class="cab-n">' + d.n + '</span><span class="cab-t">' + d.color + '</span><span class="cab-k">' + d.clase + '</span>' + loc(+d.n);
+    else if (d.color) cab += MONEDA + '<span class="cab-t">' + d.color + '</span><span class="cab-k" style="margin-right:0">' + d.clase + '</span>';
+    else cab += MONEDA + '<span class="cab-t">Shefa</span><span class="he" lang="he" dir="rtl">שפע</span>';
+    cab += '</header><div class="filete"></div>';
+    const pie = '<footer class="pie"><span class="credito">' + (d.fuente || d.pie || '') + '</span>' + (d.n || d.color ? MONEDA : '') + '</footer><div class="prog"><i></i></div>';
+    s.insertAdjacentHTML('beforeend', cab + pie);
+  });
+
+  // 1 · números del cuadrado Lo Shu
+  $('#e1 .nums').innerHTML = LOSHU.map((fila, r) => fila.map((n, c) =>
+    '<text data-n="' + n + '" x="' + (c * 180 + 16) + '" y="' + (r * 180 + 103) + '">' + n + '</text>').join('')).join('');
+  // 3 · 120 puntos: cada uno, cien caracoles
+  $('#e3 .puntos').innerHTML = Array.from({ length: 120 }, (_, k) =>
+    '<i style="left:' + (k % 10) * 44 + 'px;top:' + Math.floor(k / 10) * 44 + 'px"></i>').join('');
+  // 7 · trece días
+  $('#e7 .trece').innerHTML = Array.from({ length: 13 }, (_, k) => '<i style="left:' + k * 88 + 'px">' + (k === 12 ? '<b></b>' : '') + '</i>').join('');
+  // 9 · 32 muestras
+  $('#e9 .muestrario').innerHTML = Array.from({ length: 32 }, (_, k) =>
+    '<i data-c="' + (k % 8) + '" style="left:' + (k % 8) * 72 + 'px;top:' + Math.floor(k / 8) * 72 + 'px">' + (k % 8 === 6 ? '<b></b>' : '') + '</i>').join('');
+  // 11 · cinco bandas
+  const BANDAS = [
+    ['madera', 'Madera', 'tinta', '#141412', '#FAF9F6'],
+    ['fuego', 'Fuego', 'sello', '#D5281B', '#FFFFFF'],
+    ['tierra', 'Tierra', 'papel', '#FAF9F6', '#141412'],
+    ['metal', 'Metal', 'oro', '#D9B65A', '#141412'],
+    ['agua', 'Agua', 'azul', '#0070B4', '#FFFFFF']
+  ];
+  $('#e11 .bandas').innerHTML = BANDAS.map((b, k) =>
+    '<div class="banda ' + b[0] + '" style="left:' + (96 + k * 348) + 'px;--c:' + b[3] + ';--t:' + b[4] + '"><div class="campo"></div>' +
+    '<svg class="clave" viewBox="0 0 56 56"><rect x="1" y="1" width="54" height="54" fill="none" stroke="' + b[4] + '" stroke-width="2"/><circle cx="28" cy="28" r="15" fill="' + b[4] + '"/></svg>' +
+    '<p class="rot" data-b><span class="l n"><span>' + b[1] + '</span></span><span class="l m"><span>' + b[2] + '</span></span></p></div>').join('');
+
+  /* ---------- Tipos de letra: se espera a que estén cargados ---------- */
+  try {
+    await Promise.all([
+      document.fonts.load('700 100px Archivo', '0123456789'),
+      document.fonts.load('500 100px Archivo', 'Riquezas'),
+      document.fonts.load('italic 400 24px Archivo', 'Vogue'),
+      document.fonts.load('500 100px "Frank Ruhl Libre"', 'שפע')
+    ]);
+    await document.fonts.ready;
+  } catch (e) { /* sin red: se sigue con las fuentes de reserva */ }
+
+  // Cifras: una caja por carácter, para que suban de una en una
+  $$('.cifra .fig').forEach((f) => { f.innerHTML = f.textContent.split('').map((ch) => '<span class="c">' + ch + '</span>').join(''); });
+
+  // Alineación óptica: el trazo de la primera letra se apoya en el margen de 96 px
+  const lienzo = document.createElement('canvas').getContext('2d');
+  $$('.cifra, .titulo, .lema, .voz, .pre').forEach((el) => {
+    const hoja = el.matches('.cifra') ? $('.c', el) : el;
+    const cs = getComputedStyle(hoja);
+    lienzo.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+    lienzo.fontStretch = cs.fontStretch === '75%' ? 'condensed' : 'normal';
+    const lado = lienzo.measureText(el.textContent.trim().charAt(0)).actualBoundingBoxLeft;
+    el.style.marginLeft = Math.round(lado * 10) / 10 + 'px';
+  });
+
+  /* ---------- Línea de tiempo maestra ---------- */
+  gsap.registerPlugin(DrawSVGPlugin);
+  gsap.config({ force3D: false });
+  const master = gsap.timeline({ paused: true, defaults: { ease: 'expo.out', duration: 0.9 } });
+  const guion = FICHA.map((f, i) => Object.assign({ n: i + 1, inicio: T[i], fin: fin(i), bloques: [] }, f));
+
+  const texto = (el) => {
+    const ls = $$('.l', el);
+    const t = (ls.length ? ls : [el]).map((x) => x.textContent.replace(/\s+/g, ' ').trim()).join(' / ');
+    return el.matches('.marca') ? t + ' ' + $('.he', el).textContent : t;
+  };
+  const anota = (i, el, entra, sale) => guion[i].bloques.push({ texto: texto(el), entra: +entra.toFixed(2), sale: +(sale == null ? fin(i) : sale).toFixed(2) });
+  // Líneas que suben desde su propia caja
+  const sube = (i, el, en, o) => {
+    o = o || {};
+    master.fromTo($$('.l > span', el), { yPercent: 140 }, { yPercent: 0, duration: o.d || 0.9, stagger: o.s == null ? 0.1 : o.s }, en);
+    anota(i, el, en, o.sale);
+  };
+  // Cifra: carácter a carácter; la unidad llega después
+  const cifra = (i, el, en, o) => {
+    o = o || {};
+    master.fromTo($$('.c', el), { yPercent: 118 }, { yPercent: 0, duration: 1.0, stagger: o.s == null ? 0.06 : o.s }, en);
+    const u = $('.u', el);
+    if (u) master.fromTo(u, { yPercent: 240, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.8 }, en + 0.45);
+    anota(i, el, en, o.sale);
+  };
+
+  // Transición por la retícula: las nueve celdas se abren en el orden del Lo Shu
+  const ORDEN = [8, 3, 4, 1, 5, 9, 6, 7, 2];
+  const rejilla = (i, eje) => {
+    const s = esc[i], a = T[i], v = eje === 'y' ? 'h' : 'w', fijo = eje === 'y' ? 'w' : 'h';
+    s.classList.add('rej');
+    for (let c = 1; c <= 9; c++) s.style.setProperty('--' + fijo + c, 1);
+    master.set(s, { visibility: 'visible' }, a);
+    ORDEN.forEach((c, k) => {
+      const de = {}, hasta = { duration: 0.62, ease: 'power4.inOut' };
+      de['--' + v + c] = 0; hasta['--' + v + c] = 1;
+      master.fromTo(s, de, hasta, a + k * 0.045);
+    });
+    master.set(esc[i - 1], { visibility: 'hidden' }, a + 1.05);
+  };
+  // Transición por la moneda: el disco crece y su hueco cuadrado deja ver la escena siguiente
+  const moneda = (i, o) => {
+    const s = esc[i], a = T[i], d = document.createElement('div');
+    d.className = 'disco'; d.style.background = o.color;
+    d.style.setProperty('--cx', o.cx); d.style.setProperty('--cy', o.cy);
+    s.classList.add('mon'); s.style.setProperty('--cx', o.cx); s.style.setProperty('--cy', o.cy);
+    s.parentNode.insertBefore(d, s);
+    const k = o.S / o.s1, g = gsap.parseEase('power2.inOut');
+    const geo = (p) => (Math.pow(k, g(p)) - 1) / (k - 1);
+    master.set([s, d], { visibility: 'visible' }, a - o.antes);
+    master.fromTo(s, { '--s': o.s0 }, { '--s': o.s1, duration: o.antes - 0.1, ease: 'expo.out' }, a - o.antes);
+    master.fromTo(d, { '--r': o.s0 * 1.5 }, { '--r': o.s1 * 1.5, duration: o.antes - 0.1, ease: 'expo.out' }, a - o.antes);
+    master.to(s, { '--s': o.S, duration: 1.05, ease: geo }, a);
+    master.to(d, { '--r': o.S * 1.5, duration: 1.05, ease: geo }, a);
+    master.set([d, esc[i - 1]], { visibility: 'hidden' }, a + 1.06);
+  };
+
+  /* ===== 1 · Título ===== */
+  (function () {
+    const s = esc[0];
+    sube(0, $('.titulo', s), 0.45, { d: 1.1, s: 0.14 });
+    sube(0, $('.sub', s), 1.5);
+    anota(0, $('.cab', s), 0); anota(0, $('.credito', s), 0);
+    master.fromTo($('.cons .marco', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.3, ease: 'power2.inOut' }, 0.5);
+    master.fromTo($$('.cons .hilo', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 0.9, ease: 'power2.inOut', stagger: 0.1 }, 1.0);
+    const nums = $$('.cons text', s).sort((x, y) => x.dataset.n - y.dataset.n);
+    master.fromTo(nums, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.09 }, 1.8);
+    master.fromTo($('.cons .canto', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.4, ease: 'power2.inOut' }, 2.7);
+  })();
+
+  /* ===== 2 · Oro ===== */
+  moneda(1, { cx: 1554, cy: 540, s0: 0, s1: 180, S: 3300, antes: 0.75, color: '#141412' });
+  (function () {
+    const i = 1, s = esc[i], a = T[i];
+    sube(i, $('.pre', s), a + 0.65);
+    cifra(i, $('.cifra', s), a + 0.7);
+    const m = $('.moneda-lidia', s);
+    master.fromTo(m, { scale: 0 }, { scale: 1, duration: 1.2 }, a + 0.85);
+    master.fromTo(m, { rotation: 0.001 }, { scale: 1.035, duration: fin(i) - a - 2.05, ease: 'none', immediateRender: false }, a + 2.05);
+    sube(i, $$('.voz', s)[0], a + 1.8);
+    sube(i, $$('.voz', s)[1], a + 2.6);
+  })();
+
+  /* ===== 3 · Púrpura ===== */
+  rejilla(2, 'x');
+  (function () {
+    const i = 2, s = esc[i], a = T[i], c = $$('.cifra', s), p = $$('.puntos i', s);
+    cifra(i, c[0], a + 0.6, { s: 0.05 });
+    master.fromTo(p, { scale: 0 }, { scale: 1, duration: 0.5, stagger: { each: 0.008, from: 'start' } }, a + 0.75);
+    cifra(i, c[1], a + 2.6);
+    // los 120 puntos se reducen a uno
+    const u = p[119];
+    p.slice(0, 119).forEach((pt, k) => {
+      const dx = (9 - (k % 10)) * 44, dy = (11 - Math.floor(k / 10)) * 44;
+      master.to(pt, { x: dx, y: dy, duration: 1.0, ease: 'power3.inOut' }, a + 2.75 + (Math.abs(dx) + Math.abs(dy)) / 4000);
+      master.to(pt, { opacity: 0, duration: 0.15, ease: 'none' }, a + 3.65 + (Math.abs(dx) + Math.abs(dy)) / 4000);
+    });
+    master.fromTo($('.ribete', s), { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: 'power3.inOut' }, a + 4.0);
+    sube(i, $('.voz', s), a + 4.0);
+  })();
+
+  /* ===== 4 · Malva ===== */
+  rejilla(3, 'y');
+  (function () {
+    const i = 3, s = esc[i], a = T[i], v = $$('.voz', s);
+    cifra(i, $('.cifra', s), a + 0.6);
+    master.fromTo($('.muestra rect', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.2, ease: 'power2.inOut' }, a + 0.8);
+    sube(i, v[0], a + 1.6);
+    master.fromTo($('.tachado b', s), { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: 'power3.inOut' }, a + 2.7);
+    sube(i, v[1], a + 3.3, { s: 0.14 });
+    master.fromTo($('.muestra .tinte', s), { scaleY: 0 }, { scaleY: 1, duration: 1.3, ease: 'power3.inOut' }, a + 3.2);
+    master.fromTo($('.muestra .gota', s), { scale: 0 }, { scale: 1, duration: 0.9 }, a + 4.3);
+  })();
+
+  /* ===== 5 · Verde ===== */
+  rejilla(4, 'x');
+  (function () {
+    const i = 4, s = esc[i], a = T[i], v = $$('.voz', s);
+    cifra(i, $('.cifra', s), a + 0.6);
+    master.fromTo($('.billete', s), { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.0 }, a + 0.85);
+    sube(i, v[0], a + 1.6, { s: 0.14 });
+    master.fromTo($('.anv', s), { scaleX: 1 }, { scaleX: 0, duration: 0.42, ease: 'power2.in', immediateRender: false }, a + 3.0);
+    master.fromTo($('.rev', s), { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: 'power3.out' }, a + 3.42);
+    sube(i, v[1], a + 4.0);
+  })();
+
+  /* ===== 6 · Rojo: el sobre ===== */
+  rejilla(5, 'y');
+  (function () {
+    const i = 5, s = esc[i], a = T[i];
+    cifra(i, $('.cifra', s), a + 0.6);
+    master.fromTo($('.sobre', s), { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.0 }, a + 0.8);
+    master.fromTo($('.solapa path', s), { drawSVG: '50% 50%' }, { drawSVG: '0% 100%', duration: 0.8, ease: 'power2.inOut' }, a + 1.2);
+    master.fromTo($('.broche', s), { scale: 0 }, { scale: 1, duration: 0.7 }, a + 1.6);
+    sube(i, $('.voz', s), a + 1.6, { s: 0.14 });
+    master.to($('.sobre', s), { scale: 0.42, duration: 1.0, ease: 'power3.inOut' }, a + 3.2);
+    master.fromTo($('.movil rect', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.1, ease: 'power2.inOut' }, a + 3.45);
+  })();
+
+  /* ===== 7 · Oro: Dhanteras ===== */
+  rejilla(6, 'x');
+  (function () {
+    const i = 6, s = esc[i], a = T[i], v = $$('.voz', s), d = $$('.trece i', s);
+    cifra(i, $('.cifra', s), a + 0.6, { s: 0.035 });
+    master.fromTo(d, { scale: 0 }, { scale: 1, duration: 0.6, stagger: 0.06 }, a + 1.3);
+    master.fromTo($('.trece b', s), { scale: 0 }, { scale: 1, duration: 0.6 }, a + 2.45);
+    sube(i, v[0], a + 2.0);
+    sube(i, v[1], a + 3.6, { s: 0.14 });
+  })();
+
+  /* ===== 8 · Negro ===== */
+  rejilla(7, 'y');
+  (function () {
+    const i = 7, s = esc[i], a = T[i];
+    cifra(i, $('.cifra', s), a + 0.6);
+    master.fromTo($('.pagina rect', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.2, ease: 'power2.inOut' }, a + 0.8);
+    master.fromTo($('.lamina', s), { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: 'power3.inOut' }, a + 1.4);
+    master.fromTo($('.vestido', s), { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: 'power3.inOut' }, a + 2.0);
+    master.fromTo($$('.pagina .regla', s), { scaleX: 0 }, { scaleX: 1, duration: 0.7, stagger: 0.12 }, a + 2.4);
+    sube(i, $('.voz', s), a + 1.6, { s: 0.14 });
+  })();
+
+  /* ===== 9 · Azul ===== */
+  moneda(8, { cx: 1810, cy: 948, s0: 28 / 3, s1: 24, S: 3800, antes: 0.55, color: '#F1EFE9' });
+  (function () {
+    const i = 8, s = esc[i], a = T[i], v = $$('.voz', s), m = $$('.muestrario i', s);
+    cifra(i, $('.cifra', s), a + 0.75);
+    master.fromTo(m, { scale: 0 }, { scale: 1, duration: 0.6, stagger: { each: 0.02, grid: [4, 8], from: 'start' } }, a + 0.9);
+    sube(i, v[0], a + 1.8);
+    sube(i, v[1], a + 3.4, { s: 0.14 });
+    master.fromTo($$('.muestrario i[data-c="6"] b', s), { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: 'power3.inOut', stagger: -0.08 }, a + 3.6);
+  })();
+
+  /* ===== 10 · Rojo: el estudio ===== */
+  rejilla(9, 'x');
+  (function () {
+    const i = 9, s = esc[i], a = T[i], v = $$('.voz', s), b = $('.barra', s);
+    sube(i, v[0], a + 0.6);
+    master.fromTo($('.base', s), { scaleX: 0 }, { scaleX: 1, duration: 0.8 }, a + 0.7);
+    master.fromTo(b, { scaleY: 0 }, { scaleY: 1, duration: 1.1 }, a + 0.85);
+    sube(i, $('.pre', s), a + 2.6);
+    cifra(i, $('.cifra', s), a + 2.7);
+    master.to(b, { scaleY: 0.13 / 0.86, duration: 1.2, ease: 'power3.inOut' }, a + 3.0);
+    sube(i, v[1], a + 5.4, { s: 0.14 });
+    master.to(b, { scaleY: 4 / 624, duration: 1.2, ease: 'power3.inOut' }, a + 5.7);
+  })();
+
+  /* ===== 11 · La paleta de Shefa ===== */
+  rejilla(10, 'y');
+  (function () {
+    const i = 10, s = esc[i], a = T[i];
+    sube(i, $('.voz', s), a + 0.6);
+    master.fromTo($$('.banda .campo', s), { scaleY: 0 }, { scaleY: 1, duration: 1.0, ease: 'power4.inOut', stagger: 0.12 }, a + 0.9);
+    master.fromTo($$('.banda .clave', s), { scale: 0 }, { scale: 1, duration: 0.7, stagger: 0.12 }, a + 1.6);
+    $$('.banda .rot', s).forEach((r, k) => sube(i, r, a + 1.7 + k * 0.12, { s: 0.08 }));
+  })();
+
+  /* ===== 12 · Cierre ===== */
+  moneda(11, { cx: 1810, cy: 948, s0: 28 / 3, s1: 24, S: 3800, antes: 0.55, color: '#141412' });
+  (function () {
+    const i = 11, s = esc[i], a = T[i], lema = $('.lema', s), m = $('.marca', s);
+    sube(i, lema, a + 0.75, { s: 0.16, d: 1.0, sale: a + 4.75 });
+    master.to($$('.l > span', lema), { yPercent: -140, duration: 0.55, ease: 'power3.in', stagger: 0.07 }, a + 4.75);
+    master.fromTo($('.moneda', m), { scale: 0, rotation: -90 }, { scale: 1, rotation: 0, duration: 1.0, transformOrigin: '50% 50%' }, a + 5.3);
+    master.fromTo($('.nombre > span', m), { yPercent: 130 }, { yPercent: 0, duration: 1.0 }, a + 5.45);
+    master.fromTo($('.he', m), { opacity: 0, x: 24 }, { opacity: 1, x: 0, duration: 0.9 }, a + 5.75);
+    anota(i, m, a + 5.4);
+    sube(i, $('.firma', s), a + 5.9);
+    anota(i, $('.credito', s), a + 0.5);
+  })();
+
+  // Cabecera y crédito de las escenas de datos: se leen desde que la escena abre
+  esc.forEach((s, i) => { if (s.dataset.fuente) guion[i].credito = { texto: $('.credito', s).textContent, entra: T[i], sale: fin(i) }; });
+
+  // Línea de avance: una por escena, todas con el mismo valor
+  master.fromTo($$('.prog i'), { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: 'none' }, 0);
+  master.set({}, {}, DUR);
+
+  /* ---------- Interfaz pública ---------- */
+  window.__guion = { duracion: DUR, tiempos: T, escenas: guion };
+  window.__film = { ready: true, duration: DUR, seek: (t) => { master.seek(t, false); } };
+
+  if (RENDER) {
+    master.seek(0, false);
+  } else {
+    const ajusta = () => {
+      const k = Math.min(innerWidth / 1920, innerHeight / 1080);
+      escenario.style.transform = 'translate(' + (innerWidth - 1920 * k) / 2 + 'px,' + (innerHeight - 1080 * k) / 2 + 'px) scale(' + k + ')';
+    };
+    ajusta(); addEventListener('resize', ajusta);
+    escenario.addEventListener('click', () => master.restart());
+    master.play(0);
+  }
+})();
+</script>
+</body>
+</html>

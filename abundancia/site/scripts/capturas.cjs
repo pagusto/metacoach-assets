@@ -57,12 +57,14 @@ function servidor() {
 
 const nombreDe = (ruta) => (ruta.replace(/^\/+|\/+$/g, '').replace(/[^\w-]+/g, '-') || 'hoy');
 
-(async () => {
+module.exports = { servidor };
+
+if (require.main === module) (async () => {
   const args = process.argv.slice(2);
   const sinMuestra = args.includes('--sin-muestra');
   const iAncho = args.indexOf('--ancho');
   const anchoExtra = iAncho >= 0 ? Number(args[iAncho + 1]) : 0;
-  const rutas = args.filter((a, i) => a.startsWith('/') && i !== iAncho + 1);
+  const rutas = args.filter((a, i) => a.startsWith('/') && !(iAncho >= 0 && i === iAncho + 1));
   if (!rutas.length) rutas.push('/');
   if (!fs.existsSync(DIST)) { console.error('No existe dist/. Ejecuta antes: npm run build'); process.exit(2); }
   fs.mkdirSync(SALIDA, { recursive: true });
