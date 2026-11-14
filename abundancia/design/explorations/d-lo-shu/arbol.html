@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Árbol · Shefa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=Frank+Ruhl+Libre:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500&text=%E6%9C%A8%E7%81%AB%E5%9C%9F%E9%87%91%E6%B0%B4&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* shell:start — común a hoy.html y arbol.html */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  padding-bottom: var(--s-5);
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente);
+  font-size: var(--t-1);
+  line-height: var(--lh-1);
+  font-weight: var(--peso-texto);
+  font-stretch: var(--ancho-texto);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, p, ol, ul, dl, dd, figure, blockquote { margin: 0; padding: 0; font-weight: inherit; font-size: inherit; }
+ol, ul { list-style: none; }
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+svg { display: block; }
+:focus-visible { outline: var(--foco); outline-offset: 2px; }
+
+.oculto {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.simbolos { position: absolute; width: 0; height: 0; }
+.salto {
+  position: absolute; left: var(--margen); top: -120px; z-index: 10;
+  padding: var(--s-1) var(--s-2); background: var(--texto); color: var(--fondo);
+}
+.salto:focus { top: var(--s-1); }
+
+.pagina { width: min(100% - 2 * var(--margen), var(--cuadrado)); margin-inline: auto; }
+
+/* Hebreo: Frank Ruhl Libre, siempre con lang="he" dir="rtl" */
+.he { font-family: var(--fuente-he); font-weight: 500; font-stretch: 100%; letter-spacing: 0; unicode-bidi: isolate; }
+
+/* Cifras (yang): negrita estrecha, tabulares */
+.cifra {
+  font-stretch: var(--ancho-cifra);
+  font-weight: var(--peso-cifra);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Cabecera: entrada despejada ---------- */
+.cab {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  padding-top: var(--s-1);
+}
+.marca {
+  justify-self: start;
+  display: inline-flex; align-items: center; gap: 12px;
+  height: var(--s-5);
+  text-decoration: none;
+}
+.marca-moneda { width: 36px; height: 36px; fill: var(--texto); }
+.marca-n { font-size: var(--t-2); line-height: 1; font-weight: 700; letter-spacing: -0.015em; }
+.marca-he { font-size: 1.375rem; line-height: 1; color: var(--texto-2); }
+
+.tema {
+  display: inline-flex; align-items: center; gap: var(--s-1);
+  min-height: var(--s-4);
+  padding: 0;
+  border: 0; background: none; cursor: pointer;
+  font-size: var(--t-0); font-weight: 500;
+}
+.tema:hover { color: var(--accion); }
+.tema svg { width: 16px; height: 16px; }
+.tema rect { fill: none; stroke: currentColor; stroke-width: 1.5; }
+.tema circle { fill: currentColor; }
+.tema-a-claro { display: none; }
+
+.nav { grid-column: 1 / -1; }
+.nav ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: var(--marco) solid var(--filete);
+}
+.nav a {
+  position: relative;
+  display: flex; align-items: baseline; gap: var(--s-1);
+  min-height: var(--s-4);
+  padding-top: 13px;
+  font-size: 0.9375rem; font-weight: 500;
+  text-decoration: none;
+}
+.nav li:nth-child(n+4) a { border-top: var(--linea) solid var(--filete-suave); }
+.nav a:hover { color: var(--accion); }
+.nav-n { min-width: 1ch; font-size: var(--t-00); font-weight: 400; color: var(--texto-3); }
+.nav a[aria-current="page"] { font-weight: 700; }
+.nav a[aria-current="page"]::before {
+  content: ""; position: absolute; left: 0; right: var(--s-2); top: calc(-1 * var(--marco));
+  height: 6px; background: var(--filete);
+}
+
+/* ---------- Portada (titular de la página) ---------- */
+.portada { padding-block: var(--s-4) var(--s-3); }
+.portada h1 {
+  font-size: var(--t-3); line-height: var(--s-4);
+  font-weight: 400; letter-spacing: -0.02em;
+}
+.portada-nota { margin-top: var(--s-1); color: var(--texto-2); }
+
+/* ---------- El cuadrado Lo Shu ---------- */
+.loshu {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--linea);
+  padding: var(--marco);
+  background: var(--filete);
+}
+.pal {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  min-width: 0;
+  padding: var(--palacio-pad);
+  background: var(--fondo);
+  container-type: inline-size;
+}
+.pal-cab {
+  display: flex;
+  column-gap: 12px;
+  align-items: baseline;
+  min-height: var(--s-4);
+}
+.pal-n { flex: none; min-width: 14px; font-size: var(--t-2); line-height: var(--lh-0); }
+.pal-cab h2 { flex: 1; min-width: 0; font-size: var(--t-0); line-height: var(--lh-0); font-weight: 600; }
+.pal-area { flex: none; font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3); }
+.loc { flex: none; align-self: flex-start; width: 25px; height: 25px; color: var(--trazo); }
+.loc rect { fill: var(--texto); }
+
+.rotulo { font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+
+/* Regla de medida: oro sobre filete, marcas cada décima */
+.regla { position: relative; height: 16px; border-bottom: var(--linea) solid var(--filete); }
+.regla svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.regla path { fill: none; stroke: var(--filete); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.regla-oro { position: absolute; left: 0; bottom: 0; height: 8px; background: var(--medida); }
+
+/* La moneda como medidor: cielo redondo, tierra cuadrada */
+.moneda-medida { width: 100%; height: auto; }
+.moneda-medida .canto { fill: none; stroke: var(--filete); stroke-width: 1.5; }
+.moneda-medida .listel { fill: none; stroke: var(--filete-suave); stroke-width: 1; }
+.moneda-medida .arco { fill: none; stroke: var(--medida); stroke-width: 16; }
+.moneda-medida .hueco { fill: none; stroke: var(--filete); stroke-width: 1.5; }
+
+/* ---------- Pie: colofón ---------- */
+.pie {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-4);
+  padding-top: var(--s-4);
+  color: var(--texto-2);
+}
+.pie h2 { margin-bottom: var(--s-2); font-size: var(--t-00); line-height: var(--lh-00); font-weight: 600; color: var(--texto); }
+.aviso { color: var(--texto); font-size: var(--t-1); }
+.clave-loshu { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-3); align-items: start; }
+.clave-loshu table { border-collapse: collapse; }
+.clave-loshu td {
+  width: 24px; height: 24px; padding: 0;
+  border: var(--linea) solid var(--trazo);
+  text-align: center; font-size: var(--t-0); line-height: 22px; color: var(--texto);
+}
+.elementos li {
+  display: grid; grid-template-columns: 16px 20px 64px minmax(0, 1fr); column-gap: var(--s-1);
+  align-items: center; min-height: var(--lh-1);
+}
+.el { width: 16px; height: 16px; }
+.el rect { fill: none; stroke: var(--trazo); }
+.el-madera circle { fill: var(--madera); }
+.el-fuego circle { fill: var(--fuego); }
+.el-tierra circle { fill: var(--tierra); stroke: var(--trazo); }
+.el-metal circle { fill: var(--metal); }
+.el-agua circle { fill: var(--agua); }
+.han { font-family: var(--fuente-han); font-weight: 500; font-size: var(--t-1); line-height: 1; color: var(--texto); }
+.elementos b { font-weight: 600; color: var(--texto); }
+
+/* ---------- Tema oscuro: texto del conmutador ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tema-a-oscuro { display: none; }
+  :root:not([data-theme="light"]) .tema-a-claro { display: inline; }
+}
+:root[data-theme="dark"] .tema-a-oscuro { display: none; }
+:root[data-theme="dark"] .tema-a-claro { display: inline; }
+
+/* ---------- Escritorio: el cuadrado completo ---------- */
+@media (min-width: 1280px) {
+  .cab { padding-top: var(--s-3); }
+  .nav ol { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+  .nav li:nth-child(n+4) a { border-top: 0; }
+  .nav a[aria-current="page"]::before { right: var(--s-3); }
+
+  .portada { padding-block: var(--s-5) var(--s-4); }
+  .portada h1 { font-size: var(--t-4); line-height: var(--s-5); }
+
+  .loshu { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .pie { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; font-size: var(--t-0); }
+  .pie > * { padding-right: var(--s-4); }
+  .pie > * + * { padding-left: var(--palacio-pad); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+/* shell:end */
+
+/* ==========================================================================
+   Árbol · el tablero dentro del mismo cuadrado
+   Árbol: palacios 4·9·3·5 (los dos de Madera) · Detalle: 2·7
+   Libro de fuentes: 8·1 (el 1 es Agua) · Medidor: 6 (Metal)
+   ========================================================================== */
+
+.pal-cuerpo { padding-top: var(--s-2); }
+.fig-l { font-size: var(--t-4); line-height: 1; }
+
+/* ---------- El Árbol ---------- */
+.arbol {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 5;
+  margin-block: var(--s-3) var(--s-2);
+}
+.senderos { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.senderos line { stroke: var(--filete); stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+.sef { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); }
+.nodo {
+  position: absolute; left: calc(var(--nodo) / -2); top: calc(var(--nodo) / -2);
+  display: grid; place-items: center;
+  width: var(--nodo); height: var(--nodo);
+  padding: 0; border: 0; border-radius: 50%; background: none;
+  cursor: pointer;
+}
+.nodo svg { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; }
+.nodo .disco { fill: var(--fondo); stroke: var(--filete); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.nodo .arco { fill: none; stroke: var(--medida); stroke-width: 5; }
+.nodo-v { position: relative; z-index: 2; font-size: 0.9375rem; line-height: 1; }
+.nodo:hover .disco { stroke: var(--accion); stroke-width: 2.5; }
+/* El sello: cielo redondo dentro de tierra cuadrada. Solo el nodo elegido. */
+.nodo[aria-pressed="true"]::before {
+  content: ""; position: absolute; inset: -6px; z-index: 0; background: var(--sello);
+}
+.nodo[aria-pressed="true"]:hover .disco { stroke: var(--filete); stroke-width: 1.5; }
+.nodo[aria-pressed="true"]:focus-visible { outline: none; }
+.nodo[aria-pressed="true"]:focus-visible::before { outline: var(--foco); outline-offset: 2px; }
+
+.rot {
+  position: absolute; z-index: 1;
+  font-size: var(--t-00); line-height: var(--lh-00);
+  color: var(--texto-2);
+  white-space: nowrap;
+}
+.rot b { font-weight: 700; color: var(--texto); }
+.rot .he { color: var(--texto-2); }
+.rot-c, .rot-m { display: none; }
+/* Móvil: nombre bajo el nodo en los pilares laterales, a la derecha en el central */
+.izq .rot, .der .rot {
+  left: -56px; width: 112px; top: calc(var(--nodo) / 2 - 1px);
+  text-align: center;
+}
+.izq .rot span.fondo, .der .rot span.fondo { display: inline-block; background: var(--fondo); padding: 4px 4px 0; }
+.cen .rot { left: calc(var(--nodo) / 2 + 8px); top: var(--dy-movil, -8px); }
+.cen .rot .he { display: block; }
+
+/* Índice de las diez sefirot (solo en la tira; en escritorio lo dicen los rótulos) */
+.indice { width: 100%; border-collapse: collapse; border-top: var(--linea) solid var(--filete); }
+.indice th, .indice td { padding: 12px 0; border-bottom: var(--linea) solid var(--filete-suave); text-align: left; vertical-align: top; }
+.indice tr:last-child th, .indice tr:last-child td { border-bottom: 0; padding-bottom: 0; }
+.indice th { width: 42%; padding-right: var(--s-2); font-weight: 400; }
+.indice th b { font-weight: 700; }
+.indice th .he { color: var(--texto-2); }
+.indice th span.cual { display: block; color: var(--texto-2); }
+
+/* ---------- Detalle ---------- */
+.det-titulo { padding-top: var(--s-2); }
+.det-titulo h3 { display: flex; align-items: baseline; gap: var(--s-2); font-size: var(--t-4); line-height: var(--lh-4); font-weight: 700; letter-spacing: -0.025em; }
+.det-titulo h3 .he { font-size: var(--t-3); font-weight: 500; color: var(--texto-2); }
+.det-titulo p { font-size: var(--t-2); line-height: var(--lh-2); }
+
+.det-sec { margin-top: var(--s-3); padding-top: 12px; border-top: var(--linea) solid var(--filete-suave); }
+.det-sec:first-of-type { border-top-color: var(--filete); }
+.det-sec h4 { margin-bottom: var(--s-1); font-size: var(--t-00); line-height: var(--lh-00); font-weight: 400; color: var(--texto-3); }
+.det-sec cite { font-style: normal; color: var(--texto-2); }
+
+.det-cifra { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: var(--s-2); }
+.det-cifra .fig-l { font-size: var(--t-5); line-height: var(--lh-5); }
+.det-regla { margin-top: var(--s-1); }
+.det-regla[hidden] { display: none; }
+.regla-notas { display: flex; justify-content: space-between; margin-top: 4px; font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+
+.campo { margin-top: var(--s-2); }
+.campo label { display: block; margin-bottom: var(--s-1); font-size: var(--t-0); font-weight: 600; }
+.campo-fila { display: flex; align-items: center; gap: 12px; }
+.campo input {
+  width: 96px; height: var(--s-4); padding: 0 12px;
+  border: 1.5px solid var(--accion); border-radius: 0; background: var(--fondo);
+  font-size: var(--t-2); font-weight: 700; font-stretch: var(--ancho-cifra);
+  -moz-appearance: textfield; appearance: textfield;
+}
+.campo input::-webkit-outer-spin-button, .campo input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.campo-u { color: var(--texto-2); }
+.boton {
+  height: var(--s-4); margin-left: auto; padding: 0 var(--s-3);
+  border: 0; border-radius: 0; background: var(--texto); color: var(--fondo);
+  font-size: 0.9375rem; font-weight: 600; cursor: pointer;
+}
+.boton:hover { background: var(--accion); }
+.campo-estado { min-height: var(--lh-00); margin-top: 4px; font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+
+/* ---------- Libro de fuentes de ingreso ---------- */
+.libro table { width: 100%; border-collapse: collapse; border-top: var(--linea) solid var(--filete); }
+.libro thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.libro tbody tr {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "fuente fuente monto" "tipo estado monto" "accion accion accion";
+  column-gap: 12px;
+  padding-block: var(--s-2);
+  border-bottom: var(--linea) solid var(--filete-suave);
+}
+.libro tbody tr:last-child { border-bottom: 0; padding-bottom: 0; }
+.libro td, .libro tbody th { padding: 0; text-align: left; font-weight: 400; }
+.libro .c-fuente { grid-area: fuente; font-weight: 700; }
+.libro .c-tipo { grid-area: tipo; color: var(--texto-2); }
+.libro .c-estado { grid-area: estado; color: var(--texto-2); }
+.libro tbody .c-monto { grid-area: monto; align-self: start; font-size: var(--t-3); line-height: var(--lh-3); text-align: right; }
+.libro .c-accion { grid-area: accion; margin-top: var(--s-1); }
+.libro .c-accion::before { content: "Próxima acción"; display: block; font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+.estado { display: inline-flex; align-items: center; gap: var(--s-1); }
+.estado svg { width: 20px; height: 20px; flex: none; }
+.m-ingresa { fill: var(--accion); }
+.m-prueba { fill: none; stroke: var(--texto); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.m-idea { fill: none; stroke: var(--texto); stroke-width: 1.5; stroke-dasharray: 2 2; vector-effect: non-scaling-stroke; }
+
+/* ---------- Medidor de meta ---------- */
+.meta { aspect-ratio: 1; }
+.meta .dato { display: flex; flex-direction: column; align-items: flex-start; }
+.meta .fig-l { font-size: var(--t-5); line-height: var(--lh-5); }
+.dato-nota { color: var(--texto-2); }
+.meta .pal-graf { position: absolute; right: var(--palacio-pad); bottom: var(--palacio-pad); width: 57%; }
+.meta-pct { position: absolute; left: var(--palacio-pad); bottom: var(--palacio-pad); }
+.meta-pct .cifra { display: block; font-size: var(--t-3); line-height: var(--lh-3); }
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 1280px) {
+  .arbol-pag .loshu {
+    grid-template-areas: "arbol arbol det" "arbol arbol det" "libro libro meta";
+    grid-template-rows: repeat(3, minmax(calc((min(100vw - 2 * var(--margen), var(--cuadrado)) - 2 * var(--marco) - 2 * var(--linea)) / 3), auto));
+  }
+  .a-arbol { grid-area: arbol; }
+  .a-det { grid-area: det; }
+  .a-libro { grid-area: libro; }
+  .meta { grid-area: meta; aspect-ratio: auto; }
+
+  .pal-cuerpo { padding-top: var(--s-3); }
+
+  /* Marco del Árbol: 576 × 720 en el cuadrado completo; se estrecha con él.
+     --lado es la columna de rótulos que queda a cada lado de los pilares. */
+  .arbol {
+    --fw: min(576px, 100cqi - 200px);
+    --lado: calc((100cqi - var(--fw)) / 2 + var(--fw) * 0.18 - var(--nodo) / 2 - 20px);
+    width: var(--fw); height: 720px; aspect-ratio: auto; margin: var(--s-3) auto 0;
+  }
+  .nodo-v { font-size: 1.375rem; }
+  .nodo[aria-pressed="true"]::before { inset: -8px; }
+  .indice { display: none; }
+
+  .arbol .rot { width: var(--lado); top: calc(var(--nodo) / -2 + var(--dy, 8px)); white-space: normal; text-align: left; }
+  .arbol .rot b, .arbol .rot .he { font-size: var(--t-1); line-height: var(--lh-1); }
+  .arbol .rot-c, .arbol .rot-m { display: block; }
+  .arbol .rot-c { color: var(--texto); }
+  .arbol .rot-m { text-wrap: balance; }
+  .arbol .rot span.fondo { display: inline; background: none; padding: 0; }
+  .arbol .cen .rot .he { display: inline; }
+  .arbol .der .rot { left: calc(var(--nodo) / 2 + 20px); }
+  .arbol .cen .rot { left: calc(var(--nodo) / 2 + 24px); width: 224px; }
+  .arbol .izq .rot { left: auto; right: calc(var(--nodo) / 2 + 20px); }
+
+  .det-sec { margin-top: var(--s-2); }
+  .det-titulo { padding-top: var(--s-3); }
+
+  .libro thead { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+  .libro table { table-layout: fixed; border-top: 0; }
+  .libro col.w4 { width: 23.53%; } .libro col.w2 { width: 11.76%; } .libro col.w3 { width: 17.65%; } .libro col.w6 { width: 35.3%; }
+  .libro thead th {
+    height: 47px; padding: 0 var(--s-2) var(--s-1) 0; vertical-align: bottom;
+    border-bottom: var(--linea) solid var(--filete);
+    font-size: var(--t-00); line-height: var(--lh-00); font-weight: 400; color: var(--texto-3); text-align: left;
+  }
+  .libro tbody tr { display: table-row; }
+  .libro tbody td, .libro tbody th {
+    display: table-cell; height: 95px; margin: 0; padding: var(--s-2) var(--s-2) 0 0; vertical-align: top;
+    border-bottom: var(--linea) solid var(--filete-suave);
+  }
+  .libro tbody tr:last-child td, .libro tbody tr:last-child th { border-bottom: 0; }
+  .libro .c-monto, .libro thead .c-monto { padding-right: 0; text-align: right; }
+  .libro tbody .c-monto { padding-top: 6px; }
+  .libro .c-accion, .libro thead .c-accion { padding-left: var(--s-4); padding-right: 0; }
+  .libro .c-accion::before { content: none; }
+  .libro .c-tipo, .libro .c-estado { color: var(--texto); }
+
+  .meta .pal-graf { width: min(240px, 62cqi); }
+}
+</style>
+</head>
+<body class="arbol-pag">
+
+<svg class="simbolos" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="loc" viewBox="0 0 25 25">
+      <path d="M.5 .5h24v24h-24zM8.5 .5v24M16.5 .5v24M.5 8.5h24M.5 16.5h24" fill="none" stroke="currentColor"/>
+    </symbol>
+    <symbol id="moneda" viewBox="0 0 96 96">
+      <path fill-rule="evenodd" vector-effect="non-scaling-stroke" d="M48 1a47 47 0 1 0 0 94a47 47 0 1 0 0-94zM32 32h32v32H32z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<a class="salto" href="#contenido">Saltar al contenido</a>
+
+<header class="cab pagina">
+  <a class="marca" href="hoy.html" aria-label="Shefa, inicio">
+    <svg class="marca-moneda" viewBox="0 0 36 36" aria-hidden="true">
+      <path fill-rule="evenodd" d="M18 0a18 18 0 1 0 0 36a18 18 0 1 0 0-36zM12 12h12v12H12z"/>
+    </svg>
+    <span class="marca-n">Shefa</span>
+    <span class="marca-he he" lang="he" dir="rtl">שפע</span>
+  </a>
+  <button class="tema" type="button" aria-label="Cambiar entre tema claro y oscuro">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><rect x=".75" y=".75" width="14.5" height="14.5"/><circle cx="8" cy="8" r="4"/></svg>
+    <span class="tema-a-oscuro">Tema oscuro</span><span class="tema-a-claro">Tema claro</span>
+  </button>
+  <nav class="nav" aria-label="Principal">
+    <ol>
+      <li><a href="hoy.html"><span class="nav-n">1</span>Hoy</a></li>
+      <li><a href="arbol.html" aria-current="page"><span class="nav-n">2</span>Árbol</a></li>
+      <li><a href="#"><span class="nav-n">3</span>Ritual</a></li>
+      <li><a href="#"><span class="nav-n">4</span>Tradición</a></li>
+      <li><a href="#"><span class="nav-n">5</span>Espacio</a></li>
+      <li><a href="#"><span class="nav-n">6</span>Datos</a></li>
+      <li><a href="#"><span class="nav-n">7</span>Videoteca</a></li>
+      <li><a href="#"><span class="nav-n">8</span>Colores</a></li>
+      <li><a href="#"><span class="nav-n">9</span>Agentes</a></li>
+    </ol>
+  </nav>
+</header>
+
+<div class="portada pagina">
+  <h1>Árbol de la Vida</h1>
+  <p class="portada-nota">Diez cualidades y su medida al <time datetime="2026-11-14">sábado 14 de noviembre de 2026</time></p>
+</div>
+
+<main id="contenido" class="loshu pagina">
+
+  <!-- Palacios 4 · 9 · 3 · 5 -->
+  <section class="pal a-arbol" aria-labelledby="h-arbol">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">4</span>
+      <h2 id="h-arbol">Las diez sefirot</h2>
+      <span class="pal-area">Elige un nodo</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x=".5" y=".5" width="16" height="16"/><use href="#loc"/></svg>
+    </header>
+
+    <div class="arbol">
+      <!-- Disposición del Arí. Coordenadas en % del marco: 3 horizontales, 7 verticales, 12 diagonales. -->
+      <svg class="senderos" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <g class="horizontales">
+          <line x1="82" y1="19" x2="18" y2="19"/><!-- Jojmá–Biná -->
+          <line x1="82" y1="41" x2="18" y2="41"/><!-- Jésed–Guevurá -->
+          <line x1="82" y1="70" x2="18" y2="70"/><!-- Nétsaj–Hod -->
+        </g>
+        <g class="verticales">
+          <line x1="50" y1="5" x2="50" y2="53"/><!-- Kéter–Tiféret -->
+          <line x1="50" y1="53" x2="50" y2="81"/><!-- Tiféret–Yesod -->
+          <line x1="50" y1="81" x2="50" y2="96"/><!-- Yesod–Maljut -->
+          <line x1="82" y1="19" x2="82" y2="41"/><!-- Jojmá–Jésed -->
+          <line x1="82" y1="41" x2="82" y2="70"/><!-- Jésed–Nétsaj -->
+          <line x1="18" y1="19" x2="18" y2="41"/><!-- Biná–Guevurá -->
+          <line x1="18" y1="41" x2="18" y2="70"/><!-- Guevurá–Hod -->
+        </g>
+        <g class="diagonales">
+          <line x1="50" y1="5" x2="82" y2="19"/><!-- Kéter–Jojmá -->
+          <line x1="50" y1="5" x2="18" y2="19"/><!-- Kéter–Biná -->
+          <line x1="82" y1="19" x2="50" y2="53"/><!-- Jojmá–Tiféret -->
+          <line x1="18" y1="19" x2="50" y2="53"/><!-- Biná–Tiféret -->
+          <line x1="82" y1="19" x2="18" y2="41"/><!-- Jojmá–Guevurá -->
+          <line x1="18" y1="19" x2="82" y2="41"/><!-- Biná–Jésed -->
+          <line x1="82" y1="41" x2="50" y2="53"/><!-- Jésed–Tiféret -->
+          <line x1="18" y1="41" x2="50" y2="53"/><!-- Guevurá–Tiféret -->
+          <line x1="50" y1="53" x2="82" y2="70"/><!-- Tiféret–Nétsaj -->
+          <line x1="50" y1="53" x2="18" y2="70"/><!-- Tiféret–Hod -->
+          <line x1="82" y1="70" x2="50" y2="81"/><!-- Nétsaj–Yesod -->
+          <line x1="18" y1="70" x2="50" y2="81"/><!-- Hod–Yesod -->
+        </g>
+      </svg>
+
+      <ol class="sefirot">
+        <li class="sef cen" style="--x:50;--y:5;--dy:0px;--dy-movil:-22px">
+          <button class="nodo" type="button" data-id="keter" aria-pressed="false" aria-label="Kéter, Intención. Declaración y cifra escritas: 100 %">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="100 0" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">100&#8239;%</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Kéter</b> <span class="he" lang="he" dir="rtl">כתר</span></span><span class="rot-c">Intención</span><span class="rot-m">Declaración y cifra escritas: 100&#8239;%</span></p>
+        </li>
+        <li class="sef der" style="--x:82;--y:19">
+          <button class="nodo" type="button" data-id="jojma" aria-pressed="false" aria-label="Jojmá, Visión. 7 ideas capturadas">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">7</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Jojmá</b> <span class="he" lang="he" dir="rtl">חכמה</span></span><span class="rot-c">Visión</span><span class="rot-m">7 ideas capturadas</span></p>
+        </li>
+        <li class="sef izq" style="--x:18;--y:19">
+          <button class="nodo" type="button" data-id="bina" aria-pressed="false" aria-label="Biná, Plan. 2 de 3 fuentes con próxima acción">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="66.7 33.3" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">2/3</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Biná</b> <span class="he" lang="he" dir="rtl">בינה</span></span><span class="rot-c">Plan</span><span class="rot-m">2 de 3 fuentes con próxima acción</span></p>
+        </li>
+        <li class="sef der" style="--x:82;--y:41">
+          <button class="nodo" type="button" data-id="jesed" aria-pressed="true" aria-label="Jésed, Generosidad. 4 % donado (meta 10 %)">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="40 60" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">4&#8239;%</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Jésed</b> <span class="he" lang="he" dir="rtl">חסד</span></span><span class="rot-c">Generosidad</span><span class="rot-m">4&#8239;% donado (meta 10&#8239;%)</span></p>
+        </li>
+        <li class="sef izq" style="--x:18;--y:41">
+          <button class="nodo" type="button" data-id="guevura" aria-pressed="false" aria-label="Guevurá, Disciplina. 12 % de ahorro (meta 20 %)">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="60 40" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">12&#8239;%</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Guevurá</b> <span class="he" lang="he" dir="rtl">גבורה</span></span><span class="rot-c">Disciplina</span><span class="rot-m">12&#8239;% de ahorro (meta 20&#8239;%)</span></p>
+        </li>
+        <li class="sef cen" style="--x:50;--y:53;--dy:12px;--dy-movil:-17px">
+          <button class="nodo" type="button" data-id="tiferet" aria-pressed="false" aria-label="Tiféret, Equilibrio. Índice general: 54">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="54 46" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">54</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Tiféret</b> <span class="he" lang="he" dir="rtl">תפארת</span></span><span class="rot-c">Equilibrio</span><span class="rot-m">Índice general: 54</span></p>
+        </li>
+        <li class="sef der" style="--x:82;--y:70">
+          <button class="nodo" type="button" data-id="netsaj" aria-pressed="false" aria-label="Nétsaj, Constancia. Racha de 6 días">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">6</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Nétsaj</b> <span class="he" lang="he" dir="rtl">נצח</span></span><span class="rot-c">Constancia</span><span class="rot-m">Racha de 6 días</span></p>
+        </li>
+        <li class="sef izq" style="--x:18;--y:70">
+          <button class="nodo" type="button" data-id="hod" aria-pressed="false" aria-label="Hod, Gratitud. 3 evidencias esta semana">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="0 100" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">3</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Hod</b> <span class="he" lang="he" dir="rtl">הוד</span></span><span class="rot-c">Gratitud</span><span class="rot-m">3 evidencias esta semana</span></p>
+        </li>
+        <li class="sef cen" style="--x:50;--y:81;--dy:20px;--dy-movil:-10px">
+          <button class="nodo" type="button" data-id="yesod" aria-pressed="false" aria-label="Yesod, Canales. 1 fuente que ya ingresa">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="33.3 66.7" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">1</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Yesod</b> <span class="he" lang="he" dir="rtl">יסוד</span></span><span class="rot-c">Canales</span><span class="rot-m">1 fuente que ya ingresa</span></p>
+        </li>
+        <li class="sef cen" style="--x:50;--y:96;--dy:8px;--dy-movil:-16px">
+          <button class="nodo" type="button" data-id="maljut" aria-pressed="false" aria-label="Maljut, Manifestación. 3.800 de 10.000 al mes (38 %)">
+            <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="disco" cx="36" cy="36" r="35.25"/><circle class="arco" cx="36" cy="36" r="32" pathLength="100" stroke-dasharray="38 62" transform="rotate(-90 36 36)"/></svg>
+            <span class="nodo-v cifra">38&#8239;%</span>
+          </button>
+          <p class="rot" aria-hidden="true"><span class="fondo"><b>Maljut</b> <span class="he" lang="he" dir="rtl">מלכות</span></span><span class="rot-c">Manifestación</span><span class="rot-m">3.800 de 10.000 al mes (38&#8239;%)</span></p>
+        </li>
+      </ol>
+    </div>
+
+    <table class="indice">
+      <caption class="oculto">Las diez sefirot: cualidad y métrica</caption>
+      <thead class="oculto"><tr><th scope="col">Sefirá y cualidad</th><th scope="col">Métrica</th></tr></thead>
+      <tbody>
+        <tr><th scope="row"><b>Kéter</b> <span class="he" lang="he" dir="rtl">כתר</span><span class="cual">Intención</span></th><td data-frase="keter">Declaración y cifra escritas: 100&#8239;%</td></tr>
+        <tr><th scope="row"><b>Jojmá</b> <span class="he" lang="he" dir="rtl">חכמה</span><span class="cual">Visión</span></th><td data-frase="jojma">7 ideas capturadas</td></tr>
+        <tr><th scope="row"><b>Biná</b> <span class="he" lang="he" dir="rtl">בינה</span><span class="cual">Plan</span></th><td data-frase="bina">2 de 3 fuentes con próxima acción</td></tr>
+        <tr><th scope="row"><b>Jésed</b> <span class="he" lang="he" dir="rtl">חסד</span><span class="cual">Generosidad</span></th><td data-frase="jesed">4&#8239;% donado (meta 10&#8239;%)</td></tr>
+        <tr><th scope="row"><b>Guevurá</b> <span class="he" lang="he" dir="rtl">גבורה</span><span class="cual">Disciplina</span></th><td data-frase="guevura">12&#8239;% de ahorro (meta 20&#8239;%)</td></tr>
+        <tr><th scope="row"><b>Tiféret</b> <span class="he" lang="he" dir="rtl">תפארת</span><span class="cual">Equilibrio</span></th><td data-frase="tiferet">Índice general: 54</td></tr>
+        <tr><th scope="row"><b>Nétsaj</b> <span class="he" lang="he" dir="rtl">נצח</span><span class="cual">Constancia</span></th><td data-frase="netsaj">Racha de 6 días</td></tr>
+        <tr><th scope="row"><b>Hod</b> <span class="he" lang="he" dir="rtl">הוד</span><span class="cual">Gratitud</span></th><td data-frase="hod">3 evidencias esta semana</td></tr>
+        <tr><th scope="row"><b>Yesod</b> <span class="he" lang="he" dir="rtl">יסוד</span><span class="cual">Canales</span></th><td data-frase="yesod">1 fuente que ya ingresa</td></tr>
+        <tr><th scope="row"><b>Maljut</b> <span class="he" lang="he" dir="rtl">מלכות</span><span class="cual">Manifestación</span></th><td data-frase="maljut">3.800 de 10.000 al mes (38&#8239;%)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Palacios 2 · 7 -->
+  <section class="pal a-det" aria-labelledby="h-det">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">2</span>
+      <h2 id="h-det">Sefirá seleccionada</h2>
+      <span class="pal-area">Detalle</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x="16.5" y=".5" width="8" height="16"/><use href="#loc"/></svg>
+    </header>
+
+    <div class="det" aria-live="polite">
+      <div class="det-titulo">
+        <h3><span id="d-nombre">Jésed</span> <span class="he" lang="he" dir="rtl" id="d-he">חסד</span></h3>
+        <p id="d-cualidad">Generosidad</p>
+      </div>
+
+      <div class="det-sec">
+        <h4>Métrica</h4>
+        <p class="det-cifra"><span class="cifra fig-l" id="d-valor">4&#8239;%</span> <span id="d-frase">donado (meta 10&#8239;%)</span></p>
+        <div class="det-regla" id="d-regla">
+          <div class="regla" role="img" aria-label="Avance hacia la meta" id="d-regla-img">
+            <span class="regla-oro" id="d-oro" style="width:40%"></span>
+            <svg viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0V16M10 11V16M20 11V16M30 11V16M40 11V16M50 6V16M60 11V16M70 11V16M80 11V16M90 11V16M100 0V16"/></svg>
+          </div>
+          <p class="regla-notas"><span>0</span><span id="d-meta">meta 10&#8239;%</span></p>
+        </div>
+        <form class="campo" id="d-form">
+          <label for="d-campo" id="d-campo-rot">Donado este mes</label>
+          <div class="campo-fila">
+            <input id="d-campo" type="number" inputmode="decimal" min="0" step="1" value="4">
+            <span class="campo-u" id="d-campo-u">%</span>
+            <button class="boton" type="submit">Guardar</button>
+          </div>
+          <p class="campo-estado" id="d-estado" role="status"></p>
+        </form>
+      </div>
+
+      <div class="det-sec">
+        <h4>En la tradición</h4>
+        <p id="d-trad">Jésed es la bondad que da sin medida, el brazo derecho del Árbol. Se equilibra con Guevurá, que pone el límite. «Diezma para que te enriquezcas» <cite>(Talmud, Taanit 9a)</cite>.</p>
+      </div>
+
+      <div class="det-sec">
+        <h4>Práctica de hoy</h4>
+        <p id="d-prac">Dar primero: apartar el 10&#8239;% de lo que entra antes de cualquier otro gasto.</p>
+      </div>
+
+      <div class="det-sec" id="d-dato-sec">
+        <h4>El dato que la respalda</h4>
+        <p id="d-dato">Gastar en otros aumenta el bienestar más que gastar en uno mismo <cite>(Dunn, Aknin y Norton, Science, 2008)</cite>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Palacios 8 · 1 -->
+  <section class="pal a-libro libro" aria-labelledby="h-libro">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">8</span>
+      <h2 id="h-libro">Libro de fuentes de ingreso</h2>
+      <span class="pal-area">3 fuentes</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x=".5" y="16.5" width="16" height="8"/><use href="#loc"/></svg>
+    </header>
+    <table>
+      <colgroup><col class="w4"><col class="w2"><col class="w3"><col class="w2"><col class="w6"></colgroup>
+      <thead>
+        <tr><th scope="col">Fuente</th><th scope="col">Tipo</th><th scope="col">Estado</th><th scope="col" class="c-monto">Al mes</th><th scope="col" class="c-accion">Próxima acción</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" class="c-fuente">Servicio principal</th>
+          <td class="c-tipo">Servicio</td>
+          <td class="c-estado"><span class="estado"><svg class="m-ingresa" viewBox="0 0 96 96" aria-hidden="true"><use href="#moneda"/></svg>ingresando</span></td>
+          <td class="c-monto cifra">3.200</td>
+          <td class="c-accion">Subir precio 10&#8239;% a clientes nuevos</td>
+        </tr>
+        <tr>
+          <th scope="row" class="c-fuente">Contratos recurrentes</th>
+          <td class="c-tipo">Servicio</td>
+          <td class="c-estado"><span class="estado"><svg class="m-prueba" viewBox="0 0 96 96" aria-hidden="true"><use href="#moneda"/></svg>probando</span></td>
+          <td class="c-monto cifra">600</td>
+          <td class="c-accion">Ofrecer plan mensual a 5 clientes</td>
+        </tr>
+        <tr>
+          <th scope="row" class="c-fuente">Guía digital</th>
+          <td class="c-tipo">Digital</td>
+          <td class="c-estado"><span class="estado"><svg class="m-idea" viewBox="0 0 96 96" aria-hidden="true"><use href="#moneda"/></svg>idea</span></td>
+          <td class="c-monto cifra">0</td>
+          <td class="c-accion">Escribir el índice y validarlo con 3 personas</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Palacio 6 -->
+  <section class="pal meta" aria-labelledby="h-meta">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">6</span>
+      <h2 id="h-meta">Medidor de meta</h2>
+      <span class="pal-area">La cifra</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x="16.5" y="16.5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <div class="pal-cuerpo">
+      <p class="dato"><span class="cifra fig-l">3.800</span> <span class="dato-nota">de 10.000 al mes</span></p>
+    </div>
+    <p class="meta-pct"><span class="cifra">38&#8239;%</span><span class="rotulo">de la cifra</span></p>
+    <div class="pal-graf">
+      <svg class="moneda-medida" viewBox="0 0 240 240" role="img" aria-label="Moneda medidora: 3.800 de 10.000, el 38 %">
+        <circle class="canto" cx="120" cy="120" r="119.25"/>
+        <circle class="listel" cx="120" cy="120" r="103.5"/>
+        <circle class="arco" cx="120" cy="120" r="111.5" pathLength="100" stroke-dasharray="38 62" transform="rotate(-90 120 120)"/>
+        <rect class="hueco" x="80" y="80" width="80" height="80"/>
+      </svg>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pie pagina">
+  <p class="aviso">Información general, no asesoramiento financiero</p>
+  <div>
+    <h2>Cuadrado Lo Shu</h2>
+    <div class="clave-loshu">
+      <table aria-label="Cuadrado Lo Shu">
+        <tr><td>4</td><td>9</td><td>2</td></tr>
+        <tr><td>3</td><td>5</td><td>7</td></tr>
+        <tr><td>8</td><td>1</td><td>6</td></tr>
+      </table>
+      <p>Nueve palacios, un asunto en cada uno. Cada fila, columna y diagonal suma 15.</p>
+    </div>
+  </div>
+  <div>
+    <h2>Cinco elementos, cinco colores</h2>
+    <ul class="elementos">
+      <li><svg class="el el-madera" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="5"/></svg><span class="han" lang="zh-Hans">木</span><b>Madera</b><span>tinta: texto y estructura</span></li>
+      <li><svg class="el el-fuego" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="5"/></svg><span class="han" lang="zh-Hans">火</span><b>Fuego</b><span>sello: la sefirá elegida</span></li>
+      <li><svg class="el el-tierra" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="4.5"/></svg><span class="han" lang="zh-Hans">土</span><b>Tierra</b><span>papel: el fondo</span></li>
+      <li><svg class="el el-metal" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="5"/></svg><span class="han" lang="zh-Hans">金</span><b>Metal</b><span>oro: lo medido</span></li>
+      <li><svg class="el el-agua" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="5"/></svg><span class="han" lang="zh-Hans">水</span><b>Agua</b><span>azul de Zúrich: flujo y acción</span></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* Tema */
+  var raiz = document.documentElement, clave = 'shefa-tema';
+  try { var t = localStorage.getItem(clave); if (t) raiz.dataset.theme = t; } catch (e) {}
+  document.querySelector('.tema').addEventListener('click', function () {
+    var oscuro = raiz.dataset.theme ? raiz.dataset.theme === 'dark'
+      : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    raiz.dataset.theme = oscuro ? 'light' : 'dark';
+    try { localStorage.setItem(clave, raiz.dataset.theme); } catch (e) {}
+  });
+
+  /* Selección de nodo */
+  var e = ' ', miles = function (n) { return String(n).replace(/\B(?=(\d{3})+$)/g, '.'); };
+  var S = {
+    keter: { resto: function () { return 'declaración y cifra escritas'; },
+               n: 'Kéter', he: 'כתר', c: 'Intención', v: 100, meta: 100, u: '%', campo: 'Declaración y cifra escritas',
+               nodo: function (v) { return v + e + '%'; }, frase: function (v) { return 'Declaración y cifra escritas: ' + v + e + '%'; },
+               trad: 'Kéter es la corona: la voluntad que precede a toda forma. De ella parte el flujo que recorre el Árbol.',
+               prac: 'Leer la declaración y la cifra en voz alta.' },
+    jojma: { resto: function () { return 'ideas capturadas'; },
+               n: 'Jojmá', he: 'חכמה', c: 'Visión', v: 7, u: 'ideas', campo: 'Ideas capturadas',
+               nodo: function (v) { return v; }, frase: function (v) { return v + ' ideas capturadas'; },
+               trad: 'Jojmá es el primer destello: la idea cuando todavía no tiene forma.',
+               prac: 'Anotar cada idea en el momento en que aparece.' },
+    bina: { resto: function () { return 'fuentes con próxima acción'; },
+               n: 'Biná', he: 'בינה', c: 'Plan', v: 2, meta: 3, u: 'de 3', campo: 'Fuentes con próxima acción',
+               nodo: function (v) { return v + '/3'; }, frase: function (v) { return v + ' de 3 fuentes con próxima acción'; },
+               trad: 'Biná es el entendimiento: da forma y plan a lo que Jojmá intuye.',
+               prac: 'Dar a cada fuente su próxima acción concreta.' },
+    jesed: { resto: function () { return 'donado (meta 10' + e + '%)'; },
+               n: 'Jésed', he: 'חסד', c: 'Generosidad', v: 4, meta: 10, u: '%', campo: 'Donado este mes',
+               nodo: function (v) { return v + e + '%'; }, frase: function (v) { return v + e + '% donado (meta 10' + e + '%)'; },
+               trad: 'Jésed es la bondad que da sin medida, el brazo derecho del Árbol. Se equilibra con Guevurá, que pone el límite. «Diezma para que te enriquezcas» <cite>(Talmud, Taanit 9a)</cite>.',
+               prac: 'Dar primero: apartar el 10' + e + '% de lo que entra antes de cualquier otro gasto.',
+               dato: 'Gastar en otros aumenta el bienestar más que gastar en uno mismo <cite>(Dunn, Aknin y Norton, Science, 2008)</cite>.' },
+    guevura: { resto: function () { return 'de ahorro (meta 20' + e + '%)'; },
+               n: 'Guevurá', he: 'גבורה', c: 'Disciplina', v: 12, meta: 20, u: '%', campo: 'Ahorro este mes',
+               nodo: function (v) { return v + e + '%'; }, frase: function (v) { return v + e + '% de ahorro (meta 20' + e + '%)'; },
+               trad: 'Guevurá es el rigor y el límite: contiene para que el flujo no se pierda.',
+               prac: 'Apartar el ahorro el mismo día del cobro.' },
+    tiferet: { resto: function () { return 'índice general'; },
+               n: 'Tiféret', he: 'תפארת', c: 'Equilibrio', v: 54, meta: 100, u: 'de 100', campo: 'Índice general',
+               nodo: function (v) { return v; }, frase: function (v) { return 'Índice general: ' + v; },
+               trad: 'Tiféret es la armonía en el centro del Árbol: une el dar de Jésed con el límite de Guevurá.',
+               prac: 'Mirar el índice general una vez por semana, no cada día.' },
+    netsaj: { resto: function () { return 'días de racha'; },
+               n: 'Nétsaj', he: 'נצח', c: 'Constancia', v: 6, u: 'días', campo: 'Racha',
+               nodo: function (v) { return v; }, frase: function (v) { return 'Racha de ' + v + ' días'; },
+               trad: 'Nétsaj es la perseverancia: volver a empezar cada día.',
+               prac: 'Completar el ritual de hoy para sostener la racha.' },
+    hod: { resto: function () { return 'evidencias esta semana'; },
+               n: 'Hod', he: 'הוד', c: 'Gratitud', v: 3, u: 'evidencias', campo: 'Evidencias esta semana',
+               nodo: function (v) { return v; }, frase: function (v) { return v + ' evidencias esta semana'; },
+               trad: 'Hod es el reconocimiento: agradecer lo que ya se ha recibido.',
+               prac: 'Anotar una evidencia de lo recibido hoy.' },
+    yesod: { resto: function (v) { return v === 1 ? 'fuente que ya ingresa' : 'fuentes que ya ingresan'; },
+               n: 'Yesod', he: 'יסוד', c: 'Canales', v: 1, meta: 3, u: 'de 3', campo: 'Fuentes que ya ingresan',
+               nodo: function (v) { return v; }, frase: function (v) { return v + (v === 1 ? ' fuente que ya ingresa' : ' fuentes que ya ingresan'); },
+               trad: 'Yesod es el fundamento: el canal que reúne todo lo anterior y lo entrega a Maljut.',
+               prac: 'Cuidar la fuente que ya ingresa antes de abrir otra.' },
+    maljut: { resto: function (v) { return miles(v) + ' de 10.000 al mes'; },
+               n: 'Maljut', he: 'מלכות', c: 'Manifestación', v: 3800, meta: 10000, u: 'al mes', campo: 'Ingreso real',
+               nodo: function (v) { return Math.round(v / 100) + e + '%'; },
+               frase: function (v) { return miles(v) + ' de 10.000 al mes (' + Math.round(v / 100) + e + '%)'; },
+               trad: 'Maljut es el reino: donde todo lo anterior se hace visible. Solo recibe a través de Yesod.',
+               prac: 'Hoy se descansa y se revisa lo recibido.' }
+  };
+  var $ = function (id) { return document.getElementById(id); }, actual = 'jesed';
+  var nodos = document.querySelectorAll('.nodo');
+
+  function pintarNodo(id) {
+    var s = S[id], b = document.querySelector('.nodo[data-id="' + id + '"]');
+    var p = s.meta ? Math.max(0, Math.min(100, s.v / s.meta * 100)) : 0;
+    b.querySelector('.nodo-v').textContent = s.nodo(s.v);
+    b.querySelector('.arco').setAttribute('stroke-dasharray', p + ' ' + (100 - p));
+    b.setAttribute('aria-label', s.n + ', ' + s.c + '. ' + s.frase(s.v));
+    b.parentNode.querySelector('.rot-m').textContent = s.frase(s.v);
+    document.querySelector('[data-frase="' + id + '"]').textContent = s.frase(s.v);
+    return p;
+  }
+  function pintarDetalle(id) {
+    var s = S[id], p = pintarNodo(id);
+    $('d-nombre').textContent = s.n; $('d-he').textContent = s.he; $('d-cualidad').textContent = s.c;
+    $('d-valor').textContent = s.nodo(s.v); $('d-frase').textContent = s.resto(s.v);
+    $('d-regla').hidden = !s.meta; $('d-oro').style.width = p + '%';
+    $('d-meta').textContent = s.meta ? 'meta ' + miles(s.meta) + (s.u === '%' ? e + '%' : '') : '';
+    $('d-campo-rot').textContent = s.campo; $('d-campo').value = s.v; $('d-campo-u').textContent = s.u;
+    $('d-trad').innerHTML = s.trad; $('d-prac').textContent = s.prac;
+    $('d-dato-sec').hidden = !s.dato; if (s.dato) $('d-dato').innerHTML = s.dato;
+    $('d-estado').textContent = '';
+  }
+  nodos.forEach(function (b) {
+    b.addEventListener('click', function () {
+      nodos.forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+      actual = b.dataset.id; pintarDetalle(actual);
+    });
+  });
+  $('d-form').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var v = parseFloat($('d-campo').value);
+    if (isNaN(v) || v < 0) return;
+    S[actual].v = v; pintarDetalle(actual); $('d-estado').textContent = 'Guardado';
+  });
+})();
+</script>
+</body>
+</html>

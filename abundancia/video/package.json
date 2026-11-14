@@ -1,0 +1,12 @@
+{
+  "name": "shefa-pelicula",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Película «Riquezas y colores»: animación HTML renderizada a MP4",
+  "scripts": {
+    "render": "node render.cjs pelicula.html salida/riquezas-y-colores.mp4"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0"
+  }
+}
