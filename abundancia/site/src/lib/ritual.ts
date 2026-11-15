@@ -20,22 +20,55 @@ export interface PasoSesion {
   practica: string;
   /** id del paso de PASOS_RITUAL que se marca al completarlo; null si no tiene casilla propia. */
   ritual: string | null;
+  /** Solo cuando el estudio de la práctica no midió este paso tal como se hace aquí. */
+  indirecto?: Indirecto;
 }
+
+/** Lo que se dice en «Por qué» en lugar de la etiqueta «Estudio» cuando el respaldo es indirecto. */
+export interface Indirecto {
+  /** Qué no se ha medido y qué estudio afín hay. */
+  texto: string;
+  /** Si la fuente afín no es la de la práctica: tradición de `energias` en practicas.json que la trae. */
+  energia?: string;
+  /** Límite propio del paso; si falta, vale el de la práctica. */
+  limite?: string;
+}
+
+/** Duración del paso de PASOS_RITUAL: una sola fuente para Hoy y para el ritual guiado. */
+const duracion = (id: string): string => PASOS_RITUAL.find((p) => p.id === id)?.detalle ?? '';
 
 // Seis pasos guiados para las cinco casillas del ritual. «Obstáculo y plan» no tiene casilla
 // propia: completa la visualización (contraste mental) y se anota en la nota del día.
 export const MANANA: readonly PasoSesion[] = [
-  { id: 'respirar', titulo: 'Respirar', detalle: '1 min', practica: 'respiracion-lenta', ritual: 'respirar' },
-  { id: 'declaracion', titulo: 'Declaración', detalle: '2 min', practica: 'afirmacion-de-valores', ritual: 'declaracion' },
-  { id: 'visualizar', titulo: 'Visualizar el proceso de hoy', detalle: '5 min', practica: 'visualizar-proceso', ritual: 'visualizar' },
+  {
+    id: 'respirar', titulo: 'Respirar', detalle: duracion('respirar'), practica: 'respiracion-lenta', ritual: 'respirar',
+    indirecto: {
+      texto: 'Un minuto no es la dosis estudiada. Lo medido es la respiración lenta, a menos de diez respiraciones por minuto: más variabilidad cardiaca y menos ansiedad en una revisión de 15 estudios.',
+      energia: 'Qi',
+      limite: 'Si te mareas, para y respira normal.',
+    },
+  },
+  {
+    id: 'declaracion', titulo: 'Declaración', detalle: duracion('declaracion'), practica: 'afirmacion-de-valores', ritual: 'declaracion',
+    indirecto: {
+      texto: 'Leer una declaración en voz alta no se ha puesto a prueba. Lo estudiado es escribir sobre un valor propio, y su efecto depende del contexto.',
+    },
+  },
+  { id: 'visualizar', titulo: 'Visualizar el proceso de hoy', detalle: duracion('visualizar'), practica: 'visualizar-proceso', ritual: 'visualizar' },
   { id: 'plan', titulo: 'Obstáculo y plan', detalle: '2 min', practica: 'plan-si-entonces', ritual: null },
-  { id: 'dar', titulo: 'Dar primero', detalle: '1 min', practica: 'gasto-prosocial', ritual: 'dar' },
-  { id: 'bloque', titulo: 'Bloque de 90 minutos', detalle: '90 min', practica: 'habito-contexto-fijo', ritual: 'bloque' },
+  { id: 'dar', titulo: 'Dar primero', detalle: duracion('dar'), practica: 'gasto-prosocial', ritual: 'dar' },
+  {
+    id: 'bloque', titulo: 'Bloque de 90 minutos', detalle: duracion('bloque'), practica: 'habito-contexto-fijo', ritual: 'bloque',
+    indirecto: {
+      texto: 'No hay estudio sobre un bloque de 90 minutos. El paso se apoya en repetir una acción en el mismo contexto: en 96 personas se volvió automática entre 18 y 254 días.',
+    },
+  },
 ];
 
 export const NOCHE: readonly PasoSesion[] = [
   { id: 'dinero', titulo: 'Dinero de hoy', detalle: '1 min', practica: 'registro-progreso', ritual: null },
-  { id: 'evidencia', titulo: 'Una evidencia', detalle: '1 min', practica: 'autoeficacia', ritual: null },
+  // La lista es la misma que mide Hod: lo recibido o logrado y a quién se le debe (gratitud).
+  { id: 'evidencia', titulo: 'Una evidencia', detalle: '1 min', practica: 'gratitud', ritual: null },
   { id: 'revisar', titulo: 'El plan de hoy', detalle: '1 min', practica: 'plan-si-entonces', ritual: null },
 ];
 

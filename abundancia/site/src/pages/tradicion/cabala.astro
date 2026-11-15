@@ -19,7 +19,7 @@ import '../../styles/tradicion.css';
 import cabala from '../../data/cabala.json';
 import { afinar as fino, enLetras } from '../../lib/tradicion';
 import { POS, SENDEROS } from '../../lib/sefirot';
-import { frases } from '../../lib/formato';
+import { frases, parrafos } from '../../lib/formato';
 import { fmt, type SefiraId } from '../../lib/store';
 import { ruta } from '../../lib/ruta';
 
@@ -46,7 +46,7 @@ const cifras = indice.filter((e) => e.n !== undefined);
 ---
 <Base
   title={cabala.titulo}
-  description="Cábala y sustento: las diez sefirot con su sentido tradicional y su aplicación moderna, doce enseñanzas judías sobre el dinero con su texto y su fuente, glosario y pautas de respeto."
+  description="Cábala y sustento: las diez sefirot con su sentido tradicional y su aplicación moderna, doce enseñanzas de la tradición judía sobre el sustento, el dar y el contentamiento, con su texto y su fuente, glosario y pautas de respeto."
   clase="tr"
 >
   <Seccion actual="cabala" />
@@ -56,7 +56,7 @@ const cifras = indice.filter((e) => e.n !== undefined);
   <Cuadrado>
     <Palacio n={4} celdas={[4, 9]} titulo="Contexto" etiqueta="Qué es y cómo acercarse" id="contexto">
       <p class:list={['voz', 'tr-entradilla', entradilla.startsWith('«') && 'tr-colgada']}>{entradilla}</p>
-      <div class="tr-contexto"><p>{fino(resto.join(' '))}</p></div>
+      <div class="tr-contexto">{parrafos(resto).map((t) => <p>{fino(t)}</p>)}</div>
     </Palacio>
 
     <Palacio n={2} titulo="En cifras" etiqueta="Esta página">
@@ -74,7 +74,7 @@ const cifras = indice.filter((e) => e.n !== undefined);
 
     <Palacio n={3} celdas={[3, 5, 7]} titulo={`Las ${enLetras(cabala.sefirot.length).toLowerCase()} sefirot`} etiqueta="Tradición y lectura moderna" id="sefirot" clase="tr-bandas">
       <table class="tabla tr-tabla tr-sef" role="table">
-        <caption class="oculto">Las diez sefirot: nombre, sentido tradicional, aplicación moderna al sustento, práctica, día y color según Cordovero</caption>
+        <caption class="oculto">Las diez sefirot: nombre, sentido tradicional, aplicación moderna al sustento, práctica, día y color en la lista difundida que se atribuye a Cordovero</caption>
         <colgroup>
           <col class="c-n" /><col class="c-sef" /><col class="c-trad" /><col class="c-apl" /><col class="c-pra" /><col class="c-dia" /><col class="c-col" />
         </colgroup>
@@ -86,7 +86,7 @@ const cifras = indice.filter((e) => e.n !== undefined);
             <th role="columnheader" scope="col">Lectura para el sustento <span class="tr-th-etq"><Etiqueta tipo="tradicion" texto="Aplicación moderna" /></span></th>
             <th role="columnheader" scope="col">Práctica <span class="tr-th-etq"><Etiqueta tipo="tradicion" texto="Aplicación moderna" /></span></th>
             <th role="columnheader" scope="col">Día</th>
-            <th role="columnheader" scope="col">Color según Cordovero</th>
+            <th role="columnheader" scope="col">Color (lista difundida)</th>
           </tr>
         </thead>
         <tbody role="rowgroup">
@@ -109,14 +109,17 @@ const cifras = indice.filter((e) => e.n !== undefined);
               <td role="cell" data-rot="Día" class:list={['tr-medio', !s.dia && 'tr-vacia']}>
                 {s.dia ?? <><span aria-hidden="true">—</span><span class="oculto">Sin día asignado</span></>}
               </td>
-              <td role="cell" data-rot="Color según Cordovero" class:list={['tr-medio', !s.color_cordovero && 'tr-vacia']}>
-                {s.color_cordovero ?? <><span aria-hidden="true">—</span><span class="oculto">Sin color en la fuente</span></>}
+              <td role="cell" data-rot="Color (lista difundida)" class:list={['tr-medio', !s.color_cordovero && 'tr-vacia']}>
+                {s.color_cordovero ?? <><span aria-hidden="true">—</span><span class="oculto">Sin dato fiable</span></>}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <p slot="pie" class="nota tr-pautas-nota">Cada nombre abre su sefirá en el <a href={ruta('/arbol')}>Árbol</a>, donde se mide la cualidad que le corresponde en tu tablero.</p>
+      <Fragment slot="pie">
+        <p class="nota tr-pautas-nota">Cada nombre abre su sefirá en el <a href={ruta('/arbol')}>Árbol</a>, donde se mide la cualidad que Shefa le asigna como lectura moderna.</p>
+        <p class="nota tr-pautas-nota">Los colores son la lista difundida que se atribuye a Cordovero. Viene de fuentes secundarias (lectura de Aryeh Kaplan) y no se cotejó con Pardés Rimonim. Cordovero trata los colores como metáforas.</p>
+      </Fragment>
     </Palacio>
 
     <Palacio n={8} celdas={[8, 1]} titulo="Los días y las siete sefirot inferiores" etiqueta={esConvencion ? 'Tabla de divulgación actual' : 'Correspondencia tradicional'} id="dias">

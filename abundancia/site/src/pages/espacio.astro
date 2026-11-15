@@ -16,7 +16,7 @@ import '../styles/espacio.css';
 
 import fengshui from '../data/fengshui.json';
 import { acortar, pentagono, punta } from '../lib/espacio';
-import { fino } from '../lib/formato';
+import { fino, parrafos } from '../lib/formato';
 
 type Tipo = 'tradicion' | 'documentado' | 'estudio' | 'anecdota' | 'mito';
 
@@ -148,8 +148,9 @@ const conDato = items.filter((i) => i.dato).length;
       ))}
     </Palacio>
 
-    <!-- Palacio 6: la puntuación, en vivo -->
-    <Palacio n={6} titulo="Puntuación del espacio" etiqueta={`${PUNTOS} puntos`} id="puntuacion" clase="esp-pal-punt">
+    <!-- Palacio 8: la puntuación, en vivo. Va antes que la lista en el código y a su izquierda
+         en el cuadrado, para que el orden del foco siga el orden visual. -->
+    <Palacio n={8} titulo="Puntuación del espacio" etiqueta={`${PUNTOS} puntos`} id="puntuacion" clase="esp-pal-punt">
       <div class="esp-punt">
         <div class="esp-punt-dato">
           <p class="esp-punt-cifra"><span class="cifra fig-l" data-v="punt-pct">0 %</span></p>
@@ -178,8 +179,8 @@ const conDato = items.filter((i) => i.dato).length;
       </div>
     </Palacio>
 
-    <!-- Palacios 8 · 1: la lista -->
-    <Palacio n={8} celdas={[8, 1]} titulo="Lista del espacio de trabajo" etiqueta={`${items.length} pasos`} id="lista" clase="esp-pal-lista">
+    <!-- Palacios 1 · 6: la lista -->
+    <Palacio n={1} celdas={[1, 6]} titulo="Lista del espacio de trabajo" etiqueta={`${items.length} pasos`} id="lista" clase="esp-pal-lista">
       <div class="esp-lista-cab">
         <p class="nota">Marca lo que ya cumple tu espacio. Cada punto dice lo que enseña la tradición y, cuando lo hay, lo que se ha medido: {conDato} de {items.length} tienen un dato al lado.</p>
         <button class="boton-2 boton-s" type="button" data-v="razones" aria-pressed="true">Mostrar todas las razones</button>
@@ -215,6 +216,7 @@ const conDato = items.filter((i) => i.dato).length;
                       <p class="esp-razon-rot"><Etiqueta tipo="estudio" texto="Dato" /></p>
                       <p>{fino(it.dato)}</p>
                       <Fuente fuente={it.fuente_dato} />
+                      {'fuente_dato_2' in it && <Fuente fuente={it.fuente_dato_2} />}
                     </>
                   ) : (
                     <>
@@ -239,7 +241,7 @@ const conDato = items.filter((i) => i.dato).length;
   <Cuadrado clase="esp-fund">
     <!-- Palacios 4 · 9: contexto y escuelas -->
     <Palacio n={4} celdas={[4, 9]} titulo="Contexto y escuelas" etiqueta="Tres escuelas" id="contexto" nivel={3}>
-      <p class="esp-contexto">{fino(fengshui.contexto)}</p>
+      <div class="esp-contexto">{parrafos(fengshui.contexto).map((t) => <p>{fino(t)}</p>)}</div>
     </Palacio>
 
     <!-- Palacio 2: Periodo 9 -->

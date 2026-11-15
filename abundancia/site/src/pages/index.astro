@@ -1,6 +1,8 @@
 ---
 // Hoy: nueve funciones en nueve palacios. Todo sale del estado guardado en el
 // dispositivo (src/lib/store.ts) y se edita en el sitio.
+// Los palacios van en el código en el orden visual del cuadrado (4 9 2 / 3 5 7 / 8 1 6):
+// así el foco y el lector de pantalla siguen lo que se ve, y la tira de móvil lleva ese orden.
 import Base from '../layouts/Base.astro';
 import TituloPagina from '../components/TituloPagina.astro';
 import Cuadrado from '../components/Cuadrado.astro';
@@ -51,55 +53,6 @@ const iHoy = indiceDelDia(pares.length, hoy);
   <AvisoMuestra />
 
   <Cuadrado clase="hoy vivo">
-    <!-- 2 · Kun · suroeste · Tierra: lo receptivo -->
-    <Palacio n={2} titulo="Sefirá del día" etiqueta="Recepción" forma="cuadrado">
-      {diarias.map((x) => (
-        <div class="sef-hoy" data-dia={x.dia} hidden={x.dia !== diaHoy}>
-          <div>
-            <p class="sef-dia">
-              <span class="sef-dia-n">{x.nombre}</span>
-              <span class="he" lang="he" dir="rtl">{x.hebreo}</span>
-              <span class="sef-dia-c">{CUALIDAD[x.id as SefiraId]}</span>
-            </p>
-            <p class="rotulo">{x.significado}, sefirá del {x.dia}</p>
-            <details class="conv">
-              <summary>{esConvencion ? 'Día y sefirá: convención de divulgación actual' : 'Día y sefirá: correspondencia tradicional'}</summary>
-              <p>{cabala.dias_nota}</p>
-            </details>
-          </div>
-          <div class="sef-pie">
-            <div>
-              <p class="rotulo">Práctica</p>
-              <p>{fino(x.practica)}</p>
-            </div>
-            <a href={ruta(`/arbol#${x.id}`)} aria-label={`Ver ${x.nombre} en el Árbol`}>
-              <svg class="mini-arbol" viewBox="-3 -1 106 103" aria-hidden="true">
-                <path d={senderosD} />
-                {ORDEN.map((id) => <circle class={id === x.id ? 'hoy-nodo' : undefined} cx={POS[id][0]} cy={POS[id][1]} r="4.5" />)}
-              </svg>
-            </a>
-          </div>
-        </div>
-      ))}
-    </Palacio>
-
-    <!-- 9 · Li · sur · Fuego: lo que se ve de uno -->
-    <Palacio n={9} titulo="Declaración" etiqueta="Reputación" forma="cuadrado">
-      <div data-ver="declaracion">
-        <button class="editable voz" type="button" data-editar="declaracion" aria-label="Editar la declaración" data-v="declaracion">
-          {frases(s.declaracion).map((f) => <span>{f}</span>)}
-        </button>
-      </div>
-      <form class="campo ed" data-form="declaracion" hidden>
-        <label for="f-declaracion">Tu declaración</label>
-        <textarea id="f-declaracion" name="declaracion" rows="6" placeholder="Quién eres, a quién sirves y qué vas a dominar."></textarea>
-        <div class="campo-fila">
-          <button class="boton" type="submit">Guardar</button>
-          <button class="boton-2" type="button" data-cancelar>Cancelar</button>
-        </div>
-      </form>
-    </Palacio>
-
     <!-- 4 · Xun · sureste · Madera: el palacio de la riqueza -->
     <Palacio n={4} titulo="La cifra" etiqueta="Riqueza" forma="cuadrado">
       <div data-ver="cifra">
@@ -131,6 +84,55 @@ const iHoy = indiceDelDia(pares.length, hoy);
       </div>
     </Palacio>
 
+    <!-- 9 · Li · sur · Fuego: lo que se ve de uno -->
+    <Palacio n={9} titulo="Declaración" etiqueta="Reputación" forma="cuadrado">
+      <div data-ver="declaracion">
+        <button class="editable voz" type="button" data-editar="declaracion" aria-label="Editar la declaración" data-v="declaracion">
+          {frases(s.declaracion).map((f) => <span>{f}</span>)}
+        </button>
+      </div>
+      <form class="campo ed" data-form="declaracion" hidden>
+        <label for="f-declaracion">Tu declaración</label>
+        <textarea id="f-declaracion" name="declaracion" rows="6" placeholder="Quién eres, a quién sirves y qué vas a dominar."></textarea>
+        <div class="campo-fila">
+          <button class="boton" type="submit">Guardar</button>
+          <button class="boton-2" type="button" data-cancelar>Cancelar</button>
+        </div>
+      </form>
+    </Palacio>
+
+    <!-- 2 · Kun · suroeste · Tierra: lo receptivo -->
+    <Palacio n={2} titulo="Sefirá del día" etiqueta="Recepción" forma="cuadrado">
+      {diarias.map((x) => (
+        <div class="sef-hoy" data-dia={x.dia} hidden={x.dia !== diaHoy}>
+          <div>
+            <p class="sef-dia">
+              <span class="sef-dia-n">{x.nombre}</span>
+              <span class="he" lang="he" dir="rtl">{x.hebreo}</span>
+              <span class="sef-dia-c"><span class="sef-dia-lm">Lectura moderna:</span> {CUALIDAD[x.id as SefiraId]}</span>
+            </p>
+            <p class="rotulo">{x.significado}, sefirá del {x.dia}</p>
+            <details class="conv">
+              <summary>{esConvencion ? 'Día y sefirá: convención de divulgación actual' : 'Día y sefirá: correspondencia tradicional'}</summary>
+              <p>{cabala.dias_nota}</p>
+            </details>
+          </div>
+          <div class="sef-pie">
+            <div>
+              <p class="rotulo">Práctica · aplicación moderna</p>
+              <p>{fino(x.practica)}</p>
+            </div>
+            <a href={ruta(`/arbol#${x.id}`)} aria-label={`Ver ${x.nombre} en el Árbol`}>
+              <svg class="mini-arbol" viewBox="-3 -1 106 103" aria-hidden="true">
+                <path d={senderosD} />
+                {ORDEN.map((id) => <circle class={id === x.id ? 'hoy-nodo' : undefined} cx={POS[id][0]} cy={POS[id][1]} r="4.5" />)}
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </Palacio>
+
     <!-- 3 · Zhen · este · Madera: el impulso de cada mañana -->
     <Palacio n={3} titulo="Ritual de hoy" etiqueta="Impulso" forma="libre">
       <ol class="ritual">
@@ -160,15 +162,6 @@ const iHoy = indiceDelDia(pares.length, hoy);
         <span class="dato-nota" data-v="ingreso-nota">de {fmt(s.cifra)} al mes</span>
       </p>
       <div slot="graf" data-v="ingreso-moneda"><Moneda valor={avance} etiqueta={`Moneda medidora: ${pct(avance * 100)} de la cifra`} /></div>
-    </Palacio>
-
-    <!-- 1 · Kan · norte · Agua: lo que fluye -->
-    <Palacio n={1} titulo="Fuentes que ingresan" etiqueta="Flujo" forma="tira">
-      <p class="dato">
-        <a class="editable cifra fig-l" href={ruta('/arbol#libro')} data-v="fuentes">1 <span class="fig-de">de</span> 3</a>
-        <span class="dato-nota" data-v="fuentes-nota" hidden></span>
-      </p>
-      <div slot="graf" class="fuentes-m" data-v="fuentes-monedas"></div>
     </Palacio>
 
     <!-- 7 · Dui · oeste · Metal: la cosecha guardada -->
@@ -206,6 +199,15 @@ const iHoy = indiceDelDia(pares.length, hoy);
           <Cita fuente={e.fuente_tradicion} />
         </div>
       ))}
+    </Palacio>
+
+    <!-- 1 · Kan · norte · Agua: lo que fluye -->
+    <Palacio n={1} titulo="Fuentes que ingresan" etiqueta="Flujo" forma="tira">
+      <p class="dato">
+        <a class="editable cifra fig-l" href={ruta('/arbol#libro')} data-v="fuentes">1 <span class="fig-de">de</span> 3</a>
+        <span class="dato-nota" data-v="fuentes-nota" hidden></span>
+      </p>
+      <div slot="graf" class="fuentes-m" data-v="fuentes-monedas"></div>
     </Palacio>
 
     <!-- 6 · Qian · noroeste · Metal: quien ayuda desde fuera -->

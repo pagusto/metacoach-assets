@@ -236,7 +236,7 @@
         },
         {
           "titulo": "Grupo Master Mind",
-          "ejercicio": "Reúne a dos o más personas con un propósito definido y en armonía. Acordad qué aporta cada una y reuníos con regularidad para revisar planes."
+          "ejercicio": "Reúne a dos o más personas con un propósito definido y en armonía. Acuerda con ellas qué aporta cada una y fija reuniones regulares para revisar planes."
         }
       ],
       "cita": {
@@ -357,6 +357,7 @@
           "ejercicio": "Da las gracias de antemano, en voz baja y varias veces, por el resultado que buscas. Hazlo al acostarte y al levantarte durante varias semanas."
         }
       ],
+      "metodos_nota": "Métodos descritos a partir de sus libros y charlas; redacción no cotejada con el original.",
       "cita": null,
       "nota_critica": "Según Wikipedia, se ordenó en la Ciencia Divina y en la Ciencia Religiosa, y estudió con el mismo Abdullah que Goddard. Sus casos de curación y fortuna son relatos pastorales, no estudios. No atribuyas al método efectos médicos.",
       "etiqueta_nota": "anecdota",
@@ -368,6 +369,10 @@
         {
           "cita": "Wikipedia, «Joseph Murphy (writer)»",
           "url": "https://en.wikipedia.org/wiki/Joseph_Murphy_(writer)"
+        },
+        {
+          "cita": "Wikipedia, «Neville Goddard» (sobre Abdullah como maestro de ambos; cita a Cantin, 1987)",
+          "url": "https://en.wikipedia.org/wiki/Neville_Goddard"
         }
       ]
     },
@@ -391,6 +396,7 @@
           "ejercicio": "Lista con quién pasas más tiempo y qué efecto tiene en tus hábitos. Decide con quién ampliar, limitar o mantener el trato."
         }
       ],
+      "metodos_nota": "Métodos descritos a partir de sus libros y charlas; redacción no cotejada con el original.",
       "cita": null,
       "nota_critica": "La frase «eres el promedio de las cinco personas con las que pasas más tiempo» se le atribuye sin fuente primaria localizada: Quote Investigator solo halla atribuciones posteriores, como la de Jack Canfield en 2005.",
       "etiqueta_nota": "mito",
@@ -425,6 +431,7 @@
           "ejercicio": "Cada mañana anota a una persona —cliente, colega o familiar— y una cosa concreta que harás hoy para que avance en lo suyo. Revísalo por la noche."
         }
       ],
+      "metodos_nota": "Métodos descritos a partir de sus libros y charlas; redacción no cotejada con el original.",
       "cita": null,
       "nota_critica": "Ziglar citaba en sus charlas el estudio de metas de la promoción de Yale de 1953. Cuando Fast Company pidió la fuente en 1996, su oficina no pudo darla. El estudio no existe.",
       "etiqueta_nota": "mito",
@@ -459,6 +466,7 @@
           "ejercicio": "Elige un libro de la tradición y lee unas páginas cada día durante meses. Subraya con un color distinto en cada lectura y anota qué entiendes ahora."
         }
       ],
+      "metodos_nota": "Métodos descritos a partir de sus libros y charlas; redacción no cotejada con el original.",
       "cita": null,
       "nota_critica": "Fue uno de los rostros de The Secret (2006). Shermer, en Scientific American, y otros críticos señalan que la «ley de la atracción» que allí se presenta como ciencia carece de base científica.",
       "etiqueta_nota": "documentado",
@@ -497,6 +505,7 @@
           "ejercicio": "Clasifica tus tareas de la A a la E según sus consecuencias. Empieza el día por la A-1, la más importante y difícil, y no la sueltes hasta terminarla."
         }
       ],
+      "metodos_nota": "«Diez metas cada mañana» se describe a partir de resúmenes de sus charlas; redacción no cotejada con el original.",
       "cita": null,
       "nota_critica": "El estudio de metas escritas de Yale 1953 o Harvard 1979 que repite la literatura de metas, incluida la de Tracy, no existe según las bibliotecas de ambas universidades. La frase del sapo tampoco es de Mark Twain.",
       "etiqueta_nota": "mito",
@@ -539,6 +548,7 @@
           "ejercicio": "Al despertar responde por escrito: ¿de qué estoy agradecido?, ¿de qué estoy orgulloso?, ¿con qué estoy comprometido hoy? Dedica un minuto a sentir cada respuesta."
         }
       ],
+      "metodos_nota": "Métodos descritos a partir de sus libros y charlas; redacción no cotejada con el original.",
       "cita": null,
       "nota_critica": "Unlimited Power (1986) presenta como real «un estudio de los graduados de Yale de 1953». Cuando Fast Company pidió la fuente, su organización respondió que los archivos del libro se habían perdido.",
       "etiqueta_nota": "mito",

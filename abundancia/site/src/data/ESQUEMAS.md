@@ -86,6 +86,7 @@ Tipo `Fuente`: `{ "cita": "Autor (año), obra o revista", "url": "https://…" |
       "obra_clave": "Think and Grow Rich (1937)",
       "idea_central": "≤ 40 palabras",
       "metodos": [ { "titulo": "≤ 6 palabras", "ejercicio": "≤ 40 palabras" } ],
+      "metodos_nota": "opcional, ≤ 25 palabras: si los métodos no se cotejaron con el original, se dice aquí",
       "cita": { "texto": "español", "original": "inglés literal", "fuente": "libro y año" } | null,
       "nota_critica": "≤ 55 palabras: lo que añade su biografía documentada o la evidencia",
       "etiqueta_nota": "documentado | anecdota | mito",
@@ -116,7 +117,7 @@ Tipo `Fuente`: `{ "cita": "Autor (año), obra o revista", "url": "https://…" |
       "efecto": "p. ej. d = 0,65 en 94 estudios",
       "calidad": "alta | media | baja",
       "estudio": Fuente,
-      "momento": "mañana | noche | semanal | continuo",
+      "momento": "mañana | noche | semanal | mensual | continuo",
       "riesgo": "≤ 25 palabras o null"
     }
   ],
@@ -153,6 +154,8 @@ Tipo `Fuente`: `{ "cita": "Autor (año), obra o revista", "url": "https://…" |
 ```
 
 9 palacios, 5 elementos, 15 ítems de lista, 5 a 7 símbolos, 2 a 4 estudios económicos.
+Un ítem de `lista` puede llevar además `fuente_dato_2` (Fuente) cuando el dato cita una réplica. `peso`: 1 si solo
+hay tradición o el hallazgo no se replicó, 2 con un estudio al lado, 3 con respaldo fuerte.
 
 ## datos.json
 
@@ -175,6 +178,12 @@ Tipo `Fuente`: `{ "cita": "Autor (año), obra o revista", "url": "https://…" |
 }
 ```
 
+`confianza`: `alta` si la fuente es primaria u oficial (el organismo, su nota de prensa, la institución de los
+autores o un artículo revisado); `media` si la cifra llega por prensa que cita el informe, o es una proyección o un
+cálculo propio; `baja` si es una encuesta de marketing o un dato autodeclarado. `anio` es `null` cuando la fuente no
+lo fija. Un país de `riqueza_por_adulto` sin cifra propia lleva su `fuente` en la fila, y una fila de
+`retornos_reales` puede llevar `nota` (≤ 25 palabras) si otra lectura de la misma fuente da otro valor.
+
 18 a 26 cifras. Países en `riqueza_por_adulto`: Suiza, Estados Unidos, Australia, España, México, Argentina, Chile, Colombia (los que tengan dato). Reguladores: Australia, España, México, Estados Unidos, Reino Unido, Argentina, Colombia, Chile.
 
 ## videoteca.json
@@ -183,8 +192,9 @@ Tipo `Fuente`: `{ "cita": "Autor (año), obra o revista", "url": "https://…" |
 {
   "videos": [
     { "id": "11 caracteres", "titulo": "título exacto que devuelve yt.py check", "canal": "canal que devuelve yt.py check",
-      "duracion": "h:mm:ss o mm:ss", "idioma": "es | en", "maestro": "nombre de quien habla",
-      "anio_original": 1954, "categoria": "maestros | ciencia | datos | cabala | hermetismo | feng-shui | color-diseno",
+      "titulo_visible": "opcional: el mismo título sin emoji ni versales, para pintarlo",
+      "duracion": "h:mm:ss o mm:ss", "idioma": "es | en", "maestro": "nombre de quien habla, o el canal si no consta",
+      "anio_original": 1954 | null, "categoria": "maestros | ciencia | datos | cabala | hermetismo | feng-shui | color-diseno",
       "temas": ["2 a 4 etiquetas cortas"], "resumen": "2 frases", "por_que": "1 frase",
       "tipo_canal": "oficial | autorizado | archivo | fan", "nota": "" }
   ],
@@ -192,7 +202,9 @@ Tipo `Fuente`: `{ "cita": "Autor (año), obra o revista", "url": "https://…" |
 }
 ```
 
-60 a 80 videos; al menos 22 en español; cada `id` verificado con `yt.py check` (`ok: true`).
+60 videos o más (la nutrición diaria añade); al menos 22 en español; cada `id` verificado con `yt.py check`
+(`ok: true`). `anio_original` es `null` si no se pudo confirmar el año; se explica en `nota`. El texto va en
+Unicode NFC. `titulo_visible` solo cambia mayúsculas, emoji y separadores: nunca las palabras.
 
 ## colores.json
 

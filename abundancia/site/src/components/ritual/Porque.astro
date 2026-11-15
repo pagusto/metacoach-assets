@@ -1,7 +1,10 @@
 ---
 // Porque: la línea «Por qué» de un paso del ritual. Empareja la tradición afín con la
 // evidencia de una práctica de practicas.json, con su fuente y la calidad del respaldo.
+// Si el estudio no midió el paso tal como se hace en el ritual, se pasa «indirecto»: en vez de
+// la etiqueta «Estudio» se dice que no hay estudio directo y se cita el estudio afín.
 //   <Porque practica={practicas.practicas[0]} />
+//   <Porque practica={p} indirecto={{ texto: 'Un minuto no es la dosis estudiada…', fuente: f }} />
 import Etiqueta from '../Etiqueta.astro';
 import Fuente from './Fuente.astro';
 import { fino } from '../../lib/formato';
@@ -19,8 +22,11 @@ interface Props {
   practica: Practica;
   /** Nivel del título «Por qué». Por defecto 4. */
   nivel?: 3 | 4;
+  /** Respaldo indirecto: texto que sustituye al efecto, fuente afín y límite propios. */
+  indirecto?: { texto: string; fuente?: { cita: string; url: string | null } | null; limite?: string } | null;
 }
-const { practica: p, nivel = 4 } = Astro.props;
+const { practica: p, nivel = 4, indirecto = null } = Astro.props;
+const limite = indirecto?.limite ?? p.riesgo;
 const H = `h${nivel}` as 'h4';
 const punto = (t: string) => (/[.!?…]$/.test(t.trim()) ? t.trim() : `${t.trim()}.`);
 // «N = 96», «p < 0,05»: el signo no se separa de sus dos lados.
@@ -33,10 +39,17 @@ const pegar = (t: string) => fino(t).replace(/ ([=<>≤≥]) /g, '\u00a0$1\u00a0
       <Etiqueta tipo="tradicion" />
       <span>{fino(punto(p.tradicion_afin))}</span>
     </p>
-    <p>
-      <Etiqueta tipo="estudio" texto={p.calidad ? `Estudio · calidad ${p.calidad}` : 'Estudio'} />
-      <span>{pegar(punto(p.efecto))} <Fuente fuente={p.estudio} /></span>
-    </p>
+    {indirecto ? (
+      <p>
+        <span class="rotulo rt-porque-sin">Sin estudio directo de este paso</span>
+        <span>{pegar(punto(indirecto.texto))} <Fuente fuente={indirecto.fuente ?? p.estudio} /></span>
+      </p>
+    ) : (
+      <p>
+        <Etiqueta tipo="estudio" texto={p.calidad ? `Estudio · calidad ${p.calidad}` : 'Estudio'} />
+        <span>{pegar(punto(p.efecto))} <Fuente fuente={p.estudio} /></span>
+      </p>
+    )}
   </div>
-  {p.riesgo && <p class="rt-porque-l"><span class="rotulo">Límite</span> {fino(p.riesgo)}</p>}
+  {limite && <p class="rt-porque-l"><span class="rotulo">Límite</span> {fino(limite)}</p>}
 </div>

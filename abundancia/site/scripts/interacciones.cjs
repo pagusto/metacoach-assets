@@ -176,6 +176,28 @@ const fino = (s) => s.replace(/[  ]/g, ' ').replace(/\s+/g, ' ').trim();
   await p.goto(base + '/arbol', { waitUntil: 'networkidle' });
   comprobar('vacío: el libro avisa de que no hay fuentes', await p.locator('[data-v="libro-vacio"]').isVisible());
 
+  // Importar archivos incompletos o editados a mano: se sanean y ninguna página falla
+  const rotos = [
+    '{"fuentes":[{"nombre":"x"}]}',
+    '{"fuentes":[null]}',
+    '{"fuentes":[],"ritual":{"2026-11-15":"x"}}',
+    '{"fuentes":[],"declaracion":5,"evidencias":[null,{"texto":1}],"ideas":[3,null],"woop":"x","ritualDia":{"2026-11-15":"x"}}',
+  ];
+  for (const [i, contenido] of rotos.entries()) {
+    const antes = errores.length;
+    const roto = path.join(os.tmpdir(), `shefa-roto-${Date.now()}-${i}.json`);
+    fs.writeFileSync(roto, contenido);
+    await p.goto(base + '/arbol', { waitUntil: 'networkidle' });
+    await p.setInputFiles('[data-v="importar"]', roto);
+    await p.waitForFunction(() => (document.querySelector('[data-v="estado-datos"]')?.textContent || '').includes('importados'));
+    fs.rmSync(roto);
+    for (const ruta of ['/arbol', '/', '/ritual', '/datos']) await p.goto(base + ruta, { waitUntil: 'networkidle' });
+    s = await estado();
+    const sano = s.fuentes.every((f) => f && typeof f.accion === 'string' && typeof f.nombre === 'string' && typeof f.mensual === 'number')
+      && typeof s.declaracion === 'string' && Object.values(s.ritual).every(Array.isArray);
+    comprobar(`importar: archivo incompleto ${i + 1} de ${rotos.length} se sanea y no rompe las páginas`, sano && errores.length === antes, errores.slice(antes).join(' | '));
+  }
+
   // Sin desbordamiento a 320 px
   for (const ruta of ['/', '/arbol']) {
     await p.setViewportSize({ width: 320, height: 700 });

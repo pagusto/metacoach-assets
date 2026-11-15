@@ -18,7 +18,7 @@ import practicas from '../data/practicas.json';
 import { METAS, PASOS_RITUAL, estadoInicial, ingresoReal, fmt, claveDia } from '../lib/store';
 import { fechaLarga, frases, pct } from '../lib/formato';
 import { ruta } from '../lib/ruta';
-import { MIN_BLOQUE, MIN_VISUALIZAR, RESPIRA, SESIONES, reloj, type SesionId } from '../lib/ritual';
+import { MIN_BLOQUE, MIN_VISUALIZAR, RESPIRA, SESIONES, reloj, type PasoSesion, type SesionId } from '../lib/ritual';
 
 // Se construye con los datos de muestra; el cliente repinta con el estado guardado.
 const hoy = new Date();
@@ -27,6 +27,15 @@ const total = ingresoReal(s);
 const sugerido = (total * METAS.donado) / 100;
 
 const practica = (id: string) => practicas.practicas.find((p) => p.id === id);
+// Pasos cuyo estudio no midió lo que aquí se hace: el «Por qué» lo dice y cita el estudio afín.
+const indirecto = (p: PasoSesion) =>
+  p.indirecto
+    ? {
+        texto: p.indirecto.texto,
+        limite: p.indirecto.limite,
+        fuente: p.indirecto.energia ? practicas.energias.find((e) => e.tradicion === p.indirecto?.energia)?.fuente ?? null : null,
+      }
+    : null;
 const ORDEN: SesionId[] = ['manana', 'noche'];
 const woop = practica('woop');
 const meta = practica('meta-especifica');
@@ -190,9 +199,9 @@ const segundosRespira = RESPIRA.ciclos * (RESPIRA.inhala + RESPIRA.exhala);
       <Panel sesion="noche" i={1} clase="rt-dos">
         <div class="pila">
           <form class="campo" data-form="evidencia">
-            <label for="rt-evidencia">Una prueba de hoy de que puedes</label>
+            <label for="rt-evidencia">Algo que recibiste o lograste hoy y a quién se lo debes</label>
             <div class="campo-fila rt-sin-salto">
-              <input id="rt-evidencia" name="texto" type="text" autocomplete="off" maxlength="200" placeholder="Una venta, una llamada difícil" />
+              <input id="rt-evidencia" name="texto" type="text" autocomplete="off" maxlength="200" placeholder="Una venta, una ayuda, un aprendizaje" />
               <button class="boton-2" type="submit">Añadir</button>
             </div>
           </form>
@@ -236,7 +245,7 @@ const segundosRespira = RESPIRA.ciclos * (RESPIRA.inhala + RESPIRA.exhala);
       <Fragment slot="pie">
         {ORDEN.map((id) => SESIONES[id].pasos.map((p, i) => {
           const pr = practica(p.practica);
-          return pr ? <div data-porque={`${id}:${i}`}><Porque practica={pr} /></div> : null;
+          return pr ? <div data-porque={`${id}:${i}`}><Porque practica={pr} indirecto={indirecto(p)} /></div> : null;
         }))}
       </Fragment>
     </Palacio>
@@ -257,7 +266,7 @@ const segundosRespira = RESPIRA.ciclos * (RESPIRA.inhala + RESPIRA.exhala);
           ))}
         </ol>
       ))}
-      <p slot="pie" class="rotulo">«Siguiente» marca el paso como hecho. La casilla lo marca o lo desmarca; el nombre abre el paso.</p>
+      <p slot="pie" class="rotulo">«Siguiente» marca el paso como hecho. La casilla lo marca o lo desmarca; el nombre abre el paso. De los seis de la mañana, cinco suman para la constancia.</p>
     </Palacio>
 
     <!-- Palacio 7: constancia -->
@@ -269,11 +278,11 @@ const segundosRespira = RESPIRA.ciclos * (RESPIRA.inhala + RESPIRA.exhala);
       <div class="rt-14">
         <p class="campo-rot">Últimos 14 días</p>
         <div class="dias" data-v="dias14" role="img" aria-label="Últimos 14 días"></div>
-        <p class="rotulo">Hoy está a la derecha. Un día cuenta cuando completas 4 de los {PASOS_RITUAL.length} pasos.</p>
+        <p class="rotulo">Hoy está a la derecha. Un día cuenta con 4 de los {PASOS_RITUAL.length} pasos que suman. «Obstáculo y plan» completa la visualización y no suma.</p>
       </div>
       <Fragment slot="pie">
         <dl class="rt-resumen">
-          <div><dt>Ritual de hoy</dt><dd><span class="cifra" data-v="hoy-cuenta">0</span> de {PASOS_RITUAL.length}</dd></div>
+          <div><dt>Pasos que suman hoy</dt><dd><span class="cifra" data-v="hoy-cuenta">0</span> de {PASOS_RITUAL.length}</dd></div>
           <div><dt>Cierre de la noche</dt><dd><span class="cifra" data-v="noche-cuenta">0</span> de {SESIONES.noche.pasos.length}</dd></div>
         </dl>
         <p class="rt-enlace"><a href={ruta('/arbol#netsaj')}>Ver la constancia en el Árbol</a></p>

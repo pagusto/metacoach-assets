@@ -4,6 +4,8 @@
 export interface Video {
   id: string;
   titulo: string;
+  /** El mismo título sin emoji ni versales, para pintarlo. Opcional. */
+  titulo_visible?: string;
   canal: string;
   duracion: string;
   idioma: string;
@@ -61,6 +63,17 @@ export const enYouTube = (id: string) => `https://www.youtube.com/watch?v=${id}`
 export const incrustado = (id: string) => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
 export const PERMISOS_REPRODUCTOR = 'accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen';
 
+// ---------- Título y canal ----------
+/** Título que se pinta: el limpio (sin emoji ni versales) si el JSON lo trae; si no, el exacto. */
+export function tituloVisible(v: { titulo: string; titulo_visible?: string }): string {
+  return v.titulo_visible?.trim() || v.titulo;
+}
+
+/** ¿El texto está en escritura hebrea? Para marcarlo con lang="he" y la clase .he. */
+export function esHebreo(texto: string): boolean {
+  return /[\u0590-\u05FF]/.test(texto);
+}
+
 // ---------- Duración ----------
 /** «2:12:44» o «29:18» en segundos. Devuelve 0 si no se entiende. */
 export function segundos(duracion: string): number {
@@ -73,8 +86,10 @@ export function segundos(duracion: string): number {
 export function duracionHablada(duracion: string): string {
   const s = segundos(duracion);
   if (!s) return duracion;
-  const h = Math.floor(s / 3600);
-  const m = Math.round((s % 3600) / 60);
+  // Se redondea primero el total a minutos: así nunca sale «10 h 60 min».
+  const min = Math.round(s / 60);
+  const h = Math.floor(min / 60);
+  const m = min % 60;
   if (h && m) return `${h} h ${m} min`;
   if (h) return `${h} h`;
   return `${Math.max(1, m)} min`;

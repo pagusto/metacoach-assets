@@ -1,0 +1,60 @@
+---
+// 404: la página que se sirve cuando la dirección no existe. Astro la compila a
+// dist/shefa/404.html; astro.config.mjs la copia además a dist/404.html, que es donde
+// Vercel busca la página de «no encontrado» (outputDirectory: dist).
+// Todos los enlaces pasan por ruta(): la página se sirve desde cualquier dirección.
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import { ruta } from '../lib/ruta';
+
+const DESTINOS = [
+  { href: '/', texto: 'Hoy', nota: 'la cifra, el ritual y la sefirá del día' },
+  { href: '/arbol', texto: 'Árbol', nota: 'las diez medidas y el libro de fuentes' },
+  { href: '/ritual', texto: 'Ritual', nota: 'la sesión guiada de mañana y de noche' },
+  { href: '/tradicion', texto: 'Tradición', nota: 'cábala, hermetismo, maestros y prácticas' },
+  { href: '/espacio', texto: 'Espacio', nota: 'el feng shui del lugar de trabajo' },
+  { href: '/datos', texto: 'Datos', nota: 'cifras con fuente y cinco calculadoras' },
+  { href: '/videoteca', texto: 'Videoteca', nota: 'videos comprobados, por categoría' },
+  { href: '/colores', texto: 'Colores', nota: 'los colores de la riqueza y su historia' },
+  { href: '/agentes', texto: 'Agentes', nota: 'el equipo y el diario de conocimiento' },
+];
+---
+<Base title="No encontrado" description="Esta dirección no existe en Shefa.">
+  <TituloPagina titulo="Esta página no existe" nota="La dirección no lleva a ninguna parte de Shefa. Puede que el enlace esté mal escrito o que la página haya cambiado de sitio." />
+
+  <Cuadrado clase="nf">
+    <Palacio n={4} titulo="Dirección" etiqueta="Error 404" forma="dos-tercios">
+      <p><span class="cifra fig-xl" style="--n:3">404</span></p>
+      <p slot="pie"><a class="boton" href={ruta('/')}>Ir a Hoy</a></p>
+    </Palacio>
+    <Palacio n={9} celdas={[9, 2]} titulo="Las nueve entradas" etiqueta="Elige una" forma="libre">
+      <ol class="nf-lista">
+        {DESTINOS.map((d, i) => (
+          <li>
+            <span class="cifra" aria-hidden="true">{i + 1}</span>
+            <a href={ruta(d.href)}>{d.texto}</a>
+            <span class="nota">{d.nota}</span>
+          </li>
+        ))}
+      </ol>
+      <p slot="pie" class="rotulo nf-pie">El método y las fuentes están en <a href={ruta('/metodo')}>Método y fuentes</a>.</p>
+    </Palacio>
+  </Cuadrado>
+</Base>
+
+<style>
+  .nf-lista { display: grid; grid-template-columns: minmax(0, 1fr); border-top: var(--linea) solid var(--filete); }
+  .nf-lista li {
+    display: grid; grid-template-columns: var(--s-3) minmax(0, 7.5rem) minmax(0, 1fr); column-gap: var(--s-2); align-items: baseline;
+    min-height: var(--s-4); padding: 11px 0 12px; border-bottom: var(--linea) solid var(--filete-suave);
+  }
+  .nf-lista .cifra { color: var(--texto-3); }
+  .nf-lista a { font-weight: 600; }
+  .nf-pie { margin-top: var(--s-2); }
+  @media (max-width: 479px) {
+    .nf-lista li { grid-template-columns: var(--s-3) minmax(0, 1fr); }
+    .nf-lista .nota { grid-column: 2; }
+  }
+</style>

@@ -18,7 +18,7 @@
 .d-indice .cifra { min-width: 2ch; font-size: var(--t-2); line-height: 1; }
 
 .d-sec { display: grid; gap: 4px; padding-block: var(--s-4) var(--s-2); }
-.d-sec h2 { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 500; letter-spacing: -0.015em; }
+.d-sec h2 { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 400; letter-spacing: -0.015em; }
 .d-sec p { font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
 
 /* Los palacios de esta página van bajo un h2 de bloque, así que su título es h3 (nivel={3}).
@@ -127,6 +127,11 @@
 .d-tabla .tabla { margin-top: var(--s-1); font-size: var(--t-0); line-height: var(--lh-0); }
 .d-tabla .tabla th, .d-tabla .tabla td { padding-block: 6px; }
 .d-tabla .tabla .num { font-size: var(--t-1); }
+/* La tabla de riqueza cabe en la tira: menos canal entre columnas y el país puede partirse. */
+.d-tabla .tabla th, .d-tabla .tabla td { padding-right: var(--s-1); }
+.d-tabla .tabla thead .num { font-size: var(--t-00); }
+/* El ingreso del reparto admite siete cifras sin cortarse. */
+#r-ingreso { width: 9.5rem; }
 .d-anual { max-height: 264px; overflow-y: auto; }
 
 /* Dinero rápido y hallazgos: fichas con filete arriba */
@@ -325,7 +330,7 @@
 
   /* El título de bloque ocupa la primera columna; su nota, las otras dos */
   .d-sec { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: baseline; gap: 0; padding-block: var(--s-5) var(--s-3); }
-  .d-sec h2 { font-size: var(--t-3); line-height: var(--lh-3); font-weight: 400; letter-spacing: -0.02em; }
+  .d-sec h2 { font-size: var(--t-3); line-height: var(--s-4); font-weight: 400; letter-spacing: -0.02em; }
   .d-sec p { grid-column: 2 / span 2; padding-left: calc(var(--palacio-pad) + var(--linea)); font-size: var(--t-1); }
 
   /* Las columnas interiores caen sobre las de los palacios: 2 × margen + filete */

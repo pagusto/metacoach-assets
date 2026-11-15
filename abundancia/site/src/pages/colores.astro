@@ -17,7 +17,10 @@ import '../styles/colores.css';
 import colores from '../data/colores.json';
 import tokensCss from '../styles/tokens.css?raw';
 import { contraste, esHex, leerTokens, nivel, razonTexto, sobre } from '../lib/espacio';
-import { deISO, fechaCorta, fino } from '../lib/formato';
+import { deISO, esc, fechaCorta, fino } from '../lib/formato';
+
+// Los caracteres chinos de una nota llevan su idioma y su fuente, como en el resto del sitio.
+const conHan = (t: string) => esc(t).replace(/[\u4E00-\u9FFF]+/g, (c) => `<span class="han" lang="zh-Hans">${c}</span>`);
 import { ruta } from '../lib/ruta';
 
 type Tipo = 'tradicion' | 'documentado' | 'estudio' | 'anecdota' | 'mito';
@@ -105,9 +108,9 @@ const paleta = colores.paleta.map((p) => {
       <video class="clr-video" controls preload="metadata" playsinline poster={ruta(peli.poster)} aria-label={`Película «${peli.titulo}»`} data-v="pelicula">
         <source src={ruta(peli.archivo)} type="video/mp4" />
         <track kind="captions" src={ruta(peli.subtitulos)} srclang="es" label="Español" default />
-        <p>Tu navegador no reproduce vídeo. <a href={ruta(peli.archivo)}>Descarga la película</a>.</p>
+        <p>Tu navegador no reproduce video. <a href={ruta(peli.archivo)}>Descarga la película</a>.</p>
       </video>
-      <p class="clr-video-falta" data-v="pelicula-falta" role="status" hidden>La película todavía no está disponible en esta copia del sitio. Los ocho hechos que cuenta están más abajo, con sus fuentes.</p>
+      <p class="clr-video-falta" data-v="pelicula-falta" role="status" hidden>La película todavía no está disponible en esta copia del sitio. Los nueve hechos que cuenta están más abajo, con sus fuentes.</p>
     </Palacio>
 
     <Palacio n={2} titulo="En la película" etiqueta={`${lista.length} colores`} id="ficha" clase="clr-pal-ficha">
@@ -216,7 +219,7 @@ const paleta = colores.paleta.map((p) => {
             {'mito' in t && t.mito && (
               <p class="clr-mito"><Etiqueta tipo="mito" /> <span>{t.mito}</span></p>
             )}
-            <p class="nota">{fino(t.nota)}</p>
+            <p class="nota" set:html={conHan(fino(t.nota))} />
             <Fuente fuente={t.fuente} />
           </section>
         ))}

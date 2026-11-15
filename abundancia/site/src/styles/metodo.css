@@ -70,7 +70,7 @@
   scroll-margin-top: var(--s-2);
 }
 .mt-col-cab { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
-.mt-col-cab h2 { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 400; letter-spacing: -0.01em; }
+.mt-col-cab h2 { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 400; letter-spacing: -0.015em; }
 .mt-col-cab .nota { margin-top: var(--s-1); max-width: 36rem; text-wrap: pretty; }
 .mt-total { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 12px; }
 .mt-total .cifra { line-height: 1; }
@@ -149,6 +149,7 @@
   .mt-limites .pal-cuerpo, .mt-profesional .pal-cuerpo, .mt-privacidad .pal-cuerpo { padding-top: var(--s-2); }
 
   .mt-col-cab { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--mt-canal); align-items: start; }
+  .mt-col-cab h2 { font-size: var(--t-3); line-height: var(--s-4); letter-spacing: -0.02em; }
   .mt-total { flex-direction: column; row-gap: 4px; }
   .mt-total .cifra { font-size: var(--t-4); }
   .mt-refs { columns: 3; column-gap: var(--mt-canal); }

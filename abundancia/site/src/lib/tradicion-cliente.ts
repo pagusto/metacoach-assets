@@ -54,10 +54,17 @@ export function iniciarIndice(): void {
       marcar();
     });
   };
+  // En la tira el índice se desplaza en horizontal: «data-mas» pinta la señal de que sigue.
+  const señalar = (): void => {
+    nav.toggleAttribute('data-mas', pista.scrollWidth - pista.clientWidth - pista.scrollLeft > 4);
+  };
+  pista.addEventListener('scroll', señalar, { passive: true });
+  window.addEventListener('resize', señalar, { passive: true });
   window.addEventListener('scroll', alMover, { passive: true });
   window.addEventListener('resize', alMover, { passive: true });
   window.addEventListener('hashchange', alMover);
   marcar();
+  señalar();
 }
 
 /**

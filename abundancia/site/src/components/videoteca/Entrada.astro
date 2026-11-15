@@ -5,13 +5,15 @@
 //   <Entrada video={v} />
 import Fachada from './Fachada.astro';
 import {
-  duracionHablada, enYouTube, nombreCategoria, nombreIdioma, rotuloTipoCanal, type Video,
+  duracionHablada, enYouTube, esHebreo, nombreCategoria, nombreIdioma, rotuloTipoCanal, tituloVisible, type Video,
 } from '../../lib/videoteca';
 
 interface Props {
   video: Video;
 }
 const { video: v } = Astro.props;
+const titulo = tituloVisible(v);
+const canalHe = esHebreo(v.canal);
 ---
 <li>
   <article
@@ -21,7 +23,7 @@ const { video: v } = Astro.props;
     <div class="vt-media"><Fachada id={v.id} titulo={v.titulo} idioma={v.idioma} /></div>
 
     <div class="vt-cab">
-      <h3 class="vt-titulo" lang={v.idioma} data-busca>{v.titulo}</h3>
+      <h3 class="vt-titulo" lang={v.idioma} data-busca>{titulo}</h3>
       <ul class="vt-meta">
         <li class="medio" data-busca>{v.maestro}</li>
         <li><span class="oculto">Duración: {duracionHablada(v.duracion)}</span><span class="cifra" aria-hidden="true">{v.duracion}</span></li>
@@ -34,10 +36,10 @@ const { video: v } = Astro.props;
       </p>
       <div class="vt-acciones">
         <label class="vt-visto">
-          <input class="casilla" type="checkbox" data-visto={v.id} aria-label={`Visto: ${v.titulo}`} />
+          <input class="casilla" type="checkbox" data-visto={v.id} aria-label={`Visto: ${titulo}`} />
           <span>Visto</span>
         </label>
-        <a href={enYouTube(v.id)} target="_blank" rel="noopener">Ver en YouTube<span class="oculto"> «{v.titulo}» (se abre en otra pestaña)</span></a>
+        <a href={enYouTube(v.id)} target="_blank" rel="noopener">Ver en YouTube<span class="oculto"> «{titulo}» (se abre en otra pestaña)</span></a>
       </div>
     </div>
 
@@ -48,7 +50,7 @@ const { video: v } = Astro.props;
 
     <div class="vt-lado">
       <p class="rotulo">{rotuloTipoCanal(v.tipo_canal)}</p>
-      <p class="vt-canal" data-busca><bdi>{v.canal}</bdi></p>
+      <p class="vt-canal" data-busca><bdi lang={canalHe ? 'he' : undefined} class={canalHe ? 'he' : undefined}>{v.canal}</bdi></p>
       {v.nota && <p class="vt-nota">{v.nota}</p>}
     </div>
   </article>

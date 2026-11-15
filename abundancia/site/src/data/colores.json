@@ -85,7 +85,7 @@
     },
     {
       "sistema": "Etapas de la obra alquímica", "etiqueta": "tradicion", "verificado": false,
-      "nota": "Cuatro fases de color de la magnum opus. Zósimo de Panópolis las atribuye a María la Judía. Después del siglo XV muchos autores fundieron la citrinitas en la rubedo y hablaron de tres etapas.",
+      "nota": "Cuatro fases de color de la magnum opus. Según Zósimo de Panópolis, María la Judía ya las conocía. Después del siglo XV muchos autores fundieron la citrinitas en la rubedo y hablaron de tres etapas.",
       "fuente": { "cita": "Wikipedia (en), Magnum opus (alchemy) (cita a Bogdan, Western Esotericism and Rituals of Initiation, p. 197)", "url": "https://en.wikipedia.org/wiki/Magnum_opus_(alchemy)" },
       "filas": [
         { "nombre": "Nigredo", "original": null, "lang": null, "color": "negro", "hex": "#141412", "nota": "Ennegrecimiento" },
@@ -97,7 +97,7 @@
     {
       "sistema": "Chakras, esquema moderno", "etiqueta": "tradicion", "verificado": true,
       "mito": "Que los siete colores del arcoíris sean una enseñanza india antigua.",
-      "nota": "Los siete colores del arcoíris no aparecen en ningún sistema indio antiguo. Se añadieron en Occidente en el siglo XX, a partir del sistema de colores de The Chakras (1927), de C. W. Leadbeater.",
+      "nota": "Los siete colores del arcoíris no aparecen en ningún sistema indio antiguo. Se añadieron en Occidente en el siglo XX; las fuentes discrepan sobre la década.",
       "fuente": { "cita": "Wikipedia (en), Chakra (tabla «Modern colour»)", "url": "https://en.wikipedia.org/wiki/Chakra" },
       "filas": [
         { "nombre": "Séptimo, corona", "original": null, "lang": null, "color": "violeta o blanco", "hex": "#8E44AD", "hex_2": "#FFFFFF", "nota": null },

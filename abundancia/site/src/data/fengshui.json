@@ -126,9 +126,10 @@
     {
       "id": "color-segun-tarea", "titulo": "Color según la tarea",
       "tradicion": "Cada elemento tiene su color: verde para la madera, rojo para el fuego, amarillo para la tierra, blanco para el metal y negro para el agua. Se usan en acentos, no en todo.",
-      "dato": "En una serie de experimentos, el rojo mejoró el rendimiento en tareas de detalle y el azul en tareas creativas (estudios 2 y 3, con 208 y 118 participantes).",
+      "dato": "Mehta y Zhu (2009) hallaron que el rojo favorecía las tareas de detalle y el azul las creativas, pero una réplica directa con 263 personas (Steele, 2014) no encontró el efecto. Tómalo como convención, no como hallazgo firme.",
       "fuente_dato": { "cita": "Mehta y Zhu (2009), Science 323(5918): 1226–1229", "url": "https://doi.org/10.1126/science.1169144" },
-      "peso": 2
+      "fuente_dato_2": { "cita": "Réplica: Steele (2014), Psychonomic Bulletin & Review 21: 771–776", "url": "https://doi.org/10.3758/s13423-013-0548-3" },
+      "peso": 1
     },
     {
       "id": "rincon-xun", "titulo": "Cuida el rincón de la riqueza",
@@ -168,7 +169,7 @@
     {
       "id": "revision-semanal", "titulo": "Revisa el espacio cada semana",
       "tradicion": "El feng shui clásico entiende que el qi cambia con el tiempo y revisa la casa por periodos y años. Aplicado a tu mesa: recorre los nueve palacios con sus preguntas una vez por semana.",
-      "dato": "El desorden de posesiones se asocia con menor bienestar subjetivo; revisar con regularidad evita que se acumule.",
+      "dato": "El desorden de posesiones se asocia con menor bienestar subjetivo (correlación). Revisar cada semana es una aplicación de esta página, no un resultado del estudio.",
       "fuente_dato": { "cita": "Roster, Ferrari y Jurkat (2016), Journal of Environmental Psychology 46: 32–41", "url": "https://doi.org/10.1016/j.jenvp.2016.03.003" },
       "peso": 2
     }

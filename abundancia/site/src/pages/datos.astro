@@ -24,7 +24,7 @@ import {
 import {
   graficoCompuesto, graficoIndependencia, graficoPrecio, franjaReparto, escalaEvaluador, TASA_MIN, TASA_MAX,
 } from '../lib/datos-graficos';
-import { PREGUNTAS, PARTES, TEXTO_NIVEL, veredictoBanderas } from '../lib/datos-textos';
+import { PREGUNTAS, PARTES, TEXTO_NIVEL, veredictoBanderas, notaIndependencia } from '../lib/datos-textos';
 
 // ---------- 1 · Cifras ----------
 const cifras = datos.cifras;
@@ -53,7 +53,7 @@ const anioRiqueza = riqueza[0]?.anio;
 // riqueza_por_adulto no trae fuente: se enlaza la de la cifra de cada país, cuando existe.
 const fuentesRiqueza = riqueza.map((p) => ({
   pais: p.pais,
-  fuente: cifras.find((c) => c.geografia === p.pais && /USD por adulto/.test(c.unidad))?.fuente ?? null,
+  fuente: cifras.find((c) => c.geografia === p.pais && /USD por adulto/.test(c.unidad))?.fuente ?? ('fuente' in p ? p.fuente : null) ?? null,
 }));
 
 const gruposRetorno = agrupar(datos.retornos_reales, (x) => `${x.periodo}|${x.fuente.cita}`);
@@ -65,7 +65,10 @@ const filasSuperv = supervivencia.map((x) => ({
   rotulo: `${x.pais}, a ${x.anios} ${x.anios === 1 ? 'año' : 'años'}`,
   barras: [{ valor: x.sobrevive_pct, texto: pctFino(x.sobrevive_pct, 1), nombre: 'Siguen abiertos' }],
 }));
-const notaSuperv = cifras.find((c) => c.id === 'supervivencia-diez-anios')?.nota ?? null;
+const notaSuperv = (() => {
+  const c = cifras.find((x) => x.id === 'supervivencia-diez-anios');
+  return c?.nota ? `${c.geografia}: ${c.nota.charAt(0).toLowerCase()}${c.nota.slice(1)}` : null;
+})();
 
 const rapido = datos.dinero_rapido;
 
@@ -77,7 +80,13 @@ const fraude = agrupar(datos.fraude, (x) => x.pais).map((g) => {
   const max = conCifra.length ? ejeRedondo(Math.max(...conCifra.map((x) => x.importe!.valor))).tope : 1;
   return { pais: g.clave, unidad: conCifra[0]?.importe?.unidad ?? '', filas, max, fuentes: sinRepetir(filas.map((x) => x.fuente)) };
 });
-const notaFraude = cifras.find((c) => c.id === 'fraude-eeuu')?.nota ?? null;
+// Una nota de cifra pintada fuera de su tarjeta dice de qué país (y año) habla.
+const minuscula = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
+const conLugar = (id: string, conAnio = false): string | null => {
+  const c = cifras.find((x) => x.id === id);
+  return c?.nota ? `${c.geografia}${conAnio && c.anio ? `, ${c.anio}` : ''}: ${minuscula(c.nota)}` : null;
+};
+const notaFraude = conLugar('fraude-eeuu', true);
 // España no tiene importe en «fraude»: se añade su cifra de hechos conocidos, rotulada como recuento.
 const hechosEspana = cifras.find((c) => c.id === 'estafas-informaticas-espana') ?? null;
 
@@ -108,7 +117,7 @@ const mitos = datos.mitos;
 
 const INDICE = [
   { href: '#cifras', n: cifras.length, texto: 'cifras clave' },
-  { href: '#graficos', n: 6, texto: 'gráficos' },
+  { href: '#graficos', n: 5, texto: 'gráficos' },
   { href: '#calculadoras', n: 5, texto: 'calculadoras' },
   { href: '#riesgo', n: banderas.length, texto: 'banderas rojas' },
 ];
@@ -205,10 +214,10 @@ const INDICE = [
       </div>
       <details class="d-tabla">
         <summary>Ver como tabla</summary>
-        <div class="tabla-ancha">
+        <div class="tabla-ancha" tabindex="0" role="region" aria-label="Tabla de riqueza por adulto">
           <table class="tabla">
-            <caption class="oculto">Riqueza por adulto en dólares: mediana, media y cociente entre ambas</caption>
-            <thead><tr><th scope="col">País</th><th scope="col" class="num">Mediana</th><th scope="col" class="num">Media</th><th scope="col" class="num">Media ÷ mediana</th></tr></thead>
+            <caption class="oculto">Riqueza por adulto en dólares: mediana, media y cociente de la media entre la mediana</caption>
+            <thead><tr><th scope="col">País</th><th scope="col" class="num">Mediana</th><th scope="col" class="num">Media</th><th scope="col" class="num"><abbr title="Media dividida entre mediana">Cociente</abbr></th></tr></thead>
             <tbody>
               {riqueza.map((p) => (
                 <tr><th scope="row">{p.pais}</th><td class="num">{num(p.mediana_usd)}</td><td class="num">{num(p.media_usd)}</td><td class="num">{num(p.media_usd / p.mediana_usd, 1, 1)}</td></tr>
@@ -241,6 +250,7 @@ const INDICE = [
               max={maxRetorno}
               filas={g.items.map((x) => ({ rotulo: x.activo, barras: [{ valor: x.retorno_real_anual_pct, texto: pctFino(x.retorno_real_anual_pct, 1, 1) }] }))}
             />
+            {g.items.map((x) => 'nota' in x && x.nota && <p class="nota">{fino(x.nota)}</p>)}
             <Fuente fuente={g.items[0].fuente} />
           </div>
         ))}
@@ -363,6 +373,7 @@ const INDICE = [
                 <input id="c-retorno" class="entrada-cifra" type="text" inputmode="decimal" autocomplete="off" value={num(DEF.retorno, 2, 0)} />
                 <span class="campo-u">% sobre la inflación</span>
               </div>
+              <p class="rotulo">Se calcula con <span data-v="c-retorno-t">{pctFino(DEF.retorno, 2)}</span>. Admite de −50 a {pctFino(100)}.</p>
               <label class="rotulo" for="c-activo">O tómalo de los datos (1900 en adelante)</label>
               <span class="selector">
                 <select id="c-activo">
@@ -426,6 +437,7 @@ const INDICE = [
             <span class="campo-u">al mes</span>
           </div>
           <p class="rotulo" data-v="r-origen" hidden>Tomado de tu <a href={ruta('/arbol#libro')}>libro de fuentes</a>. Cámbialo aquí sin tocar lo guardado.</p>
+          <p class="rotulo" data-v="r-origen-muestra" hidden>Cifra de muestra, la del <a href={ruta('/arbol#libro')}>libro de fuentes</a> de ejemplo. Escribe aquí la tuya.</p>
         </div>
         <fieldset class="d-partes">
           <legend class="campo-rot">Tres partes que suman 100</legend>
@@ -501,7 +513,7 @@ const INDICE = [
             </div>
             <figcaption class="rotulo">Horizontal: parte del ingreso que ahorras. Vertical: años hasta la meta.</figcaption>
           </figure>
-          {cifraIndep?.nota && <p class="nota">{fino(cifraIndep.nota)}</p>}
+          <p class="nota" data-v="i-nota">{fino(notaIndependencia(DEF.retornoIndep, DEF.multiplo))}</p>
         </div>
       </div>
       <div slot="pie" class="d-formula">

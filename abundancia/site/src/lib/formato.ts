@@ -71,6 +71,29 @@ export function leerNumero(texto: string): number {
   return Number.isFinite(n) && n > 0 ? n : 0;
 }
 
+/**
+ * Agrupa las frases de un texto largo en párrafos de «n», para no pintar un bloque sin cortes.
+ * Una abreviatura de una letra («d. C.») no cuenta como final de frase.
+ */
+export function parrafos(texto: string | string[], n = 3): string[] {
+  const piezas = Array.isArray(texto) ? texto : frases(texto);
+  const enteras: string[] = [];
+  for (const f of piezas) {
+    const previa = enteras[enteras.length - 1];
+    if (previa && /(^|\s)\p{L}\.$/u.test(previa)) enteras[enteras.length - 1] = `${previa} ${f}`;
+    else enteras.push(f);
+  }
+  const salida: string[] = [];
+  for (let i = 0; i < enteras.length; i += n) salida.push(enteras.slice(i, i + n).join(' '));
+  return salida;
+}
+
+/** Como leerNumero, pero admite un signo menos delante: «-2», «−2,5». */
+export function leerConSigno(texto: string): number {
+  const t = String(texto ?? '').trim();
+  return /^[-−]/.test(t) ? -leerNumero(t.slice(1)) : leerNumero(t);
+}
+
 /** Parte una declaración en frases, para componerla una por línea. */
 export function frases(texto: string): string[] {
   return texto
