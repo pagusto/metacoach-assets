@@ -134,9 +134,10 @@
   }
   .ag-dos > :nth-child(2), .ag-nutre-c > :nth-child(2), .ag-dia-cab > :nth-child(2), .ag-vacio > :nth-child(2) { grid-column: span 2; }
 
-  /* Especialistas: filas iguales, para que los filetes marquen un ritmo regular en cada columna */
-  .ag-equipo .pal-cuerpo { display: grid; }
-  .ag-lista { display: grid; grid-auto-rows: 1fr; }
+  /* Especialistas: cada fila mide lo que su agente, con el mismo intervalo en las tres columnas;
+     el blanco que sobra queda al pie del palacio. */
+  .ag-equipo .pal-cuerpo { display: grid; align-content: start; }
+  .ag-lista { display: grid; grid-auto-rows: auto; align-content: start; }
 
   .ag-comandos > li { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-4); align-items: start; }
 

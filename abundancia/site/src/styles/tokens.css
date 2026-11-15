@@ -46,7 +46,7 @@
      propio sitio (@fontsource-variable). Los cinco caracteres chinos del pie
      usan la fuente CJK del sistema: no se envía una fuente web para ellos. */
   --fuente: "Archivo Variable", "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --fuente-he: "Frank Ruhl Libre Variable", "Frank Ruhl Libre", "Noto Serif Hebrew", serif;
+  --fuente-he: "Frank Ruhl Libre Variable", "Frank Ruhl Libre", "Noto Serif Hebrew", "Archivo Variable", "Archivo", serif;
   --fuente-han: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 
   --ancho-texto: 100%;

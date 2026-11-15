@@ -1,7 +1,14 @@
 // Textos de las calculadoras y de la lista de banderas de /datos.
 // Los usan la página (al compilar) y el cliente, para que digan lo mismo.
 
-import { nivelBanderas, type NivelFuente, type ParteReparto } from './datos-calculo';
+import { aniosIndependencia, nivelBanderas, type NivelFuente, type ParteReparto } from './datos-calculo';
+import { num, pctFino } from './datos-formato';
+
+/** Nota bajo el gráfico de independencia: tres tasas de ahorro con el retorno elegido. */
+export function notaIndependencia(retornoRealPct: number, multiplo = 25): string {
+  const a = (tasa: number) => num(aniosIndependencia(tasa, retornoRealPct, multiplo));
+  return `Con un retorno real del ${pctFino(retornoRealPct, 2)}: ahorrando el ${pctFino(10)} son ${a(10)} años; el ${pctFino(20)}, ${a(20)}; el ${pctFino(30)}, ${a(30)}. Parte de cero y supone retorno constante.`;
+}
 
 export const PARTES: { id: ParteReparto; nombre: string }[] = [
   { id: 'dar', nombre: 'Dar' },

@@ -40,11 +40,13 @@ export interface Estado {
   ejemplo: boolean;
 }
 
+// Las cinco casillas del ritual de la mañana. Título y duración salen de aquí para Hoy y para el
+// ritual guiado (src/lib/ritual.ts toma de aquí la duración de cada paso).
 export const PASOS_RITUAL = [
-  { id: 'respirar', titulo: 'Respirar', detalle: '2 min' },
+  { id: 'respirar', titulo: 'Respirar', detalle: '1 min' },
   { id: 'declaracion', titulo: 'Leer la declaración en voz alta', detalle: '2 min' },
   { id: 'visualizar', titulo: 'Visualizar el proceso de hoy', detalle: '5 min' },
-  { id: 'dar', titulo: 'Dar primero', detalle: 'apartar el 10 %' },
+  { id: 'dar', titulo: 'Dar primero', detalle: '1 min' },
   { id: 'bloque', titulo: 'Bloque de trabajo sin distracciones', detalle: '90 min' },
 ] as const;
 
@@ -76,20 +78,64 @@ export function estadoInicial(): Estado {
   };
 }
 
+const esObjeto = (x: unknown): x is Record<string, unknown> => !!x && typeof x === 'object' && !Array.isArray(x);
+const cadena = (x: unknown): string => (typeof x === 'string' ? x : x == null || typeof x === 'object' ? '' : String(x));
+const positivo = (x: unknown): number => {
+  const n = Number(x);
+  return Number.isFinite(n) && n > 0 ? n : 0;
+};
+/** Solo las entradas cuyo valor es un objeto: descarta lo que un archivo editado a mano traiga de más. */
+function soloObjetos<T>(x: unknown): Record<string, T> {
+  const salida: Record<string, T> = {};
+  if (esObjeto(x)) for (const [k, valor] of Object.entries(x)) if (esObjeto(valor)) salida[k] = valor as T;
+  return salida;
+}
+
+// Lo guardado puede venir de un archivo importado o editado a mano: cada campo se lleva a su
+// tipo y lo que no encaja se descarta, para que ninguna página falle al pintarlo.
 function normalizar(d: Partial<Estado> | null): Estado {
   const base = estadoInicial();
-  if (!d || typeof d !== 'object') return base;
+  if (!esObjeto(d)) return base;
   const s: Estado = { ...base, ...d, v: 2 };
-  s.fuentes = Array.isArray(d.fuentes) ? d.fuentes : base.fuentes;
-  s.ideas = Array.isArray(d.ideas) ? d.ideas : [];
-  s.evidencias = Array.isArray(d.evidencias) ? d.evidencias : [];
-  s.ritual = d.ritual && typeof d.ritual === 'object' ? d.ritual : {};
-  s.espacio = d.espacio && typeof d.espacio === 'object' ? d.espacio : {};
-  s.woop = { ...base.woop, ...(d.woop || {}) };
-  s.cifra = Number(s.cifra) || 0;
-  s.donadoPct = Number(s.donadoPct) || 0;
-  s.ahorroPct = Number(s.ahorroPct) || 0;
+  s.declaracion = cadena(s.declaracion);
+  s.fechaMeta = /^\d{4}-\d{2}-\d{2}$/.test(cadena(s.fechaMeta)) ? cadena(s.fechaMeta) : '';
+  s.moneda = cadena(s.moneda);
+  s.fuentes = Array.isArray(d.fuentes)
+    ? (d.fuentes as unknown[]).filter(esObjeto).map((f) => {
+        const fuente: Fuente = {
+          id: cadena(f.id) || uid(),
+          nombre: cadena(f.nombre),
+          tipo: TIPOS_FUENTE.includes(f.tipo as TipoFuente) ? (f.tipo as TipoFuente) : 'Servicio',
+          estado: ESTADOS_FUENTE.includes(f.estado as EstadoFuente) ? (f.estado as EstadoFuente) : 'idea',
+          mensual: positivo(f.mensual),
+          accion: cadena(f.accion),
+        };
+        if (f.ejemplo === true) fuente.ejemplo = true;
+        return fuente;
+      })
+    : base.fuentes;
+  s.ideas = Array.isArray(d.ideas) ? (d.ideas as unknown[]).filter((x): x is string => typeof x === 'string' && !!x.trim()) : [];
+  s.evidencias = Array.isArray(d.evidencias)
+    ? (d.evidencias as unknown[])
+        .filter(esObjeto)
+        .filter((e) => typeof e.fecha === 'string' && typeof e.texto === 'string')
+        .map((e) => ({ id: cadena(e.id) || uid(), fecha: e.fecha as string, texto: e.texto as string }))
+    : [];
+  s.ritual = {};
+  if (esObjeto(d.ritual)) {
+    for (const [dia, pasos] of Object.entries(d.ritual)) if (Array.isArray(pasos)) s.ritual[dia] = pasos.map(Boolean);
+  }
+  s.espacio = {};
+  if (esObjeto(d.espacio)) for (const [k, valor] of Object.entries(d.espacio)) s.espacio[k] = valor === true;
+  const woop = esObjeto(d.woop) ? d.woop : {};
+  s.woop = { deseo: cadena(woop.deseo), resultado: cadena(woop.resultado), obstaculo: cadena(woop.obstaculo), plan: cadena(woop.plan) };
+  s.cifra = Math.round(positivo(s.cifra));
+  s.donadoPct = positivo(s.donadoPct);
+  s.ahorroPct = positivo(s.ahorroPct);
   s.ejemplo = d.ejemplo === true;
+  // Notas del ritual (src/lib/ritual.ts): el store las conserva, pero solo si tienen forma de registro.
+  const extra = s as unknown as Record<string, unknown>;
+  for (const k of ['ritualDia', 'ritualSemana']) if (k in extra) extra[k] = soloObjetos(extra[k]);
   return s;
 }
 
@@ -132,9 +178,15 @@ export function borrarEjemplos(): Estado {
   return guardar((s) => {
     s.fuentes = s.fuentes.filter((f) => !f.ejemplo);
     if (s.ejemplo) {
+      const base = estadoInicial();
       s.declaracion = '';
       s.donadoPct = 0;
       s.ahorroPct = 0;
+      // La cifra y su fecha de muestra también se van; si la persona las cambió, se quedan.
+      if (s.cifra === base.cifra && s.fechaMeta === base.fechaMeta) {
+        s.cifra = 0;
+        s.fechaMeta = '';
+      }
     }
     s.ejemplo = false;
   });
@@ -170,7 +222,8 @@ export function claveDia(d: Date = new Date()): string {
 }
 
 export function hechosEl(s: Estado, clave: string): number {
-  return (s.ritual[clave] || []).filter(Boolean).length;
+  const pasos = s.ritual[clave];
+  return Array.isArray(pasos) ? pasos.filter(Boolean).length : 0;
 }
 
 // Racha: días seguidos con al menos 4 de los 5 pasos. Hoy cuenta si ya está completo.
@@ -233,7 +286,7 @@ const acotar = (x: number) => Math.max(0, Math.min(1, x || 0));
 export function medidas(s: Estado, hoy: Date = new Date()): Record<SefiraId, Medida> {
   const total = ingresoReal(s);
   const fuentes = s.fuentes.length;
-  const conAccion = s.fuentes.filter((f) => f.accion.trim()).length;
+  const conAccion = s.fuentes.filter((f) => (f.accion || '').trim()).length;
   const ingresando = s.fuentes.filter((f) => f.estado === 'ingresando' && f.mensual > 0).length;
   const ideas = s.ideas.length + s.fuentes.filter((f) => f.estado === 'idea').length;
   const r = racha(s, hoy);
@@ -241,7 +294,7 @@ export function medidas(s: Estado, hoy: Date = new Date()): Record<SefiraId, Med
   limite.setDate(limite.getDate() - 6);
   const desde = claveDia(limite);
   const evid = s.evidencias.filter((e) => e.fecha >= desde).length;
-  const intencion = (s.declaracion.trim() ? 0.5 : 0) + (s.cifra > 0 && s.fechaMeta ? 0.5 : 0);
+  const intencion = (String(s.declaracion || '').trim() ? 0.5 : 0) + (s.cifra > 0 && s.fechaMeta ? 0.5 : 0);
 
   const m: Record<string, Medida> = {
     keter: {

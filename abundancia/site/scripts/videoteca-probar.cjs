@@ -192,8 +192,8 @@ const ok = (cond, texto, extra = '') => {
     ok((await fila.locator('[data-copiar]').textContent()) === 'Copiar', 'el botón vuelve a «Copiar»');
     ok(await p.locator('.ag-dia').count() >= 1, 'entradas del diario', String(await p.locator('.ag-dia').count()));
     ok(await p.locator('.ag-dia').first().locator('.etiqueta').count() >= 1, 'etiquetas de evidencia en la entrada', String(await p.locator('.ag-dia .etiqueta').count()));
-    const enlaces = await p.locator('.ag-dia a').evaluateAll((as) => as.every((a) => a.target === '_blank' && a.rel === 'noopener'));
-    ok(enlaces, 'enlaces del diario con target _blank y rel noopener');
+    const enlaces = await p.locator('.ag-dia a').evaluateAll((as) => as.every((a) => a.target === '_blank' && a.relList.contains('noopener') && /se abre en otra pestaña/.test(a.textContent)));
+    ok(enlaces, 'enlaces del diario con target _blank, rel noopener y aviso de pestaña nueva');
         ok(!(await p.locator('.ag-dia').first().textContent()).includes('[DOCUMENTADO]'), 'la marca entre corchetes no se repite');
     ok(errores.length === 0, 'sin excepciones', errores.join(' | '));
     await c.close();

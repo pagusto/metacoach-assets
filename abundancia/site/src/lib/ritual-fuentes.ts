@@ -93,12 +93,22 @@ export function fuentesUnicas(secciones: SeccionFuentes[]): FuenteRef[] {
 }
 
 // Sitios que el entorno de investigación no dejó abrir: sus referencias se confirmaron con
-// resúmenes de buscador y hay que volver a comprobarlas.
+// resúmenes de buscador y hay que volver a comprobarlas. Son los hosts que tools/README.md da
+// por bloqueados y los que las notas de investigación marcan con ‡ o «no verificable».
+const dominio = (d: string) => (h: string) => h === d || h.endsWith(`.${d}`);
 export const NO_ABIERTOS = [
-  { nombre: 'sefaria.org', coincide: (h: string) => h === 'sefaria.org' || h.endsWith('.sefaria.org') },
-  { nombre: 'chabad.org', coincide: (h: string) => h === 'chabad.org' || h.endsWith('.chabad.org') },
-  { nombre: 'ubs.com', coincide: (h: string) => h === 'ubs.com' || h.endsWith('.ubs.com') },
-  { nombre: 'zh.ch', coincide: (h: string) => h === 'zh.ch' || h.endsWith('.zh.ch') },
+  { nombre: 'sefaria.org', coincide: dominio('sefaria.org') },
+  { nombre: 'chabad.org', coincide: dominio('chabad.org') },
+  { nombre: 'ubs.com', coincide: dominio('ubs.com') },
+  { nombre: 'bls.gov', coincide: dominio('bls.gov') },
+  { nombre: 'zh.ch', coincide: dominio('zh.ch') },
+  { nombre: 'digital.sbb.ch', coincide: dominio('digital.sbb.ch') },
+  { nombre: 'duebendorf.ch', coincide: dominio('duebendorf.ch') },
+  { nombre: 'sacred-texts.com', coincide: dominio('sacred-texts.com') },
+  { nombre: 'fengshuigate.com', coincide: dominio('fengshuigate.com') },
+  { nombre: 'sites.google.com', coincide: dominio('sites.google.com') },
+  { nombre: 'anjiecho.com', coincide: dominio('anjiecho.com') },
+  { nombre: 'encyclopediaofbuddhism.org', coincide: dominio('encyclopediaofbuddhism.org') },
   { nombre: 'PubMed', coincide: (h: string) => h.includes('pubmed') },
 ] as const;
 

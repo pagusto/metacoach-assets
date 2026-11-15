@@ -75,7 +75,7 @@
       "efecto": "Ingresos +8,1 % en 2.820 empresas tras un año de reuniones",
       "calidad": "media",
       "estudio": { "cita": "Cai y Szeidl (2018), Quarterly Journal of Economics 133(3): 1229-1282", "url": "https://doi.org/10.1093/qje/qjx049" },
-      "momento": "semanal",
+      "momento": "mensual",
       "riesgo": "Un solo experimento, con empresas chinas; otras versiones del artículo dan 7,8 %."
     },
     {
@@ -148,7 +148,7 @@
       "id": "gasto-prosocial",
       "nombre": "Dar a otros",
       "que_hacer": "Reserva cada semana una cantidad pequeña para otra persona o una causa, y fíjate en cómo te sientes después.",
-      "tradicion_afin": "La tzedaká, el diezmo y la limosna: dar forma parte de la práctica.",
+      "tradicion_afin": "La tsedacá, el diezmo y la limosna: dar forma parte de la práctica.",
       "efecto": "Más felicidad al gastar en otros que en uno mismo",
       "calidad": "media",
       "estudio": { "cita": "Dunn, Aknin y Norton (2008), Science 319: 1687-1688", "url": "https://doi.org/10.1126/science.1150952" },
@@ -171,7 +171,7 @@
       "nombre": "Postura erguida antes de actuar",
       "que_hacer": "Antes de una llamada o reunión, ponte de pie, abre el pecho y respira dos veces. Úsalo como señal de inicio, no como truco.",
       "tradicion_afin": "La postura recta del zazen, el yoga y las artes marciales.",
-      "efecto": "g = 0,35 en autopercepción; 88 estudios (N = 9.779)",
+      "efecto": "g = 0,35 global; efecto claro solo en autopercepción; 88 estudios (N = 9.779)",
       "calidad": "baja",
       "estudio": { "cita": "Körner, Röseler, Schütz y Bushman (2022), Psychological Bulletin 148(1-2): 67-85", "url": "https://doi.org/10.1037/bul0000356" },
       "momento": "continuo",
@@ -197,7 +197,7 @@
       "tradicion": "Chakras",
       "origen": "India y Tíbet",
       "afirma": "El yoga tántrico hindú y budista enseña que hay centros de energía en el cuerpo sutil que se visualizan al meditar. Los textos antiguos dan cuatro, cinco, seis u ocho.",
-      "medido": "No existe medición de los chakras. El esquema de siete con plexos, glándulas y colores del arcoíris es occidental y reciente: décadas de 1880, 1920 y 1930. Lo medible es la meditación que los acompaña.",
+      "medido": "No existe medición de los chakras. El esquema de siete ligado a plexos (década de 1880), glándulas (década de 1920) y colores del arcoíris (siglo XX) es occidental y reciente. Lo medible es la meditación que los acompaña.",
       "fuente": { "cita": "Wikipedia, «Chakra» (cronología documentada del artículo)", "url": "https://en.wikipedia.org/wiki/Chakra" }
     },
     {

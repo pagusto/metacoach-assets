@@ -117,7 +117,10 @@ export interface ResultadoPrecio {
   cambio: number;
   /** Cambio en % del beneficio actual; null si el beneficio actual no es positivo. */
   cambioPct: number | null;
-  /** Parte de clientes que puedes perder sin ganar menos que ahora; null si el precio nuevo no cubre el coste. */
+  /**
+   * Parte de clientes que puedes perder sin ganar menos que ahora; null si el precio nuevo no cubre el coste.
+   * Pasa de 100 cuando hoy se pierde con cada venta y con el precio nuevo no: ni perdiéndolos todos ganas menos.
+   */
   equilibrioPct: number | null;
 }
 
@@ -139,7 +142,7 @@ export function subirPrecio(e: EntradaPrecio): ResultadoPrecio {
     despues,
     cambio,
     cambioPct: antes > 0 ? (cambio / antes) * 100 : null,
-    equilibrioPct: margenNuevo > 0 ? entre((1 - (e.precio - e.coste) / margenNuevo) * 100, 0, 100) : null,
+    equilibrioPct: margenNuevo > 0 ? Math.max(0, (1 - (e.precio - e.coste) / margenNuevo) * 100) : null,
   };
 }
 

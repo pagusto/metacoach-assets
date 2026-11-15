@@ -107,7 +107,7 @@
     "hábitos"
    ],
    "resumen": "Video del canal oficial sobre cómo usar la autodisciplina como base de cualquier resultado. Formato corto y práctico.",
-   "por_que": "La disciplina es el puente entre la intención y el ingreso; aquí se aborda sin adornos.",
+   "por_que": "Tracy presenta la disciplina como base de cualquier resultado; es su tesis, no un dato.",
    "tipo_canal": "oficial",
    "nota": "Año aproximado de publicación."
   },
@@ -372,6 +372,7 @@
   {
    "id": "BU_gZZwlVoQ",
    "titulo": "Neville Goddard - God And I Are One - 1972 Lecture - Own Voice - Full Transcription - Subtitles 🙏 -",
+   "titulo_visible": "Neville Goddard - God And I Are One - 1972 Lecture - Own Voice - Full Transcription - Subtitles",
    "canal": "Spiritual Mind",
    "duracion": "45:49",
    "idioma": "en",
@@ -504,6 +505,7 @@
   {
    "id": "zUxj7J8HttM",
    "titulo": "SEMINARIO FENIX BRIAN TRACY COMPLETO EN ESPAÑOL",
+   "titulo_visible": "Seminario Fenix Brian Tracy completo en español",
    "canal": "Ley de Atraccion y Abundancia",
    "duracion": "10:59:35",
    "idioma": "es",
@@ -523,6 +525,7 @@
   {
    "id": "sKmt44kHzgg",
    "titulo": "🧠Las 7 LEYES MENTALES de Brian Tracy  en ESPAÑOL - Seminario Fénix 2",
+   "titulo_visible": "Las 7 leyes mentales de Brian Tracy en español - Seminario Fénix 2",
    "canal": "Brian Tracy en Español - Psicología y Motivación",
    "duracion": "29:35",
    "idioma": "es",
@@ -560,6 +563,7 @@
   {
    "id": "veLROj6FA5Q",
    "titulo": "LA CIENCIA DE HACERSE RICO AUDIOLIBRO COMPLETO EN ESPAÑOL - WALLACE WATTLES - VOZ HUMANA",
+   "titulo_visible": "La ciencia de hacerse rico audiolibro completo en español - Wallace Wattles - Voz humana",
    "canal": "Aubiblio Narraciones",
    "duracion": "2:31:50",
    "idioma": "es",
@@ -596,6 +600,7 @@
   {
    "id": "lAftPIWL2Zo",
    "titulo": "COMO UN HOMBRE PIENSA ASI ES SU VIDA AUDIOLIBRO COMPLETO EN ESPAÑOL - JAMES ALLEN - VOZ HUMANA",
+   "titulo_visible": "Como un hombre piensa asi es su vida audiolibro completo en español - James Allen - Voz humana",
    "canal": "Aubiblio Narraciones",
    "duracion": "1:05:23",
    "idioma": "es",
@@ -615,6 +620,7 @@
   {
    "id": "Rm9Cz00KR1I",
    "titulo": "EL JUEGO DE LA VIDA Y CÓMO JUGARLO AUDIOLIBRO COMPLETO EN ESPAÑOL - FLORENCE SCOVEL - METAFÍSICA",
+   "titulo_visible": "El juego de la vida y cómo jugarlo audiolibro completo en español - Florence Scovel - Metafísica",
    "canal": "Aubiblio Narraciones",
    "duracion": "2:55:38",
    "idioma": "es",
@@ -633,6 +639,7 @@
   {
    "id": "6Q1i7neZBac",
    "titulo": "LA LLAVE MAESTRA AUDIOLIBRO COMPLETO EN ESPAÑOL - CHARLES F. HAANEL - AUDIOLIBROS DE METAFÍSICA",
+   "titulo_visible": "La llave maestra audiolibro completo en español - Charles F. Haanel - Audiolibros de metafísica",
    "canal": "Aubiblio Narraciones",
    "duracion": "7:56:21",
    "idioma": "es",
@@ -652,6 +659,7 @@
   {
    "id": "WhmNmz-GBMs",
    "titulo": "EL PODER DE TU MENTE SUBCONSCIENTE 💪  JOSEPH MURPHY   AUDIOLIBRO COMPLETO EN ESPAÑOL",
+   "titulo_visible": "El poder de tu mente subconsciente - Joseph Murphy - Audiolibro completo en español",
    "canal": "Dani Mentes Positivas",
    "duracion": "8:02:13",
    "idioma": "es",
@@ -670,6 +678,7 @@
   {
    "id": "EUT7wrXq5i0",
    "titulo": "PIENSE Y HÁGASE RICO | AUDIO - LIBRO",
+   "titulo_visible": "Piense y hágase rico | Audio - libro",
    "canal": "Audio-Libro para la Mente",
    "duracion": "4:56:09",
    "idioma": "es",
@@ -706,7 +715,8 @@
   },
   {
    "id": "VgxNj6H7qpA",
-   "titulo": "¡HÁBITOS DIARIOS que prepararán tu cerebro para conseguir LO QUE QUIERAS!💪🧠🔥 | Tony Robbins",
+   "titulo": "¡HÁBITOS DIARIOS que prepararán tu cerebro para conseguir LO QUE QUIERAS!💪🧠🔥 | Tony Robbins",
+   "titulo_visible": "¡Hábitos diarios que prepararán tu cerebro para conseguir lo que quieras! | Tony Robbins",
    "canal": "Lewis Howes Español",
    "duracion": "1:26:45",
    "idioma": "es",
@@ -810,7 +820,7 @@
     "perseverancia"
    ],
    "resumen": "Charla TED breve en la que Duckworth presenta su trabajo sobre la determinación (grit) como predictor de logro. Es una de las charlas más vistas sobre perseverancia a largo plazo.",
-   "por_que": "Seis minutos para entender por qué la constancia pesa más que el impulso inicial.",
+   "por_que": "Seis minutos con la tesis de Duckworth sobre la constancia.",
    "tipo_canal": "oficial",
    "nota": "Investigaciones posteriores han matizado el tamaño del efecto del grit."
   },
@@ -1109,7 +1119,7 @@
     "evidencia",
     "diversificación"
    ],
-   "resumen": "Vídeo introductorio de Ben Felix, gestor de carteras en PWL Capital, sobre los fundamentos de la inversión. Su canal se distingue por apoyarse en literatura académica.",
+   "resumen": "Video introductorio de Ben Felix, gestor de carteras en PWL Capital, sobre los fundamentos de la inversión. Su canal se distingue por apoyarse en literatura académica.",
    "por_que": "Una introducción a invertir basada en evidencia y sin promesas.",
    "tipo_canal": "oficial",
    "nota": "Contexto canadiense y estadounidense."
@@ -1199,11 +1209,11 @@
    "anio_original": 2014,
    "categoria": "cabala",
    "temas": [
-    "tzedaká",
+    "tsedacá",
     "justicia social"
    ],
-   "resumen": "Conferencia del rabino Sacks titulada «Tzedakah and Social Justice», organizada por IFLA. Sacks explicó en muchas ocasiones que tzedaká une los conceptos de caridad y justicia.",
-   "por_que": "Es la referencia más sólida sobre tzedaká como obligación de justicia.",
+   "resumen": "Conferencia del rabino Sacks titulada «Tzedakah and Social Justice», organizada por IFLA. Sacks explicó en muchas ocasiones que la tsedacá une los conceptos de caridad y justicia.",
+   "por_que": "Es la referencia más sólida sobre la tsedacá como obligación de justicia.",
    "tipo_canal": "archivo",
    "nota": "Subida por un tercero; año aproximado."
   },
@@ -1255,12 +1265,12 @@
    "anio_original": 2013,
    "categoria": "cabala",
    "temas": [
-    "Zohar",
+    "Zóhar",
     "traducción",
     "Cábala"
    ],
-   "resumen": "Conferencia de Daniel Matt sobre el Zohar y la Cábala publicada por la Universidad Rutgers. Matt es el traductor de la edición Pritzker del Zohar al inglés.",
-   "por_que": "El principal traductor del Zohar explicando el texto en una universidad.",
+   "resumen": "Conferencia de Daniel Matt sobre el Zóhar y la cábala publicada por la Universidad Rutgers. Matt es el traductor de la edición Pritzker del Zóhar al inglés.",
+   "por_que": "El principal traductor del Zóhar explicando el texto en una universidad.",
    "tipo_canal": "oficial",
    "nota": "Año aproximado."
   },
@@ -1268,7 +1278,7 @@
    "id": "gH_msF__V5c",
    "titulo": "The Why of Money with Rabbi YY Jacobson",
    "canal": "Yael Trusch",
-   "duracion": "1:07:00",
+   "duracion": "1:08:46",
    "idioma": "en",
    "maestro": "Rabino YY Jacobson",
    "anio_original": 2023,
@@ -1390,7 +1400,7 @@
     "hermetismo",
     "Hermes Trismegisto"
    ],
-   "resumen": "Vídeo en español del canal Sabiduría Perenne sobre qué es el hermetismo y el legado de Hermes Trismegisto. Es divulgación de un canal independiente.",
+   "resumen": "Video en español del canal Sabiduría Perenne sobre qué es el hermetismo y el legado de Hermes Trismegisto. Es divulgación de un canal independiente.",
    "por_que": "Introducción al hermetismo en español.",
    "tipo_canal": "fan",
    "nota": "Canal independiente sin afiliación académica conocida."
@@ -1398,6 +1408,7 @@
   {
    "id": "Xi6jWt75ueg",
    "titulo": "EL KYBALIÓN - AUDIO LIBRO COMPLETO - NARRADO POR IVAN DONALSON",
+   "titulo_visible": "El Kybalión - Audio libro completo - Narrado por Ivan Donalson",
    "canal": "Ivan Donalson",
    "duracion": "4:16:07",
    "idioma": "es",
@@ -1446,7 +1457,7 @@
     "interiores",
     "cinco elementos"
    ],
-   "resumen": "Vídeo de Dear Modern sobre los colores en el feng shui y cómo elegirlos para interiores. Tan presenta el tema desde el diseño.",
+   "resumen": "Video de Dear Modern sobre los colores en el feng shui y cómo elegirlos para interiores. Tan presenta el tema desde el diseño.",
    "por_que": "Une feng shui y elección de color con criterio de diseño.",
    "tipo_canal": "oficial",
    "nota": ""
@@ -1465,7 +1476,7 @@
     "feng shui",
     "high-tech"
    ],
-   "resumen": "Vídeo del canal de arquitectura Arq Inu sobre la relación entre feng shui y arquitectura high-tech. Aborda el tema desde la arquitectura.",
+   "resumen": "Video del canal de arquitectura Arq Inu sobre la relación entre feng shui y arquitectura high-tech. Aborda el tema desde la arquitectura.",
    "por_que": "Feng shui tratado en español desde la arquitectura.",
    "tipo_canal": "fan",
    "nota": "Canal de divulgación independiente."
@@ -1596,7 +1607,7 @@
   },
   {
    "id": "6O0jI0H2WLw",
-   "motivo": "El rabino Jonathan Sacks sobre la tzedaká como justicia, no como técnica."
+   "motivo": "El rabino Jonathan Sacks sobre la tsedacá como justicia, no como técnica."
   },
   {
    "id": "AdKUJxjn-R8",

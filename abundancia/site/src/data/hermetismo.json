@@ -144,7 +144,7 @@
       },
       "cita": null,
       "practica": "Sitúa un proyecto en su fase: negro (ver las cuentas tal como están), blanco (ordenar), amarillo (primeros resultados) o rojo (resultado estable).",
-      "dato": "El esquema de cuatro colores se remonta al menos al siglo I; Zósimo de Panópolis lo atribuye a María la Judía. Desde el siglo XV muchos autores lo reducen a tres fases.",
+      "dato": "El esquema de cuatro colores se remonta al menos al siglo I; según Zósimo de Panópolis, María la Judía ya lo conocía. Desde el siglo XV muchos autores lo reducen a tres fases.",
       "fuente_dato": {
         "cita": "Wikipedia, «Magnum opus (alchemy)» (cita a Bogdan, Western Esotericism and Rituals of Initiation, p. 197)",
         "url": "https://en.wikipedia.org/wiki/Magnum_opus_(alchemy)"
@@ -178,7 +178,7 @@
       },
       "cita": null,
       "practica": "Pon el Ocho de Oros a la vista. Elige una habilidad que te da ingresos y practícala treinta minutos al día.",
-      "dato": "El nombre «pentáculos» procede de la baraja Rider–Waite de 1909 y no tiene base en el uso original de las cartas, que eran un juego. Así lo documenta Michael Dummett en The Game of Tarot (1980).",
+      "dato": "«Pentáculos» es el nombre del palo en la baraja Rider–Waite de 1909 y sus derivadas; no tiene base en el uso original de las cartas, que eran un juego. Así lo documenta Michael Dummett en The Game of Tarot (1980).",
       "fuente_dato": {
         "cita": "Dummett, M. (1980), The Game of Tarot, Duckworth, citado en Wikipedia, «Suit of coins»",
         "url": "https://en.wikipedia.org/wiki/Suit_of_coins"
@@ -188,7 +188,7 @@
     {
       "id": "formas-de-pensamiento",
       "titulo": "Las formas de pensamiento",
-      "tradicion": "La Teosofía de Besant y Leadbeater enseña, como visión clarividente de sus autores, que cada pensamiento crea una vibración y una forma con color. En su tabla, el marrón rojizo apagado indica avaricia y el gris parduzco, egoísmo.",
+      "tradicion": "La Teosofía de Besant y Leadbeater enseña, como visión clarividente de sus autores, que cada pensamiento crea una vibración y una forma con color. En su tabla, el marrón claro, casi siena tostada, indica avaricia y el gris pardo, duro y apagado, egoísmo.",
       "fuente_tradicion": {
         "cita": "Besant, A. y Leadbeater, C. W., Thought-Forms, Theosophical Publishing House, Londres (Project Gutenberg, ebook 16269)",
         "url": "https://www.gutenberg.org/cache/epub/16269/pg16269.txt"

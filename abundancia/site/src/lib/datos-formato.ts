@@ -1,8 +1,12 @@
 // Formato y lectura de los datos de /datos. Sirve al compilar y en el cliente; sin DOM.
 
-/** Número a la española con separador de miles siempre («1.234», «5,2») y signo menos tipográfico. */
+/**
+ * Número a la española con separador de miles siempre («1.234», «5,2») y signo menos tipográfico.
+ * Lo que no es un número finito (un desbordamiento) se escribe «—», no «0».
+ */
 export function num(n: number, dec = 0, decMin = dec): string {
-  const v = Number.isFinite(n) ? n : 0;
+  if (!Number.isFinite(n)) return '—';
+  const v = n;
   const s = new Intl.NumberFormat('es-ES', {
     minimumFractionDigits: decMin,
     maximumFractionDigits: dec,

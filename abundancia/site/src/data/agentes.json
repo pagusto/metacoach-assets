@@ -1,5 +1,5 @@
 {
- "resumen": "Shefa tiene un equipo de agentes siempre listo en el repositorio: tres directores, uno por pilar, y doce especialistas. Todos leen la misma base de conocimiento verificada, citan con etiqueta de evidencia y describen cada tradición en sus propios términos. Ninguno promete resultados ni da consejo financiero personal.",
+ "resumen": "Shefa tiene un equipo de agentes siempre listo en el repositorio: tres directores, uno por pilar, y doce especialistas. Todos leen la misma base de conocimiento verificada, citan con etiqueta de evidencia y describen cada tradición en sus propios términos. Ninguno promete resultados ni da consejo financiero personal: para tu caso concreto, un asesor registrado.",
  "pilares": [
   {
    "id": "material",
@@ -26,9 +26,9 @@
    "nombre": "Director de riqueza material",
    "pilar": "material",
    "tipo": "director",
-   "rol": "Coordina ingresos, precios, ahorro y protección. Cuantitativo: cada recomendación lleva cifra, fuente y supuestos.",
-   "cuando": "Tu pregunta de dinero cruza varias áreas o quieres un plan material completo.",
-   "ejemplo": "Gano 2.400 al mes y debo 6.000: ¿por dónde empiezo?",
+   "rol": "Explica con cifras, fuentes y supuestos cómo se ordenan ingresos, precios, ahorro y protección. No recomienda qué hacer con tu dinero.",
+   "cuando": "Tu pregunta de dinero cruza varias áreas o quieres entender las opciones generales antes de hablar con un asesor.",
+   "ejemplo": "¿Qué dicen los datos sobre pagar deuda antes de ahorrar?",
    "conocimiento": [
     "conocimiento/base/datos-de-riqueza.md",
     "conocimiento/base/practicas-con-evidencia.md"
@@ -83,7 +83,7 @@
    "nombre": "Analista de datos",
    "pilar": "material",
    "tipo": "especialista",
-   "rol": "Busca y comprueba estadísticas y hace con python la aritmética de interés compuesto y tasa de ahorro, con supuestos a la vista.",
+   "rol": "Busca y comprueba estadísticas y hace con Python la aritmética de interés compuesto y tasa de ahorro, con supuestos a la vista.",
    "cuando": "Necesitas una cifra con fuente o un cálculo exacto.",
    "ejemplo": "Si ahorro el 30 %, ¿cuántos años hasta 25 veces mi gasto?",
    "conocimiento": [
@@ -110,8 +110,8 @@
    "nombre": "Guardián del patrimonio",
    "pilar": "material",
    "tipo": "especialista",
-   "rol": "Ordena ahorro automático, deuda y fondo de emergencia, y revisa señales de fraude y el registro del regulador.",
-   "cuando": "Quieres ahorrar, salir de deudas o revisar una oportunidad dudosa.",
+   "rol": "Explica cómo funcionan el ahorro automático, el pago de deudas y el fondo de emergencia, y revisa señales de fraude y dónde comprobar un registro.",
+   "cuando": "Quieres entender cómo se ordena el ahorro o revisar las señales de una oferta dudosa.",
    "ejemplo": "Me ofrecen un 3 % mensual garantizado: ¿lo reviso contigo?",
    "conocimiento": [
     "conocimiento/base/datos-de-riqueza.md",

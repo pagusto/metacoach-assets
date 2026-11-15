@@ -18,8 +18,9 @@ const mesAnio = e.fecha ? fechaTexto(e.fecha).split(' de ').slice(1).join(' de '
     {e.fecha && (
       <p class="ag-dia-f">
         <time datetime={e.clave}>
-          <span class="cifra">{e.fecha.getDate()}</span>
-          <span><span class="ag-dia-d">{nombreDia(e.fecha)}</span> <span class="oculto">de </span>{mesAnio}</span>
+          <span class="oculto">{nombreDia(e.fecha)} {fechaTexto(e.fecha)}</span>
+          <span class="cifra" aria-hidden="true">{e.fecha.getDate()}</span>
+          <span aria-hidden="true"><span class="ag-dia-d">{nombreDia(e.fecha)}</span> {mesAnio}</span>
         </time>
       </p>
     )}

@@ -45,7 +45,7 @@ const AL_LIBRO: Partial<Record<SefiraId, string>> = {
 ---
 <Base title="Árbol" description="El tablero de Shefa: diez cualidades medibles en forma de Árbol de la Vida, el libro de fuentes de ingreso y el medidor de tu cifra.">
   <TituloPagina titulo="Árbol de la Vida">
-    Diez cualidades y su medida al <time class="vivo" datetime={claveDia(hoy)} data-fecha>{fechaLarga(hoy)}</time>
+    Diez cualidades de lectura moderna y su medida al <time class="vivo" datetime={claveDia(hoy)} data-fecha>{fechaLarga(hoy)}</time>
   </TituloPagina>
 
   <AvisoMuestra />
@@ -82,7 +82,7 @@ const AL_LIBRO: Partial<Record<SefiraId, string>> = {
       <p class="al-detalle"><a href="#detalle">Ver el detalle de <span data-v="elegida">{sefirot.find((x) => x.id === delDia)?.nombre}</span></a></p>
 
       <table class="indice">
-        <caption class="oculto">Las diez sefirot: cualidad y métrica</caption>
+        <caption class="oculto">Las diez sefirot: cualidad de lectura moderna y métrica</caption>
         <thead class="oculto"><tr><th scope="col">Sefirá y cualidad</th><th scope="col">Métrica</th></tr></thead>
         <tbody>
           {sefirot.map((x) => (
@@ -97,13 +97,14 @@ const AL_LIBRO: Partial<Record<SefiraId, string>> = {
       <div slot="pie" class="arbol-nota">
         <p class="rotulo">Sobre esta disposición</p>
         <p>{cabala.arbol_nota}</p>
+        <p>Las cualidades y las métricas son una aplicación moderna de Shefa, no el sentido tradicional de las sefirot.</p>
       </div>
     </Palacio>
 
     <!-- Palacios 2 · 7 -->
     <Palacio n={2} celdas={[2, 7]} titulo="Sefirá seleccionada" etiqueta="Detalle" id="detalle" clase="a-det">
       {sefirot.map((x) => (
-        <article class="det" data-det={x.id} data-dia={x.dia ?? undefined} hidden={x.id !== delDia}>
+        <article class="det" id={x.id} data-det={x.id} data-dia={x.dia ?? undefined} hidden={x.id !== delDia}>
           <div class="det-titulo">
             <h3>{x.nombre} <span class="he" lang="he" dir="rtl">{x.hebreo}</span></h3>
             <p>{x.cualidad}</p>
@@ -181,7 +182,7 @@ const AL_LIBRO: Partial<Record<SefiraId, string>> = {
             {x.id === 'hod' && (
               <div class="control">
                 <form class="campo" data-form="hod">
-                  <label for="h-evidencia">Anota una evidencia de hoy</label>
+                  <label for="h-evidencia">Algo que recibiste o lograste hoy y a quién se lo debes</label>
                   <div class="campo-fila sin-salto">
                     <input id="h-evidencia" name="texto" type="text" autocomplete="off" placeholder="Un ingreso, una ayuda o un aprendizaje" />
                     <button class="boton" type="submit">Añadir</button>

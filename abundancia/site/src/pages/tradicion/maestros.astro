@@ -28,15 +28,25 @@ const x = (a: number) => Math.round(((a - A0) / (A1 - A0)) * 10000) / 100;
 const decadas = Array.from({ length: (A1 - A0) / 10 + 1 }, (_, i) => A0 + i * 10);
 const rotulos = decadas.filter((a) => (a - A0) % 20 === 0 && a < A1);
 
+const PISTA_MIN = 770; // ancho de la pista de vidas a 1280 px
+const PX_LETRA = 6.6; // ancho medio de una letra del rótulo de obra (13 px)
 const vidas = datos.maestros.map((m) => {
   const cifras = (m.anios.match(/\d{4}/g) ?? []).map(Number);
   const nace = cifras[0] ?? null;
   const vive = /^\s*n\./.test(m.anios) || cifras.length < 2;
   const fin = vive ? ACTUAL : cifras[1];
   const obra = anio(m.obra_clave.replace(/^[^(]*/, '')) ?? anio(m.obra_clave);
-  // El título de la obra se escribe del lado donde hay más sitio.
-  const lado = nace !== null && x(nace) > 100 - x(fin) ? 'izq' : 'der';
-  return { id: m.id, nombre: m.nombre, anios: m.anios, obraTexto: m.obra_clave, nace, fin, vive, obra, lado };
+  // El título de la obra se escribe del lado donde hay más sitio. Si ni ahí cabe (cálculo con la
+  // pista más estrecha de escritorio), va sin el año, que ya marca el punto de la obra, y si aún
+  // no cabe, en letra estrecha: nunca cortado con puntos suspensivos.
+  const izq = nace !== null ? x(nace) : 0;
+  const der = 100 - x(fin);
+  const lado = nace !== null && izq > der ? 'izq' : 'der';
+  const sitio = (Math.max(izq, der) / 100) * PISTA_MIN - 12;
+  const cabe = (t: string) => t.length * PX_LETRA <= sitio;
+  const sinAnio = m.obra_clave.replace(/\s*\(\d{4}\)\s*$/, '');
+  const obraTexto = cabe(m.obra_clave) ? m.obra_clave : sinAnio;
+  return { id: m.id, nombre: m.nombre, anios: m.anios, obraTexto, estrecha: !cabe(obraTexto), nace, fin, vive, obra, lado };
 });
 const idDe = (nombre: string) => datos.maestros.find((m) => m.nombre === nombre)?.id;
 
@@ -91,7 +101,7 @@ const indice = [
                   <>
                     <span class:list={['tr-vida', v.vive && 'vive']} style={`--x0:${x(v.nace)};--x1:${x(v.fin)}`}></span>
                     {v.obra !== null && <span class="tr-obra" style={`--x:${x(v.obra)}`}></span>}
-                    <span class:list={['tr-obra-t', v.lado]} style={`--x0:${x(v.nace)};--x1:${x(v.fin)}`}>{v.obraTexto}</span>
+                    <span class:list={['tr-obra-t', v.lado, v.estrecha && 'estrecha']} style={`--x0:${x(v.nace)};--x1:${x(v.fin)}`}>{v.obraTexto}</span>
                   </>
                 )}
               </div>
@@ -151,6 +161,7 @@ const indice = [
                   <li><b>{t.titulo}</b><span>{fino(t.ejercicio)}</span></li>
                 ))}
               </ol>
+              {'metodos_nota' in m && m.metodos_nota && <p class="rotulo tr-metodos-nota">{m.metodos_nota}</p>}
             </section>
 
             <section class="tr-bloque tr-maestro-nota" aria-label={`Nota crítica sobre ${m.nombre}`}>

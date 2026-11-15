@@ -144,6 +144,7 @@
 .rt-porque-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: var(--s-1); }
 .rt-porque-cols > p { display: grid; gap: var(--s-1); justify-items: start; align-content: start; text-wrap: pretty; }
 .rt-porque .rt-fuente { margin-top: 4px; }
+.rt-porque-sin { line-height: var(--s-3); }
 .rt-porque-l { margin-top: 12px; font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
 .rt-porque-l .rotulo { margin-right: var(--s-1); line-height: var(--lh-0); }
 
@@ -195,6 +196,8 @@
 }
 .rt-q > h3 .cifra { min-width: 14px; font-size: var(--t-2); line-height: var(--lh-0); }
 .rt-tabla { border-top: 0; }
+/* Un nombre de fuente largo se parte dentro de su columna y no ensancha la página. */
+.rt-tabla tbody th { overflow-wrap: anywhere; hyphens: auto; }
 .rt-tabla thead th { padding-top: 0; }
 .rt-tabla tfoot th, .rt-tabla tfoot td { padding: 12px 0; border-bottom: 0; border-top: var(--linea) solid var(--filete); font-weight: 600; text-align: left; }
 .rt-tabla tfoot .num { font-size: var(--t-2); line-height: var(--lh-1); text-align: right; }

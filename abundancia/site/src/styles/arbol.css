@@ -29,7 +29,8 @@
 .nodo .disco { fill: var(--fondo); stroke: var(--filete); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 .nodo .arco { fill: none; stroke: var(--medida); stroke-width: 5; }
 .nodo-v { position: relative; z-index: 2; font-size: 0.9375rem; line-height: 1; white-space: nowrap; }
-.nodo-v.largo { font-size: 0.75rem; }
+/* Un valor con decimales («12,5 %») se estrecha en vez de bajar de 14 px. */
+.nodo-v.largo { font-size: 0.875rem; font-stretch: 62%; letter-spacing: -0.02em; }
 .nodo:hover .disco { stroke: var(--accion); stroke-width: 2.5; }
 /* El sello: cielo redondo dentro de tierra cuadrada. Solo el nodo elegido. */
 .nodo[aria-pressed="true"]::before {
@@ -51,10 +52,11 @@
 .rot-c, .rot-m { display: none; }
 /* Móvil: nombre bajo el nodo en los pilares laterales, a la derecha en el central */
 .izq .rot, .der .rot {
-  left: -56px; width: 112px; top: calc(var(--nodo) / 2 - 1px);
+  /* Debajo del sello del nodo elegido (6 px por fuera del círculo), sin tapar su borde. */
+  left: -56px; width: 112px; top: calc(var(--nodo) / 2 + 8px);
   text-align: center;
 }
-.izq .rot span.fondo, .der .rot span.fondo { display: inline-block; background: var(--fondo); padding: 4px 4px 0; }
+.izq .rot span.fondo, .der .rot span.fondo { display: inline-block; background: var(--fondo); padding: 0 4px; }
 .cen .rot { left: calc(var(--nodo) / 2 + 8px); top: var(--dy-movil, -8px); }
 .cen .rot .he { display: block; }
 

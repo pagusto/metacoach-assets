@@ -3,14 +3,14 @@
 // solo se lee el ingreso del libro de fuentes, para proponerlo en el reparto.
 
 import { leer, alCambiar, ingresoReal, type Estado } from './store';
-import { leerNumero } from './formato';
+import { leerNumero, leerConSigno } from './formato';
 import { num, conSigno, pctFino } from './datos-formato';
 import {
   interesCompuesto, ajustarReparto, importesReparto, aniosIndependencia, subirPrecio, evaluarFuente,
   type Compuesto, type ParteReparto, type Reparto,
 } from './datos-calculo';
 import { graficoCompuesto, graficoIndependencia, graficoPrecio, franjaReparto, escalaEvaluador } from './datos-graficos';
-import { PARTES, TEXTO_NIVEL, textoMasFloja, veredictoBanderas } from './datos-textos';
+import { PARTES, TEXTO_NIVEL, textoMasFloja, veredictoBanderas, notaIndependencia } from './datos-textos';
 
 const campo = (id: string) => document.getElementById(id) as HTMLInputElement | null;
 const pieza = (clave: string) => document.querySelector<HTMLElement>(`[data-v="${clave}"]`);
@@ -26,6 +26,9 @@ function escribirCifra(clave: string, texto: string): void {
   el.style.setProperty('--n', String(Math.max(2, texto.length)));
 }
 const limitar = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
+/** Tope de los importes que escribe la persona: evita desbordamientos sin estorbar a nadie. */
+const TOPE = 1e12;
+const importe = (el: HTMLInputElement) => limitar(leerNumero(el.value), 0, TOPE);
 const plural = (n: number, uno: string, varios: string) => (n === 1 ? uno : varios);
 
 // ---------- Cifras: en la tira, la nota y la fuente se pliegan ----------
@@ -43,6 +46,13 @@ function abrirCifraEnlazada(): void {
 }
 escritorio.addEventListener('change', plegarCifras);
 window.addEventListener('hashchange', abrirCifraEnlazada);
+// Si el hash ya es el de la cifra no hay «hashchange»: se abre también al pulsar el enlace.
+document.addEventListener('click', (e) => {
+  const a = (e.target as Element | null)?.closest?.('a[href^="#c-"]');
+  const id = a?.getAttribute('href')?.slice(1);
+  const d = id ? document.getElementById(id)?.querySelector<HTMLDetailsElement>('.cf-d') : null;
+  if (d) d.open = true;
+});
 abrirCifraEnlazada();
 
 // ---------- 1 · Interés compuesto ----------
@@ -77,7 +87,9 @@ function iniciarCompuesto(): void {
 
   function pintar(): void {
     const n = limitar(Number(anios!.value) || 1, 1, 50);
-    actual = interesCompuesto(leerNumero(aporte!.value), n, limitar(leerNumero(retorno!.value), 0, 100));
+    const r = limitar(leerConSigno(retorno!.value), -50, 100);
+    actual = interesCompuesto(importe(aporte!), n, r);
+    escribir('c-retorno-t', pctFino(r, 2));
     if (lectura !== undefined && lectura > n) lectura = undefined;
     const salida = pieza('c-anios');
     if (salida) salida.innerHTML = `<span class="cifra">${n}</span> ${plural(n, 'año', 'años')}`;
@@ -97,7 +109,7 @@ function iniciarCompuesto(): void {
   retorno.addEventListener('input', () => {
     // Si lo escrito coincide con un activo de los datos, el selector lo dice; si no, «Otro valor».
     if (activo) {
-      const v = leerNumero(retorno.value);
+      const v = leerConSigno(retorno.value);
       const igual = Array.from(activo.options).find((o) => o.value !== '' && Number(o.value) === v);
       activo.value = igual ? igual.value : '';
     }
@@ -151,6 +163,7 @@ function iniciarReparto(): void {
   const ingreso = campo('r-ingreso');
   const franja = pieza('r-franja');
   const origen = pieza('r-origen');
+  const origenMuestra = pieza('r-origen-muestra');
   if (!ingreso) return;
   const deslizadores = new Map<ParteReparto, HTMLInputElement>();
   PARTES.forEach((p) => {
@@ -163,7 +176,7 @@ function iniciarReparto(): void {
   let tocado = false; // la persona ya escribió su ingreso: no se pisa con el del libro
 
   function pintar(): void {
-    const imp = importesReparto(leerNumero(ingreso!.value), reparto);
+    const imp = importesReparto(importe(ingreso!), reparto);
     PARTES.forEach(({ id }) => {
       const el = deslizadores.get(id);
       if (el && Number(el.value) !== reparto[id]) el.value = String(reparto[id]);
@@ -187,17 +200,19 @@ function iniciarReparto(): void {
   ingreso.addEventListener('input', () => {
     tocado = true;
     if (origen) origen.hidden = true;
+    if (origenMuestra) origenMuestra.hidden = true;
     pintar();
   });
 
-  // El ingreso propuesto es la suma mensual del libro de fuentes (solo lectura).
+  // El ingreso propuesto es la suma mensual del libro de fuentes (solo lectura). Si en el libro
+  // quedan fuentes de muestra, la cifra se rotula como de muestra, no como dato de la persona.
   function proponer(s: Estado): void {
     if (tocado) return;
     const real = ingresoReal(s);
-    if (real > 0) {
-      ingreso!.value = num(real);
-      if (origen) origen.hidden = false;
-    }
+    const deMuestra = s.fuentes.some((f) => f.ejemplo && (Number(f.mensual) || 0) > 0);
+    if (real > 0) ingreso!.value = num(real);
+    if (origen) origen.hidden = !(real > 0 && !deMuestra);
+    if (origenMuestra) origenMuestra.hidden = !(real > 0 && deMuestra);
     pintar();
   }
   proponer(leer());
@@ -216,6 +231,7 @@ function iniciarIndependencia(): void {
     const s = limitar(Number(tasa!.value) || 0, Number(tasa!.min) || 5, Number(tasa!.max) || 95);
     const r = limitar(leerNumero(retorno!.value), 0, 30);
     const anios = aniosIndependencia(s, r);
+    escribir('i-nota', notaIndependencia(r));
     const salida = pieza('i-tasa');
     if (salida) salida.innerHTML = `<span class="cifra">${pctFino(s)}</span> del ingreso`;
     tasa!.setAttribute('aria-valuetext', `${s} % del ingreso`);
@@ -242,10 +258,10 @@ function iniciarPrecio(): void {
 
   function pintar(): void {
     const r = subirPrecio({
-      precio: leerNumero(precio.value),
-      coste: leerNumero(coste.value),
-      unidades: leerNumero(unidades.value),
-      subidaPct: leerNumero(subida.value),
+      precio: importe(precio),
+      coste: importe(coste),
+      unidades: importe(unidades),
+      subidaPct: limitar(leerNumero(subida.value), 0, 1000),
       pierdePct: limitar(leerNumero(pierde.value), 0, 100),
     });
     escribirCifra('p-cambio', conSigno(r.cambio));
@@ -258,9 +274,11 @@ function iniciarPrecio(): void {
       'p-equilibrio',
       r.equilibrioPct === null
         ? 'El precio nuevo no cubre el coste por unidad: cada venta resta.'
-        : r.precioNuevo <= leerNumero(precio.value)
+        : r.precioNuevo <= importe(precio)
           ? 'Sin subida de precio no hay margen que ganar: cada cliente que se va es beneficio perdido.'
-          : `Equilibrio: ganas lo mismo que ahora si se va el ${pctFino(r.equilibrioPct, 1)} de los clientes. Por debajo de eso, ganas más.`,
+          : r.equilibrioPct > 100
+            ? 'Hoy cada venta resta. Con el precio nuevo ganas más que ahora aunque pierdas clientes.'
+            : `Equilibrio: ganas lo mismo que ahora si se va el ${pctFino(r.equilibrioPct, 1)} de los clientes. Por debajo de eso, ganas más.`,
     );
   }
   campos.forEach((c) => c!.addEventListener('input', pintar));

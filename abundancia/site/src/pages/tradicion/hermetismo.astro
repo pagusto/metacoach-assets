@@ -17,7 +17,7 @@ import '../../styles/tradicion.css';
 
 import hermetismo from '../../data/hermetismo.json';
 import { afinar as fino, enLetras } from '../../lib/tradicion';
-import { frases } from '../../lib/formato';
+import { frases, parrafos } from '../../lib/formato';
 import { fmt } from '../../lib/store';
 
 const [entradilla, ...resto] = frases(hermetismo.contexto);
@@ -50,7 +50,7 @@ const cifras = indice.filter((e) => e.n !== undefined);
   <Cuadrado>
     <Palacio n={4} celdas={[4, 9]} titulo="Contexto" etiqueta="Qué es y de cuándo" id="contexto">
       <p class:list={['voz', 'tr-entradilla', entradilla.startsWith('«') && 'tr-colgada']}>{entradilla}</p>
-      <div class="tr-contexto"><p>{fino(resto.join(' '))}</p></div>
+      <div class="tr-contexto">{parrafos(resto).map((t) => <p>{fino(t)}</p>)}</div>
     </Palacio>
 
     <Palacio n={2} titulo="En cifras" etiqueta="Esta página">

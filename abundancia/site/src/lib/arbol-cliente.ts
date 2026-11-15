@@ -59,9 +59,18 @@ nodos.forEach((b, i) => {
     elegir(otro.dataset.id as SefiraId);
   });
 });
+// En la tira el detalle queda debajo del árbol: quien llega con el enlace de una sefirá
+// (#jesed) aterriza en su detalle, donde está el formulario.
+const enTira = () => !window.matchMedia('(min-width: 1280px)').matches;
+function irAlDetalle(): void {
+  if (enTira()) document.getElementById('detalle')?.scrollIntoView();
+}
 window.addEventListener('hashchange', () => {
   const h = location.hash.slice(1);
-  if (esSefira(h)) elegir(h, false);
+  if (esSefira(h)) {
+    elegir(h, false);
+    irAlDetalle();
+  }
 });
 
 // ---------- Medidas en vivo ----------
@@ -413,3 +422,4 @@ document.documentElement.classList.add('listo');
 // Si se llegó con un ancla de la página (#libro, #detalle), se recoloca tras el primer pintado.
 const ancla = location.hash.slice(1);
 if (ancla && !esSefira(ancla)) document.getElementById(ancla)?.scrollIntoView();
+else if (ancla) irAlDetalle();

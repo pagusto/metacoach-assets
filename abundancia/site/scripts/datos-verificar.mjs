@@ -12,6 +12,8 @@ import {
   tasaMensual, valorTrasMeses, interesCompuesto, ajustarReparto, importesReparto,
   aniosIndependencia, subirPrecio, evaluarFuente, nivelBanderas, ejeRedondo,
 } from '../src/lib/datos-calculo.ts';
+import { num } from '../src/lib/datos-formato.ts';
+import { duracionHablada } from '../src/lib/videoteca.ts';
 
 const datos = JSON.parse(readFileSync(new URL('../src/data/datos.json', import.meta.url), 'utf8'));
 let fallos = 0;
@@ -106,6 +108,15 @@ cerca('precio: 1 % más con margen del 9 % da +11,1 % (cifra de datos.json)', mr
 const sinMargen = subirPrecio({ precio: 50, unidades: 10, coste: 60, subidaPct: 10, pierdePct: 0 });
 igual('precio: si el precio nuevo no cubre el coste no hay equilibrio', sinMargen.equilibrioPct, null);
 igual('precio: con beneficio actual negativo no hay cambio en %', sinMargen.cambioPct, null);
+// Hoy se pierde con cada venta y con el precio nuevo no: el equilibrio pasa de 100 y no se recorta.
+const sale = subirPrecio({ precio: 100, unidades: 40, coste: 120, subidaPct: 30, pierdePct: 0 });
+cerca('precio: si hoy cada venta resta, el equilibrio supera el 100 % (300)', sale.equilibrioPct, 300);
+// Retorno real negativo: la fórmula coincide con la simulación mes a mes.
+let saldo = 0;
+for (let m = 0; m < 240; m++) saldo = saldo * (1 + tasaMensual(-2)) + 300;
+cerca('compuesto: retorno de −2 % durante 20 años, como la simulación', interesCompuesto(300, 20, -2).final, saldo);
+igual('formato: un desbordamiento se escribe «—», no «0»', [num(Infinity), num(NaN), num(0)], ['—', '—', '0']);
+igual('videoteca: 10:59:35 se dice «11 h», no «10 h 60 min»', [duracionHablada('10:59:35'), duracionHablada('2:12:44'), duracionHablada('29:18')], ['11 h', '2 h 13 min', '29 min']);
 
 // 5 · Evaluador: suma y umbrales.
 igual('evaluador 3,3,3,3', evaluarFuente([3, 3, 3, 3]), { total: 12, maximo: 20, nivel: 'reforzar', masFloja: 0 });

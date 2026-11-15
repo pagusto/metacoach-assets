@@ -1,6 +1,6 @@
 {
   "titulo": "Cábala y sustento",
-  "resumen": "La tradición judía une mística y ética del dinero: la abundancia se describe como un flujo que pide un recipiente, y ese recipiente se construye con actos concretos: dar una parte fija, negociar con fidelidad, descansar un día, agradecer y contentarse con la propia parte. Aquí tienes los textos, con su referencia exacta.",
+  "resumen": "La tradición judía reúne mística y ética del sustento. La cábala describe la abundancia como un flujo (shefa) que pide un recipiente (kli); los textos éticos piden dar una parte fija, negociar con fidelidad, descansar un día, agradecer y contentarse con la propia parte. Unir ambas cosas es una lectura moderna de esta página.",
   "contexto": "La cábala es la corriente mística del judaísmo. Sus raíces están en textos antiguos como el Séfer Yetsirá, pero toma forma en la Edad Media: el Bahir en el siglo XII y el Zóhar en la Castilla del XIII, difundido por Moshé de León. En el siglo XVI, en Safed, Moshé Cordovero la ordena e Isaac Luria la renueva; en el XVIII el jasidismo la acerca a la gente común. Describe diez sefirot, emanaciones por las que lo infinito se relaciona con el mundo. Tradicionalmente se reservaba a adultos ya formados en Torá y Talmud. La Cábala cristiana del Renacimiento y la Qabalah hermética son adaptaciones posteriores y distintas. Acércate como invitado: toma la ética, que es universal, cita los textos con su fuente y describe los ritos sin apropiártelos. Las aplicaciones al sustento que verás junto a cada sefirá son lecturas modernas, no el sentido original.",
   "sefirot": [
     {
@@ -49,7 +49,7 @@
       "practica": "Fija un porcentaje para dar y transfiérelo el mismo día en que cobras.",
       "dia": "domingo",
       "color_cordovero": "Blanco y plata",
-      "fuente": { "cita": "Zóhar, Pekudé (edición en línea de Zohar.com, párrafos 131-144)", "url": "https://www.zohar.com/zohar/Pekudei/verses/131-144" }
+      "fuente": { "cita": "Zóhar, Pekudé, párrafos 131-144 (leído en Zohar.com, traducción del Kabbalah Centre con glosas; sin cotejar con la edición Pritzker)", "url": "https://www.zohar.com/zohar/Pekudei/verses/131-144" }
     },
     {
       "id": "guevura",
@@ -61,7 +61,7 @@
       "practica": "Pon un tope mensual a una categoría de gasto y revisa el viernes si lo cumpliste.",
       "dia": "lunes",
       "color_cordovero": "Rojo y oro",
-      "fuente": { "cita": "Zóhar, Pekudé (edición en línea de Zohar.com, párrafos 131-144)", "url": "https://www.zohar.com/zohar/Pekudei/verses/131-144" }
+      "fuente": { "cita": "Zóhar, Pekudé, párrafos 131-144 (leído en Zohar.com, traducción del Kabbalah Centre con glosas; sin cotejar con la edición Pritzker)", "url": "https://www.zohar.com/zohar/Pekudei/verses/131-144" }
     },
     {
       "id": "tiferet",
@@ -81,11 +81,11 @@
       "hebreo": "נצח",
       "significado": "Victoria, eternidad",
       "tradicion": "La perseverancia que sostiene la acción en el tiempo y vence el obstáculo. Forma pareja con Hod.",
-      "aplicacion": "Lectura moderna: constancia. El ingreso crece con hábitos repetidos más que con golpes de suerte.",
+      "aplicacion": "Lectura moderna: constancia. Sostener cada día una acción pequeña en tu fuente de ingreso, sin esperar un golpe de suerte.",
       "practica": "Elige una acción diaria de quince minutos para tu fuente principal de ingreso y márcala en un calendario.",
       "dia": "miércoles",
-      "color_cordovero": "Rosa claro",
-      "fuente": { "cita": "AskNoah, «G-d's 7 Emotional Attributes and the Rainbow Colors» (colores según Pardés Rimonim)", "url": "https://asknoah.org/?p=738" }
+      "color_cordovero": null,
+      "fuente": { "cita": "Scholem, G. (1974), Kabbalah, Keter, parte II, «The Basic Ideas of Kabbalah»", "url": null }
     },
     {
       "id": "hod",
@@ -96,8 +96,8 @@
       "aplicacion": "Lectura moderna: gratitud y reconocimiento. Nombrar a quién debes lo que tienes.",
       "practica": "Cada noche anota tres ingresos, ayudas o aprendizajes del día y a quién se los debes.",
       "dia": "jueves",
-      "color_cordovero": "Rosa oscuro",
-      "fuente": { "cita": "AskNoah, «G-d's 7 Emotional Attributes and the Rainbow Colors» (colores según Pardés Rimonim)", "url": "https://asknoah.org/?p=738" }
+      "color_cordovero": null,
+      "fuente": { "cita": "Scholem, G. (1974), Kabbalah, Keter, parte II, «The Basic Ideas of Kabbalah»", "url": null }
     },
     {
       "id": "yesod",
@@ -125,7 +125,7 @@
     }
   ],
   "dias_nota": "El principio es tradicional: el Zóhar y Ramjal (siglo XVIII) enseñan que los seis días y el Shabat corresponden a las siete sefirot inferiores, de Jésed el domingo a Maljut el sábado. La tabla día por día circula sobre todo en la divulgación actual; no localizamos un pasaje clásico que la enumere completa.",
-  "arbol_nota": "No hay un único árbol judío: el diagrama aparece en el siglo XIV y varía. En la disposición atribuida al Arí, Maljut se une solo a Yesod. El árbol de Kircher (1652-1654), adoptado por la Golden Dawn, une Maljut con tres sefirot y añade letras por orden alfabético, planetas y tarot.",
+  "arbol_nota": "No hay un único árbol judío: el diagrama aparece en el siglo XIV y varía. En la disposición atribuida al Arí, Maljut se une solo a Yesod. El árbol de Kircher (1652-1654) une Maljut con tres sefirot y reparte las letras por orden alfabético, con signos astrológicos; la Golden Dawn lo adoptó en el siglo XIX y añadió el tarot.",
   "ensenanzas": [
     {
       "id": "fuerza-para-hacer-riqueza",
@@ -272,11 +272,11 @@
     {
       "id": "dinero-como-escalera",
       "titulo": "El dinero es una escalera",
-      "tradicion": "Una lectura atribuida al Báal HaTurim (siglo XIV) observa que mamón (dinero), sulam (escalera) y oni (pobreza) suman lo mismo en hebreo: con el dinero se sube o se baja. La guematria es un recurso para recordar una idea, no una prueba.",
+      "tradicion": "Una lectura atribuida al Báal HaTurim (siglo XIV) observa que mamón (dinero), sulam (escalera) y oni (pobreza) suman lo mismo en hebreo si se escriben con vav: con el dinero se sube o se baja. La guematria es un recurso para recordar una idea, no una prueba.",
       "fuente_tradicion": { "cita": "Báal HaTurim sobre Génesis 28:12, según Aish, «The Up-and-Down Ladder»", "url": "https://aish.com/the-up-and-down-ladder/" },
       "cita": null,
       "practica": "Ante un gasto grande pregunta: ¿esto me sube o me baja un peldaño hacia lo que escribí como propósito?",
-      "dato": "Mamón, sulam con vav, kol (voz) y tsom (ayuno) suman 136 cada una. En la Torá sulam se escribe sin vav y suma 130.",
+      "dato": "Mamón, sulam con vav, oni con vav, kol (voz) y tsom (ayuno) suman 136 cada una. Sin vav, sulam y oni suman 130; así se escribe sulam en la Torá.",
       "fuente_dato": { "cita": "OzTorah, «130 or 136 – Vayyetzei»", "url": "https://oztorah.com/2007/06/130-or-136-vayyetzei/" },
       "etiqueta": "tradicion"
     },
@@ -294,7 +294,7 @@
   ],
   "glosario": [
     { "termino": "Shefa", "original": "שפע", "definicion": "Flujo o efusión de abundancia que, según la cábala, desciende de sefirá en sefirá hasta el mundo." },
-    { "termino": "Kli", "original": "כלי", "definicion": "Recipiente. Lo que permite contener el flujo: en la práctica, hábitos, límites y estructura." },
+    { "termino": "Kli", "original": "כלי", "definicion": "Recipiente que contiene el flujo. Aplicación moderna de este sitio: hábitos, límites y estructura." },
     { "termino": "Berajá", "original": "ברכה", "definicion": "Bendición. En los textos, aumento que llega a lo que ya se tiene y se cuida." },
     { "termino": "Mazal", "original": "מזל", "definicion": "En el Talmud, constelación o destino. Los sabios discuten cuánto pesa frente al mérito y la acción." },
     { "termino": "Parnasá", "original": "פרנסה", "definicion": "Sustento, medio de vida. El ingreso necesario para vivir con dignidad." },

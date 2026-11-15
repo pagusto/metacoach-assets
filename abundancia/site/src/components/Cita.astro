@@ -1,5 +1,6 @@
 ---
-// Cita: la línea de fuente de un dato o de una enseñanza. Si hay URL, enlaza.
+// Cita: la línea de fuente de un dato o de una enseñanza. Si hay URL, enlaza. Como en el resto
+// del sitio, la fuente externa se abre en otra pestaña y lo avisa a quien usa lector de pantalla.
 //   <Cita fuente={ensenanza.fuente_dato} />
 //   <Cita cita="Talmud, Taanit 9a" url="https://www.sefaria.org/Taanit.9a" rotulo="Fuente" />
 interface Props {
@@ -21,6 +22,6 @@ const url = fuente?.url ?? Astro.props.url ?? null;
 {cita && (
   <cite class:list={['fuente-cita', clase]}>
     {rotulo && <span class="rotulo">{rotulo}</span>}
-    {url ? <a href={url} rel="noopener external">{cita}</a> : cita}
+    {url ? <a href={url} target="_blank" rel="noopener external">{cita}<span class="oculto"> (se abre en otra pestaña)</span></a> : cita}
   </cite>
 )}

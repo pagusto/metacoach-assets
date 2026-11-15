@@ -58,6 +58,9 @@ Nunca escribas un color en hex ni un tamaño suelto: usa los tokens.
   **orden del código**. La prop `forma` da la altura mínima en la tira: `cuadrado` (1:1),
   `dos-tercios` (3:2), `tira` (3:1, cifra a la izquierda y marca a la derecha) o `libre`.
 - `<Cuadrado>` debe ser hijo directo del `<main>` de `Base` (usa su ancho para calcular el palacio).
+- **Orden del código = orden visual.** Escribe los palacios en el orden en que se ven en escritorio
+  (4 9 2 / 3 5 7 / 8 1 6, de izquierda a derecha y de arriba abajo): el foco del teclado y el lector de
+  pantalla siguen el código, y la tira de móvil hereda ese orden.
 - No es obligatorio llenar los nueve palacios, pero una fila sin completar deja ver el fondo de
   tinta: completa siempre el rectángulo con piezas o con `celdas`.
 - Contenido fuera del cuadrado (franjas, notas): hijo directo de `<main>`, con filetes suaves
@@ -194,7 +197,7 @@ anecdota | mito`, los mismos valores que `etiqueta` en los JSON) y `texto?`.
 <Cita fuente={e.fuente_dato} />
 <Cita cita="Talmud, Taanit 9a" url="https://www.sefaria.org/Taanit.9a" rotulo="Fuente" />
 ```
-Línea de fuente; enlaza si hay URL. Props: `fuente?` (objeto `{ cita, url }` de los JSON), o
+Línea de fuente; enlaza si hay URL (se abre en otra pestaña y lo avisa al lector de pantalla). Props: `fuente?` (objeto `{ cita, url }` de los JSON), o
 `cita?` y `url?`; `rotulo?`, `clase?`. No pinta nada si no hay cita.
 
 ### Medidor
@@ -281,7 +284,7 @@ alCambiar((s) => pintar(s));                       // también salta si cambia e
   `window.confirm` ni `alert`.
 
 Otros módulos de `src/lib/`: `formato.ts` (fechas en español, `fino`, `pct`, `esc`, `leerNumero`,
-`frases`, `diaDelAnio`), `rotacion.ts` (`delDia`, `indiceDelDia`, `alternar`, `sefiraDelDia`),
+`leerConSigno`, `frases`, `parrafos`, `diaDelAnio`), `rotacion.ts` (`delDia`, `indiceDelDia`, `alternar`, `sefiraDelDia`),
 `moneda.ts` (`monedaSVG`, `ponerArco`, `nodoSVG`, `monedaEstadoSVG`, `puntosSVG`, `rachaSVG`,
 `diasSVG`), `sefirot.ts` (orden, cualidades, posiciones y los 22 senderos del Arí), `loshu.ts`, `ruta.ts`,
 `muestra.ts`, `arbol-cliente.ts` (cliente de la página Árbol).

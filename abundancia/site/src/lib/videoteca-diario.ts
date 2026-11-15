@@ -47,11 +47,11 @@ function fechaDe(clave: string): Date | null {
   return Number.isNaN(d.getTime()) ? null : d;
 }
 
-/** Los enlaces externos se abren en otra pestaña, sin dar acceso a esta. */
+/** Los enlaces externos se abren en otra pestaña, sin dar acceso a esta, y lo avisan al lector de pantalla. */
 function enlacesFuera(html: string): string {
-  return html.replace(/<a\s+([^>]*?)href="(https?:[^"]*)"([^>]*)>/g, (_todo, antes: string, url: string, despues: string) => {
+  return html.replace(/<a\s+([^>]*?)href="(https?:[^"]*)"([^>]*)>([\s\S]*?)<\/a>/g, (_todo, antes: string, url: string, despues: string, texto: string) => {
     const resto = `${antes}${despues}`.replace(/\s*(target|rel)="[^"]*"/g, '').trim();
-    return `<a href="${url}"${resto ? ` ${resto}` : ''} target="_blank" rel="noopener">`;
+    return `<a href="${url}"${resto ? ` ${resto}` : ''} target="_blank" rel="noopener external">${texto}<span class="oculto"> (se abre en otra pestaña)</span></a>`;
   });
 }
 

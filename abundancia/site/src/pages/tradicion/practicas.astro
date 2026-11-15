@@ -25,7 +25,7 @@ const NIVEL: Record<string, number> = { alta: 3, media: 2, baja: 1 };
 const calidades = ['alta', 'media', 'baja'].filter((c) => datos.practicas.some((p) => p.calidad === c));
 
 // Momentos presentes en los datos, en el orden del día.
-const ORDEN_MOMENTO = ['mañana', 'noche', 'semanal', 'continuo'];
+const ORDEN_MOMENTO = ['mañana', 'noche', 'semanal', 'mensual', 'continuo'];
 const momentos = [
   ...ORDEN_MOMENTO.filter((m) => datos.practicas.some((p) => p.momento === m)),
   ...Array.from(new Set(datos.practicas.map((p) => p.momento))).filter((m) => !ORDEN_MOMENTO.includes(m)),

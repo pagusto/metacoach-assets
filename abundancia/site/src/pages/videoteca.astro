@@ -15,7 +15,7 @@ import datos from '../data/videoteca.json';
 import { fmt } from '../lib/store';
 import {
   IDIOMAS, TIPOS_CANAL, duracionHablada, enYouTube, nombreCategoria, nombreIdioma, nombreTipoCanal, ordenCategorias, rotuloTipoCanal,
-  segundos, type Video,
+  segundos, esHebreo, tituloVisible, type Video,
 } from '../lib/videoteca';
 
 const videos = datos.videos as Video[];
@@ -57,7 +57,7 @@ const horas = Math.round(videos.reduce((s, v) => s + segundos(v.duracion), 0) / 
           <Fachada id={v.id} titulo={v.titulo} idioma={v.idioma} grande />
           <div class="vt-paso-txt">
             <div class="vt-paso-cab">
-              <h3 class="voz-m" lang={v.idioma}>{v.titulo}</h3>
+              <h3 class="voz-m" lang={v.idioma}>{tituloVisible(v)}</h3>
               <ul class="vt-meta">
                 <li class="medio">{v.maestro}</li>
                 <li><span class="oculto">Duración: {duracionHablada(v.duracion)}</span><span class="cifra" aria-hidden="true">{v.duracion}</span></li>
@@ -66,16 +66,16 @@ const horas = Math.round(videos.reduce((s, v) => s + segundos(v.duracion), 0) / 
               </ul>
               <div class="vt-acciones">
                 <label class="vt-visto">
-                  <input class="casilla" type="checkbox" data-visto={v.id} aria-label={`Visto: ${v.titulo}`} />
+                  <input class="casilla" type="checkbox" data-visto={v.id} aria-label={`Visto: ${tituloVisible(v)}`} />
                   <span>Visto</span>
                 </label>
-                <a href={enYouTube(v.id)} target="_blank" rel="noopener">Ver en YouTube<span class="oculto"> «{v.titulo}» (se abre en otra pestaña)</span></a>
+                <a href={enYouTube(v.id)} target="_blank" rel="noopener">Ver en YouTube<span class="oculto"> «{tituloVisible(v)}» (se abre en otra pestaña)</span></a>
               </div>
             </div>
             <div class="vt-texto">
               <p>{v.resumen}</p>
               <p class="vt-porque"><span class="rotulo">Por qué verlo</span>{v.por_que}</p>
-              <p class="vt-porque"><span class="rotulo">{rotuloTipoCanal(v.tipo_canal)}</span><bdi>{v.canal}</bdi>{v.nota && <>. {v.nota}</>}</p>
+              <p class="vt-porque"><span class="rotulo">{rotuloTipoCanal(v.tipo_canal)}</span><bdi lang={esHebreo(v.canal) ? 'he' : undefined} class={esHebreo(v.canal) ? 'he' : undefined}>{v.canal}</bdi>{v.nota && <>. {v.nota}</>}</p>
             </div>
           </div>
         </article>

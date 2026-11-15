@@ -202,3 +202,6 @@
   .clr-paleta-p { min-height: calc(3 * var(--lh-0)); }
   .clr-temas { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Un carácter chino dentro de una nota sigue el cuerpo y el color de la nota. */
+.nota .han { font-size: inherit; color: inherit; }

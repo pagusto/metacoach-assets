@@ -38,6 +38,7 @@ const limpio = (s) => (s || '').replace(/[  ]/g, ' ').replace(/\s+/g, ' ').tr
   }, valor);
 
   comprobar('la página marca «listo»', await p.evaluate(() => document.documentElement.classList.contains('listo')));
+  comprobar('reparto: con los datos de muestra, la cifra se rotula como de muestra', (await p.locator('[data-v="r-origen-muestra"]').isVisible()) && !(await p.locator('[data-v="r-origen"]').isVisible()));
   comprobar('26 cifras con su fuente', (await p.locator('.d-cifras article.cf').count()) === 26 && (await p.locator('.d-cifras article.cf .fuente-cita').count()) === 26);
   comprobar('en escritorio las notas de las cifras están abiertas', await p.locator('.cf-d').evaluateAll((ds) => ds.every((d) => d.open)));
 
@@ -64,6 +65,10 @@ const limpio = (s) => (s || '').replace(/[  ]/g, ' ').replace(/\s+/g, ' ').tr
   comprobar('compuesto: un retorno propio deja el selector en «Otro valor»', (await p.locator('#c-activo').inputValue()) === '');
   await p.locator('#c-retorno').fill('0');
   comprobar('compuesto: con retorno 0 el valor es lo aportado', (await texto('c-final')) === '180.000' && (await texto('c-crecimiento')) === '0', await texto('c-final'));
+  await p.locator('#c-retorno').fill('-2');
+  comprobar('compuesto: admite un retorno negativo y dice con cuál calcula', (await texto('c-final')) === es(esperado(500, 30, -2)) && limpio(await p.locator('[data-v="c-retorno-t"]').textContent()) === '−2 %', `${await texto('c-final')} · ${await p.locator('[data-v="c-retorno-t"]').textContent()}`);
+  await p.locator('#c-retorno').fill('200');
+  comprobar('compuesto: un retorno fuera de rango se acota y se dice (100 %)', limpio(await p.locator('[data-v="c-retorno-t"]').textContent()) === '100 %');
   await p.locator('#c-retorno').fill('5,2');
   comprobar('compuesto: «5,2» vuelve a marcar acciones globales', (await p.locator('#c-activo').inputValue()) === '5.2', await p.locator('#c-activo').inputValue());
   comprobar('compuesto: la tabla año a año tiene 30 filas', (await p.locator('[data-v="c-tabla"] tr').count()) === 30);
@@ -181,7 +186,7 @@ const limpio = (s) => (s || '').replace(/[  ]/g, ' ').replace(/\s+/g, ' ').tr
   const p2 = await ctx2.newPage();
   p2.on('pageerror', (e) => errores.push(`excepción: ${e.message}`));
   await p2.goto(`${base}/datos`, { waitUntil: 'networkidle' });
-  comprobar('reparto: propone el ingreso del libro de fuentes (5.000)', (await p2.locator('#r-ingreso').inputValue()) === '5.000' && (await p2.locator('[data-v="r-origen"]').isVisible()), await p2.locator('#r-ingreso').inputValue());
+  comprobar('reparto: propone el ingreso del libro de fuentes (5.000)', (await p2.locator('#r-ingreso').inputValue()) === '5.000' && (await p2.locator('[data-v="r-origen"]').isVisible()) && !(await p2.locator('[data-v="r-origen-muestra"]').isVisible()), await p2.locator('#r-ingreso').inputValue());
   comprobar('reparto: los importes usan ese ingreso', limpio(await p2.locator('[data-v="r-mes-ahorrar"]').textContent()) === '1.000');
   await p2.locator('#r-ingreso').fill('2.000');
   comprobar('reparto: al escribir, el aviso del libro se oculta', !(await p2.locator('[data-v="r-origen"]').isVisible()));
@@ -197,7 +202,11 @@ const limpio = (s) => (s || '').replace(/[  ]/g, ' ').replace(/\s+/g, ' ').tr
   await m.locator('.cf-d summary').first().click();
   comprobar('móvil: «Nota y fuente» despliega la nota', await m.locator('.cf-d').first().evaluate((d) => d.open) && (await m.locator('.cf-d').first().locator('.fuente-cita').isVisible()));
   await m.locator('#precio a[href^="#c-"]').click();
-  comprobar('móvil: «Ver la cifra» abre la cifra enlazada', await m.locator('#c-precio-uno-por-ciento .cf-d').evaluate((d) => d.open));
+  const abierta = () => m.waitForFunction(() => document.querySelector('#c-precio-uno-por-ciento .cf-d').open, null, { timeout: 3000 }).then(() => true, () => false);
+  comprobar('móvil: «Ver la cifra» abre la cifra enlazada', await abierta());
+  await m.locator('#c-precio-uno-por-ciento .cf-d summary').click();
+  await m.locator('#precio a[href^="#c-"]').click();
+  comprobar('móvil: «Ver la cifra» la vuelve a abrir tras cerrarla a mano', await abierta());
   for (const ancho of [390, 320]) {
     await m.setViewportSize({ width: ancho, height: 800 });
     const desborde = await m.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
