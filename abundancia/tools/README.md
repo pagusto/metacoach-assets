@@ -45,3 +45,16 @@ Responden con bloqueo anti-robots aunque están permitidos: `www.sefaria.org`,
 Para ellos usa la búsqueda web.
 
 En un PC propio no hay estas restricciones y los scripts funcionan igual.
+
+## Sitio raíz (carpeta local, fuera de este repositorio)
+
+```bash
+python abundancia/tools/raiz-verificar.py D:\Proyectos\pabloagusto            # producción contra el último commit
+python abundancia/tools/raiz-verificar.py D:\Proyectos\pabloagusto --trabajo  # contra la carpeta tal como está
+```
+
+Compara byte a byte cada archivo de la carpeta del sitio raíz con lo que sirve
+`https://pabloagusto.vercel.app`, y comprueba que `/empleo/` pide contraseña y que las rutas de
+Shefa responden. Con la variable de entorno `EMPLEO_PASSWORD` compara también el panel. Solo lee:
+no cambia la carpeta ni publica. Se usa en el paso 4 de `abundancia/PROMPT-LOCAL.md`, antes y
+después de desplegar (`python` en Windows, `python3` en Linux y macOS).

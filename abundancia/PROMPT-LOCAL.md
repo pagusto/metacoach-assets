@@ -30,8 +30,10 @@ MAPA
   sirve bajo /shefa. Público en https://shefa-prosperai.vercel.app/shefa/ y, a través del
   sitio raíz, en https://pabloagusto.vercel.app/shefa/
 - Sitio raíz: proyecto de Vercel «pabloagusto» (https://pabloagusto.vercel.app). Se despliega
-  desde archivos, no desde este repositorio. Su index.html tiene un centro de botones con la
-  regla escrita en un comentario («HUB RULE»).
+  desde archivos, no desde este repositorio: desde la carpeta D:\Proyectos\pabloagusto, que es
+  un repositorio git solo local (contiene CV y cartas: no se sube a GitHub ni a ningún otro
+  servicio). Su index.html tiene un centro de botones con la regla escrita en un comentario
+  («HUB RULE»).
 - /empleo/ del sitio raíz pide contraseña (con cualquier usuario; la contraseña es la variable
   de entorno EMPLEO_PASSWORD del proyecto «pabloagusto» en Vercel y no se escribe en la
   carpeta, que es pública). La exige middleware.js, en la raíz de la carpeta del sitio: no lo
@@ -70,6 +72,13 @@ SIEMPRE, EN ESTE ORDEN
    { "source": "/shefa/:path+/", "destination": "https://shefa-prosperai.vercel.app/shefa/:path+/" }.
    Si falta algo, cámbialo conservando todo lo demás del sitio raíz, despliega y comprueba que
    https://pabloagusto.vercel.app/shefa/, /shefa/arbol y /shefa/arbol/ cargan con sus estilos.
+   Antes de desplegar el sitio raíz, comprueba que producción coincide con el último commit
+   de su carpeta: python abundancia/tools/raiz-verificar.py D:\Proyectos\pabloagusto
+   (python3 en Linux y macOS). Si hay cambios sin confirmar o producción no coincide, otra
+   sesión editó o publicó sin confirmar: con --trabajo ves si producción es lo que hay en la
+   carpeta; si lo es, confirma ese estado tal cual en un commit aparte antes de tocar nada.
+   Después confirma tus cambios en git (git add -A && git commit), despliega desde la carpeta
+   (vercel deploy --prod --scope prosperai --yes) y repite la comprobación.
 5. Nutrición: si falta en el diario la entrada de hoy (fecha de Canberra:
    TZ=Australia/Sydney date +%F), la tarea programada no corrió o no pudo publicar: ejecuta
    /nutrir y dilo en el informe. Nunca sustituyas una entrada que ya existe.
