@@ -24,7 +24,7 @@ const { id, titulo, idioma, grande = false } = Astro.props;
     <img
       src={miniatura(id)}
       srcset={grande ? `${miniatura(id)} 320w, ${miniaturaGrande(id)} 640w` : undefined}
-      sizes={grande ? '(min-width: 1280px) 816px, (min-width: 600px) 524px, 92vw' : undefined}
+      sizes={grande ? '(min-width: 960px) 816px, (min-width: 600px) 524px, 92vw' : undefined}
       alt="" width="320" height="180" loading="lazy" decoding="async" data-mini
     />
     <span class="vt-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>

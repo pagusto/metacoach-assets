@@ -157,7 +157,7 @@ html:not(.js) .vt-filtros { display: none; }
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .vt-paso { gap: var(--s-3); }
   .vt-paso-txt { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-3); }
   .vt-pasos-nav { margin-top: var(--s-3); }

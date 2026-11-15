@@ -30,7 +30,7 @@
   display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
   background: var(--filete-suave); outline: var(--linea) solid var(--trazo); outline-offset: -1px;
 }
-@media (max-width: 1279px) {
+@media (max-width: 959px) {
   /* En la tira la película llega hasta el marco del palacio */
   .clr-video { width: calc(100% + 2 * var(--palacio-pad)); max-width: none; margin-inline: calc(-1 * var(--palacio-pad)); }
 }
@@ -173,12 +173,12 @@
 .clr-paleta-pie { max-width: 44rem; padding-top: var(--s-3); }
 
 /* ---------- Tableta ---------- */
-@media (min-width: 560px) and (max-width: 1279px) {
+@media (min-width: 560px) and (max-width: 959px) {
   .clr-sistemas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-3); }
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .clr-muestra { min-height: 192px; padding-top: var(--s-3); padding-bottom: var(--s-2); }
   .clr-fecha .cifra { font-size: var(--t-5); }
   .clr-fecha-h { font-size: var(--t-1); line-height: var(--lh-1); }

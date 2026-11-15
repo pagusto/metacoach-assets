@@ -175,7 +175,7 @@ select.celda { appearance: none; -webkit-appearance: none; padding-right: 22px; 
 .datos-ctl .campo-estado:empty { display: none; }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   /* Marco del Árbol: 576 × 720 en el cuadrado completo; se estrecha con él.
      --lado es la columna de rótulos que queda a cada lado de los pilares. */
   .arbol {

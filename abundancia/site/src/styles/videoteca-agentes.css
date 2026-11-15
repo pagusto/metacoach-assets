@@ -124,7 +124,7 @@
 .ag-vacio-l svg { grid-row: 1 / span 2; width: var(--s-4); height: var(--s-4); }
 
 /* ---------- Escritorio: tres columnas con medianil de un módulo, como los palacios ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .ag-sec { margin-top: var(--s-6); }
   .ag-sec-cab { margin-bottom: var(--s-3); }
   .ag-sec-cab h2 { font-size: var(--t-3); line-height: var(--s-4); font-weight: 400; letter-spacing: -0.02em; }

@@ -183,7 +183,7 @@ const INDICE = [
   </div>
   <!-- En la tira, la nota y la fuente de cada cifra se pliegan antes de pintar (sin JavaScript quedan abiertas). -->
   <script is:inline>
-    if (!window.matchMedia('(min-width: 1280px)').matches) {
+    if (!window.matchMedia('(min-width: 960px)').matches) {
       document.querySelectorAll('.cf-d').forEach(function (d) { d.open = false; });
     }
   </script>

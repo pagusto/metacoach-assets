@@ -48,13 +48,14 @@ Nunca escribas un color en hex ni un tamaño suelto: usa los tokens.
 ## 3. Retícula
 
 - **Módulo de 48 px.** Altos y separaciones en múltiplos o fracciones de M (8, 16, 24, 48, 72).
-- **El cuadrado** (`<Cuadrado>`): desde 1280 px, tres columnas de 9 M con filetes de 1 px y marco de
-  2 px. Cada fila mide como mínimo el lado de un palacio y crece si el contenido lo pide.
+- **El cuadrado** (`<Cuadrado>`): desde 960 px, tres columnas con filetes de 1 px y marco de 2 px.
+  Desde 1344 px cada columna mide 9 M; por debajo el cuadrado es fluido. Cada fila mide como mínimo
+  el lado de un palacio y crece si el contenido lo pide.
 - **Palacios y Lo Shu**: el cuadrado se numera `4 9 2 / 3 5 7 / 8 1 6` (sur arriba). Cada
   `<Palacio n={…}>` se coloca solo en su casilla. Para una pieza que ocupa varias, pasa
   `celdas`: `[4, 9, 3, 5]` (2 × 2), `[2, 7]` (columna derecha, dos filas), `[8, 1]` (dos columnas).
   Tienen que formar un rectángulo y no solaparse con otros palacios.
-- **Por debajo de 1280 px** el cuadrado es una tira de una columna (560 px como máximo) en el
+- **Por debajo de 960 px** el cuadrado es una tira de una columna (560 px como máximo) en el
   **orden del código**. La prop `forma` da la altura mínima en la tira: `cuadrado` (1:1),
   `dos-tercios` (3:2), `tira` (3:1, cifra a la izquierda y marca a la derecha) o `libre`.
 - `<Cuadrado>` debe ser hijo directo del `<main>` de `Base` (usa su ancho para calcular el palacio).
@@ -65,6 +66,23 @@ Nunca escribas un color en hex ni un tamaño suelto: usa los tokens.
   tinta: completa siempre el rectángulo con piezas o con `celdas`.
 - Contenido fuera del cuadrado (franjas, notas): hijo directo de `<main>`, con filetes suaves
   arriba y abajo, como `.muestra` o `.datos-ctl`.
+
+### Cuadrado compacto (de 960 a 1279 px)
+
+Las tabletas apaisadas y las ventanas a media pantalla ven el cuadrado completo, no la tira. La
+composición es la de escritorio; cambia la holgura: palacios de 304 a 410 px con relleno de 16 px.
+
+- Los ajustes de este tramo van al final de la hoja de cada página, después del bloque de
+  escritorio, en `@media (min-width: 960px) and (max-width: 1279px) { … }`.
+- Nada de anchos fijos pensados para 1280 px: las pistas van en `fr` o `minmax(0, …)`.
+- Nada se corta ni se monta: ni cifras, ni selectores, ni rótulos. Si una tabla no cabe en dos
+  palacios, ocupa los tres o apila columnas; no se desplaza de lado salvo que en escritorio también
+  lo haga.
+- El cuerpo no baja de 16 px ni los rótulos de 13 px. Una cifra grande puede bajar un paso de la
+  escala (de `--t-5` a `--t-4`), nunca a un tamaño fuera de ella.
+- Es un tramo táctil: lo que se pulsa conserva los 48 px de alto de la tira; un control secundario
+  dentro de una fila mide 24 × 24 px como mínimo.
+- Por encima de 1279 px y por debajo de 960 px nada cambia.
 
 ## 4. Esqueleto de página
 
@@ -237,7 +255,7 @@ página: `import { iniciarAvisoMuestra } from '../lib/muestra'; iniciarAvisoMues
 | `.sello`, `.sello-s`, `.etiqueta`, `.fuente-cita` | Lo que pintan `Sello`, `Etiqueta` y `Cita` |
 | `.muestra` | Franja discreta fuera del cuadrado |
 | `.oculto` | Solo para lectores de pantalla |
-| `.solo-escritorio`, `.solo-tira` | Visible solo desde 1280 px, o solo por debajo |
+| `.solo-escritorio`, `.solo-tira` | Visible solo desde 960 px, o solo por debajo |
 | `.vivo` | Oculto hasta que `<html>` tiene la clase `listo` |
 
 ## 7. Datos (`src/data/*.json`)
@@ -296,8 +314,8 @@ Antes de dar una página por terminada:
 1. `npm run build` sin errores y `node scripts/capturas.cjs /tu-ruta` sin «REVISAR».
 2. **Sin desbordamiento horizontal a 320 px** (`--ancho 320`). Las tablas anchas van dentro de
    `.tabla-ancha` o se apilan en móvil.
-3. **Mira las capturas**: escritorio y móvil, claro y oscuro. Alineación a la retícula, texto
-   cortado o montado, hebreo de derecha a izquierda, estados vacíos.
+3. **Mira las capturas**: escritorio, tableta (1024 px) y móvil, claro y oscuro. Alineación a la
+   retícula, texto cortado o montado, hebreo de derecha a izquierda, estados vacíos.
 4. **Contraste AA**: texto solo con `--texto`, `--texto-2`, `--texto-3` o `--accion`. El oro y los
    contornos no llevan texto.
 5. **Foco visible** en todo lo interactivo (ya viene dado: no quites el `outline`). Todo se puede

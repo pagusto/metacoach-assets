@@ -33,7 +33,7 @@ const plural = (n: number, uno: string, varios: string) => (n === 1 ? uno : vari
 
 // ---------- Cifras: en la tira, la nota y la fuente se pliegan ----------
 
-const escritorio = window.matchMedia('(min-width: 1280px)');
+const escritorio = window.matchMedia('(min-width: 960px)');
 function plegarCifras(): void {
   document.querySelectorAll<HTMLDetailsElement>('.cf-d').forEach((d) => { d.open = escritorio.matches; });
   abrirCifraEnlazada();

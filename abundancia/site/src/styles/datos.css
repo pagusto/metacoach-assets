@@ -324,7 +324,7 @@
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .d-indice ul { grid-template-columns: repeat(9, minmax(0, 1fr)); }
   .d-indice li { grid-column: span 2; }
 

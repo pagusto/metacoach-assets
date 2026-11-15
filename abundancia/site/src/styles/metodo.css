@@ -128,17 +128,17 @@
 }
 .mt-registros a { justify-self: start; }
 
-@media (max-width: 1279px) {
+@media (max-width: 959px) {
   .mt-colofon { padding-inline: 0; }
 }
 
 /* ---------- Tableta: la lista de fuentes en dos columnas ---------- */
-@media (min-width: 720px) and (max-width: 1279px) {
+@media (min-width: 720px) and (max-width: 959px) {
   .mt-registros { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-3); }
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .mt-voz .pal-cuerpo { gap: var(--s-3); }
 
   .mt-etiquetas .pal-cuerpo { padding-top: var(--s-2); }

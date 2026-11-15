@@ -61,7 +61,7 @@ nodos.forEach((b, i) => {
 });
 // En la tira el detalle queda debajo del árbol: quien llega con el enlace de una sefirá
 // (#jesed) aterriza en su detalle, donde está el formulario.
-const enTira = () => !window.matchMedia('(min-width: 1280px)').matches;
+const enTira = () => !window.matchMedia('(min-width: 960px)').matches;
 function irAlDetalle(): void {
   if (enTira()) document.getElementById('detalle')?.scrollIntoView();
 }

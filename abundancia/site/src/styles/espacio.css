@@ -245,7 +245,7 @@
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .esp-banda { padding-block: var(--s-6) var(--s-4); }
   .esp-banda h2 { font-size: var(--t-3); line-height: var(--s-4); letter-spacing: -0.02em; }
 

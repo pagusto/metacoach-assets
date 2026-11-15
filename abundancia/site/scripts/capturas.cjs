@@ -4,11 +4,11 @@
  *   npm run build
  *   node scripts/capturas.cjs / /arbol
  *   node scripts/capturas.cjs --sin-muestra /          (pulsa «Empezar con mis datos» antes de capturar)
- *   node scripts/capturas.cjs --ancho 320 /arbol       (añade un ancho más, solo móvil)
+ *   node scripts/capturas.cjs --ancho 320 /arbol       (añade un ancho más)
  *
  * Sirve dist/ con un servidor estático propio (puerto 4321 o el siguiente libre), y por cada
- * ruta guarda en qa/ cuatro capturas de página entera: 1440 × 900 y 390 × 844, en claro y en
- * oscuro. Por cada captura imprime el desbordamiento horizontal en píxeles y los errores de
+ * ruta guarda en qa/ seis capturas de página entera: 1440 × 900, 1024 × 768 (cuadrado compacto)
+ * y 390 × 844, en claro y en oscuro. Por cada captura imprime el desbordamiento horizontal en píxeles y los errores de
  * la página (excepciones, errores de consola y peticiones fallidas). Sale con código 1 si
  * hubo desbordamiento o errores.
  */
@@ -73,6 +73,7 @@ if (require.main === module) (async () => {
 
   const vistas = [
     { nombre: 'desktop', width: 1440, height: 900 },
+    { nombre: 'tablet', width: 1024, height: 768 },
     { nombre: 'mobile', width: 390, height: 844 },
   ];
   if (anchoExtra) vistas.push({ nombre: `w${anchoExtra}`, width: anchoExtra, height: 800 });

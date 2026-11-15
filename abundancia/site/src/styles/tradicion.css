@@ -361,7 +361,7 @@
 .tr-lectura { text-wrap: pretty; }
 
 /* ---------- Tira (móvil y tableta): las tablas se apilan ---------- */
-@media (max-width: 1279px) {
+@media (max-width: 959px) {
   /* Cabecera de palacio: el título no se aplasta cuando el rótulo de la derecha es largo. Si los
      dos no caben en una línea, el rótulo baja entero a la segunda, bajo el título; ninguna
      palabra se parte. El localizador se fija arriba a la derecha para no bajar con él. */
@@ -389,7 +389,7 @@
 }
 
 /* ---------- Escritorio: el cuadrado completo ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .tr { --tr-canal: calc(2 * var(--palacio-pad) + var(--linea)); }
   .tr .loshu + .loshu { margin-top: var(--s-4); }
   .tr-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--tr-canal); }

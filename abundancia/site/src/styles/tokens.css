@@ -139,7 +139,9 @@
 /* ---------- Retícula por ancho de página ---------------------------------
    Desde 1440 px: el cuadrado completo de 1296 px con márgenes de 1,5 M.
    De 1280 a 1439 px: el mismo cuadrado con márgenes de M/2.
-   Por debajo de 1280 px: el cuadrado se despliega en una tira de una columna
+   De 960 a 1279 px (tableta apaisada, ventana a media pantalla): el cuadrado
+   completo y fluido, con palacios de 304 a 410 px y el relleno de la tira.
+   Por debajo de 960 px: el cuadrado se despliega en una tira de una columna
    (palacio entero, dos tercios o un tercio según el contenido). */
 @media (max-width: 1439px) {
   :root {
@@ -147,7 +149,15 @@
   }
 }
 
-@media (max-width: 1279px) {
+/* Cuadrado compacto: la misma composición que en escritorio, con menos relleno.
+   Los ajustes de cada página van en su hoja, en un bloque con esta misma consulta. */
+@media (min-width: 960px) and (max-width: 1279px) {
+  :root {
+    --palacio-pad: 16px;
+  }
+}
+
+@media (max-width: 959px) {
   :root {
     --cuadrado: 560px;
     --margen: 16px;

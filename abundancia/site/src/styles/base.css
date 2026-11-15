@@ -453,7 +453,7 @@ select.entrada, .campo select { appearance: none; -webkit-appearance: none; padd
 :root[data-theme="dark"] .tema-a-claro { display: inline; }
 
 /* ---------- Escritorio: el cuadrado completo ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .cab { padding-top: var(--s-3); }
   .nav ol { grid-template-columns: repeat(9, minmax(0, 1fr)); }
   .nav li:nth-child(n+4) a { border-top: 0; }
