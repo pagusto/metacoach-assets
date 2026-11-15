@@ -77,4 +77,4 @@ Cómo citar:
 
 - La base (`base/*.md`) no la edita ningún agente. Las correcciones se proponen en el informe de `/nutrir` o de `verificador-evidencia` y las aplica el usuario.
 - `nutridor-conocimiento` escribe solo el diario y, si un video pasa la comprobación, `videoteca.json`.
-- El conocimiento nuevo llega cada día por una tarea programada y queda como pull request para que el usuario lo revise y lo fusione.
+- El conocimiento nuevo llega cada día por una tarea programada en la nube: `nutridor-conocimiento` escribe la entrada del diario con la fecha de Canberra (Australia/Sydney), sin pisar una que ya exista, y compila y pasa las pruebas; después la propia tarea abre el pull request «Nutrición diaria AAAA-MM-DD» y lo fusiona ella misma, sin que el usuario revise nada. Si un día no llega, se escribe con `/nutrir` (paso 5 de «mantener» en `abundancia/PROMPT-LOCAL.md`).

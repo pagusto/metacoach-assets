@@ -29,6 +29,7 @@ antes de usar los scripts, `export NODE_PATH="$(npm root -g)"`. En Git Bash de W
 node scripts/vivo.cjs https://shefa-prosperai.vercel.app/shefa dist/shefa   # el sitio en vivo
 node scripts/vivo.cjs https://pabloagusto.vercel.app/shefa dist/shefa       # y dentro del sitio raíz
 node scripts/fuentes-verificar.mjs                                           # citas, estudios y cifras
+npm run pruebas                                                              # todas las pruebas de humo (antes: npm run build)
 ```
 
 **`vivo.cjs <base> [dist/shefa]`** abre con un navegador real las 15 rutas de la base indicada. En

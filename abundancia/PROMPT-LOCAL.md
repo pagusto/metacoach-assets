@@ -32,15 +32,22 @@ MAPA
 - Sitio raíz: proyecto de Vercel «pabloagusto» (https://pabloagusto.vercel.app). Se despliega
   desde archivos, no desde este repositorio. Su index.html tiene un centro de botones con la
   regla escrita en un comentario («HUB RULE»).
-- Nutrición diaria: una tarea programada en la nube añade cada mañana una entrada en
-  abundancia/site/src/content/diario/ y la fusiona sola en master.
+- Nutrición diaria: la tarea programada en la nube «Nutrición diaria de Shefa» (05:37 de
+  Canberra; existe desde el 15 de noviembre de 2026 y las entradas anteriores se escribieron a
+  mano) lanza al agente nutridor-conocimiento, que escribe la entrada del día en
+  abundancia/site/src/content/diario/ con la fecha de Australia/Sydney, sin tocar una que ya
+  exista, y compila y pasa las pruebas. Después la propia tarea abre el pull request
+  «Nutrición diaria AAAA-MM-DD» y lo fusiona ella misma: no queda nada por revisar. Sus
+  instrucciones solo se cambian desde la conversación de Shefa en la nube; las que debe tener
+  están en .claude/tareas/nutricion-diaria.md. Si un día la entrada no llega, la cubre el
+  paso 5.
 - Guías: abundancia/README.md, abundancia/site/COMPONENTES.md, abundancia/conocimiento/INDICE.md.
 
 SIEMPRE, EN ESTE ORDEN
 1. Sincroniza: git checkout master && git pull. Luego cd abundancia/site && npm ci.
 2. Comprueba en local: npm run build; ejecuta todos los scripts de prueba de scripts/
-   (interacciones, ritual, tradición, datos, videoteca) y las capturas de todas las rutas en
-   1440, 390 y 320 px. Corrige lo que falle antes de seguir.
+   (interacciones, ritual, tradición, datos, videoteca: npm run pruebas los lanza todos) y las
+   capturas de todas las rutas en 1440, 390 y 320 px. Corrige lo que falle antes de seguir.
 3. Comprueba Vercel: el último despliegue de producción de «shefa» debe estar listo y
    corresponder al último commit de master. Si no, despliega producción de nuevo. Después,
    desde abundancia/site, comprueba los dos dominios con un navegador real:
@@ -58,7 +65,9 @@ SIEMPRE, EN ESTE ORDEN
    { "source": "/shefa/:path+/", "destination": "https://shefa-prosperai.vercel.app/shefa/:path+/" }.
    Si falta algo, cámbialo conservando todo lo demás del sitio raíz, despliega y comprueba que
    https://pabloagusto.vercel.app/shefa/, /shefa/arbol y /shefa/arbol/ cargan con sus estilos.
-5. Nutrición: si falta la entrada de hoy en el diario, ejecuta /nutrir.
+5. Nutrición: si falta en el diario la entrada de hoy (fecha de Canberra:
+   TZ=Australia/Sydney date +%F), la tarea programada no corrió o no pudo publicar: ejecuta
+   /nutrir y dilo en el informe. Nunca sustituyas una entrada que ya existe.
 6. Videoteca: abundancia/tools/yt.py check sobre todos los ids de videoteca.json (python en
    Windows, python3 en Linux y macOS); sustituye o quita los que ya no existan.
 7. Publica: si cambiaste algo, confirma directamente en master con mensajes claros y haz

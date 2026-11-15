@@ -269,6 +269,6 @@
    "Escribe la entrada del día y, si un video pasó la comprobación, lo añade a la videoteca.",
    "Compila el sitio e informa de lo añadido, lo descartado y las correcciones que propone para la base, que nunca edita."
   ],
-  "donde": "Se ejecuta como tarea programada diaria y llega como pull request para que tú lo revises y lo fusiones. La entrada queda en el diario del sitio."
+  "donde": "Se ejecuta como tarea programada diaria, que publica la entrada por sí sola si el sitio compila y pasan las pruebas; también a mano con /nutrir. La entrada queda en el diario del sitio."
  }
 }
