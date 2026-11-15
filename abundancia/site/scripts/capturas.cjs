@@ -26,7 +26,7 @@ const TIPOS = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.mjs': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2', '.woff': 'font/woff',
-  '.webmanifest': 'application/manifest+json', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml',
+  '.webmanifest': 'application/manifest+json', '.mp4': 'video/mp4', '.vtt': 'text/vtt; charset=utf-8', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml',
 };
 
 function servidor() {
@@ -92,7 +92,12 @@ if (require.main === module) (async () => {
         const errores = [];
         pagina.on('pageerror', (e) => errores.push(`excepción: ${e.message}`));
         pagina.on('console', (m) => { if (m.type() === 'error') errores.push(`consola: ${m.text()}`); });
-        pagina.on('requestfailed', (r) => errores.push(`petición fallida: ${r.url()}`));
+        pagina.on('requestfailed', (r) => {
+          // El navegador corta la descarga de audio y video tras leer los metadatos: no es un fallo.
+          const abortada = (r.failure() || {}).errorText === 'net::ERR_ABORTED';
+          if (abortada && r.resourceType() === 'media') return;
+          errores.push(`petición fallida: ${r.url()}`);
+        });
         pagina.on('response', (r) => { if (r.status() >= 400) errores.push(`${r.status()}: ${r.url()}`); });
 
         await pagina.goto(base + ruta, { waitUntil: 'networkidle' });
