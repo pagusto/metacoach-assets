@@ -1,0 +1,504 @@
+/* ==========================================================================
+   Tradición · cinco páginas de lectura sobre la retícula de nueve palacios
+   --------------------------------------------------------------------------
+   /tradicion, /tradicion/cabala, /hermetismo, /maestros y /practicas.
+   Todo cuelga de body.tr (prop «clase» de Base). Solo tokens; ningún color.
+
+   La regla de composición: dentro de un palacio que ocupa dos o tres columnas,
+   .tr-2 y .tr-3 repiten las columnas de 9 M del cuadrado. El canal entre
+   columnas mide dos márgenes de palacio más un filete, así el texto cae
+   exactamente donde caería dentro de palacios sueltos.
+   ========================================================================== */
+
+.tr { --tr-canal: var(--s-2); --tr-pegado: var(--s-4); }
+.tr .loshu + .loshu { margin-top: var(--s-3); }
+/* El índice se queda pegado arriba: las anclas dejan sitio para él */
+.tr main [id] { scroll-margin-top: calc(var(--tr-pegado) + var(--s-1)); }
+
+.tr-3, .tr-2 { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.tr-col { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--s-1); min-width: 0; }
+.tr-col > p, .tr-prosa { text-wrap: pretty; }
+/* Rótulo de columna: misma altura lleve texto o etiqueta, para que el texto arranque alineado */
+.tr-rot { display: flex; align-items: center; min-height: var(--s-3); }
+
+/* Número de orden y título de cada entrada */
+.tr-num { font-size: var(--t-1); line-height: var(--lh-1); color: var(--texto-3); }
+.tr-h3 { font-size: var(--t-1m); line-height: var(--lh-1m); font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; }
+
+/* Palacio de bandas: una lista de entradas separadas por filetes, pegada a la cabecera */
+.tr-bandas > .pal-cuerpo { padding-top: 0; }
+.tr-lista > * { padding-block: var(--s-2) var(--s-3); border-top: var(--linea) solid var(--filete); }
+.tr-lista > :last-child { padding-bottom: var(--s-1); }
+
+/* Comilla de apertura colgada en el margen (solo en escritorio, donde hay margen para ella) */
+
+/* Listas en columnas (glosario, fuentes, hitos): se leen de arriba abajo */
+.tr-cols-2, .tr-cols-3 { columns: 1; border-top: var(--linea) solid var(--filete); }
+.tr-cols-2 > *, .tr-cols-3 > * { break-inside: avoid; border-bottom: var(--linea) solid var(--filete-suave); }
+
+/* ---------- Navegación de la sección (segundo nivel, bajo el menú) ---------- */
+.tr-sub { border-bottom: var(--linea) solid var(--filete-suave); }
+.tr-sub ol { display: flex; justify-content: space-between; column-gap: var(--s-1); }
+.tr-sub a {
+  position: relative;
+  display: flex; align-items: center; gap: var(--s-1);
+  min-height: var(--s-4);
+  color: var(--texto-2); font-size: var(--t-0); line-height: var(--lh-0); font-weight: 500; text-decoration: none;
+}
+.tr-sub a:hover { color: var(--accion); }
+.tr-sub a[aria-current="page"] { color: var(--texto); font-weight: 700; }
+.tr-sub-n { font-size: var(--t-00); font-weight: 400; color: var(--texto-3); }
+.tr-sub-raiz, .tr-sub-n { display: none; }
+
+/* ---------- Índice de la página: franja pegada arriba ---------- */
+.tr-indice {
+  position: sticky; top: 0; z-index: 5;
+  margin-bottom: var(--s-3);
+  background: var(--fondo);
+  border-top: var(--linea) solid var(--filete-suave);
+  border-bottom: var(--linea) solid var(--filete);
+}
+.tr-indice ol { display: flex; column-gap: var(--s-3); overflow-x: auto; scrollbar-width: none; }
+.tr-indice ol::-webkit-scrollbar { display: none; }
+.tr-indice li { flex: none; }
+.tr-indice a {
+  position: relative;
+  display: flex; align-items: center; gap: 6px;
+  min-height: calc(var(--tr-pegado) - 2 * var(--linea));
+  color: var(--texto); font-size: var(--t-0); line-height: var(--lh-0); font-weight: 500; text-decoration: none; white-space: nowrap;
+}
+.tr-indice a:hover { color: var(--accion); }
+.tr-indice a:focus-visible { outline-offset: -2px; }
+.tr-indice a[aria-current]::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--filete);
+}
+.tr-indice-n { font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3); }
+
+/* ---------- Pie de sección: anterior y siguiente ---------- */
+.tr-paso {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2);
+  margin-top: var(--s-3); padding-block: var(--s-2);
+  border-block: var(--linea) solid var(--filete-suave);
+}
+.tr-paso p { display: grid; align-content: start; gap: 4px; }
+.tr-paso-despues { text-align: right; }
+.tr-paso a { font-size: var(--t-1); line-height: var(--lh-1); font-weight: 600; }
+
+/* ---------- Portal de la sección (/tradicion) ---------- */
+.tr-entrada-t { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+.tr-entrada-t a { color: var(--texto); text-decoration: none; }
+.tr-entrada-t a:hover { color: var(--accion); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.tr-entrada-r { margin-top: var(--s-2); color: var(--texto-2); text-wrap: pretty; }
+.tr-entrada .pal-pie { margin-top: var(--s-3); }
+.tr-cuentas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-2); border-top: var(--linea) solid var(--filete); }
+.tr-cuentas a { display: grid; gap: 4px; padding-top: 12px; color: var(--texto); text-decoration: none; }
+.tr-cuentas .fig-m { line-height: 1; }
+.tr-cuentas-de {
+  font-size: var(--t-0); line-height: var(--lh-0); color: var(--accion);
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.tr-cuentas a:hover .tr-cuentas-de { text-decoration-thickness: 2px; }
+.tr-entrada-ir { margin-top: var(--s-2); font-size: var(--t-0); line-height: var(--lh-0); }
+
+.tr-etqs { border-top: var(--linea) solid var(--filete); }
+.tr-etqs > div {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px;
+  padding-block: 12px; border-bottom: var(--linea) solid var(--filete-suave);
+}
+.tr-etqs dd { color: var(--texto-2); }
+.tr-leer { display: grid; align-content: start; gap: var(--s-2); }
+.tr-leer li { padding-top: 12px; border-top: var(--linea) solid var(--filete-suave); text-wrap: pretty; }
+.tr-leer li:first-child { border-top-color: var(--filete); }
+.tr-leer .etiqueta { margin-left: 4px; }
+
+.tr-pautas { counter-reset: pauta; }
+.tr-pautas li {
+  counter-increment: pauta;
+  display: grid; grid-template-columns: var(--s-3) minmax(0, 1fr); column-gap: var(--s-1); align-items: baseline;
+  padding-block: 12px; border-top: var(--linea) solid var(--filete-suave);
+  text-wrap: pretty;
+}
+.tr-pautas li::before {
+  content: counter(pauta);
+  font-size: var(--t-2); line-height: var(--lh-1); font-weight: var(--peso-cifra); font-stretch: var(--ancho-cifra);
+}
+.tr-pautas li:first-child { border-top-color: var(--filete); }
+.tr-pautas-nota { margin-top: var(--s-2); }
+.tr-notas-etq { display: grid; gap: var(--s-1); margin-top: var(--s-2); font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.tr-notas-etq li { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--s-1); }
+
+/* ---------- Contexto: una frase de entrada y el resto en columnas ---------- */
+.tr-entradilla { max-width: 40rem; }
+.tr-contexto { margin-top: var(--s-2); }
+.tr-contexto p { text-wrap: pretty; }
+
+/* Palacio «En cifras»: el índice con sus cuentas */
+.tr-cifras { border-top: var(--linea) solid var(--filete); }
+.tr-cifras a {
+  display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); column-gap: var(--s-1); align-items: baseline;
+  min-height: var(--s-4); padding-block: 6px;
+  border-bottom: var(--linea) solid var(--filete-suave);
+  color: var(--texto); text-decoration: none;
+}
+.tr-cifras .cifra { font-size: var(--t-3); line-height: var(--lh-3); }
+.tr-cifras-de {
+  color: var(--accion); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.tr-cifras a:hover .tr-cifras-de { text-decoration-thickness: 2px; }
+
+/* ---------- Tabla que se apila en la tira ---------- */
+.tr-tabla { table-layout: fixed; }
+.tr-tabla caption { text-align: left; }
+.tr-tabla td, .tr-tabla tbody th { text-wrap: pretty; }
+.tr-menor { font-size: var(--t-0); line-height: var(--lh-0); }
+.tr-tabla .tr-fuente { margin-top: var(--s-1); }
+
+/* ---------- Cábala: las diez sefirot ---------- */
+.tr-sef-nombre { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: var(--s-1); }
+.tr-sef-nombre a { font-size: var(--t-1m); line-height: var(--lh-1m); font-weight: 700; letter-spacing: -0.015em; }
+.tr-sef-nombre .he { font-size: var(--t-2); line-height: var(--lh-1m); color: var(--texto-2); }
+.tr-sef-sig { display: block; font-weight: 400; color: var(--texto-2); }
+.tr-sef .tr-num { font-size: var(--t-2); line-height: var(--lh-1m); }
+.tr-th-etq { display: block; margin-top: 6px; }
+
+/* Los días y las siete sefirot inferiores */
+.tr-dias { border-top: var(--linea) solid var(--filete); }
+.tr-dias li {
+  display: grid; grid-template-columns: 5.75rem minmax(0, 1fr) auto; column-gap: 12px; align-items: baseline;
+  grid-template-areas: "dia nombre he" "dia sig he";
+  padding-block: var(--s-1);
+  border-bottom: var(--linea) solid var(--filete-suave);
+}
+.tr-dia { grid-area: dia; display: flex; flex-wrap: wrap; align-items: center; min-height: var(--lh-1); color: var(--texto-2); }
+.tr-dia-s { grid-area: nombre; font-weight: 700; overflow-wrap: normal; }
+.tr-dia-sig { grid-area: sig; overflow-wrap: normal; font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.tr-dias .he { grid-area: he; font-size: var(--t-2); line-height: var(--lh-1); color: var(--texto-2); }
+.tr-dias .sello { margin: 0 0 0 var(--s-1); font-size: var(--t-0); vertical-align: baseline; }
+.tr-dias-nota { margin-top: var(--s-2); max-width: 44rem; color: var(--texto-2); text-wrap: pretty; }
+.tr-hoy-nota { margin-top: var(--s-1); }
+
+/* El árbol en miniatura */
+.tr-arbol-fila { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: var(--s-2); align-items: end; margin-top: var(--s-2); }
+.tr-arbol { width: 112px; height: auto; }
+.tr-arbol path { fill: none; stroke: var(--trazo); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.tr-arbol .tr-arbol-ari { stroke: var(--texto); stroke-width: 2; }
+.tr-arbol circle { fill: var(--fondo); stroke: var(--texto); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.tr-arbol .tr-arbol-m { fill: var(--texto); }
+.tr-arbol-pie { display: grid; gap: 12px; justify-items: start; }
+.tr-arbol-pie .boton-2 { padding-inline: var(--s-2); }
+
+/* ---------- Enseñanza: cita y terna Tradición · Práctica · Dato ---------- */
+.tr-ens { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.tr-ens-cab { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; align-content: start; }
+.tr-cita { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1); }
+.tr-cita-orig { font-size: var(--t-1); line-height: var(--lh-1); color: var(--texto-2); }
+.tr-cita-orig.he { font-size: var(--t-2); line-height: var(--lh-2); color: var(--texto); }
+.tr-terna { padding-top: var(--s-2); border-top: var(--linea) solid var(--filete-suave); }
+.tr-col-vacia { display: none; }
+
+/* ---------- Glosario y fuentes ---------- */
+.tr-glos-t { padding-block: 12px var(--s-2); }
+.tr-glos dt { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; column-gap: var(--s-2); }
+.tr-glos-n { font-size: var(--t-1m); line-height: var(--lh-1m); font-weight: 700; letter-spacing: -0.015em; }
+.tr-glos-o { font-size: var(--t-0); line-height: var(--lh-1m); color: var(--texto-2); }
+.tr-glos-o.he { font-size: var(--t-2); }
+.tr-glos dd { margin-top: 4px; text-wrap: pretty; }
+
+.tr-fuentes li { display: grid; grid-template-columns: 2ch minmax(0, 1fr); column-gap: 12px; padding-block: var(--s-1); }
+.tr-fuentes-n { font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-3); }
+
+/* ---------- Mito: lo que se repite y lo que hay ---------- */
+.tr-mito-cab { display: flex; align-items: center; gap: 12px; }
+.tr-mito-dice { gap: 12px; }
+
+/* ---------- Hermetismo: los siete principios ---------- */
+.tr-prin { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.tr-prin-nombre { display: flex; align-items: baseline; column-gap: var(--s-2); }
+.tr-prin-n { flex: none; font-size: var(--t-5); line-height: var(--s-5); letter-spacing: -0.03em; }
+.tr-prin-nombre .tr-h3 { font-size: var(--t-2); line-height: var(--lh-2); letter-spacing: -0.02em; }
+.tr-prin-enun { display: grid; gap: 12px; }
+.tr-prin-enun figcaption { display: grid; gap: 2px; max-width: 44rem; color: var(--texto-2); text-wrap: pretty; }
+
+/* ---------- Maestros: línea de tiempo ---------- */
+.tr-crono { position: relative; --tr-c0: 0px; }
+.tr-crono-reja { position: absolute; top: 0; bottom: 0; right: 0; left: var(--tr-c0); pointer-events: none; }
+.tr-crono-reja span { position: absolute; top: var(--s-3); bottom: 0; left: calc(var(--x) * 1%); width: var(--linea); background: var(--filete-suave); }
+.tr-crono-fila {
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 2px;
+  padding-block: 6px; border-bottom: var(--linea) solid var(--filete-suave);
+}
+.tr-crono-eje { padding-block: 0; border-bottom-color: var(--filete); }
+.tr-crono-rot { display: flex; align-items: baseline; justify-content: space-between; column-gap: var(--s-1); min-width: 0; }
+.tr-crono-rot a { font-weight: 600; }
+.tr-crono-rot .rotulo { flex: none; line-height: var(--lh-0); font-variant-numeric: tabular-nums; }
+.tr-crono-pista { position: relative; height: var(--s-2); }
+.tr-crono-eje .tr-crono-pista { height: var(--s-3); }
+.tr-anio {
+  position: absolute; left: calc(var(--x) * 1%); top: 0; transform: translateX(-50%);
+  font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); font-variant-numeric: tabular-nums;
+}
+.tr-anio.extra { display: none; }
+.tr-anio::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: var(--linea); height: 6px; background: var(--filete); }
+.tr-hito-m {
+  position: absolute; left: calc(var(--x) * 1%); top: 50%;
+  width: 2px; height: 12px; margin: -6px 0 0 -1px; background: var(--texto);
+}
+.tr-hito-m.es { width: 4px; height: var(--s-3); margin: -12px 0 0 -2px; background: var(--accion); z-index: 1; }
+.tr-vida {
+  position: absolute; left: calc(var(--x0) * 1%); width: calc((var(--x1) - var(--x0)) * 1%); top: 50%;
+  height: 2px; margin-top: -1px; background: var(--texto);
+}
+.tr-vida::before, .tr-vida::after { content: ""; position: absolute; top: -4px; width: 2px; height: 10px; background: var(--texto); }
+.tr-vida::before { left: 0; }
+.tr-vida::after { right: 0; }
+.tr-vida.vive::after { display: none; }
+.tr-obra {
+  position: absolute; left: calc(var(--x) * 1%); top: 50%;
+  width: 14px; height: 14px; margin: -7px 0 0 -7px;
+  border: 2px solid var(--fondo); border-radius: 50%; background: var(--texto);
+}
+.tr-obra-t { display: none; }
+.tr-crono-clave { display: flex; flex-wrap: wrap; gap: 4px var(--s-3); margin-top: 12px; }
+.tr-crono-clave li { display: inline-flex; align-items: center; gap: var(--s-1); font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-2); }
+.tr-crono-clave i { position: relative; display: block; flex: none; width: var(--s-3); height: var(--s-2); }
+.tr-crono-clave .tr-vida { --x0: 0; --x1: 100; }
+.tr-crono-clave .tr-obra { --x: 50; }
+.tr-crono-clave .tr-hito-m { --x: 50; }
+
+.tr-hitos { margin-top: var(--s-3); }
+.tr-hitos li {
+  display: grid; grid-template-columns: 3rem minmax(0, 1fr); column-gap: 12px; align-items: baseline;
+  padding-block: var(--s-1);
+}
+.tr-hitos .cifra { font-size: var(--t-1m); line-height: var(--lh-1); }
+.tr-hitos li.es .cifra { color: var(--accion); }
+
+/* ---------- Maestros: las entradas ---------- */
+.tr-maestro { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.tr-maestro-id { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; align-content: start; }
+.tr-maestro-id .tr-h3 { font-size: var(--t-2); line-height: var(--lh-2); letter-spacing: -0.02em; }
+.tr-maestro-anios { font-variant-numeric: tabular-nums; color: var(--texto-2); }
+.tr-maestro-obra { color: var(--texto-2); }
+.tr-orig { font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); text-wrap: pretty; }
+.tr-metodos { display: grid; gap: var(--s-2); }
+.tr-metodos li { display: grid; gap: 4px; text-wrap: pretty; }
+.tr-metodos b { font-weight: 600; }
+.tr-bloque { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--s-1); padding-top: 12px; border-top: var(--linea) solid var(--filete-suave); }
+.tr-bloque-cab { display: flex; align-items: center; justify-content: space-between; gap: var(--s-1); min-height: var(--s-3); }
+.tr-bloque .tr-fuente + .tr-fuente { margin-top: 0; }
+.tr-bloque-fuentes { display: grid; gap: 4px; margin-top: var(--s-1); }
+
+/* ---------- Maestros: matriz de prácticas ---------- */
+.tr-matriz { width: 100%; table-layout: fixed; border-top: var(--linea) solid var(--filete); }
+.tr-matriz th, .tr-matriz td { padding: 6px 0; border-bottom: var(--linea) solid var(--filete-suave); text-align: center; vertical-align: middle; font-weight: 400; }
+.tr-matriz thead th { vertical-align: bottom; border-bottom-color: var(--filete); font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+.tr-matriz thead th:first-child, .tr-matriz tbody th, .tr-matriz tfoot th { text-align: left; }
+.tr-matriz tbody th { font-weight: 600; font-size: var(--t-0); line-height: var(--lh-00); }
+.tr-matriz tfoot th { font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+.tr-matriz tfoot td, .tr-matriz .tr-total { font-stretch: var(--ancho-cifra); font-weight: var(--peso-cifra); font-variant-numeric: tabular-nums; }
+.tr-matriz tfoot th, .tr-matriz tfoot td { border-bottom: 0; border-top: var(--linea) solid var(--filete); }
+.tr-matriz .c-nombre { width: 31%; }
+.tr-matriz .c-total { width: 9%; }
+.tr-matriz thead th span { display: inline-block; writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; text-align: left; }
+.tr-matriz thead th:first-child span, .tr-matriz thead th:last-child span { writing-mode: horizontal-tb; transform: none; }
+.tr-moneda { width: 76%; max-width: 18px; height: auto; margin-inline: auto; fill: var(--texto); }
+.tr-no { display: block; width: 4px; height: 4px; margin-inline: auto; border-radius: 50%; background: var(--trazo); }
+.tr-matriz-nota { margin-top: 12px; }
+
+/* ---------- Casos ---------- */
+.tr-caso-cab { display: grid; gap: var(--s-1); align-content: start; justify-items: start; }
+
+/* ---------- Prácticas: filtro y tabla ---------- */
+.tr-filtros { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); padding-block: 12px; }
+.tr-filtros .rotulo { flex-basis: 100%; }
+.tr-filtros .boton-2 { min-height: 40px; }
+.tr-filtros button[aria-pressed="true"] { border-color: var(--texto); background: var(--texto); color: var(--fondo); }
+.tr-filtros button[aria-pressed="true"]:hover { border-color: var(--accion); background: var(--accion); color: var(--fondo); }
+.tr-filtro-estado { min-height: var(--lh-0); font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.tr-prac-nombre { display: block; font-size: var(--t-1m); line-height: var(--lh-1m); font-weight: 700; letter-spacing: -0.015em; }
+.tr-prac-que { display: block; margin-top: 4px; font-weight: 400; }
+.tr-prac .tr-num { font-size: var(--t-2); line-height: var(--lh-1m); }
+.tr-efecto { font-weight: 600; }
+.tr-cal { display: inline-flex; align-items: center; gap: var(--s-1); white-space: nowrap; }
+.tr-cal svg { flex: none; width: 18px; height: 12px; }
+.tr-cal rect { fill: none; stroke: var(--trazo); stroke-width: 1; }
+.tr-cal rect.si { fill: var(--texto); stroke: var(--texto); }
+.tr-cal-alta { font-weight: 700; }
+.tr-cal-media { font-weight: 500; }
+.tr-cal-baja { font-weight: 400; color: var(--texto-2); }
+.tr-clave { display: flex; flex-wrap: wrap; gap: 4px var(--s-3); margin-top: var(--s-2); font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.tr-clave li { display: inline-flex; align-items: center; gap: var(--s-1); }
+
+/* ---------- Prácticas: energías ---------- */
+.tr-ener-nombre { display: block; font-size: var(--t-1m); line-height: var(--lh-1m); font-weight: 700; letter-spacing: -0.015em; }
+.tr-ener-origen { display: block; font-weight: 400; }
+
+/* ---------- Prácticas: el estudio sobre la manifestación ---------- */
+.tr-muestra-n { display: block; }
+.tr-muestra-t { margin-top: var(--s-1); }
+.tr-muestra-pie { display: grid; gap: var(--s-1); justify-items: start; margin-top: var(--s-2); }
+.tr-hallazgos { counter-reset: hallazgo; border-top: var(--linea) solid var(--filete); }
+.tr-hallazgos li {
+  counter-increment: hallazgo;
+  display: grid; grid-template-columns: var(--s-3) minmax(0, 1fr); column-gap: var(--s-1); align-items: baseline;
+  padding-block: 12px; border-bottom: var(--linea) solid var(--filete-suave);
+  text-wrap: pretty;
+}
+.tr-hallazgos li::before {
+  content: counter(hallazgo);
+  font-size: var(--t-2); line-height: var(--lh-1); font-weight: var(--peso-cifra); font-stretch: var(--ancho-cifra); color: var(--texto-3);
+}
+.tr-lectura { text-wrap: pretty; }
+
+/* ---------- Tira (móvil y tableta): las tablas se apilan ---------- */
+@media (max-width: 1279px) {
+  /* Cabecera de palacio: el título no se aplasta cuando el rótulo de la derecha es largo */
+  .tr .pal-cab h2 { flex: 1 1 auto; min-width: min-content; }
+  .tr .pal-area { flex: 0 1 auto; min-width: 0; text-align: right; }
+  .tr-anio:first-child { transform: none; }
+  .tr-anio:first-child::after { left: 0; }
+  .tr-tabla, .tr-tabla tbody, .tr-tabla tr, .tr-tabla td, .tr-tabla th { display: block; }
+  .tr-tabla thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .tr-tabla tbody tr { padding-block: var(--s-2) var(--s-3); border-bottom: var(--linea) solid var(--filete); }
+  .tr-tabla tbody tr:last-child { border-bottom: 0; padding-bottom: 0; }
+  .tr-tabla tbody th, .tr-tabla td { padding: 0; border: 0; }
+  .tr-tabla td[data-rot] { margin-top: 12px; }
+  .tr-tabla td[data-rot]::before {
+    content: attr(data-rot); display: block;
+    font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3);
+  }
+  .tr-tabla td.tr-td-n { float: left; width: 2.5rem; }
+  .tr-tabla td.tr-vacia { display: none; }
+  .tr-menor { font-size: var(--t-1); line-height: var(--lh-1); }
+  /* Datos cortos en dos columnas dentro de la ficha */
+  .tr-tabla td.tr-medio { display: inline-block; vertical-align: top; width: 49%; }
+}
+
+/* ---------- Escritorio: el cuadrado completo ---------- */
+@media (min-width: 1280px) {
+  .tr { --tr-canal: calc(2 * var(--palacio-pad) + var(--linea)); }
+  .tr .loshu + .loshu { margin-top: var(--s-4); }
+  .tr-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--tr-canal); }
+  .tr-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--tr-canal); }
+  .tr-cols-2 { columns: 2; column-gap: var(--tr-canal); }
+  .tr-cols-3 { columns: 3; column-gap: var(--tr-canal); }
+  .tr-lista > * { padding-block: var(--s-3) var(--s-4); }
+  .tr-lista > :last-child { padding-bottom: var(--s-3); }
+  .tr-num { font-size: var(--t-1); }
+  .tr-colgada { text-indent: -0.52em; }
+  .tr-h3 { font-size: var(--t-2); line-height: var(--lh-2); letter-spacing: -0.02em; }
+
+  /* Segundo nivel del menú: sobre las mismas nueve columnas, bajo «Tradición» */
+  .tr-sub ol { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); column-gap: 0; }
+  .tr-sub li:nth-child(2) { grid-column: 4; }
+  .tr-sub-n { display: inline; }
+  .tr-indice ol { column-gap: var(--s-4); }
+  .tr-paso { margin-top: var(--s-4); }
+  .tr-paso a { font-size: var(--t-1m); line-height: var(--lh-1m); }
+
+  .tr-entrada-t { font-size: var(--t-3); line-height: var(--lh-3); letter-spacing: -0.025em; }
+  .tr-etqs > div { grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: var(--s-2); align-items: baseline; }
+  .tr-pautas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--tr-canal); }
+  .tr-pautas li { border-top-color: var(--filete-suave); padding-block: var(--s-2) var(--s-3); grid-template-columns: var(--s-4) minmax(0, 1fr); }
+  .tr-pautas li:nth-child(-n+3) { border-top-color: var(--filete); }
+  .tr-pautas li::before { font-size: var(--t-3); line-height: var(--lh-1); }
+  .tr-pautas-1 { grid-template-columns: minmax(0, 1fr); }
+  .tr-pautas-1 li { padding-block: 12px var(--s-2); grid-template-columns: var(--s-3) minmax(0, 1fr); }
+  .tr-pautas-1 li:nth-child(n+2) { border-top-color: var(--filete-suave); }
+  .tr-pautas-1 li::before { font-size: var(--t-2); }
+
+  .tr-contexto { columns: 2; column-gap: var(--tr-canal); margin-top: var(--s-3); }
+
+  /* Tablas: columnas fijas; la primera frontera cae en el canal del cuadrado */
+  .tr-tabla th, .tr-tabla td { padding-right: var(--s-3); }
+  .tr-sef .c-n { width: 3.4%; }
+  .tr-sef .c-sef { width: 14%; }
+  .tr-sef .c-trad { width: 26%; }
+  .tr-sef .c-apl { width: 20%; }
+  .tr-sef .c-pra { width: 19%; }
+  .tr-sef .c-dia { width: 8.6%; }
+  .tr-sef .c-col { width: 9%; }
+  .tr-tabla .tr-td-n { padding-right: 0; white-space: nowrap; }
+
+  .tr-dias { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .tr-dias li {
+    grid-template-columns: minmax(0, 1fr); grid-template-areas: "dia" "nombre" "he" "sig"; row-gap: 4px; align-content: start;
+    padding: 12px 12px var(--s-2) 0; border-bottom-color: var(--filete);
+  }
+  .tr-dia-s { font-size: var(--t-1m); line-height: var(--lh-1m); letter-spacing: -0.015em; }
+  .tr-dias .he { text-align: left; line-height: var(--lh-2); }
+  .tr-dias-nota { margin-top: var(--s-3); }
+  .tr-arbol-fila { grid-template-columns: 168px minmax(0, 1fr); column-gap: var(--s-3); }
+  .tr-arbol { width: 168px; }
+
+  .tr-ens { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--tr-canal); row-gap: var(--s-3); }
+  .tr-ens-cab { grid-column: 1; }
+  .tr-cita { grid-column: 2 / 4; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--tr-canal); align-content: start; }
+  .tr-cita-es { grid-column: 1; }
+  .tr-cita-orig { grid-column: 2; grid-row: 1; }
+  .tr-cita figcaption { grid-column: 1; }
+  .tr-cita.sin-original .tr-cita-es { grid-column: 1 / -1; }
+  .tr-terna { grid-column: 1 / -1; }
+  .tr-col-vacia { display: grid; }
+
+  .tr-prin { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--tr-canal); row-gap: var(--s-3); }
+  .tr-prin-nombre { grid-column: 1; align-self: baseline; }
+  .tr-prin-n { font-size: var(--t-6); line-height: var(--s-6); margin-left: -0.04em; }
+  .tr-prin-nombre .tr-h3 { font-size: var(--t-3); line-height: var(--lh-3); letter-spacing: -0.025em; }
+  .tr-prin-enun { grid-column: 2 / 4; align-self: baseline; }
+  .tr-prin .tr-terna { grid-column: 1 / -1; }
+
+  .tr-crono { --tr-c0: calc((100% + var(--tr-canal)) / 3); }
+  .tr-crono-fila { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--tr-canal); align-items: center; min-height: var(--s-4); padding-block: 0; }
+  .tr-crono-eje { min-height: var(--s-3); }
+  .tr-crono-pista { grid-column: 2 / 4; height: var(--s-3); }
+  .tr-anio.extra { display: block; }
+  .tr-obra-t {
+    display: block; position: absolute; top: 50%; transform: translateY(-50%);
+    overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    padding-inline: 6px; background: var(--fondo);
+    font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-2);
+  }
+  .tr-obra-t.der { left: calc(var(--x1) * 1% + 6px); max-width: calc((100 - var(--x1)) * 1% - 6px); }
+  .tr-obra-t.izq { right: calc((100 - var(--x0)) * 1% + 6px); max-width: calc(var(--x0) * 1% - 6px); }
+  .tr-crono-clave { margin-left: var(--tr-c0); }
+
+  .tr-maestro { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--tr-canal); row-gap: var(--s-3); }
+  .tr-maestro-id { grid-column: 1; grid-row: 1; }
+  .tr-maestro-cita { grid-column: 1; grid-row: 2; }
+  .tr-maestro-id .tr-h3 { font-size: var(--t-3); line-height: var(--lh-3); letter-spacing: -0.025em; }
+  .tr-maestro-idea { grid-column: 2 / 4; }
+  .tr-maestro-met { grid-column: 2; grid-row: 2; }
+  .tr-maestro-nota { grid-column: 3; grid-row: 2; }
+
+  .tr-matriz .c-nombre { width: 34.65%; }
+  .tr-matriz .c-total { width: 6%; }
+  .tr-matriz th, .tr-matriz td { padding-block: var(--s-1); }
+  .tr-matriz tbody th { font-size: var(--t-1); line-height: var(--lh-1); }
+  .tr-matriz thead th span { writing-mode: horizontal-tb; transform: none; white-space: normal; text-align: center; }
+  .tr-matriz thead th { padding-inline: 4px; }
+  .tr-matriz thead th:first-child { padding-inline: 0; }
+  .tr-moneda { width: 20px; max-width: none; }
+
+  .tr-filtros { padding-block: var(--s-2); }
+  .tr-filtros .rotulo { flex-basis: auto; margin-right: var(--s-1); }
+  .tr-filtros .boton-2 { min-height: 32px; }
+  .tr-filtro-estado { margin-left: auto; }
+  .tr-prac .c-n { width: 3.2%; }
+  .tr-prac .c-pra { width: 30.2%; }
+  .tr-prac .c-efe { width: 19.6%; }
+  .tr-prac .c-cal { width: 8%; }
+  .tr-prac .c-mom { width: 8%; }
+  .tr-prac .c-afi { width: 15.5%; }
+  .tr-prac .c-rie { width: 15.5%; }
+
+  /* Tres columnas del cuadrado: 9 M + canal, 9 M + canal, 9 M */
+  .tr-ener .c-1, .tr-ener .c-2 { width: 34.65%; }
+  .tr-ener th, .tr-ener td { padding-right: var(--tr-canal); }
+  .tr-ener tr > :last-child { padding-right: 0; }
+
+  .tr-lectura { max-width: calc((200% - var(--tr-canal)) / 3); }
+  .tr-hallazgos li { grid-template-columns: var(--s-4) minmax(0, 1fr); padding-block: var(--s-2); }
+  .tr-hallazgos li::before { font-size: var(--t-3); line-height: var(--lh-1); }
+}

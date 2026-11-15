@@ -1,0 +1,29 @@
+---
+// Fuente: la línea de fuente de las páginas de Tradición. Igual que <Cita>, pero el enlace
+// se abre en otra pestaña (target="_blank" rel="noopener") y lo avisa a los lectores de pantalla.
+//   <Fuente fuente={e.fuente_tradicion} />
+//   <Fuente fuente={p.estudio} rotulo="Estudio" />
+interface Props {
+  /** Objeto Fuente de los JSON: { cita, url }. */
+  fuente?: { cita: string; url: string | null } | null;
+  /** Texto de la cita, si no se pasa «fuente». */
+  cita?: string;
+  /** URL, si no se pasa «fuente». */
+  url?: string | null;
+  /** Rótulo pequeño encima («Fuente», «Estudio»…). */
+  rotulo?: string;
+  /** Clases extra. */
+  clase?: string;
+}
+const { fuente, rotulo, clase = '' } = Astro.props;
+const cita = fuente?.cita ?? Astro.props.cita ?? '';
+const url = fuente?.url ?? Astro.props.url ?? null;
+---
+{cita && (
+  <cite class:list={['fuente-cita', 'tr-fuente', clase]}>
+    {rotulo && <span class="rotulo">{rotulo}</span>}
+    {url
+      ? <a href={url} target="_blank" rel="noopener">{cita}<span class="oculto"> (se abre en otra pestaña)</span></a>
+      : cita}
+  </cite>
+)}

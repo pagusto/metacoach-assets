@@ -1,0 +1,25 @@
+---
+// Indice: el índice de la página. Una franja que se queda pegada arriba al leer; el cliente
+// (iniciarIndice, en src/lib/tradicion-cliente.ts) marca la sección que se está leyendo.
+//   <Indice entradas={[{ ancla: 'sefirot', texto: 'Sefirot', n: 10 }]} />
+interface Entrada {
+  /** id de la sección. */
+  ancla: string;
+  texto: string;
+  /** Cuenta opcional (número de elementos de la sección). */
+  n?: number;
+}
+interface Props {
+  entradas: Entrada[];
+}
+const { entradas } = Astro.props;
+---
+<nav class="tr-indice" aria-label="En esta página" data-indice>
+  <ol>
+    {entradas.map((e) => (
+      <li>
+        <a href={`#${e.ancla}`}>{e.texto}{e.n !== undefined && <span class="tr-indice-n cifra">{e.n}</span>}</a>
+      </li>
+    ))}
+  </ol>
+</nav>

@@ -1,0 +1,205 @@
+---
+// Cábala y sustento (cabala.json). Dos cuadrados:
+//   I  · 4·9 contexto · 2 en cifras · 3·5·7 las diez sefirot · 8·1 los días · 6 el árbol
+//   II · 4·9·2 las enseñanzas · 3·5 glosario · 7 uso respetuoso · 8·1·6 fuentes
+import Base from '../../layouts/Base.astro';
+import TituloPagina from '../../components/TituloPagina.astro';
+import Cuadrado from '../../components/Cuadrado.astro';
+import Palacio from '../../components/Palacio.astro';
+import Etiqueta from '../../components/Etiqueta.astro';
+import Seccion from '../../components/tradicion/Seccion.astro';
+import Indice from '../../components/tradicion/Indice.astro';
+import Paso from '../../components/tradicion/Paso.astro';
+import Fuente from '../../components/tradicion/Fuente.astro';
+import Ensenanza from '../../components/tradicion/Ensenanza.astro';
+import Glosario from '../../components/tradicion/Glosario.astro';
+import Fuentes from '../../components/tradicion/Fuentes.astro';
+import '../../styles/tradicion.css';
+
+import cabala from '../../data/cabala.json';
+import { afinar as fino, enLetras } from '../../lib/tradicion';
+import { POS, SENDEROS } from '../../lib/sefirot';
+import { frases } from '../../lib/formato';
+import { fmt, type SefiraId } from '../../lib/store';
+import { ruta } from '../../lib/ruta';
+
+const [entradilla, ...resto] = frases(cabala.contexto);
+const conDia = cabala.sefirot.filter((s) => s.dia);
+const esConvencion = /divulgaci|convenci|no localizamos/i.test(cabala.dias_nota);
+
+// El árbol en miniatura: los 22 senderos del Arí; se destaca el único enlace de Maljut.
+const tramo = ([a, b]: readonly [SefiraId, SefiraId]) => `M${POS[a][0]} ${POS[a][1]}L${POS[b][0]} ${POS[b][1]}`;
+const esAri = ([a, b]: readonly [SefiraId, SefiraId]) => (a === 'yesod' && b === 'maljut') || (a === 'maljut' && b === 'yesod');
+const senderos = SENDEROS.filter((s) => !esAri(s)).map(tramo).join('');
+const senderoAri = SENDEROS.filter(esAri).map(tramo).join('');
+
+const indice = [
+  { ancla: 'contexto', texto: 'Contexto' },
+  { ancla: 'sefirot', texto: 'Sefirot', n: cabala.sefirot.length },
+  { ancla: 'dias', texto: 'Días y árbol' },
+  { ancla: 'ensenanzas', texto: 'Enseñanzas', n: cabala.ensenanzas.length },
+  { ancla: 'glosario', texto: 'Glosario', n: cabala.glosario.length },
+  { ancla: 'respeto', texto: 'Uso respetuoso', n: cabala.respeto.length },
+  { ancla: 'fuentes', texto: 'Fuentes', n: cabala.fuentes.length },
+];
+const cifras = indice.filter((e) => e.n !== undefined);
+---
+<Base
+  title={cabala.titulo}
+  description="Cábala y sustento: las diez sefirot con su sentido tradicional y su aplicación moderna, doce enseñanzas judías sobre el dinero con su texto y su fuente, glosario y pautas de respeto."
+  clase="tr"
+>
+  <Seccion actual="cabala" />
+  <TituloPagina titulo={cabala.titulo} nota={fino(cabala.resumen)} />
+  <Indice entradas={indice} />
+
+  <Cuadrado>
+    <Palacio n={4} celdas={[4, 9]} titulo="Contexto" etiqueta="Qué es y cómo acercarse" id="contexto">
+      <p class:list={['voz', 'tr-entradilla', entradilla.startsWith('«') && 'tr-colgada']}>{entradilla}</p>
+      <div class="tr-contexto"><p>{fino(resto.join(' '))}</p></div>
+    </Palacio>
+
+    <Palacio n={2} titulo="En cifras" etiqueta="Esta página">
+      <ul class="tr-cifras">
+        {cifras.map((e) => (
+          <li>
+            <a href={`#${e.ancla}`}>
+              <span class="cifra">{fmt(e.n ?? 0)}</span>
+              <span class="tr-cifras-de">{e.texto}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Palacio>
+
+    <Palacio n={3} celdas={[3, 5, 7]} titulo={`Las ${enLetras(cabala.sefirot.length).toLowerCase()} sefirot`} etiqueta="Tradición y lectura moderna" id="sefirot" clase="tr-bandas">
+      <table class="tabla tr-tabla tr-sef" role="table">
+        <caption class="oculto">Las diez sefirot: nombre, sentido tradicional, aplicación moderna al sustento, práctica, día y color según Cordovero</caption>
+        <colgroup>
+          <col class="c-n" /><col class="c-sef" /><col class="c-trad" /><col class="c-apl" /><col class="c-pra" /><col class="c-dia" /><col class="c-col" />
+        </colgroup>
+        <thead role="rowgroup">
+          <tr role="row">
+            <th role="columnheader" scope="col"><span class="oculto">Orden</span></th>
+            <th role="columnheader" scope="col">Sefirá</th>
+            <th role="columnheader" scope="col">Sentido tradicional <span class="tr-th-etq"><Etiqueta tipo="tradicion" /></span></th>
+            <th role="columnheader" scope="col">Lectura para el sustento <span class="tr-th-etq"><Etiqueta tipo="tradicion" texto="Aplicación moderna" /></span></th>
+            <th role="columnheader" scope="col">Práctica <span class="tr-th-etq"><Etiqueta tipo="tradicion" texto="Aplicación moderna" /></span></th>
+            <th role="columnheader" scope="col">Día</th>
+            <th role="columnheader" scope="col">Color según Cordovero</th>
+          </tr>
+        </thead>
+        <tbody role="rowgroup">
+          {cabala.sefirot.map((s, i) => (
+            <tr role="row" id={`sefira-${s.id}`}>
+              <td role="cell" class="tr-td-n"><span class="tr-num cifra">{i + 1}</span></td>
+              <th role="rowheader" scope="row">
+                <span class="tr-sef-nombre">
+                  <a href={ruta(`/arbol#${s.id}`)} aria-label={`${s.nombre}: ver en el Árbol`}>{s.nombre}</a>
+                  <span class="he" lang="he" dir="rtl">{s.hebreo}</span>
+                </span>
+                <span class="tr-sef-sig">{s.significado}</span>
+              </th>
+              <td role="cell" data-rot="Sentido tradicional">
+                {fino(s.tradicion)}
+                <Fuente fuente={s.fuente} />
+              </td>
+              <td role="cell" data-rot="Lectura para el sustento · aplicación moderna">{fino(s.aplicacion)}</td>
+              <td role="cell" data-rot="Práctica · aplicación moderna">{fino(s.practica)}</td>
+              <td role="cell" data-rot="Día" class:list={['tr-medio', !s.dia && 'tr-vacia']}>
+                {s.dia ?? <><span aria-hidden="true">—</span><span class="oculto">Sin día asignado</span></>}
+              </td>
+              <td role="cell" data-rot="Color según Cordovero" class:list={['tr-medio', !s.color_cordovero && 'tr-vacia']}>
+                {s.color_cordovero ?? <><span aria-hidden="true">—</span><span class="oculto">Sin color en la fuente</span></>}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p slot="pie" class="nota tr-pautas-nota">Cada nombre abre su sefirá en el <a href={ruta('/arbol')}>Árbol</a>, donde se mide la cualidad que le corresponde en tu tablero.</p>
+    </Palacio>
+
+    <Palacio n={8} celdas={[8, 1]} titulo="Los días y las siete sefirot inferiores" etiqueta={esConvencion ? 'Tabla de divulgación actual' : 'Correspondencia tradicional'} id="dias">
+      <ol class="tr-dias">
+        {conDia.map((s) => (
+          <li data-dia={s.dia}>
+            <span class="tr-dia">{s.dia}<span class="sello sello-s cifra" data-hoy hidden></span></span>
+            <span class="tr-dia-s">{s.nombre}</span>
+            <span class="he" lang="he" dir="rtl">{s.hebreo}</span>
+            <span class="tr-dia-sig">{s.significado}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="nota tr-hoy-nota" data-hoy-nota hidden></p>
+      <p class="tr-dias-nota">{fino(cabala.dias_nota)}</p>
+    </Palacio>
+
+    <Palacio n={6} titulo="El árbol y su disposición" etiqueta="Arí y Kircher" id="arbol">
+      <p class="tr-prosa">{fino(cabala.arbol_nota)}</p>
+      <div class="tr-arbol-fila">
+        <svg class="tr-arbol" viewBox="-4 -1 108 103" role="img" aria-label="Árbol de la Vida en la disposición atribuida al Arí: Maljut se une solo a Yesod">
+          <path d={senderos} />
+          <path class="tr-arbol-ari" d={senderoAri} />
+          {cabala.sefirot.map((s) => (
+            <circle class={s.id === 'maljut' ? 'tr-arbol-m' : undefined} cx={POS[s.id as SefiraId][0]} cy={POS[s.id as SefiraId][1]} r="4.5" />
+          ))}
+        </svg>
+        <div class="tr-arbol-pie">
+          <p class="rotulo">El trazo grueso es el único enlace de Maljut en la disposición del Arí.</p>
+          <a class="boton-2" href={ruta('/arbol')}>Abrir el Árbol</a>
+        </div>
+      </div>
+    </Palacio>
+  </Cuadrado>
+
+  <Cuadrado>
+    <Palacio n={4} celdas={[4, 9, 2]} titulo={`${enLetras(cabala.ensenanzas.length, true)} enseñanzas`} etiqueta="Tradición · Práctica · Dato" id="ensenanzas" clase="tr-bandas">
+      <div class="tr-lista">
+        {cabala.ensenanzas.map((e, i) => <Ensenanza e={e} n={i + 1} />)}
+      </div>
+    </Palacio>
+
+    <Palacio n={3} celdas={[3, 5]} titulo="Glosario" etiqueta={`${cabala.glosario.length} términos`} id="glosario" clase="tr-bandas">
+      <Glosario terminos={cabala.glosario} columnas={2} />
+    </Palacio>
+
+    <Palacio n={7} titulo="Uso respetuoso" etiqueta={`${cabala.respeto.length} pautas`} id="respeto" clase="tr-bandas">
+      <ol class="tr-pautas tr-pautas-1">
+        {cabala.respeto.map((r) => <li>{fino(r)}</li>)}
+      </ol>
+    </Palacio>
+
+    <Palacio n={8} celdas={[8, 1, 6]} titulo="Fuentes" etiqueta={`${cabala.fuentes.length} referencias`} id="fuentes" clase="tr-bandas">
+      <Fuentes fuentes={cabala.fuentes} />
+    </Palacio>
+  </Cuadrado>
+
+  <Paso actual="cabala" />
+</Base>
+
+<script>
+  import { iniciarIndice } from '../../lib/tradicion-cliente';
+  import { nombreDia } from '../../lib/formato';
+
+  iniciarIndice();
+
+  // El sello marca el día de hoy en la tira de los siete días (fecha del dispositivo).
+  const ahora = new Date();
+  const hoy = nombreDia(ahora);
+  const fila = document.querySelector<HTMLElement>(`.tr-dias [data-dia="${hoy}"]`);
+  if (fila) {
+    fila.setAttribute('aria-current', 'date');
+    const sello = fila.querySelector<HTMLElement>('[data-hoy]');
+    if (sello) {
+      sello.textContent = String(ahora.getDate());
+      sello.hidden = false;
+    }
+    const nota = document.querySelector<HTMLElement>('[data-hoy-nota]');
+    const nombre = fila.querySelector('.tr-dia-s')?.textContent ?? '';
+    if (nota && nombre) {
+      nota.textContent = `Hoy es ${hoy}: según esta tabla, el día de ${nombre.trim()}.`;
+      nota.hidden = false;
+    }
+  }
+  document.documentElement.classList.add('listo');
+</script>

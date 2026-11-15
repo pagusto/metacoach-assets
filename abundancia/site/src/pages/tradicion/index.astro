@@ -1,0 +1,73 @@
+---
+// Tradición: la entrada a las cuatro páginas de la sección, sobre el cuadrado de nueve palacios.
+// 4 · 9 · 2 · 3: las cuatro páginas con su resumen y sus cuentas. 5 · 7: cómo leer la sección
+// (las etiquetas de evidencia). 8 · 1 · 6: las pautas de respeto de cabala.json.
+import Base from '../../layouts/Base.astro';
+import TituloPagina from '../../components/TituloPagina.astro';
+import Cuadrado from '../../components/Cuadrado.astro';
+import Palacio from '../../components/Palacio.astro';
+import Etiqueta from '../../components/Etiqueta.astro';
+import '../../styles/tradicion.css';
+
+import cabala from '../../data/cabala.json';
+import { ETIQUETAS, PAGINAS, afinar as fino } from '../../lib/tradicion';
+import { fmt } from '../../lib/store';
+import { ruta } from '../../lib/ruta';
+
+// Palacio Lo Shu de cada página, en orden de lectura.
+const CELDA = [4, 9, 2, 3];
+---
+<Base
+  title="Tradición"
+  description="Cábala, hermetismo, maestros del Nuevo Pensamiento y prácticas con evidencia: qué enseña cada tradición en sus términos y qué se ha medido, con fuente y etiqueta en cada afirmación."
+  clase="tr"
+>
+  <TituloPagina titulo="Tradición" nota="Cuatro páginas. Cada una cuenta lo que enseña una tradición en sus propios términos, propone una práctica y, cuando existe, pone al lado el dato medido." />
+
+  <Cuadrado clase="tr-portal">
+    {PAGINAS.map((p, i) => (
+      <Palacio n={CELDA[i]} titulo={p.nombre} etiqueta={`${i + 1} de ${PAGINAS.length}`} clase="tr-entrada" id={p.id}>
+        <h3 class="tr-entrada-t"><a href={ruta(p.href)}>{p.titulo}</a></h3>
+        <p class="tr-entrada-r">{fino(p.resumen)}</p>
+        <Fragment slot="pie">
+          <ul class="tr-cuentas">
+            {p.cuentas.map((c) => (
+              <li>
+                <a href={ruta(`${p.href}#${c.ancla}`)}>
+                  <span class="cifra fig-m">{fmt(c.n)}</span>
+                  <span class="tr-cuentas-de">{c.de}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Fragment>
+      </Palacio>
+    ))}
+
+    <Palacio n={5} celdas={[5, 7]} titulo="Cómo leer esta sección" etiqueta="Evidencia" id="como-leer">
+      <div class="tr-2">
+        <dl class="tr-etqs">
+          {ETIQUETAS.map((e) => (
+            <div>
+              <dt><Etiqueta tipo={e.tipo} /></dt>
+              <dd>{e.def}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul class="tr-leer">
+          <li>Cada afirmación lleva una etiqueta que dice de qué clase es y una fuente que puedes abrir.</li>
+          <li>Las tradiciones se cuentan en sus términos: «la tradición enseña que…». Describir una enseñanza no es afirmar que funcione.</li>
+          <li>Lo que una enseñanza dice hoy sobre el trabajo o el dinero es una lectura actual, no su sentido original. Lo verás marcado así: <Etiqueta tipo="tradicion" texto="Aplicación moderna" /></li>
+          <li>Ninguna práctica de esta sección promete dinero. Las que tienen estudios miden conducta, logro de metas, ahorro o estado de ánimo.</li>
+        </ul>
+      </div>
+    </Palacio>
+
+    <Palacio n={8} celdas={[8, 1, 6]} titulo="Uso respetuoso" etiqueta={`${cabala.respeto.length} pautas`} id="respeto">
+      <ol class="tr-pautas">
+        {cabala.respeto.map((r) => <li>{fino(r)}</li>)}
+      </ol>
+      <p slot="pie" class="nota tr-pautas-nota">Pautas de la página de <a href={ruta('/tradicion/cabala#respeto')}>Cábala</a>. Sirven de norma para toda la sección: citar la fuente, describir sin apropiarse y distinguir lo tradicional de lo moderno.</p>
+    </Palacio>
+  </Cuadrado>
+</Base>

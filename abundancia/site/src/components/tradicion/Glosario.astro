@@ -1,0 +1,35 @@
+---
+// Glosario: lista de términos con su forma original (hebreo de derecha a izquierda) y su definición.
+//   <Glosario terminos={cabala.glosario} />
+//   <Glosario terminos={hermetismo.glosario} langs={{ 'Magnum opus': 'la' }} columnas={3} />
+import { afinar as fino, idioma } from '../../lib/tradicion';
+
+interface Props {
+  terminos: { termino: string; original: string | null; definicion: string }[];
+  /** Idioma del original por término, cuando no es hebreo ni griego: { 'Magnum opus': 'la' }. */
+  langs?: Record<string, string>;
+  /** Idioma por defecto de los originales en alfabeto latino. */
+  langOriginal?: string;
+  /** Columnas en escritorio: 2 o 3. */
+  columnas?: 2 | 3;
+}
+const { terminos, langs = {}, langOriginal = 'en', columnas = 3 } = Astro.props;
+---
+<dl class:list={['tr-glos', `tr-cols-${columnas}`]}>
+  {terminos.map((t) => {
+    const o = t.original ? idioma(t.original, langs[t.original] ?? langOriginal) : null;
+    // Si el original es la misma palabra, no se repite.
+    const repetido = !!t.original && t.original.toLowerCase() === t.termino.toLowerCase();
+    return (
+      <div class="tr-glos-t">
+        <dt>
+          <span class="tr-glos-n" lang={repetido && o ? o.lang : undefined}>{t.termino}</span>
+          {o && t.original && !repetido && (
+            <span class:list={['tr-glos-o', o.he && 'he']} lang={o.lang} dir={o.dir}>{t.original}</span>
+          )}
+        </dt>
+        <dd>{fino(t.definicion)}</dd>
+      </div>
+    );
+  })}
+</dl>

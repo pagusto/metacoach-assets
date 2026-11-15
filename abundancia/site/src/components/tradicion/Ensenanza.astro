@@ -1,0 +1,70 @@
+---
+// Ensenanza: una enseñanza de cabala.json o hermetismo.json como terna Tradición · Práctica · Dato,
+// con su cita (en español y, si existe, en la lengua original) y sus fuentes.
+//   <Ensenanza e={e} n={i + 1} />
+//   <Ensenanza e={e} n={i + 1} langOriginal="la" />
+import Etiqueta from '../Etiqueta.astro';
+import Fuente from './Fuente.astro';
+import { afinar as fino, dosCifras, idioma, tipoEtiqueta } from '../../lib/tradicion';
+
+type F = { cita: string; url: string | null } | null;
+interface Props {
+  e: {
+    id: string;
+    titulo: string;
+    tradicion: string;
+    fuente_tradicion: F;
+    cita: { texto: string; original: string | null; referencia: string } | null;
+    practica: string;
+    dato: string | null;
+    fuente_dato: F;
+    etiqueta: string;
+  };
+  /** Número de orden. */
+  n: number;
+  /** Idioma del original cuando no es hebreo ni griego (por defecto, inglés). */
+  langOriginal?: string;
+}
+const { e, n, langOriginal = 'en' } = Astro.props;
+const orig = e.cita?.original ? idioma(e.cita.original, langOriginal) : null;
+---
+<article class:list={['tr-ens', e.cita ? 'con-cita' : 'sin-cita']} id={e.id}>
+  <header class="tr-ens-cab">
+    <p class="tr-num cifra" aria-hidden="true">{dosCifras(n)}</p>
+    <h3 class="tr-h3">{e.titulo}</h3>
+  </header>
+
+  {e.cita && (
+    <figure class:list={['tr-cita', !orig && 'sin-original']}>
+      <blockquote class="tr-cita-es"><p class="voz-m tr-colgada">«{fino(e.cita.texto)}»</p></blockquote>
+      {orig && e.cita.original && (
+        <p class:list={['tr-cita-orig', orig.he && 'he']} lang={orig.lang} dir={orig.dir}>{e.cita.original}</p>
+      )}
+      <figcaption class="rotulo">{e.cita.referencia}</figcaption>
+    </figure>
+  )}
+
+  <div class="tr-3 tr-terna">
+    <div class="tr-col">
+      <p class="tr-rot"><Etiqueta tipo={tipoEtiqueta(e.etiqueta)} /></p>
+      <p>{fino(e.tradicion)}</p>
+      <Fuente fuente={e.fuente_tradicion} />
+    </div>
+    <div class="tr-col">
+      <p class="rotulo tr-rot">Práctica · aplicación moderna</p>
+      <p>{fino(e.practica)}</p>
+    </div>
+    {e.dato ? (
+      <div class="tr-col">
+        <p class="rotulo tr-rot">Dato</p>
+        <p>{fino(e.dato)}</p>
+        <Fuente fuente={e.fuente_dato} />
+      </div>
+    ) : (
+      <div class="tr-col tr-col-vacia">
+        <p class="rotulo tr-rot">Dato</p>
+        <p class="texto-3"><span aria-hidden="true">—</span><span class="oculto">Sin dato asociado</span></p>
+      </div>
+    )}
+  </div>
+</article>
