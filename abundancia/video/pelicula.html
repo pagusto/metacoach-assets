@@ -449,7 +449,8 @@ i, cite { font-style: italic; }
   const texto = (el) => {
     if (el.matches('.cifra')) return $('.fig', el).textContent + ($('.u', el) ? ' ' + $('.u', el).textContent : '');
     const ls = $$('.l', el);
-    const t = (ls.length ? ls : [el]).map((x) => x.textContent.replace(/\s+/g, ' ').trim()).join(' / ');
+    // se conserva la cursiva (<i>) para los subtítulos; el resto de etiquetas se quita
+    const t = (ls.length ? ls : [el]).map((x) => x.innerHTML.replace(/<(?!\/?i>)[^>]*>/g, '').replace(/\s+/g, ' ').trim()).join(' / ');
     return el.matches('.marca') ? t + ' ' + $('.he', el).textContent : t;
   };
   const anota = (i, el, entra, sale) => guion[i].bloques.push({ texto: typeof el === 'string' ? el : texto(el), entra: +entra.toFixed(2), sale: +(sale == null ? fin(i) : sale).toFixed(2) });
@@ -578,7 +579,7 @@ i, cite { font-style: italic; }
     master.fromTo($('.broche', s), { scale: 0 }, { scale: 1, duration: 0.7 }, a + 1.6);
     sube(i, $('.voz', s), a + 1.6, { s: 0.14 });
     master.to($('.sobre', s), { scale: 0.42, x: 110, duration: 1.0, ease: 'power3.inOut' }, a + 3.2);
-    master.fromTo($('.movil rect', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.1, ease: 'power2.inOut' }, a + 3.45);
+    master.fromTo($('.movil rect', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 0.9, ease: 'power2.inOut' }, a + 3.85);
   })();
 
   /* ===== 7 · Oro: Dhanteras ===== */
@@ -654,7 +655,7 @@ i, cite { font-style: italic; }
   })();
 
   // Cabecera y crédito de las escenas de datos: se leen desde que la escena abre
-  esc.forEach((s, i) => { if (s.dataset.fuente) guion[i].credito = { texto: $('.credito', s).textContent, entra: T[i], sale: fin(i) }; });
+  esc.forEach((s, i) => { if (s.dataset.fuente) guion[i].credito = { texto: $('.credito', s).innerHTML, entra: T[i], sale: fin(i) }; });
 
   // Línea de avance: una por escena, todas con el mismo valor
   master.fromTo($$('.prog i'), { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: 'none' }, 0);

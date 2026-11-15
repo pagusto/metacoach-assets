@@ -27,7 +27,9 @@ const {
   title,
   description = 'Shefa es un sistema personal de práctica de riqueza: tradición y datos, con una cifra, un ritual diario y un tablero en forma de Árbol de la Vida.',
   clase = '',
-  noindex = false,
+  // Sin indexar hasta que se revise el contenido, igual que el sitio raíz.
+  // Para abrir Shefa a los buscadores, cambia este valor a false.
+  noindex = true,
 } = Astro.props;
 
 const NAV = [

@@ -4,7 +4,10 @@
   "version": "1.0.0",
   "description": "Película «Riquezas y colores»: animación HTML renderizada a MP4",
   "scripts": {
-    "render": "node render.cjs pelicula.html salida/riquezas-y-colores.mp4"
+    "guion": "node guion.cjs",
+    "musica": "python3 musica.py",
+    "render": "node render.cjs pelicula.html salida/riquezas-y-colores.mp4 --audio salida/musica.wav",
+    "todo": "node guion.cjs && python3 musica.py && node render.cjs pelicula.html salida/riquezas-y-colores.mp4 --audio salida/musica.wav"
   },
   "dependencies": {
     "gsap": "^3.13.0"

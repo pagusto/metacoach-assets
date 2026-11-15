@@ -118,7 +118,7 @@ Arco: título → cómo un metal y un tinte caro se volvieron signos de riqueza 
 - **Color:** Tinta #141412
 - **Texto en pantalla:**
   - «1926» — entra en 0:51,6, 6,4 s en pantalla
-  - «Vogue publica un vestido negro» · «de Chanel y lo compara con un Ford.» — entra en 0:52,6, 5,4 s en pantalla
+  - «*Vogue* publica un vestido negro» · «de Chanel y lo compara con un Ford.» — entra en 0:52,6, 5,4 s en pantalla
 - **Crédito en pantalla:** FIDM Museum · Wikipedia
 - **Hecho que muestra:** En 1926 la edición estadounidense de Vogue publicó un vestido negro de Chanel y lo comparó con un Ford.
 - **Fuente:** FIDM Museum; Wikipedia, «Little black dress»
@@ -131,7 +131,7 @@ Arco: título → cómo un metal y un tinte caro se volvieron signos de riqueza 
   - «32 colores» — entra en 0:58,8, 7,8 s en pantalla
   - «48 personas los puntúan.» — entra en 0:59,8, 6,7 s en pantalla
   - «Ganan los azules:» · «cielo despejado, agua limpia.» — entra en 1:01,4, 5,1 s en pantalla
-- **Crédito en pantalla:** Palmer y Schloss, PNAS, 2010 · EE. UU.
+- **Crédito en pantalla:** Palmer y Schloss, *PNAS*, 2010 · EE. UU.
 - **Hecho que muestra:** 48 participantes valoraron 32 colores; la preferencia tiene un pico amplio en el azul. Gustan los colores asociados a cosas que gustan (cielo despejado, agua limpia). Muestra de EE. UU.
 - **Fuente:** Palmer y Schloss, PNAS 107(19), 2010
 - **Lectura:** 81 caracteres de texto + 38 de crédito → 9,5 c/s (14,0 c/s con el crédito)
@@ -144,7 +144,7 @@ Arco: título → cómo un metal y un tinte caro se volvieron signos de riqueza 
   - «Metaanálisis de 2020» — entra en 1:09,1, 7,4 s en pantalla
   - «67 efectos» — entra en 1:09,2, 7,3 s en pantalla
   - «Corregido el sesgo de publicación:» · «casi cero.» — entra en 1:11,9, 4,6 s en pantalla
-- **Crédito en pantalla:** Gnambs, Psychon. Bull. Rev., 2020
+- **Crédito en pantalla:** Gnambs, *Psychon. Bull. Rev.*, 2020
 - **Hecho que muestra:** Un metaanálisis de 67 tamaños de efecto sobre el rojo y el rendimiento deja el efecto, tras corregir el sesgo de publicación, cerca de cero.
 - **Fuente:** Gnambs, Psychonomic Bulletin & Review 27, 2020 (PMC7704521)
 - **Lectura:** 103 caracteres de texto + 33 de crédito → 10,3 c/s (13,6 c/s con el crédito)

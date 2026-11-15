@@ -8,7 +8,9 @@ const path = require('path');
 const CPS = 14;     // caracteres por segundo, máximo
 const MIN = 2.5;    // segundos mínimos de cada bloque en pantalla
 const dir = __dirname;
-const cuenta = (t) => t.replace(/ \/ /g, ' ').length;
+const plano = (t) => t.replace(/<\/?i>/g, '');                       // sin la marca de cursiva
+const cuenta = (t) => plano(t).replace(/ \/ /g, ' ').length;
+const cursiva = (t) => t.replace(/<i>/g, '*').replace(/<\/i>/g, '*');  // cursiva en Markdown
 const hms = (t) => {
   const m = Math.floor(t / 60), s = t - m * 60;
   return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + s.toFixed(3).padStart(6, '0');
@@ -52,13 +54,14 @@ const es = (x, d = 1) => x.toFixed(d).replace('.', ',');
     if (v2 > CPS + 1e-6) { fallos++; console.log('  FALLO escena', e.n, es(v2)); }
     filas.push({ n: e.n, nombre: e.nombre, rango: ms(e.inicio) + '–' + ms(e.fin), dur, principal, credito, v1, v2 });
 
-    const lineas = bloques.map((k) => k.texto.replace(/ \/ /g, '\n'));
+    // rótulos de dos palabras cortas («Madera / tinta») van en una sola línea
+    const lineas = bloques.map((k) => (k.texto.split(' / ').length === 2 && cuenta(k.texto) <= 16 ? k.texto.replace(' / ', ' · ') : k.texto.replace(/ \/ /g, '\n')));
     vtt += '\n' + e.n + '\n' + hms(e.inicio) + ' --> ' + hms(e.fin) + '\n' + lineas.join('\n') + (e.credito ? '\nFuente: ' + e.credito.texto : '') + '\n';
 
     md += '### ' + e.n + ' · ' + e.nombre + ' · ' + ms(e.inicio) + '–' + ms(e.fin) + ' (' + es(dur) + ' s)\n\n';
     md += '- **Color:** ' + e.color + '\n';
-    md += '- **Texto en pantalla:**\n' + bloques.map((k) => '  - ' + k.texto.split(' / ').map((l) => '«' + l + '»').join(' · ') + ' — entra en ' + ms(k.entra) + ', ' + es(k.sale - k.entra) + ' s en pantalla').join('\n') + '\n';
-    if (e.credito) md += '- **Crédito en pantalla:** ' + e.credito.texto + '\n';
+    md += '- **Texto en pantalla:**\n' + bloques.map((k) => '  - ' + cursiva(k.texto).split(' / ').map((l) => '«' + l + '»').join(' · ') + ' — entra en ' + ms(k.entra) + ', ' + es(k.sale - k.entra) + ' s en pantalla').join('\n') + '\n';
+    if (e.credito) md += '- **Crédito en pantalla:** ' + cursiva(e.credito.texto) + '\n';
     md += '- **Hecho que muestra:** ' + e.hecho + '\n';
     md += '- **Fuente:** ' + e.fuente + '\n';
     md += '- **Lectura:** ' + principal + ' caracteres de texto' + (credito ? ' + ' + credito + ' de crédito' : '') + ' → ' + es(v1) + ' c/s' + (credito ? ' (' + es(v2) + ' c/s con el crédito)' : '') + '\n\n';
