@@ -32,6 +32,11 @@ MAPA
 - Sitio raíz: proyecto de Vercel «pabloagusto» (https://pabloagusto.vercel.app). Se despliega
   desde archivos, no desde este repositorio. Su index.html tiene un centro de botones con la
   regla escrita en un comentario («HUB RULE»).
+- /empleo/ del sitio raíz pide contraseña (con cualquier usuario; la contraseña es la variable
+  de entorno EMPLEO_PASSWORD del proyecto «pabloagusto» en Vercel y no se escribe en la
+  carpeta, que es pública). La exige middleware.js, en la raíz de la carpeta del sitio: no lo
+  borres ni lo dejes fuera del despliegue. Los enlaces directos /empleo/docs/<id>/<archivo>
+  siguen abiertos a propósito, por si ya se envió alguno.
 - Nutrición diaria: la tarea programada en la nube «Nutrición diaria de Shefa» (05:37 de
   Canberra; existe desde el 15 de noviembre de 2026 y las entradas anteriores se escribieron a
   mano) lanza al agente nutridor-conocimiento, que escribe la entrada del día en
