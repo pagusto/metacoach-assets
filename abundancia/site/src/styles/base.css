@@ -431,10 +431,13 @@ select.entrada, .campo select { appearance: none; -webkit-appearance: none; padd
   border: var(--linea) solid var(--trazo);
   text-align: center; font-size: var(--t-0); line-height: 22px; color: var(--texto);
 }
+/* La marca, el carácter y el nombre se quedan en la primera línea cuando la descripción parte en dos
+   (pie estrecho: cuadrado compacto y pantallas de 320 px). */
 .elementos li {
   display: grid; grid-template-columns: 16px 20px 64px minmax(0, 1fr); column-gap: var(--s-1);
-  align-items: center; min-height: var(--lh-1);
+  align-items: start; min-height: var(--lh-1);
 }
+.el, .elementos .han { margin-top: 4px; }
 .el { width: 16px; height: 16px; }
 .el rect { fill: none; stroke: var(--trazo); }
 .el-madera circle { fill: var(--madera); }
