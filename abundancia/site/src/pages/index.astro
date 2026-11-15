@@ -1,0 +1,385 @@
+---
+// Hoy: nueve funciones en nueve palacios. Todo sale del estado guardado en el
+// dispositivo (src/lib/store.ts) y se edita en el sitio.
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import Sello from '../components/Sello.astro';
+import Moneda from '../components/Moneda.astro';
+import Medidor from '../components/Medidor.astro';
+import Cita from '../components/Cita.astro';
+import AvisoMuestra from '../components/AvisoMuestra.astro';
+import '../styles/hoy.css';
+
+import cabala from '../data/cabala.json';
+import hermetismo from '../data/hermetismo.json';
+import { PASOS_RITUAL, estadoInicial, ingresoReal, fmt, claveDia, type SefiraId } from '../lib/store';
+import { CUALIDAD, ORDEN, POS, SENDEROS } from '../lib/sefirot';
+import { fechaTexto, deISO, fino, frases, nombreDia, pct } from '../lib/formato';
+import { alternar, indiceDelDia } from '../lib/rotacion';
+import { puntosSVG } from '../lib/moneda';
+import { ruta } from '../lib/ruta';
+
+// La página se construye con los datos de muestra y la fecha del día de la compilación;
+// al cargar, el cliente la repinta con el estado guardado y la fecha del dispositivo.
+const hoy = new Date();
+const s = estadoInicial();
+const total = ingresoReal(s);
+const avance = s.cifra ? Math.min(1, total / s.cifra) : 0;
+const fechaMeta = deISO(s.fechaMeta);
+
+// Sefirá del día: las siete que tienen día en cabala.json.
+const diarias = cabala.sefirot.filter((x) => x.dia);
+const diaHoy = nombreDia(hoy);
+const esConvencion = /divulgaci|convenci|modern|no localizamos/i.test(cabala.dias_nota);
+const senderosD = SENDEROS.map(([a, b]) => `M${POS[a][0]} ${POS[a][1]}L${POS[b][0]} ${POS[b][1]}`).join('');
+
+// Tradición y dato: las enseñanzas con dato, alternando cábala y hermetismo.
+const conDato = <T extends { dato: string | null }>(l: T[]) => l.filter((e) => e.dato);
+const pares = alternar(
+  conDato(cabala.ensenanzas).map((e) => ({ ...e, origen: 'Cábala' })),
+  conDato(hermetismo.ensenanzas).map((e) => ({ ...e, origen: 'Hermetismo' })),
+);
+const iHoy = indiceDelDia(pares.length, hoy);
+---
+<Base title="Hoy" description="Tu cifra, tu declaración, el ritual de hoy y una enseñanza con su dato. Shefa: tradición y datos para practicar la riqueza cada día.">
+  <TituloPagina>
+    <time slot="titulo" class="vivo" datetime={claveDia(hoy)} data-fecha>{diaHoy} <Sello>{hoy.getDate()}</Sello> de {fechaTexto(hoy).split(' de ').slice(1).join(' de ')}</time>
+  </TituloPagina>
+
+  <AvisoMuestra />
+
+  <Cuadrado clase="hoy vivo">
+    <!-- 2 · Kun · suroeste · Tierra: lo receptivo -->
+    <Palacio n={2} titulo="Sefirá del día" etiqueta="Recepción" forma="cuadrado">
+      {diarias.map((x) => (
+        <div class="sef-hoy" data-dia={x.dia} hidden={x.dia !== diaHoy}>
+          <div>
+            <p class="sef-dia">
+              <span class="sef-dia-n">{x.nombre}</span>
+              <span class="he" lang="he" dir="rtl">{x.hebreo}</span>
+              <span class="sef-dia-c">{CUALIDAD[x.id as SefiraId]}</span>
+            </p>
+            <p class="rotulo">{x.significado}, sefirá del {x.dia}</p>
+            <details class="conv">
+              <summary>{esConvencion ? 'Día y sefirá: convención de divulgación actual' : 'Día y sefirá: correspondencia tradicional'}</summary>
+              <p>{cabala.dias_nota}</p>
+            </details>
+          </div>
+          <div class="sef-pie">
+            <div>
+              <p class="rotulo">Práctica</p>
+              <p>{fino(x.practica)}</p>
+            </div>
+            <a href={ruta(`/arbol#${x.id}`)} aria-label={`Ver ${x.nombre} en el Árbol`}>
+              <svg class="mini-arbol" viewBox="-3 -1 106 103" aria-hidden="true">
+                <path d={senderosD} />
+                {ORDEN.map((id) => <circle class={id === x.id ? 'hoy-nodo' : undefined} cx={POS[id][0]} cy={POS[id][1]} r="4.5" />)}
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </Palacio>
+
+    <!-- 9 · Li · sur · Fuego: lo que se ve de uno -->
+    <Palacio n={9} titulo="Declaración" etiqueta="Reputación" forma="cuadrado">
+      <div data-ver="declaracion">
+        <button class="editable voz" type="button" data-editar="declaracion" aria-label="Editar la declaración" data-v="declaracion">
+          {frases(s.declaracion).map((f) => <span>{f}</span>)}
+        </button>
+      </div>
+      <form class="campo ed" data-form="declaracion" hidden>
+        <label for="f-declaracion">Tu declaración</label>
+        <textarea id="f-declaracion" name="declaracion" rows="6" placeholder="Quién eres, a quién sirves y qué vas a dominar."></textarea>
+        <div class="campo-fila">
+          <button class="boton" type="submit">Guardar</button>
+          <button class="boton-2" type="button" data-cancelar>Cancelar</button>
+        </div>
+      </form>
+    </Palacio>
+
+    <!-- 4 · Xun · sureste · Madera: el palacio de la riqueza -->
+    <Palacio n={4} titulo="La cifra" etiqueta="Riqueza" forma="cuadrado">
+      <div data-ver="cifra">
+        <p>
+          <button class="editable cifra fig-xl" type="button" data-editar="cifra" aria-label="Editar la cifra y la fecha" data-v="cifra" style={`--n:${fmt(s.cifra).length}`}>{fmt(s.cifra)}</button>
+          <span class="cifra-unidad">al mes</span>
+        </p>
+      </div>
+      <form class="campo ed" data-form="cifra" hidden>
+        <div class="campo">
+          <label for="f-cifra">Cifra al mes</label>
+          <input id="f-cifra" class="entrada-cifra" name="cifra" type="text" inputmode="numeric" autocomplete="off" />
+        </div>
+        <div class="campo">
+          <label for="f-fecha">Para el</label>
+          <input id="f-fecha" name="fechaMeta" type="date" />
+        </div>
+        <div class="campo-fila">
+          <button class="boton" type="submit">Guardar</button>
+          <button class="boton-2" type="button" data-cancelar>Cancelar</button>
+        </div>
+      </form>
+      <div slot="pie" class="cifra-pie">
+        <div data-v="cifra-regla"><Medidor valor={avance} etiqueta={`Avance hacia la cifra: ${pct(avance * 100)}`} /></div>
+        <p class="pares">
+          <span data-v="cifra-fecha">{fechaMeta ? <>para el <b>{fechaTexto(fechaMeta)}</b></> : 'sin fecha'}</span>
+          <span>avance <span class="cifra" data-v="cifra-avance">{pct(avance * 100)}</span></span>
+        </p>
+      </div>
+    </Palacio>
+
+    <!-- 3 · Zhen · este · Madera: el impulso de cada mañana -->
+    <Palacio n={3} titulo="Ritual de hoy" etiqueta="Impulso" forma="libre">
+      <ol class="ritual">
+        {PASOS_RITUAL.map((p, i) => (
+          <li>
+            <label class="paso">
+              <input class="casilla" type="checkbox" data-paso={i} />
+              <span>{p.titulo}</span>
+              <span class="paso-d">{fino(p.detalle)}</span>
+            </label>
+          </li>
+        ))}
+      </ol>
+      <div slot="pie">
+        <div class="ritual-pie">
+          <p class="racha"><span>Racha:</span> <b data-v="racha">0 días</b> <span data-v="racha-puntos"></span></p>
+          <p class="rotulo" data-v="ritual-cuenta">0 de 5</p>
+        </div>
+        <p class="ritual-enlace"><a href={ruta('/ritual')}>Abrir el ritual guiado</a></p>
+      </div>
+    </Palacio>
+
+    <!-- 5 · centro · Tierra: lo real -->
+    <Palacio n={5} titulo="Ingreso real" etiqueta="Centro" forma="tira">
+      <p class="dato">
+        <a class="editable cifra fig-l" href={ruta('/arbol#libro')} data-v="ingreso">{fmt(total)}</a>
+        <span class="dato-nota" data-v="ingreso-nota">de {fmt(s.cifra)} al mes</span>
+      </p>
+      <div slot="graf" data-v="ingreso-moneda"><Moneda valor={avance} etiqueta={`Moneda medidora: ${pct(avance * 100)} de la cifra`} /></div>
+    </Palacio>
+
+    <!-- 1 · Kan · norte · Agua: lo que fluye -->
+    <Palacio n={1} titulo="Fuentes que ingresan" etiqueta="Flujo" forma="tira">
+      <p class="dato">
+        <a class="editable cifra fig-l" href={ruta('/arbol#libro')} data-v="fuentes">1 <span class="fig-de">de</span> 3</a>
+        <span class="dato-nota" data-v="fuentes-nota" hidden></span>
+      </p>
+      <div slot="graf" class="fuentes-m" data-v="fuentes-monedas"></div>
+    </Palacio>
+
+    <!-- 7 · Dui · oeste · Metal: la cosecha guardada -->
+    <Palacio n={7} titulo="Ahorro" etiqueta="Cosecha" forma="tira">
+      <div data-ver="ahorro">
+        <p class="dato">
+          <button class="editable cifra fig-l" type="button" data-editar="ahorro" aria-label="Editar el ahorro de este mes" data-v="ahorro">{pct(s.ahorroPct, 1)}</button>
+          <span class="dato-nota solo-tira">meta 20&#8239;%</span>
+        </p>
+      </div>
+      <form class="campo ed" data-form="ahorro" hidden>
+        <label for="f-ahorro">Ahorro este mes</label>
+        <div class="campo-fila">
+          <input id="f-ahorro" class="entrada-cifra" name="ahorroPct" type="text" inputmode="decimal" autocomplete="off" />
+          <span class="campo-u">%</span>
+        </div>
+        <div class="campo-fila">
+          <button class="boton" type="submit">Guardar</button>
+          <button class="boton-2" type="button" data-cancelar>Cancelar</button>
+        </div>
+      </form>
+      <p class="meta-nota" aria-hidden="true">meta 20&#8239;%</p>
+      <div slot="graf" data-v="ahorro-puntos"><Fragment set:html={puntosSVG(s.ahorroPct)} /></div>
+    </Palacio>
+
+    <!-- 8 · Gen · noreste · Tierra: el conocimiento heredado -->
+    <Palacio n={8} titulo="Tradición" etiqueta="Conocimiento" forma="dos-tercios">
+      {pares.map((e, i) => (
+        <div class="par par-trad" data-par={i} hidden={i !== iHoy}>
+          <div>
+            <p class="rotulo">{e.origen}</p>
+            <p class:list={[e.titulo.length <= 24 ? 'voz' : 'voz-m', 'par-titulo']}>{e.titulo}</p>
+            <p class="par-texto">{fino(e.tradicion)}</p>
+          </div>
+          <Cita fuente={e.fuente_tradicion} />
+        </div>
+      ))}
+    </Palacio>
+
+    <!-- 6 · Qian · noroeste · Metal: quien ayuda desde fuera -->
+    <Palacio n={6} titulo="Dato" etiqueta="Apoyo" forma="dos-tercios">
+      {pares.map((e, i) => (
+        <div class="par par-dato" data-par={i} hidden={i !== iHoy}>
+          <p class="voz-m">{fino(e.dato ?? '')}</p>
+          <Cita fuente={e.fuente_dato} />
+        </div>
+      ))}
+    </Palacio>
+  </Cuadrado>
+</Base>
+
+<script>
+  import {
+    PASOS_RITUAL, METAS, alCambiar, claveDia, fmt, guardar, hechosEl, ingresoReal, leer, racha, ultimosDias,
+    type Estado, type EstadoFuente,
+  } from '../lib/store';
+  import { deISO, esc, fechaTexto, frases, leerNumero, nombreDia, pct } from '../lib/formato';
+  import { indiceDelDia } from '../lib/rotacion';
+  import { monedaEstadoSVG, ponerArco, puntosSVG, rachaSVG } from '../lib/moneda';
+  import { iniciarAvisoMuestra } from '../lib/muestra';
+  import { ruta } from '../lib/ruta';
+
+  const hoy = new Date();
+  const dia = claveDia(hoy);
+  const v = (nombre: string) => document.querySelector<HTMLElement>(`[data-v="${nombre}"]`);
+  const poner = (nombre: string, texto: string) => { const el = v(nombre); if (el) el.textContent = texto; };
+
+  // ---------- Lo que depende solo de la fecha ----------
+  const fecha = document.querySelector<HTMLElement>('[data-fecha]');
+  if (fecha) {
+    fecha.setAttribute('datetime', dia);
+    fecha.innerHTML = `${nombreDia(hoy)} <span class="sello cifra">${hoy.getDate()}</span> de ${fechaTexto(hoy).split(' de ').slice(1).join(' de ')}`;
+  }
+  const hoyDia = nombreDia(hoy);
+  document.querySelectorAll<HTMLElement>('.sef-hoy').forEach((el) => { el.hidden = el.dataset.dia !== hoyDia; });
+  const nPares = document.querySelectorAll('.par-trad').length;
+  const iPar = String(indiceDelDia(nPares, hoy));
+  document.querySelectorAll<HTMLElement>('.par').forEach((el) => { el.hidden = el.dataset.par !== iPar; });
+
+  // ---------- Lo que depende del estado ----------
+  const ORDEN_ESTADO: EstadoFuente[] = ['ingresando', 'probando', 'idea'];
+
+  function pintar(s: Estado): void {
+    const total = ingresoReal(s);
+    const avance = s.cifra ? Math.min(1, total / s.cifra) : 0;
+
+    // 4 · La cifra
+    const cifra = v('cifra');
+    if (cifra) {
+      const t = s.cifra ? fmt(s.cifra) : 'Pon tu cifra';
+      cifra.textContent = t;
+      cifra.style.setProperty('--n', String(Math.max(4, t.length)));
+      cifra.classList.toggle('vacia', !s.cifra);
+    }
+    const f = deISO(s.fechaMeta);
+    const cf = v('cifra-fecha');
+    if (cf) cf.innerHTML = f ? `para el <b>${fechaTexto(f)}</b>` : 'sin fecha';
+    poner('cifra-avance', pct(avance * 100));
+    const regla = v('cifra-regla');
+    if (regla) {
+      regla.querySelector<HTMLElement>('.regla-oro')!.style.width = `${avance * 100}%`;
+      regla.querySelector('.regla')!.setAttribute('aria-label', `Avance hacia la cifra: ${pct(avance * 100)}`);
+    }
+
+    // 9 · Declaración
+    const decl = v('declaracion');
+    if (decl) {
+      const texto = s.declaracion.trim();
+      decl.innerHTML = texto
+        ? frases(texto).map((x) => `<span>${esc(x)}</span>`).join('')
+        : '<span class="vacia">Escribe tu declaración: quién eres, a quién sirves y qué vas a dominar.</span>';
+      decl.classList.toggle('voz', texto.length <= 150 && !!texto);
+      decl.classList.toggle('voz-m', texto.length > 150 || !texto);
+    }
+
+    // 3 · Ritual de hoy
+    const pasos = s.ritual[dia] || [];
+    document.querySelectorAll<HTMLInputElement>('[data-paso]').forEach((c) => { c.checked = !!pasos[Number(c.dataset.paso)]; });
+    const r = racha(s, hoy);
+    poner('racha', r === 1 ? '1 día' : `${r} días`);
+    const puntos = v('racha-puntos');
+    if (puntos) puntos.innerHTML = rachaSVG(ultimosDias(s, 7, hoy).map((d) => d.hechos >= 4));
+    poner('ritual-cuenta', `${hechosEl(s, dia)} de ${PASOS_RITUAL.length}`);
+
+    // 5 · Ingreso real
+    const ing = v('ingreso');
+    if (ing) {
+      ing.textContent = fmt(total);
+      ing.setAttribute('aria-label', `Ingreso real: ${fmt(total)} al mes. Editar en el libro de fuentes`);
+    }
+    poner('ingreso-nota', s.cifra ? `de ${fmt(s.cifra)} al mes` : 'al mes');
+    ponerArco(v('ingreso-moneda'), avance, `Moneda medidora: ${pct(avance * 100)} de la cifra`);
+
+    // 1 · Fuentes que ingresan
+    const n = s.fuentes.length;
+    const dentro = s.fuentes.filter((x) => x.estado === 'ingresando' && x.mensual > 0).length;
+    const fu = v('fuentes');
+    if (fu) {
+      fu.innerHTML = `${dentro} <span class="fig-de">de</span> ${n}`;
+      fu.setAttribute('aria-label', `${dentro} de ${n} fuentes ingresan. Editar en el libro de fuentes`);
+    }
+    const nota = v('fuentes-nota');
+    if (nota) {
+      nota.hidden = n > 0;
+      nota.innerHTML = n ? '' : `<a href="${ruta('/arbol#libro')}">Añade tu primera fuente</a>`;
+    }
+    const monedas = v('fuentes-monedas');
+    if (monedas) {
+      const orden = [...s.fuentes].sort((a, b) => ORDEN_ESTADO.indexOf(a.estado) - ORDEN_ESTADO.indexOf(b.estado));
+      monedas.dataset.n = String(n);
+      monedas.classList.toggle('muchas', n > 8);
+      monedas.style.setProperty('--cols', String(n > 8 ? 6 : Math.max(3, Math.min(4, n))));
+      monedas.setAttribute('role', 'img');
+      monedas.setAttribute('aria-label', n
+        ? `Fuentes: ${orden.map((x) => `${x.nombre || 'sin nombre'}, ${x.estado}`).join('; ')}`
+        : 'Aún no hay fuentes');
+      monedas.innerHTML = orden
+        .map((x) => `<div title="${esc(x.nombre)}">${monedaEstadoSVG(x.estado)}<span aria-hidden="true">${x.estado}</span></div>`)
+        .join('');
+    }
+
+    // 7 · Ahorro
+    poner('ahorro', pct(s.ahorroPct, 1));
+    const ap = v('ahorro-puntos');
+    if (ap) ap.innerHTML = puntosSVG(s.ahorroPct, `${pct(s.ahorroPct, 1)} de ahorro; la meta es ${pct(METAS.ahorro)}`);
+  }
+
+  // ---------- Edición en el sitio ----------
+  function editor(nombre: string, abrir: (f: HTMLFormElement, s: Estado) => void, guardarForm: (f: HTMLFormElement) => void): void {
+    const ver = document.querySelector<HTMLElement>(`[data-ver="${nombre}"]`);
+    const form = document.querySelector<HTMLFormElement>(`[data-form="${nombre}"]`);
+    const boton = document.querySelector<HTMLElement>(`[data-editar="${nombre}"]`);
+    if (!ver || !form || !boton) return;
+    const cerrar = () => { form.hidden = true; ver.hidden = false; boton.focus(); };
+    boton.addEventListener('click', () => {
+      abrir(form, leer());
+      ver.hidden = true;
+      form.hidden = false;
+      form.querySelector<HTMLElement>('input, textarea')?.focus();
+    });
+    form.addEventListener('submit', (e) => { e.preventDefault(); guardarForm(form); cerrar(); });
+    form.querySelector('[data-cancelar]')?.addEventListener('click', cerrar);
+    form.addEventListener('keydown', (e) => { if (e.key === 'Escape') cerrar(); });
+  }
+  const campo = (f: HTMLFormElement, n: string) => f.elements.namedItem(n) as HTMLInputElement;
+
+  editor('declaracion',
+    (f, s) => { campo(f, 'declaracion').value = s.declaracion; },
+    (f) => guardar((s) => { s.declaracion = campo(f, 'declaracion').value.trim(); }));
+  editor('cifra',
+    (f, s) => { campo(f, 'cifra').value = s.cifra ? fmt(s.cifra) : ''; campo(f, 'fechaMeta').value = s.fechaMeta; },
+    (f) => guardar((s) => { s.cifra = Math.round(leerNumero(campo(f, 'cifra').value)); s.fechaMeta = campo(f, 'fechaMeta').value; }));
+  editor('ahorro',
+    (f, s) => { campo(f, 'ahorroPct').value = String(s.ahorroPct).replace('.', ','); },
+    (f) => guardar((s) => { s.ahorroPct = Math.min(100, leerNumero(campo(f, 'ahorroPct').value)); }));
+
+  document.querySelectorAll<HTMLInputElement>('[data-paso]').forEach((c) => {
+    c.addEventListener('change', () => guardar((s) => {
+      const pasos = PASOS_RITUAL.map((_, i) => !!(s.ritual[dia] || [])[i]);
+      pasos[Number(c.dataset.paso)] = c.checked;
+      s.ritual[dia] = pasos;
+    }));
+  });
+
+  pintar(leer());
+  alCambiar(pintar);
+  iniciarAvisoMuestra();
+  document.documentElement.classList.add('listo');
+
+  // Si la pestaña sigue abierta al cambiar el día, se vuelve a cargar al volver a ella.
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && claveDia() !== dia) location.reload();
+  });
+</script>

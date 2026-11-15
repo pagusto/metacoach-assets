@@ -1,0 +1,23 @@
+---
+// Estado de replicación de un hallazgo: confirmado, no replicado o discutido.
+// Misma forma que <Etiqueta>, con su propia marca: disco lleno, disco tachado, medio disco.
+//   <Estado estado="no replicado" />
+interface Props {
+  /** Valor de «estado» en colores.json. */
+  estado: string;
+}
+const { estado } = Astro.props;
+const NOMBRE: Record<string, string> = {
+  confirmado: 'Confirmado',
+  'no replicado': 'No replicado',
+  discutido: 'Discutido',
+};
+---
+<span class="etiqueta esp-estado">
+  <svg viewBox="0 0 10 10" aria-hidden="true">
+    {estado === 'confirmado' && <circle class="lleno" cx="5" cy="5" r="5" />}
+    {estado === 'no replicado' && <><circle cx="5" cy="5" r="4.25" /><path d="M1.5 8.5l7-7" /></>}
+    {estado === 'discutido' && <><circle cx="5" cy="5" r="4.25" /><path class="lleno" d="M5 0a5 5 0 0 1 0 10z" /></>}
+  </svg>
+  <span class="etiqueta-t">{NOMBRE[estado] ?? estado}</span>
+</span>

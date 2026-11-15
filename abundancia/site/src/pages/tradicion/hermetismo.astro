@@ -1,0 +1,136 @@
+---
+// Hermetismo y esoterismo occidental (hermetismo.json). Dos cuadrados:
+//   I  · 4·9 contexto · 2 en cifras · 3·5·7 los siete principios
+//   II · 4·9·2 las enseñanzas · 3·5·7 glosario · 8·1·6 fuentes
+import Base from '../../layouts/Base.astro';
+import TituloPagina from '../../components/TituloPagina.astro';
+import Cuadrado from '../../components/Cuadrado.astro';
+import Palacio from '../../components/Palacio.astro';
+import Etiqueta from '../../components/Etiqueta.astro';
+import Seccion from '../../components/tradicion/Seccion.astro';
+import Indice from '../../components/tradicion/Indice.astro';
+import Paso from '../../components/tradicion/Paso.astro';
+import Ensenanza from '../../components/tradicion/Ensenanza.astro';
+import Glosario from '../../components/tradicion/Glosario.astro';
+import Fuentes from '../../components/tradicion/Fuentes.astro';
+import '../../styles/tradicion.css';
+
+import hermetismo from '../../data/hermetismo.json';
+import { afinar as fino, enLetras } from '../../lib/tradicion';
+import { frases } from '../../lib/formato';
+import { fmt } from '../../lib/store';
+
+const [entradilla, ...resto] = frases(hermetismo.contexto);
+
+// Idioma de los textos originales en alfabeto latino (para el atributo lang). Por defecto, inglés.
+const LANG_CITA: Record<string, string> = { 'tabla-esmeralda': 'la' };
+const LANG_TERMINO: Record<string, string> = {
+  'Hermetica': 'la', 'Corpus Hermeticum': 'la', 'Tabula Smaragdina': 'la', 'Magnum opus': 'la', 'nigredo': 'la',
+  'correspondances': 'fr',
+};
+
+const indice = [
+  { ancla: 'contexto', texto: 'Contexto' },
+  { ancla: 'principios', texto: 'Principios', n: hermetismo.principios.length },
+  { ancla: 'ensenanzas', texto: 'Enseñanzas', n: hermetismo.ensenanzas.length },
+  { ancla: 'glosario', texto: 'Glosario', n: hermetismo.glosario.length },
+  { ancla: 'fuentes', texto: 'Fuentes', n: hermetismo.fuentes.length },
+];
+const cifras = indice.filter((e) => e.n !== undefined);
+---
+<Base
+  title={hermetismo.titulo}
+  description="Hermetismo y esoterismo occidental: los siete principios del Kybalion en inglés y en español, con una lectura práctica, un ejercicio y su límite; la Tabla Esmeralda, la alquimia y el tarot con sus fechas y sus fuentes."
+  clase="tr"
+>
+  <Seccion actual="hermetismo" />
+  <TituloPagina titulo={hermetismo.titulo} nota={fino(hermetismo.resumen)} />
+  <Indice entradas={indice} />
+
+  <Cuadrado>
+    <Palacio n={4} celdas={[4, 9]} titulo="Contexto" etiqueta="Qué es y de cuándo" id="contexto">
+      <p class:list={['voz', 'tr-entradilla', entradilla.startsWith('«') && 'tr-colgada']}>{entradilla}</p>
+      <div class="tr-contexto"><p>{fino(resto.join(' '))}</p></div>
+    </Palacio>
+
+    <Palacio n={2} titulo="En cifras" etiqueta="Esta página">
+      <ul class="tr-cifras">
+        {cifras.map((e) => (
+          <li>
+            <a href={`#${e.ancla}`}>
+              <span class="cifra">{fmt(e.n ?? 0)}</span>
+              <span class="tr-cifras-de">{e.texto}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Palacio>
+
+    <Palacio n={3} celdas={[3, 5, 7]} titulo={`Los ${enLetras(hermetismo.principios.length).toLowerCase()} principios del Kybalion`} etiqueta="Enunciado, lectura y límite" id="principios" clase="tr-bandas">
+      <ol class="tr-lista">
+        {hermetismo.principios.map((p) => (
+          <li class="tr-prin" id={`principio-${p.numero}`}>
+            <header class="tr-prin-nombre">
+              <p class="tr-prin-n cifra" aria-hidden="true">{p.numero}</p>
+              <div>
+                <h3 class="tr-h3">{p.nombre}</h3>
+                <p class="rotulo" lang="en">{p.original}</p>
+              </div>
+            </header>
+            <figure class="tr-prin-enun">
+              <blockquote>
+                <p class:list={[p.enunciado.length <= 120 ? 'voz' : 'voz-m', 'tr-colgada']}>«{fino(p.enunciado)}»</p>
+              </blockquote>
+              <figcaption>
+                <span class="rotulo">Original, 1908</span>
+                <span lang="en">“{p.enunciado_original}”</span>
+              </figcaption>
+            </figure>
+            <div class="tr-3 tr-terna">
+              <div class="tr-col">
+                <p class="rotulo tr-rot">Lectura práctica · aplicación moderna</p>
+                <p>{fino(p.aplicacion)}</p>
+              </div>
+              <div class="tr-col">
+                <p class="rotulo tr-rot">Ejercicio</p>
+                <p>{fino(p.practica)}</p>
+              </div>
+              <div class="tr-col">
+                <p class="rotulo tr-rot">Límite</p>
+                <p>{fino(p.limite)}</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <ul slot="pie" class="tr-notas-etq">
+        <li><Etiqueta tipo="tradicion" /> <span>Los enunciados son los del Kybalion.</span></li>
+        <li><Etiqueta tipo="tradicion" texto="Aplicación moderna" /> <span>La lectura práctica y el ejercicio son de esta página, no del libro.</span></li>
+      </ul>
+    </Palacio>
+  </Cuadrado>
+
+  <Cuadrado>
+    <Palacio n={4} celdas={[4, 9, 2]} titulo={`${enLetras(hermetismo.ensenanzas.length, true)} enseñanzas`} etiqueta="Tradición · Práctica · Dato" id="ensenanzas" clase="tr-bandas">
+      <div class="tr-lista">
+        {hermetismo.ensenanzas.map((e, i) => <Ensenanza e={e} n={i + 1} langOriginal={LANG_CITA[e.id] ?? 'en'} />)}
+      </div>
+    </Palacio>
+
+    <Palacio n={3} celdas={[3, 5, 7]} titulo="Glosario" etiqueta={`${hermetismo.glosario.length} términos`} id="glosario" clase="tr-bandas">
+      <Glosario terminos={hermetismo.glosario} langs={LANG_TERMINO} columnas={3} />
+    </Palacio>
+
+    <Palacio n={8} celdas={[8, 1, 6]} titulo="Fuentes" etiqueta={`${hermetismo.fuentes.length} referencias`} id="fuentes" clase="tr-bandas">
+      <Fuentes fuentes={hermetismo.fuentes} />
+    </Palacio>
+  </Cuadrado>
+
+  <Paso actual="hermetismo" />
+</Base>
+
+<script>
+  import { iniciarIndice } from '../../lib/tradicion-cliente';
+  iniciarIndice();
+  document.documentElement.classList.add('listo');
+</script>

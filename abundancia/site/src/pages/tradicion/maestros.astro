@@ -1,0 +1,263 @@
+---
+// Maestros del Nuevo Pensamiento (maestros.json). Dos cuadrados:
+//   I  · 4·9·2 línea de tiempo (hitos y vidas sobre un mismo eje) · 3·5·7 los maestros · 8·1·6 matriz
+//   II · 4·9·2 casos · 3·5·7 mitos
+import Base from '../../layouts/Base.astro';
+import TituloPagina from '../../components/TituloPagina.astro';
+import Cuadrado from '../../components/Cuadrado.astro';
+import Palacio from '../../components/Palacio.astro';
+import Etiqueta from '../../components/Etiqueta.astro';
+import Seccion from '../../components/tradicion/Seccion.astro';
+import Indice from '../../components/tradicion/Indice.astro';
+import Paso from '../../components/tradicion/Paso.astro';
+import Fuente from '../../components/tradicion/Fuente.astro';
+import Mito from '../../components/tradicion/Mito.astro';
+import '../../styles/tradicion.css';
+
+import datos from '../../data/maestros.json';
+import { PAGINAS, afinar as fino, anio, dosCifras, enLetras, tipoEtiqueta } from '../../lib/tradicion';
+import { ruta } from '../../lib/ruta';
+
+const pagina = PAGINAS.find((p) => p.id === 'maestros')!;
+
+// ---------- Línea de tiempo: un eje común de 1860 a 2030 ----------
+const A0 = 1860;
+const A1 = 2030;
+const ACTUAL = new Date().getFullYear();
+const x = (a: number) => Math.round(((a - A0) / (A1 - A0)) * 10000) / 100;
+const decadas = Array.from({ length: (A1 - A0) / 10 + 1 }, (_, i) => A0 + i * 10);
+const rotulos = decadas.filter((a) => (a - A0) % 20 === 0 && a < A1);
+
+const vidas = datos.maestros.map((m) => {
+  const cifras = (m.anios.match(/\d{4}/g) ?? []).map(Number);
+  const nace = cifras[0] ?? null;
+  const vive = /^\s*n\./.test(m.anios) || cifras.length < 2;
+  const fin = vive ? ACTUAL : cifras[1];
+  const obra = anio(m.obra_clave.replace(/^[^(]*/, '')) ?? anio(m.obra_clave);
+  // El título de la obra se escribe del lado donde hay más sitio.
+  const lado = nace !== null && x(nace) > 100 - x(fin) ? 'izq' : 'der';
+  return { id: m.id, nombre: m.nombre, anios: m.anios, obraTexto: m.obra_clave, nace, fin, vive, obra, lado };
+});
+const idDe = (nombre: string) => datos.maestros.find((m) => m.nombre === nombre)?.id;
+
+// ---------- Matriz: totales por fila y por columna ----------
+const { practicas, filas } = datos.matriz;
+const porPractica = practicas.map((_, i) => filas.filter((f) => f.marca[i]).length);
+
+const indice = [
+  { ancla: 'linea', texto: 'Línea de tiempo', n: datos.linea_tiempo.length },
+  { ancla: 'maestros', texto: 'Maestros', n: datos.maestros.length },
+  { ancla: 'matriz', texto: 'Matriz de prácticas' },
+  { ancla: 'casos', texto: 'Casos', n: datos.casos.length },
+  { ancla: 'mitos', texto: 'Mitos', n: datos.mitos.length },
+];
+---
+<Base
+  title="Maestros"
+  description="Los maestros del Nuevo Pensamiento, de James Allen a Tony Robbins: qué enseñó cada uno, sus métodos como ejercicios, sus citas verificadas y lo que añade su biografía documentada. Con línea de tiempo, casos y mitos."
+  clase="tr"
+>
+  <Seccion actual="maestros" />
+  <TituloPagina titulo={pagina.titulo} nota={fino(datos.resumen)} />
+  <Indice entradas={indice} />
+
+  <Cuadrado>
+    <Palacio n={4} celdas={[4, 9, 2]} titulo="Línea de tiempo" etiqueta={`${A0}–${ACTUAL}`} id="linea">
+      <div class="tr-crono">
+        <div class="tr-crono-reja" aria-hidden="true">
+          {decadas.map((a) => <span style={`--x:${x(a)}`}></span>)}
+        </div>
+
+        <div class="tr-crono-fila tr-crono-eje" aria-hidden="true">
+          <span class="tr-crono-rot rotulo solo-escritorio">Año</span>
+          <div class="tr-crono-pista">
+            {rotulos.map((a) => <span class:list={['tr-anio', (a - A0) % 40 !== 0 && 'extra']} style={`--x:${x(a)}`}>{a}</span>)}
+          </div>
+        </div>
+
+        <div class="tr-crono-fila">
+          <span class="tr-crono-rot"><a href="#hitos">Hitos</a> <span class="rotulo">{datos.linea_tiempo.length}</span></span>
+          <div class="tr-crono-pista" aria-hidden="true">
+            {datos.linea_tiempo.map((h, i) => <span class="tr-hito-m" data-marca={i} style={`--x:${x(h.anio)}`}></span>)}
+          </div>
+        </div>
+
+        <ol class="tr-crono-vidas" aria-label="Los maestros y sus años de vida">
+          {vidas.map((v) => (
+            <li class="tr-crono-fila">
+              <span class="tr-crono-rot"><a href={`#${v.id}`}>{v.nombre}</a> <span class="rotulo">{v.anios}</span></span>
+              <div class="tr-crono-pista" aria-hidden="true">
+                {v.nace !== null && (
+                  <>
+                    <span class:list={['tr-vida', v.vive && 'vive']} style={`--x0:${x(v.nace)};--x1:${x(v.fin)}`}></span>
+                    {v.obra !== null && <span class="tr-obra" style={`--x:${x(v.obra)}`}></span>}
+                    <span class:list={['tr-obra-t', v.lado]} style={`--x0:${x(v.nace)};--x1:${x(v.fin)}`}>{v.obraTexto}</span>
+                  </>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <ul class="tr-crono-clave" aria-hidden="true">
+        <li><i><span class="tr-hito-m"></span></i>hito</li>
+        <li><i><span class="tr-vida"></span></i>años de vida</li>
+        <li><i><span class="tr-vida vive"></span></i>vive</li>
+        <li><i><span class="tr-obra"></span></i>obra clave</li>
+      </ul>
+
+      <ol class="tr-hitos tr-cols-3" id="hitos" aria-label="Hitos">
+        {datos.linea_tiempo.map((h, i) => (
+          <li data-hito={i}>
+            <span class="cifra">{h.anio}</span>
+            <span>{fino(h.hito)}</span>
+          </li>
+        ))}
+      </ol>
+    </Palacio>
+
+    <Palacio n={3} celdas={[3, 5, 7]} titulo={`${enLetras(datos.maestros.length)} maestros`} etiqueta="Idea, métodos y nota" id="maestros" clase="tr-bandas">
+      <div class="tr-lista">
+        {datos.maestros.map((m, i) => (
+          <article class="tr-maestro" id={m.id}>
+            <header class="tr-maestro-id">
+              <p class="tr-num cifra" aria-hidden="true">{dosCifras(i + 1)}</p>
+              <h3 class="tr-h3">{m.nombre}</h3>
+              <p class="tr-maestro-anios">{m.anios}</p>
+              <p class="tr-maestro-obra"><span class="rotulo">Obra clave</span> <cite lang="en">{m.obra_clave}</cite></p>
+            </header>
+
+            <p class="voz-m tr-maestro-idea">{fino(m.idea_central)}</p>
+
+            {m.cita ? (
+              <figure class="tr-bloque tr-maestro-cita">
+                <p class="tr-bloque-cab"><span class="rotulo">Cita verificada</span></p>
+                <blockquote><p class="voz-m tr-colgada">«{fino(m.cita.texto)}»</p></blockquote>
+                <p class="tr-orig" lang="en">“{m.cita.original}”</p>
+                <figcaption class="rotulo" lang="en">{m.cita.fuente}</figcaption>
+              </figure>
+            ) : (
+              <div class="tr-bloque tr-maestro-cita tr-sin-cita">
+                <p class="tr-bloque-cab"><span class="rotulo">Cita verificada</span></p>
+                <p class="texto-3">Ninguna comprobada en su fuente original.</p>
+              </div>
+            )}
+
+            <section class="tr-bloque tr-maestro-met" aria-label={`Métodos de ${m.nombre}`}>
+              <p class="tr-bloque-cab"><span class="rotulo">Métodos como ejercicios</span></p>
+              <ol class="tr-metodos">
+                {m.metodos.map((t) => (
+                  <li><b>{t.titulo}</b><span>{fino(t.ejercicio)}</span></li>
+                ))}
+              </ol>
+            </section>
+
+            <section class="tr-bloque tr-maestro-nota" aria-label={`Nota crítica sobre ${m.nombre}`}>
+              <p class="tr-bloque-cab"><span class="rotulo">Nota crítica</span><Etiqueta tipo={tipoEtiqueta(m.etiqueta_nota, 'documentado')} /></p>
+              <p class="tr-prosa">{fino(m.nota_critica)}</p>
+              <div class="tr-bloque-fuentes">
+                <p class="rotulo">{m.fuentes.length === 1 ? 'Fuente' : 'Fuentes'}</p>
+                {m.fuentes.map((f) => <Fuente fuente={f} />)}
+              </div>
+            </section>
+          </article>
+        ))}
+      </div>
+    </Palacio>
+
+    <Palacio n={8} celdas={[8, 1, 6]} titulo="Matriz de prácticas" etiqueta="Quién enseña qué" id="matriz" clase="tr-bandas">
+      <table class="tr-matriz">
+        <caption class="oculto">Qué prácticas enseña cada maestro. Una moneda marca que sí.</caption>
+        <colgroup>
+          <col class="c-nombre" />
+          {practicas.map(() => <col />)}
+          <col class="c-total" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col"><span>Maestro</span></th>
+            {practicas.map((p) => <th scope="col"><span>{p}</span></th>)}
+            <th scope="col"><span>Total</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {filas.map((f) => (
+            <tr>
+              <th scope="row">{idDe(f.maestro) ? <a href={`#${idDe(f.maestro)}`}>{f.maestro}</a> : f.maestro}</th>
+              {f.marca.map((si) => (
+                <td>
+                  {si
+                    ? <svg class="tr-moneda" viewBox="0 0 36 36" aria-hidden="true"><path fill-rule="evenodd" d="M18 0a18 18 0 1 0 0 36a18 18 0 1 0 0-36zM12 12h12v12H12z" /></svg>
+                    : <span class="tr-no" aria-hidden="true"></span>}
+                  <span class="oculto">{si ? 'Sí' : 'No'}</span>
+                </td>
+              ))}
+              <td class="tr-total">{f.marca.filter(Boolean).length}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Maestros que la enseñan, de {filas.length}</th>
+            {porPractica.map((n) => <td>{n}</td>)}
+            <td><span class="oculto">Sin total</span></td>
+          </tr>
+        </tfoot>
+      </table>
+      <p slot="pie" class="nota tr-matriz-nota">La moneda marca que el maestro enseña esa práctica. Que muchos la repitan no prueba que funcione: lo medido está en <a href={ruta('/tradicion/practicas')}>Prácticas</a>.</p>
+    </Palacio>
+  </Cuadrado>
+
+  <Cuadrado>
+    <Palacio n={4} celdas={[4, 9, 2]} titulo={`${enLetras(datos.casos.length)} casos`} etiqueta="Hecho y lección" id="casos" clase="tr-bandas">
+      <div class="tr-lista">
+        {datos.casos.map((c, i) => (
+          <article class="tr-3">
+            <header class="tr-caso-cab">
+              <p class="tr-num cifra" aria-hidden="true">{dosCifras(i + 1)}</p>
+              <h3 class="tr-h3">{c.nombre}</h3>
+              <p><Etiqueta tipo={tipoEtiqueta(c.etiqueta, 'documentado')} /></p>
+            </header>
+            <div class="tr-col">
+              <p class="rotulo tr-rot">Hecho</p>
+              <p>{fino(c.hecho)}</p>
+              <Fuente fuente={c.fuente} />
+            </div>
+            <div class="tr-col">
+              <p class="rotulo tr-rot">Lección</p>
+              <p class="voz-m">{fino(c.leccion)}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </Palacio>
+
+    <Palacio n={3} celdas={[3, 5, 7]} titulo={`${enLetras(datos.mitos.length)} mitos`} etiqueta="Lo que se repite y lo que hay" id="mitos" clase="tr-bandas">
+      <ol class="tr-lista">
+        {datos.mitos.map((m, i) => <Mito m={m} n={i + 1} />)}
+      </ol>
+    </Palacio>
+  </Cuadrado>
+
+  <Paso actual="maestros" />
+</Base>
+
+<script>
+  import { iniciarIndice } from '../../lib/tradicion-cliente';
+  iniciarIndice();
+
+  // Al pasar por un hito de la lista (ratón o toque), se destaca su marca en el eje.
+  const marcas = document.querySelectorAll<HTMLElement>('[data-marca]');
+  document.querySelectorAll<HTMLElement>('[data-hito]').forEach((li) => {
+    const marca = marcas[Number(li.dataset.hito)];
+    if (!marca) return;
+    const poner = (si: boolean) => {
+      marca.classList.toggle('es', si);
+      li.classList.toggle('es', si);
+    };
+    li.addEventListener('pointerenter', () => poner(true));
+    li.addEventListener('pointerleave', () => poner(false));
+  });
+  document.documentElement.classList.add('listo');
+</script>

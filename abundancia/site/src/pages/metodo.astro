@@ -1,0 +1,367 @@
+---
+// Método y fuentes: cómo une Shefa tradición y dato (palacios 4 · 9 · 2), las cinco
+// etiquetas de evidencia con un ejemplo real de cada una (3·5·7), los límites (8), cuándo
+// buscar a un profesional (1) y la privacidad (6). Debajo del cuadrado, el colofón:
+// registros oficiales, la nutrición diaria, lo que queda por volver a comprobar y la lista
+// completa de fuentes reunida al compilar.
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import Etiqueta from '../components/Etiqueta.astro';
+import Fuente from '../components/ritual/Fuente.astro';
+import '../styles/metodo.css';
+
+import cabala from '../data/cabala.json';
+import hermetismo from '../data/hermetismo.json';
+import maestros from '../data/maestros.json';
+import practicas from '../data/practicas.json';
+import datos from '../data/datos.json';
+import agentes from '../data/agentes.json';
+import { PASOS_RITUAL, fmt } from '../lib/store';
+import { deISO, fechaTexto, fino } from '../lib/formato';
+import { ruta } from '../lib/ruta';
+import { fuentesPorSeccion, fuentesUnicas, porComprobar } from '../lib/ritual-fuentes';
+
+type Tipo = 'tradicion' | 'documentado' | 'estudio' | 'anecdota' | 'mito';
+
+// ---------- Tres párrafos ----------
+const shefa = cabala.glosario.find((g) => g.termino === 'Shefa');
+const nEnsenanzas = cabala.ensenanzas.length + hermetismo.ensenanzas.length;
+
+// ---------- Un ejemplo real por etiqueta ----------
+const ens =
+  cabala.ensenanzas.find((e) => e.id === 'rico-el-que-se-alegra' && e.cita) ??
+  cabala.ensenanzas.find((e) => e.etiqueta === 'tradicion' && e.cita) ??
+  cabala.ensenanzas[0];
+const casoDoc = maestros.casos.find((c) => c.etiqueta === 'documentado');
+const casoAnec = maestros.casos.find((c) => c.etiqueta === 'anecdota');
+const estudio = practicas.practicas.find((p) => p.id === 'plan-si-entonces') ?? practicas.practicas[0];
+const mito = practicas.mitos.find((m) => /21 días/.test(m.afirmacion)) ?? practicas.mitos[0];
+const punto = (t: string) => (/[.!?…]$/.test(t.trim()) ? t.trim() : `${t.trim()}.`);
+const pegar = (t: string) => fino(t).replace(/ ([=<>≤≥]) /g, '\u00a0$1\u00a0');
+const minuscula = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
+
+const ETIQUETAS: { tipo: Tipo; define: string; de: string; hay: boolean }[] = [
+  { tipo: 'tradicion', define: 'Lo que enseña una tradición o un maestro, dicho en sus propios términos.', de: cabala.titulo, hay: !!ens },
+  { tipo: 'documentado', define: 'Un hecho histórico o empírico con una fuente fiable que se puede abrir.', de: 'Maestros de la prosperidad', hay: !!casoDoc },
+  { tipo: 'estudio', define: 'Un hallazgo de investigación, con su tamaño, su calidad y su límite.', de: 'Prácticas con evidencia', hay: !!estudio },
+  { tipo: 'anecdota', define: 'Lo cuenta la persona o su entorno. No hay comprobación externa.', de: 'Maestros de la prosperidad', hay: !!casoAnec },
+  { tipo: 'mito', define: 'Se repite mucho, pero es falso o no tiene respaldo.', de: 'Prácticas con evidencia', hay: !!mito },
+];
+
+// ---------- Nutrición diaria ----------
+const n = agentes.nutricion;
+const diario = Object.keys(import.meta.glob('../content/diario/*.md'))
+  .map((r) => r.replace(/^.*\//, '').replace(/\.md$/, ''))
+  .filter((c) => deISO(c))
+  .sort();
+const titulosDiario = import.meta.glob<{ frontmatter?: { titulo?: string } }>('../content/diario/*.md', { eager: true });
+const ultima = diario.length ? diario[diario.length - 1] : null;
+const ultimaFecha = ultima ? deISO(ultima) : null;
+const ultimoTitulo = ultima
+  ? Object.entries(titulosDiario).find(([r]) => r.endsWith(`/${ultima}.md`))?.[1]?.frontmatter?.titulo ?? null
+  : null;
+
+// ---------- Fuentes ----------
+const secciones = fuentesPorSeccion();
+const unicas = fuentesUnicas(secciones);
+const conEnlace = unicas.filter((f) => f.url).length;
+const comprobar = porComprobar(secciones);
+const nComprobar = comprobar.reduce((t, c) => t + c.fuentes.length, 0);
+const paises = [...new Set(datos.reguladores.map((r) => r.pais))];
+const nMitos = maestros.mitos.length + practicas.mitos.length + datos.mitos.length;
+---
+<Base title="Método y fuentes" description="Cómo une Shefa tradición y dato, qué significa cada etiqueta de evidencia, lo que este sitio no afirma, dónde se guardan tus datos y la lista completa de fuentes.">
+  <TituloPagina titulo="Método y fuentes" nota="Qué se afirma aquí, con qué respaldo y dónde se puede comprobar." />
+
+  <Cuadrado clase="mt">
+    <!-- Fila 1: tradición, dato, práctica -->
+    <Palacio n={4} titulo="Tradición" etiqueta="1 de 3" id="tradicion" clase="mt-voz">
+      {shefa && (
+        <p class="mt-termino">
+          <span class="mt-termino-n">{shefa.termino}</span>
+          <span class="he" lang="he" dir="rtl">{shefa.original}</span>
+        </p>
+      )}
+      <p class="voz-m">Cada tradición habla aquí en sus propios términos: «la tradición enseña que…», con su texto y su referencia exacta. Ninguna causa sobrenatural se da por hecho.</p>
+      <Fragment slot="pie">
+        {shefa && <p class="nota">{shefa.definicion}</p>}
+        <p class="mt-cuenta"><span class="cifra">{fmt(nEnsenanzas)}</span> enseñanzas de cábala y hermetismo, cada una con su fuente</p>
+      </Fragment>
+    </Palacio>
+
+    <Palacio n={9} titulo="Dato" etiqueta="2 de 3" id="dato" clase="mt-voz">
+      <p class="mt-termino"><span class="cifra">{fmt(unicas.length)}</span> <span class="mt-termino-u">fuentes citadas</span></p>
+      <p class="voz-m">Junto a cada enseñanza va lo que se ha medido: un estudio, una cifra o un hecho documentado, con su fuente, su tamaño y su límite. Los estudios miden conducta, metas, ahorro o ánimo; ninguno mide patrimonio.</p>
+      <Fragment slot="pie">
+        <p class="mt-cuenta"><span class="cifra">{fmt(practicas.practicas.length)}</span> prácticas con su estudio y la calidad del respaldo</p>
+        <p class="mt-cuenta"><span class="cifra">{fmt(datos.cifras.length)}</span> cifras con fuente, año y nivel de confianza</p>
+      </Fragment>
+    </Palacio>
+
+    <Palacio n={2} titulo="Práctica" etiqueta="3 de 3" id="practica" clase="mt-voz">
+      <p class="mt-termino"><span class="cifra">{fmt(PASOS_RITUAL.length)}</span> <span class="mt-termino-u">pasos cada día</span></p>
+      <p class="voz-m">Las dos se juntan en lo que haces cada día: una cifra, un ritual y un tablero con diez medidas. Si una enseñanza se aplica al dinero, se rotula como aplicación moderna. El sitio mide tu constancia; no promete resultados.</p>
+      <Fragment slot="pie">
+        <p class="mt-rotulo-ej"><Etiqueta tipo="tradicion" texto="Aplicación moderna" /></p>
+        <p class="mt-enlaces"><a href={ruta('/ritual')}>Abrir el ritual</a><a href={ruta('/arbol')}>Ver el Árbol</a></p>
+      </Fragment>
+    </Palacio>
+
+    <!-- Fila 2: las cinco etiquetas, cada una con un ejemplo de los datos -->
+    <Palacio n={3} celdas={[3, 5, 7]} titulo="Cinco etiquetas de evidencia" etiqueta="Con ejemplo" id="etiquetas" clase="mt-etiquetas">
+      <div class="mt-tabla-cab" aria-hidden="true"><span>Etiqueta</span><span>Ejemplo de los datos</span><span>Fuente</span></div>
+      <ul class="mt-tabla">
+        {ETIQUETAS.filter((e) => e.hay).map((e) => (
+          <li class="mt-fila">
+            <div class="mt-def">
+              <h3><Etiqueta tipo={e.tipo} /></h3>
+              <p>{e.define}</p>
+            </div>
+            <div class="mt-ej">
+              {e.tipo === 'tradicion' && ens && (
+                <>
+                  {ens.cita
+                    ? <p>«{fino(ens.cita.texto)}»</p>
+                    : <p>{fino(ens.tradicion)}</p>}
+                  {ens.cita?.original && <p class="he mt-he" lang="he" dir="rtl">{ens.cita.original}</p>}
+                  <p class="nota">{fino(ens.titulo)}{ens.cita ? `. ${ens.cita.referencia}` : ''}</p>
+                </>
+              )}
+              {e.tipo === 'documentado' && casoDoc && (
+                <>
+                  <p>{fino(casoDoc.hecho)}</p>
+                  <p class="nota">{casoDoc.nombre}</p>
+                </>
+              )}
+              {e.tipo === 'estudio' && estudio && (
+                <>
+                  <p>{pegar(punto(estudio.efecto))}</p>
+                  <p class="nota">{estudio.nombre}, calidad {estudio.calidad}.{estudio.riesgo ? ` Límite: ${minuscula(fino(estudio.riesgo))}` : ''}</p>
+                </>
+              )}
+              {e.tipo === 'anecdota' && casoAnec && (
+                <>
+                  <p>{fino(casoAnec.hecho)}</p>
+                  <p class="nota">{casoAnec.nombre}</p>
+                </>
+              )}
+              {e.tipo === 'mito' && mito && (
+                <>
+                  <p>Se repite: «{fino(mito.afirmacion.replace(/\.$/, ''))}».</p>
+                  <p class="nota">{fino(mito.realidad)}</p>
+                </>
+              )}
+            </div>
+            <div class="mt-fu">
+              {e.tipo === 'tradicion' && ens && <Fuente fuente={ens.fuente_tradicion} />}
+              {e.tipo === 'documentado' && casoDoc && <Fuente fuente={casoDoc.fuente} />}
+              {e.tipo === 'estudio' && estudio && <Fuente fuente={estudio.estudio} />}
+              {e.tipo === 'anecdota' && casoAnec && <Fuente fuente={casoAnec.fuente} />}
+              {e.tipo === 'mito' && mito && <Fuente fuente={mito.fuente} />}
+              <p class="rotulo">De «{e.de}»</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Palacio>
+
+    <!-- Fila 3: límites, cuándo pedir ayuda, privacidad -->
+    <Palacio n={8} titulo="Lo que este sitio no afirma" etiqueta="Límites" id="limites" clase="mt-limites">
+      <ul class="mt-lista">
+        <li><b>Que una causa sobrenatural traiga dinero.</b> Describe lo que cada tradición enseña, sin darlo por hecho.</li>
+        <li><b>Que una práctica aumente tu patrimonio.</b> Los estudios citados miden conducta, metas, ahorro o ánimo.</li>
+        <li><b>Que el éxito de un maestro pruebe su método.</b> Junto a cada uno va lo que dice su biografía documentada.</li>
+        <li><b>Qué debes hacer con tu dinero.</b> Es información general, no asesoramiento financiero, fiscal ni legal.</li>
+        <li><b>Que una cifra sea definitiva.</b> Cada dato lleva fuente y año, y puede quedar desfasado.</li>
+      </ul>
+      <p slot="pie" class="mt-cuenta"><span class="cifra">{fmt(nMitos)}</span><span>mitos repetidos sobre el éxito y el dinero, cada uno junto a lo que se pudo comprobar</span></p>
+    </Palacio>
+
+    <Palacio n={1} titulo="Cuándo buscar a un profesional" etiqueta="Ayuda" id="profesional" clase="mt-profesional">
+      <ul class="mt-lista">
+        <li><b>Antes de invertir, endeudarte o firmar.</b> Un asesor financiero registrado, que conozca tu caso.</li>
+        <li><b>Impuestos, facturas o forma jurídica.</b> Un asesor fiscal o un gestor.</li>
+        <li><b>Deudas que no puedes pagar.</b> Un servicio de asesoría de deudas sin ánimo de lucro.</li>
+        <li><b>Ansiedad, depresión o juego.</b> Un profesional de la salud. Respirar o agradecer no sustituye un tratamiento.</li>
+      </ul>
+      <Fragment slot="pie">
+        <p class="mt-cuenta"><span class="cifra">{fmt(datos.reguladores.length)}</span><span>registros oficiales de {fmt(paises.length)} países para comprobar una entidad antes de poner dinero</span></p>
+        <p class="mt-accion"><a class="boton-2" href="#registros">Ver los registros oficiales</a></p>
+      </Fragment>
+    </Palacio>
+
+    <Palacio n={6} titulo="Privacidad" etiqueta="Tus datos" id="privacidad" clase="mt-privacidad">
+      <ul class="mt-lista">
+        <li><b>Todo se guarda en este navegador.</b> La cifra, las fuentes, el ritual y las evidencias viven en su almacenamiento local. No hay cuentas ni servidor que los reciba.</li>
+        <li><b>Si borras los datos del navegador, se pierden.</b> Tampoco pasan solos a otro dispositivo.</li>
+        <li><b>La copia la haces tú.</b> Exportar e importar están en el Árbol: un archivo que guardas donde quieras.</li>
+      </ul>
+      <Fragment slot="pie">
+        <h3 class="mt-sub">Guardado aquí ahora</h3>
+        <dl class="mt-guardado vivo">
+          <div><dt>Fuentes de ingreso</dt><dd class="cifra" data-v="g-fuentes">0</dd></div>
+          <div><dt>Días con ritual</dt><dd class="cifra" data-v="g-dias">0</dd></div>
+          <div><dt>Evidencias</dt><dd class="cifra" data-v="g-evidencias">0</dd></div>
+          <div><dt>Tamaño</dt><dd><span class="cifra" data-v="g-peso">0</span> <span class="mt-unidad">kB</span></dd></div>
+        </dl>
+        <p class="rotulo vivo" data-v="g-nota">Sin JavaScript no se guarda nada.</p>
+        <p class="mt-accion"><a class="boton-2" href={ruta('/arbol#h-datos')}>Exportar o importar en el Árbol</a></p>
+      </Fragment>
+    </Palacio>
+  </Cuadrado>
+
+  <!-- Fuera del cuadrado: el colofón -->
+  <section class="mt-colofon" id="registros" aria-labelledby="h-registros">
+    <header class="mt-col-cab">
+      <div>
+        <h2 id="h-registros">Registros oficiales</h2>
+        <p class="nota">Antes de poner dinero en algo, busca la entidad en el registro del regulador de tu país. Cada enlace se abre en otra pestaña.</p>
+      </div>
+      <p class="mt-total"><span class="cifra fig-m">{fmt(datos.reguladores.length)}</span><span>registros de {fmt(paises.length)} países</span></p>
+    </header>
+    <ul class="mt-registros">
+      {paises.map((pais) => (
+        <li>
+          <span class="rotulo">{pais}</span>
+          {datos.reguladores.filter((r) => r.pais === pais).map((r) => (
+            <a href={r.url} target="_blank" rel="noopener external">{r.nombre}<span class="oculto"> (se abre en otra pestaña)</span></a>
+          ))}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mt-colofon" id="nutricion" aria-labelledby="h-nutricion">
+    <div class="mt-col-cab mt-nutricion">
+      <div>
+        <h2 id="h-nutricion">Cómo se nutre el conocimiento</h2>
+        <p class="nota">{n.cuando.charAt(0).toUpperCase() + n.cuando.slice(1)}, un agente busca y verifica un hallazgo por pilar. {fino(n.donde)}</p>
+        {ultimaFecha && (
+          <p class="mt-total mt-diario">
+            <span class="cifra fig-m">{fmt(diario.length)}</span>
+            <span>{diario.length === 1 ? 'entrada' : 'entradas'} en el diario. La última, del {fechaTexto(ultimaFecha)}{ultimoTitulo ? `: «${ultimoTitulo}»` : ''}</span>
+          </p>
+        )}
+        <p class="mt-enlaces"><a href={ruta('/agentes')}>Conocer a los agentes</a></p>
+      </div>
+      <ol class="mt-pasos">
+        {n.que_hace.map((paso, i) => (
+          <li><span class="cifra" aria-hidden="true">{i + 1}</span><span>{fino(paso)}</span></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="mt-colofon" id="comprobar" aria-labelledby="h-comprobar">
+    <header class="mt-col-cab">
+      <div>
+        <h2 id="h-comprobar">Lo que no se pudo abrir directamente</h2>
+        <p class="nota">Durante la investigación, el entorno de trabajo bloqueó cinco sitios. Sus referencias se confirmaron con los resúmenes del buscador, no leyendo la página. Conviene volver a abrir cada una y cotejar el literal.</p>
+      </div>
+      <p class="mt-total"><span class="cifra fig-m">{fmt(nComprobar)}</span><span>{nComprobar === 1 ? 'referencia' : 'referencias'} por volver a comprobar</span></p>
+      <ul class="mt-indice" aria-label="Sitios que no se pudieron abrir">
+        {comprobar.map((c) => (
+          <li><span>{c.nombre}</span><span class="cifra">{fmt(c.fuentes.length)}</span></li>
+        ))}
+      </ul>
+    </header>
+    {comprobar.filter((c) => c.fuentes.length).map((c) => (
+      <section class="mt-seccion" aria-label={`Referencias de ${c.nombre}`}>
+        <h3><span>{c.nombre}</span><span class="cifra">{fmt(c.fuentes.length)}</span></h3>
+        <ul class="mt-refs">{c.fuentes.map((f) => <li><Fuente fuente={f} /></li>)}</ul>
+      </section>
+    ))}
+    {comprobar.some((c) => !c.fuentes.length) && (
+      <p class="mt-ninguna">Sin referencias en los datos actuales: {comprobar.filter((c) => !c.fuentes.length).map((c) => c.nombre).join(', ')}.</p>
+    )}
+  </section>
+
+  <section class="mt-colofon" id="fuentes" aria-labelledby="h-fuentes">
+    <header class="mt-col-cab">
+      <div>
+        <h2 id="h-fuentes">Fuentes</h2>
+        <p class="nota">Reunidas al compilar a partir de todos los datos del sitio, sin repetidos y por sección. Cada enlace se abre en otra pestaña; las que no tienen enlace llevan la referencia completa.</p>
+      </div>
+      <p class="mt-total"><span class="cifra fig-m">{fmt(unicas.length)}</span><span>fuentes distintas, {fmt(conEnlace)} con enlace</span></p>
+      <ul class="mt-indice" aria-label="Secciones de la lista de fuentes">
+        {secciones.map((s) => (
+          <li><a href={`#fuentes-${s.id}`}>{s.titulo}</a><span class="cifra">{fmt(s.fuentes.length)}</span></li>
+        ))}
+      </ul>
+    </header>
+    <p class="mt-abrir"><button class="boton-2 boton-s" type="button" data-v="abrir-todas" aria-pressed="false" hidden>Abrir todas las secciones</button></p>
+    {secciones.map((s) => (
+      <details class="mt-seccion mt-plegable" id={`fuentes-${s.id}`}>
+        <summary>
+          <h3><span>{s.titulo}</span><span class="cifra">{fmt(s.fuentes.length)}</span></h3>
+        </summary>
+        <ul class="mt-refs">
+          {s.fuentes.map((f) => <li><Fuente fuente={f} /></li>)}
+        </ul>
+      </details>
+    ))}
+  </section>
+</Base>
+
+<script>
+  // Privacidad: lo que hay guardado ahora mismo en este navegador.
+  import { alCambiar, leer, type Estado } from '../lib/store';
+
+  const v = (nombre: string) => document.querySelector<HTMLElement>(`[data-v="${nombre}"]`);
+  const poner = (nombre: string, t: string) => { const el = v(nombre); if (el) el.textContent = t; };
+  const num = (x: number, dec = 0) => new Intl.NumberFormat('es-ES', { maximumFractionDigits: dec }).format(x);
+
+  function pintar(s: Estado): void {
+    let crudo: string | null = null;
+    try { crudo = localStorage.getItem('shefa-v2'); } catch { /* sin almacenamiento */ }
+    const ejemplos = s.fuentes.filter((f) => f.ejemplo).length;
+    poner('g-fuentes', num(s.fuentes.length));
+    poner('g-dias', num(Object.values(s.ritual).filter((d) => Array.isArray(d) && d.some(Boolean)).length));
+    poner('g-evidencias', num(s.evidencias.length));
+    poner('g-peso', num(crudo ? new Blob([crudo]).size / 1024 : 0, 1));
+    poner('g-nota', !crudo
+      ? 'Aún no has guardado nada: lo que ves en el sitio son datos de muestra.'
+      : ejemplos
+        ? `${ejemplos === 1 ? '1 fuente es' : `${num(ejemplos)} fuentes son`} de muestra.`
+        : 'Solo datos tuyos.');
+  }
+
+  pintar(leer());
+  alCambiar(pintar);
+  document.documentElement.classList.add('listo');
+
+  // Fuentes: en escritorio las secciones llegan abiertas; en la tira, plegadas (la lista es
+  // larga). El índice y los enlaces con ancla abren la sección a la que apuntan.
+  const plegables = Array.from(document.querySelectorAll<HTMLDetailsElement>('details.mt-plegable'));
+  const todas = v('abrir-todas');
+  const rotular = () => {
+    if (!todas) return;
+    const abiertas = plegables.every((d) => d.open);
+    todas.textContent = abiertas ? 'Cerrar todas las secciones' : 'Abrir todas las secciones';
+    todas.setAttribute('aria-pressed', String(abiertas));
+  };
+  const abrirAncla = () => {
+    const destino = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (destino instanceof HTMLDetailsElement) destino.open = true;
+  };
+  if (window.matchMedia('(min-width: 1280px)').matches) plegables.forEach((d) => { d.open = true; });
+  plegables.forEach((d) => d.addEventListener('toggle', rotular));
+  if (todas) {
+    todas.hidden = false;
+    todas.addEventListener('click', () => {
+      const abrir = !plegables.every((d) => d.open);
+      plegables.forEach((d) => { d.open = abrir; });
+      rotular();
+    });
+  }
+  // El clic abre la sección aunque el ancla ya fuera la misma (no hay «hashchange»).
+  document.querySelectorAll<HTMLAnchorElement>('a[href^="#fuentes-"]').forEach((a) => a.addEventListener('click', () => {
+    const destino = document.getElementById(a.hash.slice(1));
+    if (destino instanceof HTMLDetailsElement) destino.open = true;
+  }));
+  window.addEventListener('hashchange', abrirAncla);
+  abrirAncla();
+  rotular();
+</script>

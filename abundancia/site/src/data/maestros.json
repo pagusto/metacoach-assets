@@ -1,0 +1,836 @@
+{
+  "resumen": "El Nuevo Pensamiento nace en Estados Unidos en el siglo XIX y enseña que el pensamiento sostenido moldea la experiencia. De ahí salen casi todos los maestros de prosperidad del siglo XX. Aquí tienes qué enseñó cada uno, con sus ejercicios, y qué dice su biografía documentada.",
+  "linea_tiempo": [
+    {
+      "anio": 1866,
+      "hito": "Muere Phineas Quimby, sanador mental de Nueva Inglaterra considerado precursor del Nuevo Pensamiento."
+    },
+    {
+      "anio": 1886,
+      "hito": "Prentice Mulford empieza los ensayos de Your Forces and How to Use Them (1886–1892)."
+    },
+    {
+      "anio": 1897,
+      "hito": "Ralph Waldo Trine publica In Tune with the Infinite."
+    },
+    {
+      "anio": 1903,
+      "hito": "James Allen publica As a Man Thinketh."
+    },
+    {
+      "anio": 1910,
+      "hito": "Wallace Wattles publica The Science of Getting Rich; muere en 1911."
+    },
+    {
+      "anio": 1912,
+      "hito": "Charles Haanel lanza The Master Key System como curso por correspondencia de 24 semanas; libro en 1916."
+    },
+    {
+      "anio": 1925,
+      "hito": "Florence Scovel Shinn publica The Game of Life and How to Play It."
+    },
+    {
+      "anio": 1928,
+      "hito": "Napoleon Hill publica el curso The Law of Success."
+    },
+    {
+      "anio": 1937,
+      "hito": "Hill publica Think and Grow Rich, con trece principios y seis pasos para el deseo."
+    },
+    {
+      "anio": 1944,
+      "hito": "Neville Goddard publica Feeling Is the Secret."
+    },
+    {
+      "anio": 1952,
+      "hito": "Norman Vincent Peale publica The Power of Positive Thinking."
+    },
+    {
+      "anio": 1954,
+      "hito": "Hill y W. Clement Stone producen la serie de televisión Napoleon Hill's Master Key, de trece episodios."
+    },
+    {
+      "anio": 1956,
+      "hito": "Earl Nightingale graba The Strangest Secret y propone una prueba de 30 días."
+    },
+    {
+      "anio": 1963,
+      "hito": "Joseph Murphy publica The Power of Your Subconscious Mind; Hill funda la Napoleon Hill Foundation."
+    },
+    {
+      "anio": 1986,
+      "hito": "Tony Robbins publica Unlimited Power, que repite el inexistente estudio de Yale de 1953."
+    },
+    {
+      "anio": 2001,
+      "hito": "Brian Tracy publica Eat That Frog!; en 2003, Goals!"
+    },
+    {
+      "anio": 2006,
+      "hito": "Rhonda Byrne estrena The Secret (película en marzo, libro en noviembre)."
+    },
+    {
+      "anio": 2009,
+      "hito": "Mueren tres personas en un retiro de James Arthur Ray, narrador de The Secret."
+    }
+  ],
+  "maestros": [
+    {
+      "id": "james-allen",
+      "nombre": "James Allen",
+      "anios": "1864–1912",
+      "obra_clave": "As a Man Thinketh (1903)",
+      "idea_central": "El carácter y las circunstancias brotan del pensamiento habitual. No cambias lo de fuera sin trabajar antes lo de dentro, y el pensamiento necesita un propósito para dar fruto.",
+      "metodos": [
+        {
+          "titulo": "Revisar el jardín mental",
+          "ejercicio": "Cada noche anota el pensamiento que más repetiste hoy y decide cuál vas a cultivar mañana. Allen compara la mente con un jardín que se cuida o se abandona."
+        },
+        {
+          "titulo": "Unir pensamiento y propósito",
+          "ejercicio": "Escribe un propósito legítimo y vuelve a él cada vez que la mente se disperse. Si aún no lo tienes, concéntrate en hacer impecable la tarea de hoy."
+        }
+      ],
+      "cita": {
+        "texto": "La circunstancia no hace al hombre; lo revela ante sí mismo.",
+        "original": "Circumstance does not make the man; it reveals him to himself.",
+        "fuente": "As a Man Thinketh (1903)"
+      },
+      "nota_critica": "El libro es breve, de dominio público y puedes leerlo entero en Project Gutenberg. No promete dinero: habla de carácter y esfuerzo. Leerlo como fórmula para enriquecerse es una lectura posterior, no la de Allen.",
+      "etiqueta_nota": "documentado",
+      "fuentes": [
+        {
+          "cita": "Allen, J. (1903), As a Man Thinketh (Project Gutenberg n.º 4507)",
+          "url": "https://www.gutenberg.org/ebooks/4507"
+        }
+      ]
+    },
+    {
+      "id": "wallace-wattles",
+      "nombre": "Wallace Wattles",
+      "anios": "1860–1911",
+      "obra_clave": "The Science of Getting Rich (1910)",
+      "idea_central": "Enseña que existe una «sustancia pensante» de la que todo procede y que hacerse rico resulta de pensar y actuar «de cierta manera»: imagen clara, gratitud y acción eficaz cada día, creando en vez de competir.",
+      "metodos": [
+        {
+          "titulo": "Imagen clara y definida",
+          "ejercicio": "Describe por escrito lo que quieres con todo detalle, como un plano. Repásalo en tus ratos libres hasta verlo completo. Wattles pide una imagen clara y definida, no un deseo vago."
+        },
+        {
+          "titulo": "Gratitud diaria",
+          "ejercicio": "Cada día agradece de forma expresa lo que ya tienes y lo que viene en camino. Para Wattles la gratitud es el ajuste mental que te mantiene unido a la fuente."
+        },
+        {
+          "titulo": "Más valor de uso",
+          "ejercicio": "Antes de cerrar un trato o entregar un trabajo, pregúntate si la otra persona recibe más valor de uso que el dinero que te paga. Si no es así, mejora la entrega."
+        }
+      ],
+      "cita": {
+        "texto": "Da a cada persona más en valor de uso de lo que tomas de ella en valor en dinero.",
+        "original": "Give every man more in use value than you take from him in cash value",
+        "fuente": "The Science of Getting Rich (1910)"
+      },
+      "nota_critica": "Su biografía es poco conocida y murió en 1911, un año después del libro. Rhonda Byrne lo citó como inspiración de The Secret en 2006. La «sustancia pensante» es una creencia, no un hallazgo científico.",
+      "etiqueta_nota": "documentado",
+      "fuentes": [
+        {
+          "cita": "Wattles, W. D. (1910), The Science of Getting Rich, Elizabeth Towne (Project Gutenberg n.º 59844)",
+          "url": "https://www.gutenberg.org/ebooks/59844"
+        },
+        {
+          "cita": "Wikipedia, «Wallace Wattles» y «The Secret (Byrne book)»",
+          "url": "https://en.wikipedia.org/wiki/Wallace_Wattles"
+        }
+      ]
+    },
+    {
+      "id": "charles-haanel",
+      "nombre": "Charles Haanel",
+      "anios": "1866–1949",
+      "obra_clave": "The Master Key System (1912; libro 1916)",
+      "idea_central": "Enseña que el mundo exterior refleja el mundo interior y que la concentración se entrena como un músculo, con un ejercicio progresivo por semana durante 24 semanas.",
+      "metodos": [
+        {
+          "titulo": "Quietud de quince minutos",
+          "ejercicio": "Siéntate erguido y a solas, sin recostarte, y quédate completamente quieto entre 15 y 30 minutos. Deja vagar el pensamiento. Repite varios días hasta dominar el cuerpo."
+        },
+        {
+          "titulo": "Inhibir el pensamiento",
+          "ejercicio": "En la misma postura, intenta detener todo pensamiento. Al principio lo lograrás solo unos instantes. El ejercicio busca control sobre la preocupación y el miedo."
+        },
+        {
+          "titulo": "Idealizar antes de construir",
+          "ejercicio": "Define tu ideal como un arquitecto dibuja un edificio: cada línea antes de empezar. Luego visualiza los detalles uno a uno hasta que la imagen sea estable."
+        }
+      ],
+      "cita": {
+        "texto": "El mundo exterior es un reflejo del mundo interior.",
+        "original": "The world without is a reflection of the world within.",
+        "fuente": "The Master Key System (1912), parte 1"
+      },
+      "nota_critica": "Fue empresario en San Luis y vendió el sistema como curso por correspondencia antes de editarlo como libro. Es una de las fuentes reconocidas de The Secret. Sus ejercicios son prácticas de atención; lo que atribuye a ellas no está probado.",
+      "etiqueta_nota": "documentado",
+      "fuentes": [
+        {
+          "cita": "Haanel, C. F. (1912 curso; 1916 libro), The Master Key System, partes 1, 2 y 7 (texto en archive.org)",
+          "url": "https://archive.org/details/themasterkeysystemcharlesf.haanel"
+        },
+        {
+          "cita": "Wikipedia, «The Master Key System»",
+          "url": "https://en.wikipedia.org/wiki/The_Master_Key_System"
+        }
+      ]
+    },
+    {
+      "id": "florence-scovel-shinn",
+      "nombre": "Florence Scovel Shinn",
+      "anios": "1871–1940",
+      "obra_clave": "The Game of Life and How to Play It (1925)",
+      "idea_central": "Ilustradora neoyorquina convertida en maestra. Enseña que la vida es un juego de dar y recibir, y que la palabra dicha con fe y la acción preparatoria abren el camino.",
+      "metodos": [
+        {
+          "titulo": "Afirmación «de manera perfecta»",
+          "ejercicio": "Formula tu petición en voz alta y termina con «bajo la gracia y de manera perfecta». Shinn insiste en ese cierre para no pedir algo que llegue por un mal camino."
+        },
+        {
+          "titulo": "Cavar las zanjas",
+          "ejercicio": "Haz hoy un gesto concreto de preparación para lo que esperas: ordenar el espacio, comprar la herramienta, reservar la fecha. Shinn lo llama cavar zanjas antes de la lluvia."
+        },
+        {
+          "titulo": "Dar gracias por adelantado",
+          "ejercicio": "Escribe una frase de agradecimiento por lo pedido, en presente, y léela al empezar el día. Es su forma de sostener la fe mientras actúas."
+        }
+      ],
+      "cita": {
+        "texto": "El Juego de la Vida es un juego de bumeranes. Los pensamientos, actos y palabras del hombre regresan a él tarde o temprano, con asombrosa exactitud.",
+        "original": "The Game of Life is a game of boomerangs. Man’s thoughts, deeds and words, return to him sooner or later, with astounding accuracy.",
+        "fuente": "The Game of Life and How to Play It (1925)"
+      },
+      "nota_critica": "El libro se compone de casos de sus alumnos que ella misma relata: son anécdotas sin verificación externa. Trabajó como ilustradora antes de enseñar y publicó el libro en 1925.",
+      "etiqueta_nota": "anecdota",
+      "fuentes": [
+        {
+          "cita": "Shinn, F. S. (1925), The Game of Life and How to Play It (Project Gutenberg n.º 74878)",
+          "url": "https://www.gutenberg.org/ebooks/74878"
+        },
+        {
+          "cita": "Wikipedia, «Florence Scovel Shinn»",
+          "url": "https://en.wikipedia.org/wiki/Florence_Scovel_Shinn"
+        }
+      ]
+    },
+    {
+      "id": "napoleon-hill",
+      "nombre": "Napoleon Hill",
+      "anios": "1883–1970",
+      "obra_clave": "Think and Grow Rich (1937)",
+      "idea_central": "Trece principios que empiezan en un deseo definido y siguen con fe, autosugestión, plan, decisión, persistencia y un grupo aliado. La riqueza, enseña, empieza como un propósito claro escrito y repetido.",
+      "metodos": [
+        {
+          "titulo": "Seis pasos del deseo",
+          "ejercicio": "Fija la cantidad exacta, lo que darás a cambio, la fecha y un plan que empiezas ya. Escríbelo todo en una declaración clara y concisa."
+        },
+        {
+          "titulo": "Lectura dos veces al día",
+          "ejercicio": "Lee tu declaración en voz alta al levantarte y antes de dormir. Mientras lees, mírate y siéntete ya en posesión de lo escrito. Hill lo llama autosugestión."
+        },
+        {
+          "titulo": "Grupo Master Mind",
+          "ejercicio": "Reúne a dos o más personas con un propósito definido y en armonía. Acordad qué aporta cada una y reuníos con regularidad para revisar planes."
+        }
+      ],
+      "cita": {
+        "texto": "El «Master Mind» puede definirse como: «Coordinación de conocimiento y esfuerzo, en espíritu de armonía, entre dos o más personas, para alcanzar un propósito definido».",
+        "original": "The \"Master Mind\" may be defined as: \"Coordination of knowledge and effort, in a spirit of harmony, between two or more people, for the attainment of a definite purpose.\"",
+        "fuente": "Think and Grow Rich (1937), cap. 10"
+      },
+      "nota_critica": "No hay registro de que Carnegie lo recibiera en 1908; su biógrafo David Nasaw no halló prueba alguna. La prensa de 1908 y 1918 recoge órdenes de detención por fraude contra Hill. Su fundación mantiene el relato y un archivo privado.",
+      "etiqueta_nota": "documentado",
+      "fuentes": [
+        {
+          "cita": "Hill, N. (1937), Think and Grow Rich, The Ralston Society, caps. 2, 4 y 10 (texto en archive.org)",
+          "url": "https://archive.org/details/think-and-grow-rich_202107"
+        },
+        {
+          "cita": "Novak, M. (2016), «The Untold Story of Napoleon Hill, the Greatest Self-Help Scammer of All Time», Gizmodo",
+          "url": "https://gizmodo.com/the-untold-story-of-napoleon-hill-the-greatest-self-he-1789385645"
+        },
+        {
+          "cita": "The Pensacola Journal (17 oct. 1908), «President of Lumber Company Is Missing», Library of Congress",
+          "url": "https://www.loc.gov/resource/sn87062268/1908-10-17/ed-1/?sp=3"
+        },
+        {
+          "cita": "Lingeman, R. (13 ago. 1995), «How to Lose Friends and Alienate People», The New York Times",
+          "url": "https://www.nytimes.com/1995/08/13/books/how-to-lose-friends-and-alienate-people.html"
+        }
+      ]
+    },
+    {
+      "id": "neville-goddard",
+      "nombre": "Neville Goddard",
+      "anios": "1905–1972",
+      "obra_clave": "Feeling Is the Secret (1944)",
+      "idea_central": "Místico de Barbados afincado en Estados Unidos. Enseña que el subconsciente acepta como cierto lo que sientes, y que debes asumir el sentimiento del deseo ya cumplido, sobre todo al dormirte.",
+      "metodos": [
+        {
+          "titulo": "Dormirse en el deseo cumplido",
+          "ejercicio": "Ya en la cama, deja de repasar problemas y siente durante unos minutos cómo sería haber logrado lo que quieres. Duérmete en esa sensación, no en la carencia."
+        },
+        {
+          "titulo": "Estado parecido al sueño",
+          "ejercicio": "De día, siéntate, relaja el cuerpo hasta quedar somnoliento y pasivo, y sostén la sensación del deseo cumplido. Goddard llama oración a ese estado."
+        }
+      ],
+      "cita": {
+        "texto": "Deberías sentir siempre el deseo cumplido antes de quedarte dormido.",
+        "original": "you should always feel the wish fulfilled before you drop off to sleep.",
+        "fuente": "Feeling Is the Secret (1944), cap. 2"
+      },
+      "nota_critica": "Contó que entre 1929 y 1936 lo formó un maestro al que llamaba Abdullah; el dato procede sobre todo de su propio relato. Escribió 14 libros. Su método es exégesis bíblica y autosugestión, sin estudios que lo respalden.",
+      "etiqueta_nota": "anecdota",
+      "fuentes": [
+        {
+          "cita": "Goddard, N. (1944), Feeling Is the Secret, cap. 2 «Sleep» (texto en archive.org)",
+          "url": "https://archive.org/details/feeling-is-the-secret-neville-goddard"
+        },
+        {
+          "cita": "Wikipedia, «Neville Goddard»",
+          "url": "https://en.wikipedia.org/wiki/Neville_Goddard"
+        }
+      ]
+    },
+    {
+      "id": "earl-nightingale",
+      "nombre": "Earl Nightingale",
+      "anios": "1921–1989",
+      "obra_clave": "The Strangest Secret (1956)",
+      "idea_central": "Locutor de radio de Chicago. Su mensaje cabe en seis palabras en inglés: nos convertimos en aquello en lo que pensamos. Define el éxito como la realización progresiva de un ideal digno.",
+      "metodos": [
+        {
+          "titulo": "Tarjeta con una meta",
+          "ejercicio": "Escribe en una tarjeta una sola meta, concreta y bien definida. Llévala contigo y mírala varias veces al día, por la mañana y por la noche, con ánimo tranquilo."
+        },
+        {
+          "titulo": "Prueba de 30 días",
+          "ejercicio": "Durante 30 días controla en qué piensas: vuelve a la meta cada vez que aparezca la preocupación. Evalúa al final. Nightingale avisa de que no es fácil."
+        },
+        {
+          "titulo": "Trabajar como nunca",
+          "ejercicio": "En esos 30 días haz tu trabajo mejor que nunca y da sin calcular lo que recibes. Anota al terminar qué cambió en ingresos, trato y ánimo."
+        }
+      ],
+      "cita": {
+        "texto": "Nos convertimos en aquello en lo que pensamos.",
+        "original": "We become what we think about.",
+        "fuente": "The Strangest Secret (1956), transcripción"
+      },
+      "nota_critica": "Se repite que fue el primer disco hablado con «disco de oro» por un millón de copias. La cifra viene de fuentes promocionales y la propia Wikipedia la marca con fuentes débiles; no hallé certificación independiente.",
+      "etiqueta_nota": "anecdota",
+      "fuentes": [
+        {
+          "cita": "Nightingale, E. (1956), The Strangest Secret (transcripción en archive.org)",
+          "url": "https://archive.org/details/the-strangest-secret-earl-nightingale"
+        },
+        {
+          "cita": "Wikipedia, «Earl Nightingale»",
+          "url": "https://en.wikipedia.org/wiki/Earl_Nightingale"
+        }
+      ]
+    },
+    {
+      "id": "joseph-murphy",
+      "nombre": "Joseph Murphy",
+      "anios": "1898–1981",
+      "obra_clave": "The Power of Your Subconscious Mind (1963)",
+      "idea_central": "Ministro irlandés de la Ciencia Divina. Enseña que el subconsciente ejecuta lo que la mente consciente le repite con sentimiento, y que el momento más fértil es el borde del sueño.",
+      "metodos": [
+        {
+          "titulo": "La palabra «riqueza»",
+          "ejercicio": "Antes de dormir, repite despacio y con calma la palabra «riqueza» durante unos cinco minutos. Murphy prefiere una palabra sola a una frase que tu mente discuta."
+        },
+        {
+          "titulo": "Película mental",
+          "ejercicio": "Imagina una escena breve que solo ocurriría si tu meta ya se hubiera cumplido. Repítela como una película corta, relajado, hasta que resulte natural."
+        },
+        {
+          "titulo": "Técnica del agradecimiento",
+          "ejercicio": "Da las gracias de antemano, en voz baja y varias veces, por el resultado que buscas. Hazlo al acostarte y al levantarte durante varias semanas."
+        }
+      ],
+      "cita": null,
+      "nota_critica": "Según Wikipedia, se ordenó en la Ciencia Divina y en la Ciencia Religiosa, y estudió con el mismo Abdullah que Goddard. Sus casos de curación y fortuna son relatos pastorales, no estudios. No atribuyas al método efectos médicos.",
+      "etiqueta_nota": "anecdota",
+      "fuentes": [
+        {
+          "cita": "Murphy, J. (1963), The Power of Your Subconscious Mind, Prentice-Hall, caps. 6 y 9",
+          "url": null
+        },
+        {
+          "cita": "Wikipedia, «Joseph Murphy (writer)»",
+          "url": "https://en.wikipedia.org/wiki/Joseph_Murphy_(writer)"
+        }
+      ]
+    },
+    {
+      "id": "jim-rohn",
+      "nombre": "Jim Rohn",
+      "anios": "1930–2009",
+      "obra_clave": "7 Strategies for Wealth & Happiness (1986)",
+      "idea_central": "Vendedor de venta directa convertido en conferenciante. Enseña que los ingresos rara vez superan el desarrollo personal, y que la disciplina diaria en cosas pequeñas decide el resultado.",
+      "metodos": [
+        {
+          "titulo": "Diario de ideas",
+          "ejercicio": "Lleva un cuaderno solo para ideas, lecciones y cifras. Escribe en él cada día y reléelo cada semana. Rohn lo trataba como un activo que se hereda."
+        },
+        {
+          "titulo": "Trabaja más en ti",
+          "ejercicio": "Reserva 30 minutos diarios para leer o practicar una habilidad que aumente tu valor en el mercado. Anota cada semana qué aprendiste y dónde lo aplicaste."
+        },
+        {
+          "titulo": "Revisar tus asociaciones",
+          "ejercicio": "Lista con quién pasas más tiempo y qué efecto tiene en tus hábitos. Decide con quién ampliar, limitar o mantener el trato."
+        }
+      ],
+      "cita": null,
+      "nota_critica": "La frase «eres el promedio de las cinco personas con las que pasas más tiempo» se le atribuye sin fuente primaria localizada: Quote Investigator solo halla atribuciones posteriores, como la de Jack Canfield en 2005.",
+      "etiqueta_nota": "mito",
+      "fuentes": [
+        {
+          "cita": "Quote Investigator (2022), «You Are the Average of the Five People You Spend the Most Time With»",
+          "url": "https://quoteinvestigator.com/2022/08/08/five-people/"
+        },
+        {
+          "cita": "Popik, B., «Discipline is the bridge between goals and accomplishment», The Big Apple",
+          "url": "https://barrypopik.com/blog/discipline_is_the_bridge"
+        },
+        {
+          "cita": "Wikipedia, «Jim Rohn»",
+          "url": "https://en.wikipedia.org/wiki/Jim_Rohn"
+        }
+      ]
+    },
+    {
+      "id": "zig-ziglar",
+      "nombre": "Zig Ziglar",
+      "anios": "1926–2012",
+      "obra_clave": "See You at the Top (1975)",
+      "idea_central": "Vendedor y orador de Texas, de fe cristiana explícita. Enseña que consigues lo que quieres ayudando a suficientes personas a conseguir lo que ellas quieren, con metas escritas en todas las áreas de la vida.",
+      "metodos": [
+        {
+          "titulo": "Metas por áreas",
+          "ejercicio": "Escribe una meta para cada área: física, familiar, mental, económica, espiritual, social y profesional. Para cada una anota el beneficio, el obstáculo, a quién necesitas y la fecha."
+        },
+        {
+          "titulo": "Ayudar primero",
+          "ejercicio": "Cada mañana anota a una persona —cliente, colega o familiar— y una cosa concreta que harás hoy para que avance en lo suyo. Revísalo por la noche."
+        }
+      ],
+      "cita": null,
+      "nota_critica": "Ziglar citaba en sus charlas el estudio de metas de la promoción de Yale de 1953. Cuando Fast Company pidió la fuente en 1996, su oficina no pudo darla. El estudio no existe.",
+      "etiqueta_nota": "mito",
+      "fuentes": [
+        {
+          "cita": "RapidBI, «Harvard/Yale written goals study: fact or fiction?» (resume a Tabak, L., Fast Company, 1996)",
+          "url": "https://rapidbi.com/harvard-yale-written-goals-study-fact-or-fiction/"
+        },
+        {
+          "cita": "Harvard Library, Ask a Librarian: sobre el supuesto estudio de metas escritas de Harvard o Yale",
+          "url": "https://ask.library.harvard.edu/faq/82314"
+        },
+        {
+          "cita": "Ziglar, Z. (1975), See You at the Top, Pelican",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "bob-proctor",
+      "nombre": "Bob Proctor",
+      "anios": "1934–2022",
+      "obra_clave": "You Were Born Rich (1984)",
+      "idea_central": "Canadiense, heredero directo de Hill y Nightingale. Enseña que los resultados dependen de la imagen de ti mismo grabada en el subconsciente, y que se cambia por repetición de una meta escrita.",
+      "metodos": [
+        {
+          "titulo": "Tarjeta de meta",
+          "ejercicio": "Escribe tu meta en presente en una tarjeta, con fecha. Llévala en el bolsillo y léela cada vez que la toques. Es la tarjeta de Nightingale con otro nombre."
+        },
+        {
+          "titulo": "Releer un mismo libro",
+          "ejercicio": "Elige un libro de la tradición y lee unas páginas cada día durante meses. Subraya con un color distinto en cada lectura y anota qué entiendes ahora."
+        }
+      ],
+      "cita": null,
+      "nota_critica": "Fue uno de los rostros de The Secret (2006). Shermer, en Scientific American, y otros críticos señalan que la «ley de la atracción» que allí se presenta como ciencia carece de base científica.",
+      "etiqueta_nota": "documentado",
+      "fuentes": [
+        {
+          "cita": "Proctor, B. (1984), You Were Born Rich",
+          "url": null
+        },
+        {
+          "cita": "Shermer, M. (2007), «The (Other) Secret», Scientific American 296(6), 39. DOI 10.1038/scientificamerican0607-39",
+          "url": "https://doi.org/10.1038/scientificamerican0607-39"
+        },
+        {
+          "cita": "Wikipedia, «Bob Proctor (author)»",
+          "url": "https://en.wikipedia.org/wiki/Bob_Proctor_(author)"
+        }
+      ]
+    },
+    {
+      "id": "brian-tracy",
+      "nombre": "Brian Tracy",
+      "anios": "n. 1944",
+      "obra_clave": "Goals! (2003)",
+      "idea_central": "Canadiense, formador de ventas. Convierte la tradición en procedimiento: metas escritas con fecha, lista de acciones, plan y una acción cada día, empezando siempre por la tarea más importante.",
+      "metodos": [
+        {
+          "titulo": "Método de siete pasos",
+          "ejercicio": "Decide exactamente qué quieres, escríbelo, ponle fecha, lista todo lo necesario, ordena la lista en un plan, actúa de inmediato y haz algo cada día que te acerque."
+        },
+        {
+          "titulo": "Diez metas cada mañana",
+          "ejercicio": "Cada mañana escribe de memoria diez metas para los próximos doce meses, en presente y en primera persona. Marca la que más cambiaría tu vida y trabaja primero en ella."
+        },
+        {
+          "titulo": "Cómete el sapo",
+          "ejercicio": "Clasifica tus tareas de la A a la E según sus consecuencias. Empieza el día por la A-1, la más importante y difícil, y no la sueltes hasta terminarla."
+        }
+      ],
+      "cita": null,
+      "nota_critica": "El estudio de metas escritas de Yale 1953 o Harvard 1979 que repite la literatura de metas, incluida la de Tracy, no existe según las bibliotecas de ambas universidades. La frase del sapo tampoco es de Mark Twain.",
+      "etiqueta_nota": "mito",
+      "fuentes": [
+        {
+          "cita": "Tracy, B. (2017), «The 7-Step Formula for Goal Setting», Entrepreneur (extracto de Million Dollar Habits)",
+          "url": "https://www.entrepreneur.com/article/297205"
+        },
+        {
+          "cita": "Harvard Library, Ask a Librarian: sobre el supuesto estudio de metas escritas de Harvard o Yale",
+          "url": "https://ask.library.harvard.edu/faq/82314"
+        },
+        {
+          "cita": "Quote Investigator (2013), «Eat a Live Frog Every Morning, and Nothing Worse Will Happen to You the Rest of the Day»",
+          "url": "https://quoteinvestigator.com/2013/04/03/eat-frog/"
+        },
+        {
+          "cita": "Tracy, B. (2003), Goals!, Berrett-Koehler; (2001), Eat That Frog!, Berrett-Koehler",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "tony-robbins",
+      "nombre": "Tony Robbins",
+      "anios": "n. 1960",
+      "obra_clave": "Awaken the Giant Within (1991)",
+      "idea_central": "Alumno de Jim Rohn a finales de los setenta. Enseña que el estado emocional y las decisiones, más que las condiciones, determinan los resultados, y que se aprende imitando a quien ya lo logró.",
+      "metodos": [
+        {
+          "titulo": "Modelar a quien lo logró",
+          "ejercicio": "Elige a alguien que ya obtuvo el resultado que buscas. Averigua qué hace, en qué orden y qué cree sobre ello. Copia el procedimiento durante 30 días y mide."
+        },
+        {
+          "titulo": "Decidir y actuar ya",
+          "ejercicio": "Al fijar una meta, no te levantes sin dar un primer paso: una llamada, un correo, una reserva. Anota la decisión y la acción con la fecha."
+        },
+        {
+          "titulo": "Preguntas de la mañana",
+          "ejercicio": "Al despertar responde por escrito: ¿de qué estoy agradecido?, ¿de qué estoy orgulloso?, ¿con qué estoy comprometido hoy? Dedica un minuto a sentir cada respuesta."
+        }
+      ],
+      "cita": null,
+      "nota_critica": "Unlimited Power (1986) presenta como real «un estudio de los graduados de Yale de 1953». Cuando Fast Company pidió la fuente, su organización respondió que los archivos del libro se habían perdido.",
+      "etiqueta_nota": "mito",
+      "fuentes": [
+        {
+          "cita": "RapidBI, «Harvard/Yale written goals study: fact or fiction?» (resume a Tabak, L., Fast Company, 1996)",
+          "url": "https://rapidbi.com/harvard-yale-written-goals-study-fact-or-fiction/"
+        },
+        {
+          "cita": "Robbins, A. (1986), Unlimited Power; (1991), Awaken the Giant Within, Simon & Schuster",
+          "url": null
+        },
+        {
+          "cita": "Wikipedia, «Tony Robbins»",
+          "url": "https://en.wikipedia.org/wiki/Tony_Robbins"
+        }
+      ]
+    }
+  ],
+  "matriz": {
+    "practicas": [
+      "Meta escrita",
+      "Repetición diaria",
+      "Visualización",
+      "Gratitud",
+      "Dar",
+      "Grupo de apoyo",
+      "Persistencia",
+      "Servicio"
+    ],
+    "filas": [
+      {
+        "maestro": "James Allen",
+        "marca": [
+          false,
+          false,
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      },
+      {
+        "maestro": "Wallace Wattles",
+        "marca": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "maestro": "Charles Haanel",
+        "marca": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      },
+      {
+        "maestro": "Florence Scovel Shinn",
+        "marca": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          false,
+          true,
+          false
+        ]
+      },
+      {
+        "maestro": "Napoleon Hill",
+        "marca": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "maestro": "Neville Goddard",
+        "marca": [
+          false,
+          true,
+          true,
+          false,
+          false,
+          false,
+          true,
+          false
+        ]
+      },
+      {
+        "maestro": "Earl Nightingale",
+        "marca": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "maestro": "Joseph Murphy",
+        "marca": [
+          false,
+          true,
+          true,
+          true,
+          false,
+          false,
+          true,
+          false
+        ]
+      },
+      {
+        "maestro": "Jim Rohn",
+        "marca": [
+          true,
+          true,
+          false,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "maestro": "Zig Ziglar",
+        "marca": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "maestro": "Bob Proctor",
+        "marca": [
+          true,
+          true,
+          true,
+          true,
+          false,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "maestro": "Brian Tracy",
+        "marca": [
+          true,
+          true,
+          true,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "maestro": "Tony Robbins",
+        "marca": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    ]
+  },
+  "casos": [
+    {
+      "nombre": "Michael Jackson: la nota de 1979",
+      "hecho": "En 1979, con 21 años, escribió para sí mismo en el reverso de un itinerario de gira: «MJ will be my new name». Pedía un personaje y una imagen nuevos. El programa 60 Minutes mostró la nota con acceso a los archivos de su patrimonio.",
+      "leccion": "La nota no pide dinero: define una identidad y un oficio. Tres años después llegó Thriller, tras mucho trabajo.",
+      "etiqueta": "documentado",
+      "fuente": {
+        "cita": "CBS News, 60 Minutes, «MJ's manifesto, penned in 1979»",
+        "url": "https://www.cbsnews.com/news/mjs-manifesto-penned-in-1979"
+      }
+    },
+    {
+      "nombre": "Michael Jackson: activos y deudas",
+      "hecho": "Compró el catálogo ATV en 1985 por unos 47,5 millones de dólares (otras crónicas dicen 41,5). En 2016 Sony pagó 750 millones por su mitad de Sony/ATV. Aun así, según un escrito judicial de su patrimonio, al morir en 2009 debía más de 500 millones.",
+      "leccion": "Ser dueño de activos crea riqueza; gastar más de lo que entra la destruye, por grande que sea la visión.",
+      "etiqueta": "documentado",
+      "fuente": {
+        "cita": "Benzinga (2024), «Michael Jackson Faced Over $500 Million Worth Of Debt At Time Of Death, Filings Show»",
+        "url": "https://www.benzinga.com/general/entertainment/24/06/39565087/michael-jackson-faced-over-500-million-worth-of-debt-at-time-of-death-filings-show"
+      }
+    },
+    {
+      "nombre": "Jim Carrey y el cheque",
+      "hecho": "Contó a Oprah Winfrey en 1997 que se extendió un cheque de 10 millones de dólares «por servicios de actuación», fechado para Acción de Gracias de 1995, y que antes de esa fecha cobró esa cifra por una película. Las crónicas discrepan sobre el año en que lo escribió.",
+      "leccion": "Es su propio relato, sin documento. Llevaba años actuando cada noche: el cheque acompañó al trabajo, no lo sustituyó.",
+      "etiqueta": "anecdota",
+      "fuente": {
+        "cita": "Showbiz Cheat Sheet, «Why Jim Carrey Wrote Himself a $10 Million Check Before He Was Famous»",
+        "url": "https://www.cheatsheet.com/entertainment/why-jim-carrey-wrote-himself-a-10-million-check-before-he-was-famous.html"
+      }
+    },
+    {
+      "nombre": "James Arthur Ray",
+      "hecho": "Narrador de The Secret. En octubre de 2009 murieron tres participantes en un ritual que él dirigía en uno de sus retiros. En 2011 fue condenado por tres cargos de homicidio por negligencia y cumplió dos años de prisión en Arizona.",
+      "leccion": "Desconfía de quien te pide ignorar las señales de tu cuerpo o entregar tu criterio a un líder.",
+      "etiqueta": "documentado",
+      "fuente": {
+        "cita": "Wikipedia, «James Arthur Ray» (con Los Angeles Times, 22 jun. 2011, y The New York Times, 10 ene. 2025)",
+        "url": "https://en.wikipedia.org/wiki/James_Arthur_Ray"
+      }
+    }
+  ],
+  "mitos": [
+    {
+      "afirmacion": "Un estudio de Yale de 1953 (o Harvard de 1979) probó que el 3 % con metas escritas ganó más que el 97 % restante.",
+      "realidad": "Ninguna de las dos universidades ha hallado rastro del estudio. Fast Company lo investigó en 1996: ni Robbins ni Ziglar pudieron dar la fuente, y los graduados de Yale de 1953 consultados no lo recordaban.",
+      "fuente": {
+        "cita": "Harvard Library, Ask a Librarian: sobre el supuesto estudio de metas escritas de Harvard o Yale",
+        "url": "https://ask.library.harvard.edu/faq/82314"
+      }
+    },
+    {
+      "afirmacion": "Andrew Carnegie encargó a Napoleon Hill en 1908 entrevistar a 500 millonarios para hallar la fórmula del éxito.",
+      "realidad": "No hay registro del encuentro fuera de los escritos de Hill, que no lo contó hasta después de morir Carnegie en 1919. El biógrafo David Nasaw no encontró prueba alguna de que se conocieran.",
+      "fuente": {
+        "cita": "Novak, M. (2016), «The Untold Story of Napoleon Hill, the Greatest Self-Help Scammer of All Time», Gizmodo",
+        "url": "https://gizmodo.com/the-untold-story-of-napoleon-hill-the-greatest-self-he-1789385645"
+      }
+    },
+    {
+      "afirmacion": "Jim Rohn dijo: «Eres el promedio de las cinco personas con las que pasas más tiempo».",
+      "realidad": "No se ha localizado grabación ni texto de Rohn con la frase. Quote Investigator documenta atribuciones de terceros, como la de Jack Canfield en un libro de 2005, y versiones de otros autores.",
+      "fuente": {
+        "cita": "Quote Investigator (2022), «You Are the Average of the Five People You Spend the Most Time With»",
+        "url": "https://quoteinvestigator.com/2022/08/08/five-people/"
+      }
+    },
+    {
+      "afirmacion": "Mark Twain aconsejó comerse un sapo vivo cada mañana, como cita Brian Tracy en Eat That Frog!",
+      "realidad": "Quote Investigator no halló prueba de que Twain lo dijera o escribiera; la primera atribución es de 1988 y Twain murió en 1910. La idea aparece antes en autores franceses como Chamfort.",
+      "fuente": {
+        "cita": "Quote Investigator (2013), «Eat a Live Frog Every Morning, and Nothing Worse Will Happen to You the Rest of the Day»",
+        "url": "https://quoteinvestigator.com/2013/04/03/eat-frog/"
+      }
+    },
+    {
+      "afirmacion": "La ley de la atracción de The Secret es una ley científica, como la gravedad.",
+      "realidad": "Es una creencia del Nuevo Pensamiento. Scientific American y otros críticos señalaron que las afirmaciones científicas del libro carecen de fundamento. Describe una tradición, no un mecanismo físico comprobado.",
+      "fuente": {
+        "cita": "Shermer, M. (2007), «The (Other) Secret», Scientific American 296(6), 39. DOI 10.1038/scientificamerican0607-39",
+        "url": "https://doi.org/10.1038/scientificamerican0607-39"
+      }
+    },
+    {
+      "afirmacion": "The Strangest Secret fue el primer disco hablado certificado como disco de oro.",
+      "realidad": "La afirmación procede de la editorial y de textos promocionales. No encontré registro de certificación independiente. Trátalo como dato de marketing: el contenido de la grabación sí está documentado.",
+      "fuente": {
+        "cita": "Wikipedia, «Earl Nightingale»",
+        "url": "https://en.wikipedia.org/wiki/Earl_Nightingale"
+      }
+    }
+  ]
+}

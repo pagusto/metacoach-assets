@@ -1,0 +1,204 @@
+/* ==========================================================================
+   Colores · «Riquezas y colores»
+   Película 4·9 y ficha 2 · nueve muestras · tradiciones 4·9·3·5, investigación 2·7,
+   billetes 8, Zúrich 1·6 · paleta de Shefa 4·9·2.
+   Los colores de las muestras son datos (colores.json) y llegan como estilo en línea;
+   el color del texto que va encima se calcula al compilar. Aquí no hay ningún hex.
+   Usa también las piezas comunes de espacio.css (banda, fuente).
+   ========================================================================== */
+
+/* ---------- Piezas ---------- */
+
+/* Cuadro de color pequeño: una o dos mitades; con contorno para que no se pierda en el fondo */
+.clr-cuadro { display: flex; flex: none; width: 32px; height: 32px; outline: var(--linea) solid var(--trazo); outline-offset: -1px; }
+.clr-cuadro > span { flex: 1; }
+.clr-cuadro-l { width: var(--s-4); height: var(--s-4); }
+.clr-cuadro-sin { outline-style: dashed; }
+.clr-chip { flex: none; width: 16px; height: 16px; outline: var(--linea) solid var(--trazo); outline-offset: -1px; }
+
+/* Marca de verificación: trazo si está cotejado, círculo discontinuo si no */
+.clr-verif { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-00); line-height: var(--lh-00); font-weight: 600; color: var(--texto); white-space: nowrap; }
+.clr-verif svg { flex: none; width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.clr-verif-no { font-weight: 400; color: var(--texto-2); }
+.clr-verif-no circle { stroke-dasharray: 2 1.8; }
+
+.clr-pie { display: grid; gap: var(--s-1); padding-top: var(--s-2); }
+
+/* ---------- 1 · La película ---------- */
+.clr-pal-video .pal-cuerpo { padding-top: var(--s-2); }
+.clr-video {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+  background: var(--filete-suave); outline: var(--linea) solid var(--trazo); outline-offset: -1px;
+}
+@media (max-width: 1279px) {
+  /* En la tira la película llega hasta el marco del palacio */
+  .clr-video { width: calc(100% + 2 * var(--palacio-pad)); max-width: none; margin-inline: calc(-1 * var(--palacio-pad)); }
+}
+.clr-video-falta { max-width: 36rem; padding-block: var(--s-2); color: var(--texto-2); }
+
+.clr-indice { margin-top: var(--s-2); border-top: var(--linea) solid var(--filete); }
+.clr-indice a {
+  display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; column-gap: 12px; align-items: center;
+  min-height: var(--s-4); border-bottom: var(--linea) solid var(--filete-suave);
+  color: var(--texto); text-decoration: none;
+}
+.clr-indice a:hover { color: var(--accion); }
+.clr-indice-n { font-weight: 600; }
+.clr-indice-f { font-size: var(--t-1); color: var(--texto-2); }
+.clr-indice a:hover .clr-indice-f { color: var(--accion); }
+.clr-pal-ficha .pal-pie { padding-top: var(--s-2); }
+
+/* ---------- 2 · Las muestras ---------- */
+.clr-pal .pal-cuerpo { padding-top: var(--s-1); }
+.clr-muestra {
+  display: grid; grid-template-rows: 1fr auto; min-height: 144px;
+  margin-inline: calc(-1 * var(--palacio-pad)); padding: var(--s-2) var(--palacio-pad) 12px;
+  border-block: var(--linea) solid var(--trazo);
+}
+.clr-fecha { align-self: end; display: grid; }
+.clr-fecha-h { font-size: var(--t-0); line-height: var(--lh-00); font-weight: 600; }
+.clr-fecha .cifra { font-size: var(--t-4); line-height: 1; white-space: nowrap; }
+.clr-muestra-pie {
+  display: flex; justify-content: space-between; gap: var(--s-2); margin-top: var(--s-1);
+  font-size: var(--t-00); line-height: var(--lh-00); font-weight: 600;
+}
+.clr-historia { margin-top: var(--s-2); text-wrap: pretty; }
+
+.clr-clave { margin-top: var(--s-2); border-top: var(--linea) solid var(--filete); }
+.clr-clave > div { display: grid; gap: var(--s-1); padding-block: 12px; border-bottom: var(--linea) solid var(--filete-suave); }
+.clr-clave > div:last-child { border-bottom: 0; }
+.clr-clave dd { font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+
+/* ---------- 3 · Tradiciones ---------- */
+.clr-pal-trad .pal-cuerpo { padding-top: var(--s-2); }
+.clr-sistemas { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+.clr-sistema { display: grid; gap: var(--s-1); align-content: start; }
+.clr-sistema h4 { font-size: var(--t-1m); line-height: var(--lh-1m); font-weight: 600; letter-spacing: -0.005em; }
+.clr-sistema-marcas { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) 12px; }
+.clr-tabla { width: 100%; margin-top: var(--s-1); border-top: var(--linea) solid var(--filete); }
+.clr-tabla th, .clr-tabla td {
+  padding: 7px 12px 8px 0; border-bottom: var(--linea) solid var(--filete-suave);
+  text-align: left; vertical-align: middle; font-weight: 400;
+}
+.clr-tabla tbody th { width: 42%; font-weight: 600; white-space: nowrap; }
+.clr-tabla tr > :last-child { padding-right: 0; }
+.clr-tabla-m { width: 44px; }
+.clr-tabla .he { margin-left: var(--s-1); font-size: 1.125rem; color: var(--texto-2); }
+.clr-tabla .han { margin-left: var(--s-1); color: var(--texto-2); }
+.clr-tabla-nota { display: block; font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+.clr-mito { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) 12px; margin-top: var(--s-1); }
+.clr-mito > span:last-child { flex: 1; min-width: 12rem; }
+.clr-sistema > .nota { margin-top: 4px; text-wrap: pretty; }
+.clr-trad-pie { max-width: 44rem; margin-top: var(--s-3); }
+
+/* ---------- 3 · Investigación ---------- */
+.clr-pal-inv .pal-cuerpo { padding-top: var(--s-1); }
+.clr-hallazgos { border-top: var(--linea) solid var(--filete); }
+.clr-hallazgos li { display: grid; gap: var(--s-1); padding-block: 12px var(--s-2); border-bottom: var(--linea) solid var(--filete-suave); }
+.clr-hallazgos p { text-wrap: pretty; }
+.clr-hallazgo-marcas { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+
+.clr-inv-pie { padding-top: var(--s-2); }
+
+/* Gráfico de puntos: un efecto por fila, todos sobre el mismo eje */
+.clr-pal-efecto .pal-cuerpo { padding-top: var(--s-1); }
+.clr-efecto-nota { max-width: 44rem; text-wrap: pretty; }
+.clr-puntos { --cero: 83.3%; margin-top: var(--s-2); border-top: var(--linea) solid var(--filete); }
+.clr-puntos li {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; align-items: baseline;
+  padding-top: var(--s-1);
+}
+.clr-puntos-n { font-size: var(--t-0); line-height: 1.25rem; }
+.clr-puntos-m { color: var(--texto-3); white-space: nowrap; }
+.clr-puntos-v { font-size: var(--t-1); line-height: 1.25rem; }
+.clr-pista { position: relative; grid-column: 1 / -1; height: 20px; margin-top: 2px; border-bottom: var(--linea) solid var(--filete-suave); }
+.clr-pista::after { content: ""; position: absolute; left: var(--cero); top: 0; bottom: 0; width: 1px; background: var(--filete); }
+.clr-punto {
+  position: absolute; top: 3px; z-index: 1; width: 14px; height: 14px; margin-left: -7px;
+  border: 2px solid var(--fondo); border-radius: 50%; background: var(--medida);
+}
+.clr-ic { position: absolute; top: 9px; height: 2px; background: var(--texto); }
+.clr-eje { position: relative; height: var(--lh-0); font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3); }
+.clr-eje span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.clr-eje-nota { max-width: 44rem; text-wrap: pretty; }
+
+.clr-estados { margin-top: var(--s-2); border-top: var(--linea) solid var(--filete); }
+.clr-estados > div { display: grid; gap: 6px; padding-block: 12px; border-bottom: var(--linea) solid var(--filete-suave); }
+.clr-estados > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.clr-estados dd { font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+
+/* ---------- 3 · Billetes ---------- */
+.clr-pal-billetes .pal-cuerpo { padding-top: var(--s-1); }
+.clr-billetes { border-top: var(--linea) solid var(--filete); }
+.clr-billetes li {
+  display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; column-gap: 12px; align-items: center;
+  min-height: 56px; border-bottom: var(--linea) solid var(--filete-suave);
+}
+.clr-billete {
+  display: grid; place-items: center; width: 72px; height: 40px;
+  font-size: var(--t-1m); line-height: 1; outline: var(--linea) solid var(--trazo); outline-offset: -1px;
+}
+.clr-billete-t b { font-weight: 600; }
+
+/* ---------- 3 · Zúrich ---------- */
+.clr-pal-zurich .pal-cuerpo { padding-top: var(--s-1); }
+.clr-zurich { display: grid; grid-template-columns: minmax(0, 1fr); border-top: var(--linea) solid var(--filete); }
+.clr-zurich li {
+  display: grid; grid-template-columns: var(--s-4) minmax(0, 1fr); column-gap: var(--s-2); align-items: start;
+  padding-block: 12px var(--s-2); border-bottom: var(--linea) solid var(--filete-suave);
+}
+.clr-zurich li > div { display: grid; gap: 4px; }
+.clr-zurich h4 { font-weight: 600; text-wrap: balance; }
+.clr-zurich-v { display: flex; flex-wrap: wrap; align-items: center; gap: 4px var(--s-2); }
+.clr-zurich-v .cifra { font-size: var(--t-1m); line-height: var(--lh-0); letter-spacing: 0; }
+.clr-zurich .nota { text-wrap: pretty; }
+.clr-zurich-pie { max-width: 44rem; padding-top: var(--s-2); }
+
+/* ---------- 4 · La paleta de Shefa ---------- */
+.clr-pal-paleta .pal-cuerpo { padding-top: var(--s-1); }
+.clr-paleta { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+.clr-paleta li { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; padding-top: 12px; border-top: var(--linea) solid var(--filete); }
+.clr-paleta h4 { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 600; letter-spacing: -0.01em; }
+.clr-paleta h4 .han { margin-right: 4px; font-size: var(--t-1m); }
+.clr-paleta-n { font-weight: 600; }
+.clr-paleta-p { color: var(--texto-2); font-size: var(--t-0); line-height: var(--lh-0); text-wrap: pretty; }
+.clr-temas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-1); margin-top: 12px; }
+.clr-tema {
+  display: grid; align-content: start; padding: 0 12px 12px;
+  outline: var(--linea) solid var(--trazo); outline-offset: -1px;
+  font-size: var(--t-00); line-height: 1.25rem;
+}
+.clr-tema-c { height: var(--s-4); margin: 0 -12px var(--s-1); border-bottom: var(--linea) solid currentColor; }
+.clr-tema-h { font-size: var(--t-1m); line-height: var(--lh-1m); letter-spacing: 0; }
+.clr-paleta-pie { max-width: 44rem; padding-top: var(--s-3); }
+
+/* ---------- Tableta ---------- */
+@media (min-width: 560px) and (max-width: 1279px) {
+  .clr-sistemas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-3); }
+}
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 1280px) {
+  .clr-muestra { min-height: 192px; padding-top: var(--s-3); padding-bottom: var(--s-2); }
+  .clr-fecha .cifra { font-size: var(--t-5); }
+  .clr-fecha-h { font-size: var(--t-1); line-height: var(--lh-1); }
+
+  /* Dos columnas que coinciden con las del cuadrado: 384 + 48 + 384 */
+  .clr-sistemas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--s-4); }
+  .clr-zurich { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-4); border-top: 0; }
+  .clr-zurich li { border-bottom: 0; border-top: var(--linea) solid var(--filete-suave); }
+  .clr-zurich li:nth-child(-n+2) { border-top-color: var(--filete); }
+
+  /* El gráfico: rótulo en la primera columna del cuadrado, pista en la segunda */
+  .clr-puntos li { grid-template-columns: calc((100% - var(--s-4)) / 2) minmax(0, 1fr) 56px; column-gap: 0; align-items: center; padding-block: 6px; border-bottom: var(--linea) solid var(--filete-suave); }
+  .clr-puntos-n { padding-right: var(--s-4); }
+  .clr-puntos-v { grid-column: 3; grid-row: 1; text-align: right; }
+  .clr-pista { grid-column: 2; grid-row: 1; margin-top: 0; border-bottom: 0; }
+  .clr-pista::before { content: ""; position: absolute; left: 0; right: 0; top: 10px; height: 1px; background: var(--filete-suave); }
+  .clr-eje-fila { display: grid; grid-template-columns: calc((100% - var(--s-4)) / 2) minmax(0, 1fr) 56px; }
+  .clr-eje { grid-column: 2; }
+
+  .clr-paleta { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-4); }
+  .clr-paleta-p { min-height: calc(3 * var(--lh-0)); }
+  .clr-temas { grid-template-columns: minmax(0, 1fr); }
+}

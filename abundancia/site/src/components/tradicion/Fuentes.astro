@@ -1,0 +1,19 @@
+---
+// Fuentes: la lista de fuentes de una página, numerada y en columnas.
+//   <Fuentes fuentes={cabala.fuentes} />
+import Fuente from './Fuente.astro';
+import { dosCifras } from '../../lib/tradicion';
+
+interface Props {
+  fuentes: { cita: string; url: string | null }[];
+}
+const { fuentes } = Astro.props;
+---
+<ol class="tr-fuentes tr-cols-3">
+  {fuentes.map((f, i) => (
+    <li>
+      <span class="tr-fuentes-n cifra" aria-hidden="true">{dosCifras(i + 1)}</span>
+      <Fuente fuente={f} />
+    </li>
+  ))}
+</ol>

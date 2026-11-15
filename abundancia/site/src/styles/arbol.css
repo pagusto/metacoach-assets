@@ -1,0 +1,229 @@
+/* ==========================================================================
+   Árbol · el tablero dentro del mismo cuadrado
+   Árbol: palacios 4·9·3·5 · Detalle: 2·7 · Libro de fuentes: 8·1 · Medidor: 6
+   ========================================================================== */
+
+.a-arbol .pal-cuerpo { padding-top: 0; }
+
+/* ---------- El Árbol ---------- */
+.arbol {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 5;
+  margin-block: var(--s-3) var(--s-2);
+}
+/* En pantallas muy estrechas el marco se alarga para que los rótulos no se pisen */
+@media (max-width: 359px) { .arbol { aspect-ratio: 10 / 21; } }
+.senderos { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.senderos line { stroke: var(--filete); stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+.sef { position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); }
+.nodo {
+  position: absolute; left: calc(var(--nodo) / -2); top: calc(var(--nodo) / -2);
+  display: grid; place-items: center;
+  width: var(--nodo); height: var(--nodo);
+  padding: 0; border: 0; border-radius: 50%; background: none; color: var(--texto);
+  cursor: pointer;
+}
+.nodo svg { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; }
+.nodo .disco { fill: var(--fondo); stroke: var(--filete); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.nodo .arco { fill: none; stroke: var(--medida); stroke-width: 5; }
+.nodo-v { position: relative; z-index: 2; font-size: 0.9375rem; line-height: 1; white-space: nowrap; }
+.nodo-v.largo { font-size: 0.75rem; }
+.nodo:hover .disco { stroke: var(--accion); stroke-width: 2.5; }
+/* El sello: cielo redondo dentro de tierra cuadrada. Solo el nodo elegido. */
+.nodo[aria-pressed="true"]::before {
+  content: ""; position: absolute; inset: -6px; z-index: 0; background: var(--sello);
+}
+.nodo[aria-pressed="true"]:hover .disco { stroke: var(--filete); stroke-width: 1.5; }
+.nodo[aria-pressed="true"]:focus-visible { outline: none; }
+.nodo[aria-pressed="true"]:focus-visible::before { outline: var(--foco); outline-offset: 2px; }
+
+.rot {
+  position: absolute; z-index: 1;
+  font-size: var(--t-00); line-height: var(--lh-00);
+  color: var(--texto-2);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.rot b { font-weight: 700; color: var(--texto); }
+.rot .he { color: var(--texto-2); }
+.rot-c, .rot-m { display: none; }
+/* Móvil: nombre bajo el nodo en los pilares laterales, a la derecha en el central */
+.izq .rot, .der .rot {
+  left: -56px; width: 112px; top: calc(var(--nodo) / 2 - 1px);
+  text-align: center;
+}
+.izq .rot span.fondo, .der .rot span.fondo { display: inline-block; background: var(--fondo); padding: 4px 4px 0; }
+.cen .rot { left: calc(var(--nodo) / 2 + 8px); top: var(--dy-movil, -8px); }
+.cen .rot .he { display: block; }
+
+.al-detalle { margin-bottom: var(--s-2); font-size: var(--t-0); line-height: var(--lh-0); }
+
+/* Índice de las diez sefirot (solo en la tira; en escritorio lo dicen los rótulos) */
+.indice { width: 100%; border-top: var(--linea) solid var(--filete); }
+.indice th, .indice td { padding: 12px 0; border-bottom: var(--linea) solid var(--filete-suave); text-align: left; vertical-align: top; }
+.indice th { width: 42%; padding-right: var(--s-2); font-weight: 400; }
+.indice th b { font-weight: 700; }
+.indice th .he { color: var(--texto-2); }
+.indice th span.cual { display: block; color: var(--texto-2); }
+
+.arbol-nota { max-width: 36rem; margin-top: var(--s-3); font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.arbol-nota .rotulo { margin-bottom: 4px; }
+
+/* ---------- Detalle ---------- */
+.a-det .pal-cuerpo { padding-top: 0; }
+.det-titulo { padding-top: var(--s-2); }
+.det-titulo h3 { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: var(--s-2); font-size: var(--t-4); line-height: var(--lh-4); font-weight: 700; letter-spacing: -0.025em; }
+.det-titulo h3 .he { font-size: var(--t-3); font-weight: 500; color: var(--texto-2); }
+.det-titulo p { font-size: var(--t-2); line-height: var(--lh-2); }
+.det-titulo p.rotulo { margin-top: 4px; font-size: var(--t-00); line-height: var(--lh-00); }
+
+.det-sec { margin-top: var(--s-2); padding-top: 12px; border-top: var(--linea) solid var(--filete-suave); }
+.det-sec:first-of-type { margin-top: var(--s-3); border-top-color: var(--filete); }
+.det-sec h4 { margin-bottom: var(--s-1); font-size: var(--t-00); line-height: var(--lh-00); font-weight: 400; color: var(--texto-3); }
+.det-sec > p { text-wrap: pretty; }
+
+.det-cifra { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: var(--s-2); }
+.det-cifra .fig-l { font-size: var(--t-5); line-height: var(--lh-5); white-space: nowrap; }
+.det-regla { margin-top: var(--s-1); }
+
+.control { margin-top: var(--s-2); }
+.control .lista-ed { margin-top: var(--s-2); }
+.control > .rotulo { margin-top: var(--s-1); }
+.sin-salto { flex-wrap: nowrap; }
+.sin-salto input:not(.entrada-cifra) { flex: 1; }
+.empuja { margin-left: auto; }
+.campo-fila .campo-estado { min-height: 0; }
+
+.desglose li {
+  display: grid; grid-template-columns: minmax(0, 11fr) minmax(0, 7fr) 3ch; column-gap: 12px; align-items: center;
+  min-height: 32px; border-bottom: var(--linea) solid var(--filete-suave);
+  font-size: var(--t-0); line-height: var(--lh-0);
+}
+.desglose li:first-child { border-top: var(--linea) solid var(--filete); }
+.desglose .cifra { text-align: right; font-size: var(--t-1); }
+.desglose .regla { display: block; }
+
+/* ---------- Libro de fuentes de ingreso ---------- */
+.libro table { width: 100%; border-top: var(--linea) solid var(--filete); }
+.libro thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.libro tbody tr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas: "fuente monto" "tipo estado" "accion accion" "quitar quitar";
+  column-gap: 12px;
+  padding-block: 12px;
+  border-bottom: var(--linea) solid var(--filete-suave);
+}
+.libro td, .libro tbody th { padding: 0; text-align: left; font-weight: 400; min-width: 0; }
+.libro .c-fuente { grid-area: fuente; }
+.libro .c-tipo { grid-area: tipo; }
+.libro .c-estado { grid-area: estado; }
+.libro tbody .c-monto { grid-area: monto; align-self: start; }
+.libro .c-accion { grid-area: accion; margin-top: var(--s-1); }
+.libro .c-accion::before { content: "Próxima acción"; display: block; font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+.libro .c-quitar { grid-area: quitar; margin-top: 4px; font-size: var(--t-0); }
+.libro .lista-vacia { border-bottom: var(--linea) solid var(--filete-suave); padding-block: var(--s-2); }
+.libro-pie { margin-top: var(--s-2); }
+
+/* Celda editable: se lee como texto; el filete azul aparece al pasar o al entrar */
+.celda {
+  display: block; width: 100%; min-width: 0; min-height: 40px; margin: 0; padding: 7px 0;
+  border: 0; border-bottom: 1.5px solid transparent; background: none; color: var(--texto);
+  font-size: var(--t-1); line-height: var(--lh-1);
+}
+.celda:hover { border-bottom-color: var(--accion); }
+.celda:focus-visible { outline-offset: 2px; border-bottom-color: transparent; }
+.celda::placeholder { color: var(--texto-3); opacity: 1; }
+textarea.celda { resize: none; overflow: hidden; field-sizing: content; }
+select.celda { appearance: none; -webkit-appearance: none; padding-right: 22px; cursor: pointer; text-overflow: ellipsis; }
+.libro .selector::after { right: 4px; width: 6px; height: 6px; border-width: 1.5px; color: var(--texto-2); }
+.libro .c-fuente .celda { font-weight: 700; }
+.libro .c-tipo .celda, .libro .c-estado .celda { color: var(--texto-2); }
+.libro .c-monto .celda {
+  min-height: var(--s-4); padding: 0; text-align: right;
+  font-size: min(var(--t-3), calc(200px / var(--n, 5))); line-height: var(--s-4);
+}
+.libro .estado { display: flex; }
+.libro .estado .selector { flex: 1; }
+.confirma { display: grid; gap: var(--s-1); padding-block: 7px; }
+.quitando .c-accion::before { content: none; }
+
+/* ---------- Medidor de meta ---------- */
+.meta .dato { display: flex; flex-direction: column; align-items: flex-start; }
+.meta .fig-l { font-size: var(--t-4); line-height: var(--lh-4); }
+.meta .dato-nota { color: var(--texto-2); }
+.meta .pal-graf { position: absolute; right: var(--palacio-pad); bottom: var(--palacio-pad); width: 48%; }
+.meta-pct { position: absolute; left: var(--palacio-pad); bottom: var(--palacio-pad); }
+.meta-pct .cifra { display: block; font-size: var(--t-3); line-height: var(--lh-3); }
+
+/* ---------- Tus datos ---------- */
+.datos-ctl {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2);
+  margin-top: var(--s-3); padding-block: var(--s-2);
+  border-block: var(--linea) solid var(--filete-suave);
+}
+.datos-ctl h2 { font-size: var(--t-0); line-height: var(--lh-0); font-weight: 600; }
+.datos-botones { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.importar { cursor: pointer; }
+.importar:focus-within { outline: var(--foco); outline-offset: 2px; }
+.datos-confirma { display: grid; gap: var(--s-1); }
+.datos-ctl .campo-estado { min-height: 0; font-size: var(--t-0); line-height: var(--lh-0); }
+.datos-ctl .campo-estado:empty { display: none; }
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 1280px) {
+  /* Marco del Árbol: 576 × 720 en el cuadrado completo; se estrecha con él.
+     --lado es la columna de rótulos que queda a cada lado de los pilares. */
+  .arbol {
+    --fw: min(576px, 100cqi - 200px);
+    --lado: calc((100cqi - var(--fw)) / 2 + var(--fw) * 0.18 - var(--nodo) / 2 - 20px);
+    width: var(--fw); height: 720px; aspect-ratio: auto; margin: var(--s-3) auto 0;
+  }
+  .nodo-v { font-size: 1.375rem; }
+  .nodo-v.largo { font-size: 1.0625rem; }
+  .nodo[aria-pressed="true"]::before { inset: -8px; }
+  .indice, .al-detalle { display: none; }
+
+  .arbol .rot { width: var(--lado); top: calc(var(--nodo) / -2 + var(--dy, 8px)); white-space: normal; text-align: left; }
+  .arbol .rot b, .arbol .rot .he { font-size: var(--t-1); line-height: var(--lh-1); }
+  .arbol .rot-c, .arbol .rot-m { display: block; }
+  .arbol .rot-c { color: var(--texto); }
+  .arbol .rot-m { text-wrap: balance; }
+  .arbol .rot span.fondo { display: inline; background: none; padding: 0; }
+  .arbol .cen .rot .he { display: inline; }
+  .arbol .der .rot { left: calc(var(--nodo) / 2 + 20px); }
+  .arbol .cen .rot { left: calc(var(--nodo) / 2 + 24px); width: 224px; }
+  .arbol .izq .rot { left: auto; right: calc(var(--nodo) / 2 + 20px); }
+
+  .det-titulo { padding-top: var(--s-3); }
+
+  .libro thead { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+  .libro table { table-layout: fixed; border-top: 0; }
+  .libro col.c1 { width: 20%; } .libro col.c2 { width: 16%; } .libro col.c3 { width: 20%; }
+  .libro col.c4 { width: 12%; } .libro col.c5 { width: 25%; } .libro col.c6 { width: 7%; }
+  .libro thead th {
+    height: 47px; padding: 0 var(--s-2) var(--s-1) 0; vertical-align: bottom;
+    border-bottom: var(--linea) solid var(--filete);
+    font-size: var(--t-00); line-height: var(--lh-00); font-weight: 400; color: var(--texto-3); text-align: left;
+  }
+  .libro tbody tr { display: table-row; }
+  .libro tbody td, .libro tbody th {
+    display: table-cell; height: 71px; margin: 0; padding: 7px var(--s-2) 7px 0; vertical-align: top;
+    border-bottom: var(--linea) solid var(--filete-suave);
+  }
+  .libro .c-monto, .libro thead .c-monto { padding-right: 0; text-align: right; }
+  .libro tbody .c-monto { padding-top: 3px; }
+  .libro .c-accion, .libro thead .c-accion { padding-left: var(--s-3); padding-right: var(--s-1); }
+  .libro .c-accion::before { content: none; }
+  .libro tbody .c-quitar { padding: 15px 0 0; text-align: right; }
+  .libro .c-tipo .celda, .libro .c-estado .celda { color: var(--texto); }
+  .libro .lista-vacia { border-bottom: 0; }
+
+  .meta .fig-l { font-size: var(--t-5); line-height: var(--lh-5); }
+  .meta .pal-graf { width: min(240px, 62cqi); }
+
+  .datos-ctl { grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--s-4); }
+  .datos-confirma, .datos-ctl .campo-estado { grid-column: 1 / -1; }
+}

@@ -1,0 +1,206 @@
+---
+// Agentes: el equipo en el cuadrado (cada columna, un pilar: arriba su director, debajo sus
+// especialistas), cómo usarlo en tu equipo, los comandos, la nutrición diaria y el diario
+// de conocimiento (src/content/diario/*.md).
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import Moneda from '../components/Moneda.astro';
+import Agente from '../components/videoteca/Agente.astro';
+import Copiar from '../components/videoteca/Copiar.astro';
+import EntradaDiario from '../components/videoteca/EntradaDiario.astro';
+import '../styles/videoteca-agentes.css';
+
+import datos from '../data/agentes.json';
+import { fmt } from '../lib/store';
+import { fino } from '../lib/formato';
+import { leerDiario } from '../lib/videoteca-diario';
+
+// ---------- El equipo ----------
+type AgenteDato = (typeof datos.agentes)[number];
+const agentes: AgenteDato[] = datos.agentes ?? [];
+const directores = agentes.filter((a) => a.tipo === 'director');
+const especialistas = agentes.filter((a) => a.tipo !== 'director');
+
+// Cada pilar ocupa una columna del cuadrado: arriba (4 · 9 · 2) el pilar y su director;
+// debajo, sus especialistas. La columna con menos especialistas cede su último palacio
+// (8 · 1 · 6) al resumen del equipo.
+const ARRIBA = [4, 9, 2];
+const MEDIO = [3, 5, 7];
+const ABAJO = [8, 1, 6];
+const ORDINAL = ['Primer', 'Segundo', 'Tercer'];
+const pilares = (datos.pilares ?? []).slice(0, 3).map((p, i) => ({
+  ...p,
+  i,
+  jefe: agentes.find((a) => a.id === p.director) ?? directores.find((a) => a.pilar === p.id) ?? null,
+  equipo: especialistas.filter((a) => a.pilar === p.id),
+}));
+const menor = pilares.reduce((m, p) => (p.equipo.length < pilares[m].equipo.length ? p.i : m), 0);
+const sinPilar = agentes.filter((a) => !pilares.some((p) => p.id === a.pilar));
+
+// ---------- Comandos y uso en el equipo propio ----------
+const comandos = datos.comandos ?? [];
+const REPOSITORIO = 'https://github.com/pagusto/metacoach-assets';
+const CARPETA = 'metacoach-assets';
+const consejo = comandos.find((c) => c.comando === '/consejo-abundancia');
+const llamada = consejo?.ejemplo ?? '/consejo-abundancia';
+
+// ---------- Nutrición y diario ----------
+const nutricion = datos.nutricion ?? null;
+const mayuscula = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const diario = await leerDiario(import.meta.glob('../content/diario/*.md', { eager: true }));
+const RECIENTES = 10;
+const recientes = diario.slice(0, RECIENTES);
+const anteriores = diario.slice(RECIENTES);
+const plural = (n: number, uno: string, varios: string) => `${fmt(n)} ${n === 1 ? uno : varios}`;
+---
+<Base title="Agentes" description="El equipo de agentes de Shefa: tres directores y sus especialistas, los comandos para llamarlos desde Claude Code, la nutrición diaria y el diario de conocimiento.">
+  <TituloPagina titulo="Agentes" nota={datos.resumen} />
+
+  <Cuadrado clase="ag-pag">
+    {pilares.map((p) => (
+      <>
+        <Palacio n={ARRIBA[p.i]} titulo={`${ORDINAL[p.i]} pilar`} etiqueta={`${p.i + 1} de ${pilares.length}`} id={`pilar-${p.id}`} clase="ag-pilar">
+          <p class="voz">{p.nombre}</p>
+          <p class="ag-pilar-d">{fino(p.descripcion)}</p>
+          {p.jefe && (
+            <div slot="pie" class="ag-jefe">
+              <p class="rotulo">Dirige</p>
+              <Agente agente={p.jefe} />
+            </div>
+          )}
+        </Palacio>
+        <Palacio
+          n={MEDIO[p.i]} celdas={p.i === menor ? [MEDIO[p.i]] : [MEDIO[p.i], ABAJO[p.i]]}
+          titulo={`Especialistas de ${p.nombre.toLowerCase()}`} etiqueta={plural(p.equipo.length, 'agente', 'agentes')} clase="ag-equipo"
+        >
+          {p.equipo.length > 0
+            ? <ul class="ag-lista">{p.equipo.map((a) => <li><Agente agente={a} /></li>)}</ul>
+            : <p class="lista-vacia">Este pilar aún no tiene especialistas.</p>}
+        </Palacio>
+      </>
+    ))}
+
+    <Palacio n={ABAJO[menor] ?? 1} titulo="El equipo en cifras" etiqueta="Resumen" forma="libre" clase="ag-cifras">
+      <p><span class="cifra fig-xl" style="--n:3">{fmt(agentes.length)}</span></p>
+      <p class="ag-unidad">agentes</p>
+      <div slot="pie" class="pila">
+        <dl class="ag-pares">
+          <div class="pares"><dt>Directores, uno por pilar</dt><dd class="cifra">{fmt(directores.length)}</dd></div>
+          <div class="pares"><dt>Especialistas</dt><dd class="cifra">{fmt(especialistas.length)}</dd></div>
+          <div class="pares"><dt><a href="#comandos">Comandos</a></dt><dd class="cifra">{fmt(comandos.length)}</dd></div>
+          <div class="pares"><dt><a href="#diario">Entradas del diario</a></dt><dd class="cifra">{fmt(diario.length)}</dd></div>
+        </dl>
+        <p class="rotulo">Cada columna es un pilar: arriba, quien lo dirige; debajo, sus especialistas.</p>
+      </div>
+    </Palacio>
+  </Cuadrado>
+
+  {sinPilar.length > 0 && (
+    <section class="ag-sec" aria-labelledby="h-otros">
+      <header class="ag-sec-cab"><h2 id="h-otros">Otros agentes</h2></header>
+      <ul class="ag-lista ag-otros">{sinPilar.map((a) => <li><Agente agente={a} /></li>)}</ul>
+    </section>
+  )}
+
+  <div class="ag-dos">
+    <section class="ag-sec ag-pc" id="pc" aria-labelledby="h-pc">
+      <header class="ag-sec-cab"><h2 id="h-pc">Úsalo en tu PC</h2></header>
+      <ol class="ag-pasos">
+        <li>
+          <p>Clona el repositorio.</p>
+          <Copiar texto={`git clone ${REPOSITORIO}`} nombre="el comando para clonar el repositorio" larga />
+        </li>
+        <li>
+          <p>Entra en la carpeta y abre Claude Code.</p>
+          <Copiar texto={`cd ${CARPETA}`} />
+          <Copiar texto="claude" />
+        </li>
+        <li>
+          <p>Llama al consejo con tu pregunta.</p>
+          <Copiar texto={llamada} />
+        </li>
+      </ol>
+      <p class="nota">Los agentes viven en el repositorio y responden dentro de Claude Code, que al abrir la carpeta carga los agentes de <code>.claude/agents</code> y los comandos de <code>.claude/skills</code>.</p>
+    </section>
+
+    <section class="ag-sec ag-com" id="comandos" aria-labelledby="h-comandos">
+      <header class="ag-sec-cab">
+        <h2 id="h-comandos">Comandos</h2>
+        <p class="ag-sec-n">{plural(comandos.length, 'comando', 'comandos')}</p>
+      </header>
+      {comandos.length > 0 ? (
+        <ul class="ag-comandos">
+          {comandos.map((c) => (
+            <li>
+              <Copiar texto={c.comando} />
+              <div>
+                <p>{fino(c.descripcion)}</p>
+                {c.ejemplo && c.ejemplo !== c.comando && <p class="ag-ejemplo"><span class="rotulo">Ejemplo</span> <code>{c.ejemplo}</code></p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : <p class="lista-vacia">Aún no hay comandos.</p>}
+    </section>
+  </div>
+
+  {nutricion && (
+    <section class="ag-sec ag-nutre" id="nutricion" aria-labelledby="h-nutricion">
+      <header class="ag-sec-cab"><h2 id="h-nutricion">Nutrición diaria</h2></header>
+      <div class="ag-nutre-c">
+        <dl class="ag-nutre-d">
+          {nutricion.cuando && <div><dt class="rotulo">Cuándo</dt><dd class="voz-m">{mayuscula(nutricion.cuando)}</dd></div>}
+          {nutricion.donde && <div><dt class="rotulo">Cómo llega</dt><dd>{fino(nutricion.donde)}</dd></div>}
+        </dl>
+        <ol class="ag-nutre-l">
+          {(nutricion.que_hace ?? []).map((paso, i) => (
+            <li><span class="cifra" aria-hidden="true">{i + 1}</span><span>{fino(paso)}</span></li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class="ag-sec ag-diario" id="diario" aria-labelledby="h-diario">
+    <header class="ag-sec-cab">
+      <h2 id="h-diario">Diario de conocimiento</h2>
+      <p class="ag-sec-n">{diario.length ? plural(diario.length, 'entrada', 'entradas') : 'Sin entradas'}</p>
+    </header>
+
+    {diario.length === 0 && (
+      <div class="ag-vacio">
+        <div class="pila">
+          <p class="voz-m">El diario aún está en blanco.</p>
+          <p class="texto-2">La primera entrada llega con la próxima nutrición diaria. También puedes pedirla ahora en Claude Code:</p>
+          <Copiar texto="/nutrir" />
+        </div>
+        <ul class="ag-vacio-l" aria-label="Lo que traerá cada entrada">
+          {pilares.map((p) => (
+            <li>
+              <Moneda estado="idea" />
+              <p class="medio">{p.nombre}</p>
+              <p class="rotulo">Un hallazgo con su etiqueta de evidencia y su fuente.</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {recientes.map((e) => <EntradaDiario entrada={e} />)}
+
+    {anteriores.length > 0 && (
+      <details class="ag-antes">
+        <summary>Entradas anteriores ({fmt(anteriores.length)})</summary>
+        {anteriores.map((e) => <EntradaDiario entrada={e} />)}
+      </details>
+    )}
+  </section>
+</Base>
+
+<script>
+  import { iniciarCopiar } from '../lib/videoteca-copiar';
+  iniciarCopiar();
+  document.documentElement.classList.add('listo');
+</script>

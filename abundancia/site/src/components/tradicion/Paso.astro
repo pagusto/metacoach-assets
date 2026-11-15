@@ -1,0 +1,27 @@
+---
+// Paso: al pie de cada página de Tradición, la anterior y la siguiente de la sección.
+//   <Paso actual="cabala" />
+import { PAGINAS } from '../../lib/tradicion';
+import { ruta } from '../../lib/ruta';
+
+interface Props {
+  /** id de la página actual. */
+  actual: string;
+}
+const { actual } = Astro.props;
+const i = PAGINAS.findIndex((p) => p.id === actual);
+const antes = i > 0 ? PAGINAS[i - 1] : null;
+const despues = i >= 0 && i < PAGINAS.length - 1 ? PAGINAS[i + 1] : null;
+---
+<nav class="tr-paso" aria-label="Otras páginas de Tradición">
+  <p class="tr-paso-antes">
+    {antes
+      ? <><span class="rotulo">Anterior</span><a href={ruta(antes.href)}>{antes.titulo}</a></>
+      : <><span class="rotulo">Sección</span><a href={ruta('/tradicion')}>Tradición</a></>}
+  </p>
+  <p class="tr-paso-despues">
+    {despues
+      ? <><span class="rotulo">Siguiente</span><a href={ruta(despues.href)}>{despues.titulo}</a></>
+      : <><span class="rotulo">Sección</span><a href={ruta('/tradicion')}>Tradición</a></>}
+  </p>
+</nav>

@@ -1,0 +1,364 @@
+---
+// Ritual: la práctica diaria guiada. La sesión (mañana o noche) ocupa los palacios 4·9·3·5,
+// un paso cada vez; la lista de pasos, el 2; la constancia, el 7; la revisión semanal, 8·1·6.
+// El estado sale del store; las notas del día y de la semana, de src/lib/ritual.ts.
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import Moneda from '../components/Moneda.astro';
+import Medidor from '../components/Medidor.astro';
+import Etiqueta from '../components/Etiqueta.astro';
+import AvisoMuestra from '../components/AvisoMuestra.astro';
+import Panel from '../components/ritual/Panel.astro';
+import Porque from '../components/ritual/Porque.astro';
+import '../styles/ritual.css';
+
+import practicas from '../data/practicas.json';
+import { METAS, PASOS_RITUAL, estadoInicial, ingresoReal, fmt, claveDia } from '../lib/store';
+import { fechaLarga, frases, pct } from '../lib/formato';
+import { ruta } from '../lib/ruta';
+import { MIN_BLOQUE, MIN_VISUALIZAR, RESPIRA, SESIONES, reloj, type SesionId } from '../lib/ritual';
+
+// Se construye con los datos de muestra; el cliente repinta con el estado guardado.
+const hoy = new Date();
+const s = estadoInicial();
+const total = ingresoReal(s);
+const sugerido = (total * METAS.donado) / 100;
+
+const practica = (id: string) => practicas.practicas.find((p) => p.id === id);
+const ORDEN: SesionId[] = ['manana', 'noche'];
+const woop = practica('woop');
+const meta = practica('meta-especifica');
+const segundosRespira = RESPIRA.ciclos * (RESPIRA.inhala + RESPIRA.exhala);
+---
+<Base title="Ritual" description="El ritual diario de Shefa, paso a paso: respirar, leer la declaración, visualizar el proceso, el plan si-entonces, dar primero y un bloque de 90 minutos. Con cierre de noche y revisión semanal.">
+  <TituloPagina titulo="Ritual">
+    Mañana, unos 12 minutos. Noche, unos 3. Una revisión cada semana.
+    <span class="rt-fecha">Sesión del <time class="vivo" datetime={claveDia(hoy)} data-fecha>{fechaLarga(hoy)}</time></span>
+  </TituloPagina>
+
+  <AvisoMuestra />
+
+  <Cuadrado clase="rt vivo">
+    <!-- Palacios 4 · 9 · 3 · 5: la sesión, un paso cada vez -->
+    <Palacio n={4} celdas={[4, 9, 3, 5]} titulo="Sesión guiada" etiqueta="Mañana" id="sesion" clase="rt-escena">
+      <div class="rt-sesiones" role="group" aria-label="Elegir sesión">
+        {ORDEN.map((id) => (
+          <button class="rt-sesion" type="button" data-sesion={id} aria-pressed={id === 'manana' ? 'true' : 'false'}>
+            <span class="rt-sesion-n">{SESIONES[id].nombre}</span>
+            <span class="rt-sesion-d">{SESIONES[id].duracion}</span>
+          </button>
+        ))}
+      </div>
+
+      <!-- Mañana 1 · Respirar -->
+      <Panel sesion="manana" i={0} clase="rt-dos">
+        <div class="rt-moneda-caja">
+          <svg class="rt-guia" viewBox="0 0 240 240" aria-hidden="true"><circle cx="120" cy="120" r="119.25" /></svg>
+          <div class="rt-moneda" data-v="respira-moneda"><Moneda valor={0} /></div>
+        </div>
+        <div class="pila">
+          <p class="rt-senal" role="status" data-v="respira-senal">Inhala</p>
+          <p class="rt-contador">
+            <span class="cifra" data-v="respira-seg" aria-hidden="true">{RESPIRA.inhala}</span>
+            <span data-v="respira-ciclo">Ciclo 1 de {RESPIRA.ciclos}</span>
+          </p>
+          <p class="nota rt-con-mov">Inhala {RESPIRA.inhala} segundos mientras la moneda se abre. Exhala {RESPIRA.exhala} mientras se cierra. {RESPIRA.ciclos} ciclos, {segundosRespira} segundos.</p>
+          <p class="nota rt-sin-mov">Inhala {RESPIRA.inhala} segundos y exhala {RESPIRA.exhala}, siguiendo la palabra y la cuenta. {RESPIRA.ciclos} ciclos, {segundosRespira} segundos.</p>
+          <p><button class="boton-2" type="button" data-v="respira-boton">Empezar</button></p>
+        </div>
+      </Panel>
+
+      <!-- Mañana 2 · Declaración -->
+      <Panel sesion="manana" i={1}>
+        <p class="rt-decl" data-v="declaracion">{frases(s.declaracion).map((f) => <span>{f}</span>)}</p>
+        <p class="nota">Léela en voz alta y despacio. Una frase, una respiración.</p>
+        <p><a href={ruta('/arbol#keter')}>Editar la declaración en el Árbol</a></p>
+      </Panel>
+
+      <!-- Mañana 3 · Visualizar el proceso de hoy -->
+      <Panel sesion="manana" i={2} clase="rt-dos">
+        <div class="pila">
+          <div class="campo">
+            <label for="rt-accion">La acción de hoy que acerca el ingreso</label>
+            <textarea id="rt-accion" rows="2" maxlength="160" placeholder="Una sola y con verbo: llamar, enviar, terminar" data-nota="accion"></textarea>
+          </div>
+          <p class="nota">Cierra los ojos y recorre esa acción de principio a fin: dónde te sientas, qué abres, qué dices primero. Mira el trabajo, no el premio.</p>
+        </div>
+        <div class="rt-reloj">
+          <p class="cifra rt-reloj-t" role="timer" data-v="vis-tiempo">{reloj(MIN_VISUALIZAR * 60)}</p>
+          <div data-v="vis-regla"><Medidor valor={0} etiqueta="Tiempo transcurrido: 0 %" desde="0" hasta={`${MIN_VISUALIZAR} min`} /></div>
+          <p class="campo-fila">
+            <button class="boton-2" type="button" data-v="vis-boton">Empezar</button>
+            <button class="boton-texto" type="button" data-v="vis-reiniciar" hidden>Reiniciar</button>
+          </p>
+          <p class="campo-estado" role="status" data-v="vis-estado"></p>
+        </div>
+      </Panel>
+
+      <!-- Mañana 4 · Obstáculo y plan -->
+      <Panel sesion="manana" i={3}>
+        <div class="rt-par">
+          <div class="campo">
+            <label for="rt-si">Si…</label>
+            <textarea id="rt-si" rows="2" maxlength="200" placeholder="me dan ganas de aplazar la llamada" data-woop="obstaculo" aria-describedby="rt-si-n"></textarea>
+            <p class="rotulo" id="rt-si-n">El obstáculo interno más probable de hoy.</p>
+          </div>
+          <div class="campo">
+            <label for="rt-entonces">entonces…</label>
+            <textarea id="rt-entonces" rows="2" maxlength="200" placeholder="marco el número antes de abrir el correo" data-woop="plan" aria-describedby="rt-entonces-n"></textarea>
+            <p class="rotulo" id="rt-entonces-n">Lo que harás en cuanto aparezca.</p>
+          </div>
+        </div>
+        <div class="rt-lectura">
+          <p class="rotulo">Tu plan, para leerlo una vez</p>
+          <p class="voz rt-frase" data-v="frase-plan"><span class="rt-vacia">Escribe las dos partes y aquí se compone la frase.</span></p>
+        </div>
+      </Panel>
+
+      <!-- Mañana 5 · Dar primero -->
+      <Panel sesion="manana" i={4} clase="rt-dos">
+        <div class="pila">
+          <p class="rt-dato">
+            <span class="cifra fig-xl" data-v="dar-cifra" style={`--n:${Math.max(4, fmt(sugerido).length)}`}>{fmt(sugerido)}</span>
+            <span class="rt-dato-n" data-v="dar-nota">el {pct(METAS.donado)} de {fmt(total)} al mes</span>
+          </p>
+          <p><a href={ruta('/arbol#libro')} data-v="dar-libro" hidden>Añade tus fuentes en el libro para calcularlo</a></p>
+        </div>
+        <div class="pila">
+          <p class="rt-aplica"><Etiqueta tipo="tradicion" texto="Aplicación moderna" /></p>
+          <p>La tradición aparta una parte antes de gastar. Esta cifra es una sugerencia para hoy: tú decides cuánto y a quién.</p>
+          <div class="rt-donado">
+            <p class="pares"><span>Donado este mes</span><span class="cifra" data-v="dar-donado">{pct(s.donadoPct, 1)}</span></p>
+            <div data-v="dar-regla"><Medidor valor={Math.min(1, s.donadoPct / METAS.donado)} etiqueta={`Donado este mes: ${pct(s.donadoPct, 1)}`} desde="0" hasta={`meta ${pct(METAS.donado)}`} /></div>
+          </div>
+          <p><a class="boton-2" href={ruta('/arbol#jesed')}>Anotar lo donado en Jésed</a></p>
+        </div>
+      </Panel>
+
+      <!-- Mañana 6 · Bloque de 90 minutos -->
+      <Panel sesion="manana" i={5} clase="rt-dos">
+        <div class="pila">
+          <div>
+            <p class="rotulo">Un solo asunto</p>
+            <p class="voz-m" data-v="bloque-accion"><span class="rt-vacia">La acción de hoy, la del paso 3.</span></p>
+          </div>
+          <p class="nota">Sin correo, sin teléfono, una sola ventana. Al cumplirse los {MIN_BLOQUE} minutos el paso se marca solo.</p>
+        </div>
+        <div class="rt-reloj">
+          <p class="cifra rt-reloj-t" role="timer" data-v="bloque-tiempo">{reloj(MIN_BLOQUE * 60)}</p>
+          <div data-v="bloque-regla"><Medidor valor={0} etiqueta="Bloque: 0 %" desde="inicio" hasta={`${MIN_BLOQUE} min`} /></div>
+          <p class="rt-fin" data-v="bloque-fin">Si empiezas ahora, termina a las <b class="cifra">0:00</b></p>
+          <p class="oculto" role="status" data-v="bloque-aviso"></p>
+          <p class="campo-fila" data-v="bloque-controles">
+            <button class="boton" type="button" data-v="bloque-boton">Empezar el bloque</button>
+          </p>
+          <div class="rt-confirma" data-v="bloque-confirma" hidden>
+            <p>¿Detener el bloque y poner el reloj a cero?</p>
+            <p class="fila">
+              <button class="boton boton-s" type="button" data-v="bloque-si">Sí, detener</button>
+              <button class="boton-2 boton-s" type="button" data-v="bloque-no">Seguir</button>
+            </p>
+          </div>
+        </div>
+      </Panel>
+
+      <!-- Noche 1 · Dinero de hoy -->
+      <Panel sesion="noche" i={0} clase="rt-dos">
+        <div class="pila">
+          <div class="campo-par">
+            <div class="campo">
+              <label for="rt-entro">Entró hoy</label>
+              <input id="rt-entro" class="entrada-cifra" type="text" inputmode="decimal" autocomplete="off" placeholder="0" data-dinero="entro" />
+            </div>
+            <div class="campo">
+              <label for="rt-salio">Salió hoy</label>
+              <input id="rt-salio" class="entrada-cifra" type="text" inputmode="decimal" autocomplete="off" placeholder="0" data-dinero="salio" />
+            </div>
+          </div>
+          <p class="nota">Aquí va solo lo de hoy. Lo que cada fuente ingresa al mes se lleva en el libro de fuentes.</p>
+          <p><a class="boton-2" href={ruta('/arbol#libro')}>Abrir el libro de fuentes</a></p>
+        </div>
+        <p class="rt-dato">
+          <span class="cifra fig-xl" data-v="saldo" style="--n:4">0</span>
+          <span class="rt-dato-n">saldo del día</span>
+        </p>
+      </Panel>
+
+      <!-- Noche 2 · Una evidencia -->
+      <Panel sesion="noche" i={1} clase="rt-dos">
+        <div class="pila">
+          <form class="campo" data-form="evidencia">
+            <label for="rt-evidencia">Una prueba de hoy de que puedes</label>
+            <div class="campo-fila rt-sin-salto">
+              <input id="rt-evidencia" name="texto" type="text" autocomplete="off" maxlength="200" placeholder="Una venta, una llamada difícil" />
+              <button class="boton-2" type="submit">Añadir</button>
+            </div>
+          </form>
+          <ul class="lista-ed" data-v="evidencias"><li class="lista-vacia">Aún no hay evidencias de hoy.</li></ul>
+          <p class="nota">Un hecho, no un deseo. Vale con una línea.</p>
+        </div>
+        <div class="pila">
+          <p class="rt-dato">
+            <span class="cifra fig-xl" data-v="evid-semana" style="--n:4">0</span>
+            <span class="rt-dato-n" data-v="evid-semana-u">evidencias en 7 días</span>
+          </p>
+          <div data-v="evid-regla"><Medidor valor={0} etiqueta="Evidencias en 7 días: 0" desde="0" hasta={`meta ${METAS.gratitud} a la semana`} /></div>
+          <p><a class="boton-2" href={ruta('/arbol#hod')}>Ver las de la semana en Hod</a></p>
+        </div>
+      </Panel>
+
+      <!-- Noche 3 · El plan de hoy -->
+      <Panel sesion="noche" i={2} clase="rt-dos">
+        <div class="rt-lectura">
+          <p class="rotulo">El plan de esta mañana</p>
+          <p class="voz rt-frase" data-v="frase-plan-noche"><span class="rt-vacia">Aún no hay plan escrito. Mañana, en el paso 4.</span></p>
+        </div>
+        <div class="pila">
+          <fieldset class="rt-opciones">
+            <legend>¿Se sostuvo el plan?</legend>
+            <label class="rt-opcion"><input class="casilla" type="radio" name="rt-plan" value="si" /><span>Sí: apareció el obstáculo y seguí el plan</span></label>
+            <label class="rt-opcion"><input class="casilla" type="radio" name="rt-plan" value="no" /><span>No: apareció y no lo seguí</span></label>
+            <label class="rt-opcion"><input class="casilla" type="radio" name="rt-plan" value="sin-ocasion" /><span>El obstáculo no apareció</span></label>
+          </fieldset>
+          <p class="nota" role="status" data-v="plan-consejo"></p>
+        </div>
+      </Panel>
+
+      <div class="rt-nav">
+        <button class="boton-2" type="button" data-nav="anterior">Anterior</button>
+        <button class="boton-texto" type="button" data-nav="saltar">Saltar</button>
+        <button class="boton" type="button" data-nav="siguiente">Siguiente</button>
+      </div>
+      <p class="campo-estado rt-nav-estado" role="status" data-v="nav-estado"></p>
+
+      <Fragment slot="pie">
+        {ORDEN.map((id) => SESIONES[id].pasos.map((p, i) => {
+          const pr = practica(p.practica);
+          return pr ? <div data-porque={`${id}:${i}`}><Porque practica={pr} /></div> : null;
+        }))}
+      </Fragment>
+    </Palacio>
+
+    <!-- Palacio 2: la lista de pasos de la sesión -->
+    <Palacio n={2} titulo="Pasos de la sesión" etiqueta="0 de 6" clase="rt-lista">
+      {ORDEN.map((id) => (
+        <ol class="rt-pasos" data-lista={id}>
+          {SESIONES[id].pasos.map((p, i) => (
+            <li class="rt-fila" data-fila={`${id}:${i}`}>
+              <label class="rt-caja"><input class="casilla" type="checkbox" data-hecho={`${id}:${i}`} aria-label={`${p.titulo}: hecho`} /></label>
+              <button class="rt-ir" type="button" data-ir={`${id}:${i}`}>
+                <span class="rt-ir-n cifra" aria-hidden="true">{i + 1}</span>
+                <span class="rt-ir-t">{p.titulo}</span>
+                <span class="rt-ir-d">{p.detalle}</span>
+              </button>
+            </li>
+          ))}
+        </ol>
+      ))}
+      <p slot="pie" class="rotulo">«Siguiente» marca el paso como hecho. La casilla lo marca o lo desmarca; el nombre abre el paso.</p>
+    </Palacio>
+
+    <!-- Palacio 7: constancia -->
+    <Palacio n={7} titulo="Constancia" etiqueta="Racha" clase="rt-constancia">
+      <p class="rt-racha">
+        <span class="cifra fig-l" data-v="racha">0</span>
+        <span data-v="racha-u">días de racha</span>
+      </p>
+      <div class="rt-14">
+        <p class="campo-rot">Últimos 14 días</p>
+        <div class="dias" data-v="dias14" role="img" aria-label="Últimos 14 días"></div>
+        <p class="rotulo">Hoy está a la derecha. Un día cuenta cuando completas 4 de los {PASOS_RITUAL.length} pasos.</p>
+      </div>
+      <Fragment slot="pie">
+        <dl class="rt-resumen">
+          <div><dt>Ritual de hoy</dt><dd><span class="cifra" data-v="hoy-cuenta">0</span> de {PASOS_RITUAL.length}</dd></div>
+          <div><dt>Cierre de la noche</dt><dd><span class="cifra" data-v="noche-cuenta">0</span> de {SESIONES.noche.pasos.length}</dd></div>
+        </dl>
+        <p class="rt-enlace"><a href={ruta('/arbol#netsaj')}>Ver la constancia en el Árbol</a></p>
+      </Fragment>
+    </Palacio>
+
+    <!-- Palacios 8 · 1 · 6: la revisión semanal -->
+    <Palacio n={8} celdas={[8, 1, 6]} titulo="Revisión semanal" etiqueta="Cinco preguntas" id="semanal" clase="rt-semanal">
+      <p class="rt-sem-intro">
+        <span class="voz-m">Una vez a la semana, el mismo día y a la misma hora.</span>
+        <span class="nota" data-v="semana">Semana en curso</span>
+      </p>
+      <div class="rt-cols">
+        <div class="rt-col">
+          <section class="rt-q" aria-labelledby="rt-q1">
+            <h3 id="rt-q1"><span class="cifra" aria-hidden="true">1</span> Ingresos por fuente</h3>
+            <table class="tabla rt-tabla">
+              <thead><tr><th scope="col">Fuente</th><th scope="col">Estado</th><th scope="col" class="num">Al mes</th></tr></thead>
+              <tbody data-v="sem-fuentes">
+                {s.fuentes.map((f) => <tr><th scope="row">{f.nombre}</th><td>{f.estado}</td><td class="num">{fmt(f.mensual)}</td></tr>)}
+              </tbody>
+              <tfoot><tr><th scope="row" colspan="2">Ingreso real</th><td class="num" data-v="sem-total">{fmt(total)}</td></tr></tfoot>
+            </table>
+            <p class="rt-enlace"><a href={ruta('/arbol#libro')}>Poner al día las cifras en el libro</a></p>
+          </section>
+          <section class="rt-q" aria-labelledby="rt-q2">
+            <h3 id="rt-q2"><span class="cifra" aria-hidden="true">2</span> Días completados</h3>
+            <p class="rt-dias7">
+              <span class="cifra fig-m" data-v="sem-dias">0</span>
+              <span>de 7 días con 4 de {PASOS_RITUAL.length} pasos</span>
+            </p>
+            <div class="dias rt-7" data-v="dias7" role="img" aria-label="Últimos 7 días"></div>
+          </section>
+          <section class="rt-q" aria-labelledby="rt-q3">
+            <h3 id="rt-q3"><span class="cifra" aria-hidden="true">3</span> El obstáculo que se repitió</h3>
+            <div class="campo">
+              <label class="oculto" for="rt-sem-obstaculo">El obstáculo que se repitió esta semana</label>
+              <textarea id="rt-sem-obstaculo" rows="2" maxlength="300" placeholder="Lo que más veces te frenó" data-semana="obstaculo" aria-describedby="rt-sem-plan"></textarea>
+              <p class="rotulo" id="rt-sem-plan" data-v="sem-plan">Aún no hay cierres de noche en los últimos 7 días.</p>
+            </div>
+          </section>
+        </div>
+
+        <div class="rt-col">
+          <section class="rt-q" aria-labelledby="rt-q4">
+            <h3 id="rt-q4"><span class="cifra" aria-hidden="true">4</span> Nuevo WOOP</h3>
+            <div class="pila">
+              <div class="campo">
+                <label for="rt-w-deseo">Deseo</label>
+                <textarea id="rt-w-deseo" rows="2" maxlength="300" placeholder="Exigente y alcanzable esta semana" data-woop="deseo"></textarea>
+              </div>
+              <div class="campo">
+                <label for="rt-w-resultado">Resultado</label>
+                <textarea id="rt-w-resultado" rows="2" maxlength="300" placeholder="Lo mejor que pasa si se cumple" data-woop="resultado"></textarea>
+              </div>
+              <div class="campo">
+                <label for="rt-w-obstaculo">Obstáculo</label>
+                <textarea id="rt-w-obstaculo" rows="2" maxlength="200" placeholder="Lo que dentro de ti puede impedirlo" data-woop="obstaculo"></textarea>
+              </div>
+              <div class="campo">
+                <label for="rt-w-plan">Plan</label>
+                <textarea id="rt-w-plan" rows="2" maxlength="200" placeholder="Lo que harás cuando aparezca" data-woop="plan"></textarea>
+              </div>
+              <p class="rotulo">El obstáculo y el plan son los del paso 4 de la mañana: «Si…, entonces…».</p>
+            </div>
+          </section>
+        </div>
+
+        <div class="rt-col">
+          <section class="rt-q" aria-labelledby="rt-q5">
+            <h3 id="rt-q5"><span class="cifra" aria-hidden="true">5</span> Una prioridad</h3>
+            <div class="campo">
+              <label class="oculto" for="rt-sem-prioridad">La prioridad de la semana</label>
+              <textarea id="rt-sem-prioridad" rows="3" maxlength="300" placeholder="Una sola. Lo demás espera" data-semana="prioridad"></textarea>
+              <p class="campo-estado" role="status" data-v="sem-estado"></p>
+            </div>
+          </section>
+          {woop && <div class="rt-q rt-q-porque"><Porque practica={woop} nivel={3} /></div>}
+          {meta && <div class="rt-q rt-q-porque"><Porque practica={meta} nivel={3} /></div>}
+        </div>
+      </div>
+    </Palacio>
+  </Cuadrado>
+</Base>
+
+<script>
+  import '../lib/ritual-cliente';
+</script>

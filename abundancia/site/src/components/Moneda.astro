@@ -1,0 +1,25 @@
+---
+// Moneda: el anillo medidor. SVG puro: canto, arco de oro de 0 a 1 y hueco cuadrado.
+//   <Moneda valor={0.38} etiqueta="38 % de la cifra" />
+//   <Moneda valor={0.5} texto="50" />
+//   <Moneda estado="ingresando" />     moneda de estado de una fuente
+// Para repintarla en el cliente: ponerArco(elemento, valor) de src/lib/moneda.ts.
+import { monedaSVG, monedaEstadoSVG } from '../lib/moneda';
+import type { EstadoFuente } from '../lib/store';
+
+interface Props {
+  /** Avance de 0 a 1. */
+  valor?: number;
+  /** Texto corto dentro del hueco. */
+  texto?: string;
+  /** Texto para lectores de pantalla; sin él la moneda es decorativa. */
+  etiqueta?: string;
+  /** En lugar del medidor, dibuja la moneda de estado: ingresando, probando o idea. */
+  estado?: EstadoFuente;
+  /** Clases extra para el <svg>. */
+  clase?: string;
+}
+const { valor = 0, texto, etiqueta, estado, clase } = Astro.props;
+const svg = estado ? monedaEstadoSVG(estado) : monedaSVG(valor, { texto, etiqueta, clase });
+---
+<Fragment set:html={svg} />

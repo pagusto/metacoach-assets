@@ -1,0 +1,298 @@
+/* ==========================================================================
+   Espacio · feng shui del espacio de trabajo
+   Herramienta: nueve palacios 4·9·3·5 · palacio elegido 2·7 · lista 8·1 · puntuación 6
+   Fundamentos: contexto 4·9 · periodo 2 · elementos 3·5·7 · símbolos 8·1 · estudios 6
+   Las piezas con prefijo «esp-» las comparte la página Colores (banda, fuente, secciones).
+   ========================================================================== */
+
+/* ---------- Piezas comunes ---------- */
+
+/* Enlace de fuente que se abre fuera */
+.esp-fuente a { overflow-wrap: anywhere; }
+.esp-fuera {
+  display: inline-block; width: 9px; height: 9px; margin-left: 4px; vertical-align: baseline;
+  fill: none; stroke: currentColor; stroke-width: 1.25;
+}
+
+/* Palacios con título de nivel 3 (bajo una banda): mismo estilo que el h2 de base.css */
+.pal-cab h3 { flex: 1; min-width: 0; font-size: var(--t-0); line-height: var(--lh-0); font-weight: 600; }
+
+/* Banda de sección entre dos cuadrados */
+.esp-banda { padding-block: var(--s-5) var(--s-3); }
+.esp-banda h2 { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 400; letter-spacing: -0.015em; }
+.esp-banda p { max-width: 44rem; margin-top: 4px; color: var(--texto-2); }
+
+/* Sección dentro de un palacio de detalle: rótulo, filete y texto */
+.esp-sec { margin-top: var(--s-2); padding-top: 12px; border-top: var(--linea) solid var(--filete-suave); }
+.esp-sec h4 {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px var(--s-1);
+  min-height: var(--s-3); margin-bottom: var(--s-1);
+  font-size: var(--t-00); line-height: var(--lh-00); font-weight: 400; color: var(--texto-3);
+}
+.esp-sec > p { text-wrap: pretty; }
+.esp-sec > p + p { margin-top: var(--s-1); }
+
+/* Trigrama y taijitu */
+.esp-tri { flex: none; width: 24px; height: 24px; fill: var(--texto); }
+.esp-taiji .esp-taiji-claro { fill: var(--fondo); stroke: var(--texto); stroke-width: 1.5; }
+.esp-taiji .esp-taiji-punto { fill: var(--fondo); }
+
+/* ---------- 4·9·3·5 · Los nueve palacios ---------- */
+.esp-pal-mapa .pal-cuerpo { padding-top: var(--s-1); }
+.esp-borde {
+  display: flex; justify-content: space-between; gap: var(--s-2);
+  font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3);
+}
+.esp-borde span:first-child { font-weight: 600; color: var(--texto); }
+
+/* El cuadrado dentro del cuadrado. En la tira llega hasta el marco del palacio. */
+.esp-mapa {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--linea);
+  margin-inline: calc(-1 * var(--palacio-pad)); padding-block: var(--linea);
+  background: var(--filete);
+}
+/* Celda cuadrada como mínimo: el ::before da el alto y la fila iguala las tres celdas */
+.esp-mapa li { display: grid; min-width: 0; background: var(--fondo); }
+.esp-mapa li::before { content: ""; grid-area: 1 / 1; padding-bottom: 100%; pointer-events: none; }
+.esp-celda {
+  grid-area: 1 / 1;
+  display: grid; grid-template-rows: auto 1fr; gap: 6px;
+  min-width: 0; width: 100%; padding: 8px 6px 8px 8px;
+  border: 0; background: none; color: var(--texto); text-align: left;
+}
+.esp-celda:hover { outline: 2px solid var(--accion); outline-offset: -2px; }
+.esp-celda:focus-visible { outline: 3px solid var(--accion); outline-offset: -3px; }
+.esp-celda-cab { display: flex; align-items: flex-start; justify-content: space-between; gap: 4px; }
+/* El número vive en un cuadrado: contorno si está libre, sello rojo si es el elegido. */
+.esp-celda-n {
+  display: grid; place-items: center; flex: none;
+  width: 28px; height: 28px; border: var(--linea) solid var(--trazo);
+  font-size: 1.25rem; line-height: 1;
+}
+.esp-celda[aria-pressed="true"] .esp-celda-n { border-color: var(--sello); background: var(--sello); color: var(--sobre-sello); }
+.esp-celda-pie { display: grid; align-content: end; min-width: 0; }
+.esp-celda-area {
+  font-size: var(--t-0); line-height: 1.25rem; font-weight: 600;
+  hyphens: auto; overflow-wrap: anywhere;
+}
+.esp-celda[aria-pressed="true"] .esp-celda-area { font-weight: 700; }
+.esp-celda-dir { margin-top: 2px; font-size: var(--t-00); line-height: 1.25rem; color: var(--texto-2); overflow-wrap: anywhere; }
+.esp-celda-mas { display: none; }
+
+.esp-al-detalle { margin-top: var(--s-2); font-size: var(--t-0); line-height: var(--lh-0); }
+.esp-mapa-nota { max-width: 44rem; margin-top: var(--s-2); font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.esp-mapa-nota .rotulo { margin-bottom: 4px; }
+
+/* ---------- 2·7 · Palacio elegido ---------- */
+.esp-pal-det .pal-cuerpo { padding-top: 0; }
+.esp-det-titulo { padding-top: var(--s-2); }
+.esp-det-marca { display: flex; align-items: center; gap: 12px; min-height: var(--s-4); }
+.esp-det-marca .cifra { font-size: var(--t-3); line-height: var(--s-4); }
+.esp-det-marca .esp-tri { width: 32px; height: 32px; }
+.esp-det-tri { color: var(--texto-2); }
+.esp-det-tri b { color: var(--texto); }
+.esp-det-titulo h3 {
+  margin-top: var(--s-1);
+  font-size: var(--t-3); line-height: var(--lh-3); font-weight: 700; letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.esp-ficha { margin-top: var(--s-3); border-top: var(--linea) solid var(--filete); }
+.esp-ficha > div:last-child { border-bottom: 0; }
+.esp-ficha + .esp-sec { margin-top: 0; }
+.esp-ficha > div {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-2); align-items: baseline;
+  padding-block: 11px 12px; border-bottom: var(--linea) solid var(--filete-suave);
+}
+.esp-ficha dt { color: var(--texto-2); }
+.esp-ficha dt span { display: block; font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+.esp-ficha dd { font-weight: 600; }
+.esp-ficha .han { font-weight: 500; margin-right: 2px; }
+
+/* ---------- 6 · Puntuación ---------- */
+.esp-punt { display: grid; grid-template-columns: minmax(0, 1fr) 96px; gap: var(--s-2); align-items: center; }
+.esp-punt-cifra .fig-l { white-space: nowrap; }
+.esp-punt-pie { grid-column: 1 / -1; display: grid; gap: var(--s-1); padding-top: 12px; border-top: var(--linea) solid var(--filete-suave); }
+.esp-punt-sig .rotulo { display: block; }
+.esp-punt-sig a { font-weight: 600; }
+.esp-confirma { display: grid; gap: var(--s-1); }
+
+/* ---------- 8·1 · Lista ---------- */
+.esp-pal-lista .pal-cuerpo { padding-top: var(--s-1); }
+.esp-lista-cab { display: grid; gap: 12px; justify-items: start; padding-bottom: var(--s-2); }
+.esp-lista-cab .nota { max-width: 36rem; text-wrap: pretty; }
+.esp-lista-cab .boton-2[aria-pressed="true"] { background: var(--texto); color: var(--fondo); }
+.esp-lista-cab .boton-2[aria-pressed="true"]:hover { border-color: var(--accion); background: var(--accion); color: var(--fondo); }
+
+.esp-lista { border-top: var(--linea) solid var(--filete); }
+.esp-it {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-2); align-items: center;
+  padding-bottom: 12px; border-bottom: var(--linea) solid var(--filete-suave);
+  scroll-margin-top: var(--s-3);
+}
+.esp-it-cab {
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: 20px minmax(0, 1fr); column-gap: 12px; align-items: center;
+  min-height: var(--s-4); padding-block: var(--s-1);
+  cursor: pointer;
+}
+.esp-it-cab:hover .casilla { border-color: var(--accion); }
+.esp-it-t { font-weight: 600; text-wrap: balance; }
+.esp-it.hecho .esp-it-t { color: var(--texto-3); }
+.esp-it-ver {
+  display: inline-flex; align-items: center; gap: 6px; justify-self: start;
+  min-height: var(--s-3); margin-left: 32px; padding: 2px 0; border: 0; background: none;
+  font-size: var(--t-0); line-height: 1.25rem; color: var(--accion);
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.esp-it-ver:hover { text-decoration-thickness: 2px; }
+.esp-it-ver svg { flex: none; width: 10px; height: 6px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.esp-it-ver[aria-expanded="true"] svg { transform: rotate(180deg); }
+.esp-peso { display: inline-flex; align-items: center; gap: 6px; justify-self: end; }
+.esp-peso circle { fill: none; stroke: var(--trazo); }
+.esp-peso circle.lleno { fill: var(--texto); stroke: none; }
+
+.esp-razon { grid-column: 1 / -1; padding-left: 32px; }
+.esp-razon-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); padding-top: var(--s-1); }
+.esp-razon-cols p { text-wrap: pretty; }
+.esp-razon-rot { display: flex; align-items: center; min-height: var(--s-3); margin-bottom: var(--s-1); }
+.esp-razon-cols .esp-fuente { margin-top: var(--s-1); }
+
+/* ---------- Fundamentos ---------- */
+.esp-contexto { max-width: 40rem; text-wrap: pretty; }
+
+.esp-periodo-cifra { margin-bottom: var(--s-2); }
+.esp-periodo-cifra .cifra { font-size: var(--t-4); line-height: var(--lh-4); white-space: nowrap; }
+.esp-pal-periodo .pal-pie { padding-top: var(--s-2); }
+
+/* Los dos ciclos */
+.esp-el { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+.esp-ciclos svg { width: 100%; max-width: 352px; height: auto; margin-inline: auto; overflow: visible; }
+.esp-genera path { fill: none; stroke: var(--texto); stroke-width: 1.5; }
+.esp-genera polygon { fill: var(--texto); }
+.esp-controla path { fill: none; stroke: var(--texto-2); stroke-width: 1; stroke-dasharray: 4 4; }
+.esp-controla polygon { fill: var(--texto-2); }
+.esp-nodo circle { fill: var(--fondo); stroke: var(--filete); stroke-width: 1.5; }
+.esp-nodo text { fill: var(--texto); text-anchor: middle; }
+.esp-nodo-han { font-family: var(--fuente-han); font-size: 18px; font-weight: 500; }
+.esp-nodo-n { font-size: 14px; font-weight: 600; }
+.esp-clave {
+  display: flex; justify-content: center; gap: var(--s-3); margin-top: var(--s-2);
+  font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-2);
+}
+.esp-clave span { display: inline-flex; align-items: center; gap: var(--s-1); }
+.esp-clave svg { width: 32px; height: 8px; overflow: visible; }
+.esp-clave path { fill: none; }
+.esp-clave polygon { fill: var(--texto); }
+.esp-genera-m { stroke: var(--texto); stroke-width: 1.5; }
+.esp-controla-m { stroke: var(--texto-2); stroke-width: 1; stroke-dasharray: 4 4; }
+
+.esp-el-n { display: block; font-weight: 600; }
+.esp-el-n .han { margin-right: 4px; }
+.esp-el-c { display: block; font-weight: 400; font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); text-wrap: pretty; }
+.esp-el-pie { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) 12px; margin-top: var(--s-2); }
+.esp-el-pie .nota { flex: 1; min-width: 16rem; }
+
+/* Tabla que se apila en la tira: cada fila es una ficha */
+.esp-apila thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.esp-apila tbody tr {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-1) var(--s-2);
+  padding-block: 12px; border-bottom: var(--linea) solid var(--filete-suave);
+}
+.esp-apila tbody th, .esp-apila tbody td { display: block; padding: 0; border: 0; }
+.esp-apila tbody th { grid-column: 1 / -1; }
+.esp-apila tbody td::before {
+  content: attr(data-th); display: block;
+  font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3);
+}
+.esp-apila tbody td:nth-child(4) { grid-column: 1 / -1; }
+
+/* Símbolos */
+.esp-simbolos { display: grid; grid-template-columns: minmax(0, 1fr); border-top: var(--linea) solid var(--filete); }
+.esp-simbolos li {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1);
+  padding-block: 12px var(--s-2); border-bottom: var(--linea) solid var(--filete-suave);
+}
+.esp-simbolos h4 { font-weight: 600; text-wrap: balance; }
+.esp-simbolos p { text-wrap: pretty; }
+
+/* Estudios económicos */
+.esp-estudios-nota { padding-bottom: var(--s-2); text-wrap: pretty; }
+.esp-estudios { border-top: var(--linea) solid var(--filete); }
+.esp-estudios li { display: grid; gap: var(--s-1); padding-block: 12px var(--s-2); border-bottom: var(--linea) solid var(--filete-suave); }
+.esp-estudios li:last-child { border-bottom: 0; padding-bottom: 0; }
+.esp-estudios p { text-wrap: pretty; }
+
+/* ---------- Fuentes ---------- */
+.esp-fuentes { margin-top: var(--s-4); padding-block: var(--s-2); border-block: var(--linea) solid var(--filete-suave); }
+.esp-fuentes-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px var(--s-2); margin-bottom: var(--s-2); }
+.esp-fuentes h2 { font-size: var(--t-0); line-height: var(--lh-0); font-weight: 600; }
+.esp-fuentes ol { counter-reset: fuente; }
+.esp-fuentes li {
+  counter-increment: fuente;
+  display: grid; grid-template-columns: 2ch minmax(0, 1fr); column-gap: 12px; align-items: baseline;
+  padding-block: 6px; break-inside: avoid;
+}
+.esp-fuentes li::before { content: counter(fuente); font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3); text-align: right; }
+
+/* ---------- Tableta: la tira admite dos columnas de texto ---------- */
+@media (min-width: 560px) {
+  .esp-celda { padding: 12px; }
+  .esp-celda-mas { display: block; font-size: var(--t-00); line-height: 1.25rem; color: var(--texto-2); overflow-wrap: anywhere; }
+  .esp-celda-mas .han { font-size: var(--t-00); }
+  .esp-razon-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-3); }
+}
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 1280px) {
+  .esp-banda { padding-block: var(--s-6) var(--s-4); }
+  .esp-banda h2 { font-size: var(--t-3); line-height: var(--s-4); letter-spacing: -0.02em; }
+
+  /* El mapa: 816 px, celdas de 271 px, dentro del margen del palacio */
+  .esp-pal-mapa .pal-cuerpo { padding-top: var(--s-2); }
+  .esp-mapa { margin-inline: 0; padding: var(--linea); }
+  .esp-celda { gap: var(--s-2); padding: var(--s-2); }
+  .esp-celda-n { width: var(--s-4); height: var(--s-4); font-size: var(--t-3); }
+  .esp-celda .esp-tri { width: 48px; height: 48px; }
+  .esp-celda-area { font-size: var(--t-2); line-height: 1.75rem; letter-spacing: -0.01em; hyphens: manual; overflow-wrap: break-word; }
+  .esp-celda-dir { margin-top: 4px; font-size: var(--t-1); line-height: var(--lh-1); color: var(--texto); }
+  .esp-celda-mas { display: block; font-size: var(--t-00); line-height: 1.25rem; color: var(--texto-2); }
+  .esp-celda-mas .han { font-size: var(--t-00); }
+  .esp-mapa-nota { margin-top: var(--s-3); }
+
+  .esp-det-titulo { padding-top: var(--s-3); }
+  .esp-det-titulo h3 { font-size: var(--t-4); line-height: var(--lh-4); letter-spacing: -0.025em; }
+
+  /* La puntuación acompaña a la lista mientras se recorre */
+  .esp-punt { position: sticky; top: var(--s-3); grid-template-columns: minmax(0, 1fr); gap: var(--s-3); align-items: start; }
+  .esp-punt-moneda { width: min(240px, 62cqi); }
+  .esp-punt-pie { padding-top: var(--s-2); }
+
+  .esp-lista-cab { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: var(--s-4); }
+  .esp-it { grid-template-columns: minmax(0, 1fr) auto auto; column-gap: var(--s-3); padding-bottom: 4px; }
+  .esp-it-cab { grid-column: 1; }
+  .esp-it-ver { margin-left: 0; }
+  .esp-razon { padding-bottom: 12px; }
+  .esp-razon-cols { column-gap: var(--s-4); }
+
+  .esp-contexto { max-width: none; columns: 2; column-gap: var(--s-4); }
+  .esp-periodo-cifra .cifra { font-size: var(--t-5); line-height: var(--lh-5); }
+
+  /* Diagrama en la primera columna del cuadrado; tabla en las otras dos */
+  .esp-el { grid-template-columns: calc((100% - 2 * var(--s-4)) / 3) minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+  .esp-apila thead { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+  .esp-apila tbody tr { display: table-row; }
+  .esp-apila tbody th, .esp-apila tbody td {
+    display: table-cell; padding: 12px var(--s-2) 12px 0; border-bottom: var(--linea) solid var(--filete-suave);
+  }
+  .esp-apila tbody td { font-size: var(--t-0); line-height: var(--lh-0); }
+  .esp-apila tbody td::before { content: none; }
+  .esp-apila tbody th { width: 30%; }
+  .esp-apila tr > :last-child { padding-right: 0; }
+
+  .esp-simbolos { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-4); border-top: 0; }
+  .esp-simbolos li { border-bottom: 0; border-top: var(--linea) solid var(--filete-suave); }
+  .esp-simbolos li:nth-child(-n+2) { border-top-color: var(--filete); }
+
+  .esp-fuentes ol { columns: 3; column-gap: var(--s-4); }
+}

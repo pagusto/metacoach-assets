@@ -1,0 +1,157 @@
+/* ==========================================================================
+   Agentes · el equipo en el cuadrado; debajo, uso, comandos, nutrición y diario
+   Columnas del cuadrado: un pilar cada una. Arriba (4·9·2) el pilar y quien lo dirige;
+   debajo, sus especialistas. Las secciones de fuera siguen las mismas tres columnas.
+   Solo tokens: ningún color ni tamaño suelto.
+   ========================================================================== */
+
+/* Texto literal (comandos, identificadores, rutas): la misma familia, en peso medio */
+.pagina code { font: inherit; font-weight: 500; overflow-wrap: anywhere; }
+
+/* ---------- Ficha de un agente ---------- */
+.ag { min-width: 0; }
+.ag-nombre { font-weight: var(--peso-medio); }
+.ag-id { font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3); }
+.ag-id code { font-weight: 400; }
+.ag-rol { margin-top: 4px; text-wrap: pretty; }
+.ag-uso { display: grid; gap: 4px; margin-top: var(--s-1); font-size: var(--t-0); line-height: var(--lh-0); }
+.ag-uso > div { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: var(--s-1); }
+.ag-uso dt { font-size: var(--t-00); color: var(--texto-3); }
+.ag-uso dd { color: var(--texto-2); text-wrap: pretty; }
+
+/* ---------- 4 · 9 · 2 · El pilar y quien lo dirige ---------- */
+.ag-pilar .voz { margin-bottom: var(--s-1); }
+.ag-pilar-d { color: var(--texto-2); text-wrap: pretty; }
+.ag-jefe { margin-top: var(--s-3); padding-top: 11px; border-top: var(--linea) solid var(--filete); }
+.ag-jefe > .rotulo { margin-bottom: 4px; }
+
+/* ---------- Especialistas ---------- */
+.ag-equipo .pal-cuerpo { padding-top: 0; }
+.ag-lista { border-top: var(--linea) solid var(--filete); }
+.ag-lista > li { padding-block: 15px var(--s-2); border-bottom: var(--linea) solid var(--filete-suave); }
+.ag-lista > li:last-child { border-bottom: 0; padding-bottom: 0; }
+
+/* ---------- El equipo en cifras ---------- */
+.ag-unidad { font-size: var(--t-2); line-height: var(--lh-2); }
+.ag-cifras .pal-pie { margin-top: var(--s-3); }
+.ag-pares { border-bottom: var(--linea) solid var(--filete-suave); }
+.ag-pares .pares { padding-block: 7px 8px; border-top: var(--linea) solid var(--filete-suave); }
+.ag-pares .pares:first-child { border-top-color: var(--filete); }
+
+/* ---------- Secciones bajo el cuadrado ---------- */
+.ag-sec { margin-top: var(--s-5); min-width: 0; }
+.ag-sec-cab {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 var(--s-3);
+  margin-bottom: var(--s-2); padding-top: 14px; border-top: var(--marco) solid var(--filete);
+}
+.ag-sec-cab h2 { font-size: var(--t-2); line-height: var(--lh-2); letter-spacing: -0.015em; }
+.ag-sec-n { font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.ag-dos { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+/* Línea para copiar */
+.vt-copia {
+  display: flex; align-items: center; gap: var(--s-1);
+  min-height: var(--campo); padding: 7px 7px 7px 12px;
+  border: var(--linea) solid var(--texto);
+}
+.vt-copia code { flex: 1; min-width: 0; }
+.vt-copia .boton-s { flex: none; min-width: 88px; }
+.vt-copia-larga { flex-wrap: wrap; justify-content: flex-end; padding-top: 11px; }
+.vt-copia-larga code { flex-basis: 100%; }
+.vt-copia[data-copia="seleccionado"] .boton-s, .vt-copia[data-copia="copiado"] .boton-s { border-color: var(--accion); color: var(--accion); }
+
+/* Úsalo en tu PC */
+.ag-pasos { counter-reset: paso; margin-bottom: var(--s-2); border-top: var(--linea) solid var(--filete); }
+.ag-pasos > li {
+  counter-increment: paso;
+  display: grid; grid-template-columns: var(--s-3) minmax(0, 1fr); gap: var(--s-1) 12px;
+  padding-block: 15px var(--s-2); border-bottom: var(--linea) solid var(--filete-suave);
+}
+.ag-pasos > li::before {
+  content: counter(paso); grid-row: 1 / span 3;
+  font-size: var(--t-2); line-height: var(--lh-0); font-weight: var(--peso-cifra); font-stretch: var(--ancho-cifra);
+}
+.ag-pasos > li > * { grid-column: 2; }
+
+/* Comandos */
+.ag-comandos { border-top: var(--linea) solid var(--filete); }
+.ag-comandos > li {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1);
+  padding-block: 15px var(--s-2); border-bottom: var(--linea) solid var(--filete-suave);
+}
+.ag-comandos p { text-wrap: pretty; }
+.ag-ejemplo { margin-top: 4px; font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.ag-ejemplo .rotulo { margin-right: 4px; }
+
+/* Nutrición diaria */
+.ag-nutre-c { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+.ag-nutre-d { align-self: start; border-top: var(--linea) solid var(--filete); }
+.ag-nutre-d > div { padding-block: 11px 12px; border-bottom: var(--linea) solid var(--filete-suave); }
+.ag-nutre-d dt { line-height: var(--lh-0); }
+.ag-nutre-d dd { text-wrap: pretty; }
+.ag-nutre-l { border-top: var(--linea) solid var(--filete); }
+.ag-nutre-l > li {
+  display: grid; grid-template-columns: var(--s-3) minmax(0, 1fr); column-gap: 12px;
+  padding-block: 11px 12px; border-bottom: var(--linea) solid var(--filete-suave);
+  text-wrap: pretty;
+}
+.ag-nutre-l .cifra { font-size: var(--t-2); line-height: var(--lh-0); }
+
+/* Diario de conocimiento */
+.ag-dia { padding-block: var(--s-2) var(--s-3); border-top: var(--linea) solid var(--filete); }
+.ag-sec-cab + .ag-dia { border-top: 0; padding-top: 0; }
+.ag-dia-cab { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1); margin-bottom: var(--s-3); }
+.ag-dia-f time { display: flex; align-items: center; gap: 12px; font-size: var(--t-0); line-height: var(--lh-00); color: var(--texto-2); }
+.ag-dia-f .cifra { font-size: var(--t-4); line-height: var(--s-4); color: var(--texto); }
+.ag-dia-d { display: block; }
+.ag-dia-s { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); }
+.ag-dia-s h4 {
+  margin-bottom: 12px; padding-top: 7px; border-top: var(--linea) solid var(--filete-suave);
+  font-size: var(--t-0); line-height: var(--lh-0); font-weight: var(--peso-medio);
+}
+.ag-hallazgo { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1); text-wrap: pretty; }
+.ag-hallazgo + .ag-hallazgo { margin-top: var(--s-2); }
+.ag-hallazgo ul, .ag-hallazgo ol { padding-left: var(--s-3); list-style: revert; }
+.ag-hallazgo .he { font-size: 1.0625em; }
+.ag-antes { border-top: var(--linea) solid var(--filete); }
+.ag-antes summary { padding-block: var(--s-2); color: var(--accion); font-weight: 500; cursor: pointer; }
+.ag-antes[open] summary { color: var(--texto); }
+
+/* Diario en blanco */
+.ag-vacio { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); padding-bottom: var(--s-3); }
+.ag-vacio-l { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.ag-vacio-l li { display: grid; grid-template-columns: var(--s-4) minmax(0, 1fr); column-gap: var(--s-2); align-items: center; }
+.ag-vacio-l svg { grid-row: 1 / span 2; width: var(--s-4); height: var(--s-4); }
+
+/* ---------- Escritorio: tres columnas con medianil de un módulo, como los palacios ---------- */
+@media (min-width: 1280px) {
+  .ag-sec { margin-top: var(--s-6); }
+  .ag-sec-cab { margin-bottom: var(--s-3); }
+  .ag-sec-cab h2 { font-size: var(--t-3); line-height: var(--s-4); font-weight: 400; letter-spacing: -0.02em; }
+
+  .ag-dos, .ag-nutre-c, .ag-dia-cab, .ag-dia-s, .ag-vacio {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-4);
+  }
+  .ag-dos > :nth-child(2), .ag-nutre-c > :nth-child(2), .ag-dia-cab > :nth-child(2), .ag-vacio > :nth-child(2) { grid-column: span 2; }
+
+  /* Especialistas: filas iguales, para que los filetes marquen un ritmo regular en cada columna */
+  .ag-equipo .pal-cuerpo { display: grid; }
+  .ag-lista { display: grid; grid-auto-rows: 1fr; }
+
+  .ag-comandos > li { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-4); align-items: start; }
+
+  .ag-nutre-l {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column; column-gap: var(--s-4); align-content: start; border-top: 0;
+  }
+  .ag-nutre-l > li { border-top: var(--linea) solid var(--filete-suave); border-bottom: 0; }
+  .ag-nutre-l > li:nth-child(3n + 1) { border-top-color: var(--filete); }
+
+  .ag-dia { padding-block: var(--s-3) var(--s-4); }
+  .ag-dia-cab { align-items: center; }
+
+  .ag-vacio { align-items: start; }
+  .ag-vacio-l { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-3); }
+  .ag-vacio-l li { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-1); }
+  .ag-vacio-l svg { grid-row: auto; }
+}

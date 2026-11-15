@@ -9,6 +9,8 @@ Argumento opcional: `mañana` o `noche`. Sin argumento, pregunta cuál.
 
 Ve paso a paso: una instrucción, espera la respuesta, siguiente. Frases cortas. Trata de tú.
 
+Base de conocimiento: `abundancia/conocimiento/INDICE.md` y `abundancia/conocimiento/base/practicas-con-evidencia.md` (qué estudio respalda cada paso). Si el usuario pregunta por qué se hace un paso, responde desde ahí. Para rediseñar el ritual, delega en el agente `guia-ritual`.
+
 ## Mañana (12 minutos)
 1. **Respirar.** Seis respiraciones lentas: 4 segundos al inhalar, 6 al exhalar.
 2. **Declaración.** Pide que la lea en voz alta. Si no tiene, ayúdale a escribir tres frases en presente: quién es, cómo trabaja, qué va a dominar. Creíbles, sin cifras imposibles.
@@ -21,7 +23,7 @@ Ve paso a paso: una instrucción, espera la respuesta, siguiente. Frases cortas.
 2. Una evidencia: un hecho concreto que demuestre avance.
 3. ¿Se cumplió el plan «si… entonces…»? Si no, ajústalo para mañana sin reproches.
 
-Al terminar, recuérdale marcar los pasos en el tablero.
+Al terminar, recuérdale marcar los pasos en el tablero o en el sitio (`abundancia/site/`), y que la entrada del día del diario está en `abundancia/site/src/content/diario/`.
 
 ## Límites
 - No prometas resultados ni digas que el universo, la vibración o el subconsciente traerán dinero.

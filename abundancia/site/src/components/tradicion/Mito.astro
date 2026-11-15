@@ -1,0 +1,30 @@
+---
+// Mito: lo que se repite, lo que hay y su fuente, en las tres columnas del cuadrado.
+//   <Mito m={m} n={i + 1} />
+import Etiqueta from '../Etiqueta.astro';
+import Fuente from './Fuente.astro';
+import { afinar as fino, dosCifras } from '../../lib/tradicion';
+
+interface Props {
+  m: { afirmacion: string; realidad: string; fuente: { cita: string; url: string | null } | null };
+  n: number;
+}
+const { m, n } = Astro.props;
+// Las afirmaciones del JSON a veces ya traen comillas; no se añaden otras.
+const conComillas = /[«»]/.test(m.afirmacion);
+const texto = conComillas ? fino(m.afirmacion) : `«${fino(m.afirmacion)}»`;
+---
+<li class="tr-mito tr-3">
+  <div class="tr-col tr-mito-dice">
+    <p class="tr-mito-cab"><span class="tr-num cifra" aria-hidden="true">{dosCifras(n)}</span><Etiqueta tipo="mito" /></p>
+    <h3 class:list={['voz-m', texto.startsWith('«') && 'tr-colgada']}>{texto}</h3>
+  </div>
+  <div class="tr-col">
+    <p class="rotulo tr-rot">Lo que hay</p>
+    <p>{fino(m.realidad)}</p>
+  </div>
+  <div class="tr-col">
+    <p class="rotulo tr-rot">Fuente</p>
+    <Fuente fuente={m.fuente} />
+  </div>
+</li>

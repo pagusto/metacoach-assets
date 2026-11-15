@@ -1,0 +1,29 @@
+---
+// Fuente: enlace a una fuente de los JSON, en pestaña nueva. Como <Cita>, pero en línea y con
+// target="_blank" rel="noopener". Si no hay URL, pinta solo la referencia.
+//   <Fuente fuente={practica.estudio} />
+//   <Fuente cita="Mishná, Pirké Avot 4:1" url="https://…" />
+interface Props {
+  /** Objeto Fuente de los JSON: { cita, url }. */
+  fuente?: { cita: string; url: string | null } | null;
+  cita?: string;
+  url?: string | null;
+  /** Clases extra. */
+  clase?: string;
+}
+const { fuente, clase = '' } = Astro.props;
+const cita = fuente?.cita ?? Astro.props.cita ?? '';
+const url = fuente?.url ?? Astro.props.url ?? null;
+---
+{cita && (
+  <cite class:list={['rt-fuente', clase]}>
+    {url
+      ? <a href={url} target="_blank" rel="noopener external">{cita}<span class="oculto"> (se abre en otra pestaña)</span></a>
+      : cita}
+  </cite>
+)}
+
+<style>
+  /* :where mantiene la especificidad a cero para que cada página lo ajuste. */
+  :where(.rt-fuente) { display: block; font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+</style>

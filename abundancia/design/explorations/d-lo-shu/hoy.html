@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Hoy · Shefa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=Frank+Ruhl+Libre:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@500&text=%E6%9C%A8%E7%81%AB%E5%9C%9F%E9%87%91%E6%B0%B4&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* shell:start — común a hoy.html y arbol.html */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  padding-bottom: var(--s-5);
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente);
+  font-size: var(--t-1);
+  line-height: var(--lh-1);
+  font-weight: var(--peso-texto);
+  font-stretch: var(--ancho-texto);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4, p, ol, ul, dl, dd, figure, blockquote { margin: 0; padding: 0; font-weight: inherit; font-size: inherit; }
+ol, ul { list-style: none; }
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+svg { display: block; }
+:focus-visible { outline: var(--foco); outline-offset: 2px; }
+
+.oculto {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.simbolos { position: absolute; width: 0; height: 0; }
+.salto {
+  position: absolute; left: var(--margen); top: -120px; z-index: 10;
+  padding: var(--s-1) var(--s-2); background: var(--texto); color: var(--fondo);
+}
+.salto:focus { top: var(--s-1); }
+
+.pagina { width: min(100% - 2 * var(--margen), var(--cuadrado)); margin-inline: auto; }
+
+/* Hebreo: Frank Ruhl Libre, siempre con lang="he" dir="rtl" */
+.he { font-family: var(--fuente-he); font-weight: 500; font-stretch: 100%; letter-spacing: 0; unicode-bidi: isolate; }
+
+/* Cifras (yang): negrita estrecha, tabulares */
+.cifra {
+  font-stretch: var(--ancho-cifra);
+  font-weight: var(--peso-cifra);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Cabecera: entrada despejada ---------- */
+.cab {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  padding-top: var(--s-1);
+}
+.marca {
+  justify-self: start;
+  display: inline-flex; align-items: center; gap: 12px;
+  height: var(--s-5);
+  text-decoration: none;
+}
+.marca-moneda { width: 36px; height: 36px; fill: var(--texto); }
+.marca-n { font-size: var(--t-2); line-height: 1; font-weight: 700; letter-spacing: -0.015em; }
+.marca-he { font-size: 1.375rem; line-height: 1; color: var(--texto-2); }
+
+.tema {
+  display: inline-flex; align-items: center; gap: var(--s-1);
+  min-height: var(--s-4);
+  padding: 0;
+  border: 0; background: none; cursor: pointer;
+  font-size: var(--t-0); font-weight: 500;
+}
+.tema:hover { color: var(--accion); }
+.tema svg { width: 16px; height: 16px; }
+.tema rect { fill: none; stroke: currentColor; stroke-width: 1.5; }
+.tema circle { fill: currentColor; }
+.tema-a-claro { display: none; }
+
+.nav { grid-column: 1 / -1; }
+.nav ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: var(--marco) solid var(--filete);
+}
+.nav a {
+  position: relative;
+  display: flex; align-items: baseline; gap: var(--s-1);
+  min-height: var(--s-4);
+  padding-top: 13px;
+  font-size: 0.9375rem; font-weight: 500;
+  text-decoration: none;
+}
+.nav li:nth-child(n+4) a { border-top: var(--linea) solid var(--filete-suave); }
+.nav a:hover { color: var(--accion); }
+.nav-n { min-width: 1ch; font-size: var(--t-00); font-weight: 400; color: var(--texto-3); }
+.nav a[aria-current="page"] { font-weight: 700; }
+.nav a[aria-current="page"]::before {
+  content: ""; position: absolute; left: 0; right: var(--s-2); top: calc(-1 * var(--marco));
+  height: 6px; background: var(--filete);
+}
+
+/* ---------- Portada (titular de la página) ---------- */
+.portada { padding-block: var(--s-4) var(--s-3); }
+.portada h1 {
+  font-size: var(--t-3); line-height: var(--s-4);
+  font-weight: 400; letter-spacing: -0.02em;
+}
+.portada-nota { margin-top: var(--s-1); color: var(--texto-2); }
+
+/* ---------- El cuadrado Lo Shu ---------- */
+.loshu {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--linea);
+  padding: var(--marco);
+  background: var(--filete);
+}
+.pal {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  min-width: 0;
+  padding: var(--palacio-pad);
+  background: var(--fondo);
+  container-type: inline-size;
+}
+.pal-cab {
+  display: flex;
+  column-gap: 12px;
+  align-items: baseline;
+  min-height: var(--s-4);
+}
+.pal-n { flex: none; min-width: 14px; font-size: var(--t-2); line-height: var(--lh-0); }
+.pal-cab h2 { flex: 1; min-width: 0; font-size: var(--t-0); line-height: var(--lh-0); font-weight: 600; }
+.pal-area { flex: none; font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3); }
+.loc { flex: none; align-self: flex-start; width: 25px; height: 25px; color: var(--trazo); }
+.loc rect { fill: var(--texto); }
+
+.rotulo { font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+
+/* Regla de medida: oro sobre filete, marcas cada décima */
+.regla { position: relative; height: 16px; border-bottom: var(--linea) solid var(--filete); }
+.regla svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.regla path { fill: none; stroke: var(--filete); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.regla-oro { position: absolute; left: 0; bottom: 0; height: 8px; background: var(--medida); }
+
+/* La moneda como medidor: cielo redondo, tierra cuadrada */
+.moneda-medida { width: 100%; height: auto; }
+.moneda-medida .canto { fill: none; stroke: var(--filete); stroke-width: 1.5; }
+.moneda-medida .listel { fill: none; stroke: var(--filete-suave); stroke-width: 1; }
+.moneda-medida .arco { fill: none; stroke: var(--medida); stroke-width: 16; }
+.moneda-medida .hueco { fill: none; stroke: var(--filete); stroke-width: 1.5; }
+
+/* ---------- Pie: colofón ---------- */
+.pie {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-4);
+  padding-top: var(--s-4);
+  color: var(--texto-2);
+}
+.pie h2 { margin-bottom: var(--s-2); font-size: var(--t-00); line-height: var(--lh-00); font-weight: 600; color: var(--texto); }
+.aviso { color: var(--texto); font-size: var(--t-1); }
+.clave-loshu { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-3); align-items: start; }
+.clave-loshu table { border-collapse: collapse; }
+.clave-loshu td {
+  width: 24px; height: 24px; padding: 0;
+  border: var(--linea) solid var(--trazo);
+  text-align: center; font-size: var(--t-0); line-height: 22px; color: var(--texto);
+}
+.elementos li {
+  display: grid; grid-template-columns: 16px 20px 64px minmax(0, 1fr); column-gap: var(--s-1);
+  align-items: center; min-height: var(--lh-1);
+}
+.el { width: 16px; height: 16px; }
+.el rect { fill: none; stroke: var(--trazo); }
+.el-madera circle { fill: var(--madera); }
+.el-fuego circle { fill: var(--fuego); }
+.el-tierra circle { fill: var(--tierra); stroke: var(--trazo); }
+.el-metal circle { fill: var(--metal); }
+.el-agua circle { fill: var(--agua); }
+.han { font-family: var(--fuente-han); font-weight: 500; font-size: var(--t-1); line-height: 1; color: var(--texto); }
+.elementos b { font-weight: 600; color: var(--texto); }
+
+/* ---------- Tema oscuro: texto del conmutador ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tema-a-oscuro { display: none; }
+  :root:not([data-theme="light"]) .tema-a-claro { display: inline; }
+}
+:root[data-theme="dark"] .tema-a-oscuro { display: none; }
+:root[data-theme="dark"] .tema-a-claro { display: inline; }
+
+/* ---------- Escritorio: el cuadrado completo ---------- */
+@media (min-width: 1280px) {
+  .cab { padding-top: var(--s-3); }
+  .nav ol { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+  .nav li:nth-child(n+4) a { border-top: 0; }
+  .nav a[aria-current="page"]::before { right: var(--s-3); }
+
+  .portada { padding-block: var(--s-5) var(--s-4); }
+  .portada h1 { font-size: var(--t-4); line-height: var(--s-5); }
+
+  .loshu { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .pie { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; font-size: var(--t-0); }
+  .pie > * { padding-right: var(--s-4); }
+  .pie > * + * { padding-left: var(--palacio-pad); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+/* shell:end */
+
+/* ==========================================================================
+   Hoy · nueve funciones en nueve palacios
+   ========================================================================== */
+
+/* Fecha con el sello: el 14 se estampa dentro de la línea */
+.sello {
+  display: inline-grid; place-items: center;
+  width: var(--s-4); height: var(--s-4);
+  margin-inline: 2px;
+  background: var(--sello); color: var(--sobre-sello);
+  font-size: 2rem; line-height: 1;
+  vertical-align: bottom;
+}
+
+.pal { aspect-ratio: 1; }
+.pal-cuerpo { padding-top: var(--s-2); }
+
+/* Cifras protagonistas */
+.fig-xl { display: inline-block; margin-left: -0.035em; font-size: min(var(--t-6), 36cqi); line-height: 1; letter-spacing: -0.02em; }
+.fig-l { font-size: var(--t-4); line-height: 1; }
+.p1 .fig-l { display: inline-block; margin-left: -0.04em; }
+.fig-de { font-size: 0.45em; font-weight: 400; font-stretch: 100%; letter-spacing: 0; }
+
+/* 4 · La cifra */
+.cifra-unidad { display: block; font-size: var(--t-2); line-height: var(--lh-2); }
+.cifra-pie { display: grid; gap: 12px; }
+.pares { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-2); }
+.pares b { font-weight: 600; }
+.pares .cifra { font-size: var(--t-2); line-height: 1; }
+
+/* 9 · Declaración; 8 · Tradición; 6 · Dato: la voz del texto (yin), 24 px */
+.voz { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 500; letter-spacing: -0.01em; text-wrap: pretty; }
+.voz span { display: block; }
+.voz span + span { margin-top: var(--s-1); }
+.fuente-cita { color: var(--texto-2); font-style: normal; }
+
+/* 2 · Sefirá del día */
+.sef-dia { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: var(--s-2); }
+.sef-dia-n { font-size: var(--t-4); line-height: var(--lh-4); font-weight: 700; letter-spacing: -0.025em; }
+.sef-dia .he { font-size: var(--t-3); line-height: var(--lh-4); color: var(--texto-2); }
+.sef-dia-c { flex-basis: 100%; font-size: var(--t-2); line-height: var(--lh-2); }
+.sef-pie { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-2); align-items: end; }
+.sef-pie p { max-width: 14em; }
+.mini-arbol { display: block; width: 96px; height: 96px; }
+.mini-arbol path { fill: none; stroke: var(--trazo); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mini-arbol circle { fill: var(--fondo); stroke: var(--texto); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mini-arbol .hoy-nodo { fill: var(--texto); }
+
+/* 3 · Ritual de hoy */
+.ritual { border-top: var(--linea) solid var(--filete); }
+.ritual li { border-bottom: var(--linea) solid var(--filete-suave); }
+.paso {
+  display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; column-gap: 12px;
+  align-items: center; min-height: 47px; padding-block: var(--s-1);
+  cursor: pointer;
+}
+.paso input {
+  appearance: none; -webkit-appearance: none;
+  display: grid; place-content: center;
+  width: 20px; height: 20px; margin: 0;
+  border: 1.5px solid var(--texto); border-radius: 0; background: var(--fondo);
+  cursor: pointer;
+}
+.paso input::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--texto); transform: scale(0);
+  transition: transform 120ms ease-out;
+}
+.paso input:checked::before { transform: scale(1); }
+.paso input:checked ~ span { color: var(--texto-3); }
+.paso-d { color: var(--texto-2); white-space: nowrap; }
+.ritual-pie { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); padding-top: 12px; }
+.racha { display: flex; align-items: center; gap: var(--s-1); }
+.racha svg { width: 76px; height: 8px; }
+.racha circle { fill: var(--texto); }
+.racha circle:last-child { fill: none; stroke: var(--trazo); }
+.racha b { font-weight: 600; }
+
+/* 5 · 1 · 7 · Tres cifras: en móvil, tres tiras de un tercio de palacio */
+.tira { aspect-ratio: 3 / 1; grid-template-columns: minmax(0, 1fr) 80px; grid-template-rows: auto 1fr; column-gap: var(--s-1); }
+.tira .pal-cab { grid-column: 1; min-height: var(--lh-0); }
+.tira .pal-area { display: none; }
+.tira .pal-cuerpo { grid-column: 1; padding-top: 0; align-self: end; }
+.dato { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: var(--s-1); }
+.dato-nota { font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-2); white-space: nowrap; }
+.pal-graf { grid-column: 2; grid-row: 1 / -1; align-self: center; }
+
+/* 8 · 6 · Tradición y dato: en móvil, dos tercios de palacio */
+.p8, .p6 { aspect-ratio: 3 / 2; }
+
+.puntos { width: 100%; height: auto; }
+.puntos .vacio { fill: none; stroke: var(--trazo); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.puntos .lleno circle { fill: var(--medida); }
+.meta-nota { display: none; }
+
+.fuentes3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.fuentes3 svg { width: 100%; height: auto; }
+.fuentes3 span { display: none; }
+.m-ingresa { fill: var(--accion); }
+.m-prueba { fill: none; stroke: var(--texto); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.m-idea { fill: none; stroke: var(--texto); stroke-width: 1.5; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 1280px) {
+  .hoy .loshu { grid-template-areas: "p4 p9 p2" "p3 p5 p7" "p8 p1 p6"; }
+  .p4 { grid-area: p4; } .p9 { grid-area: p9; } .p2 { grid-area: p2; }
+  .p3 { grid-area: p3; } .p5 { grid-area: p5; } .p7 { grid-area: p7; }
+  .p8 { grid-area: p8; } .p1 { grid-area: p1; } .p6 { grid-area: p6; }
+
+  .sello { width: var(--s-5); height: var(--s-5); margin-inline: 4px; font-size: 3rem; }
+  .pal-cuerpo { padding-top: var(--s-3); }
+
+  .fig-l { font-size: var(--t-5); }
+
+  .voz { font-size: var(--t-3); line-height: var(--lh-3); font-weight: 400; letter-spacing: -0.02em; }
+  .voz span + span { margin-top: var(--s-2); }
+
+  .tira, .p8, .p6 { aspect-ratio: 1; }
+  .tira { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto; }
+  .tira .pal-cab { min-height: var(--s-4); }
+  .tira .pal-area { display: block; }
+  .tira .pal-cuerpo { padding-top: var(--s-3); align-self: start; }
+  .dato { flex-direction: column; align-items: flex-start; }
+  .dato-nota { font-size: var(--t-1); }
+  .solo-tira { display: none; }
+  .pal-graf { grid-column: auto; grid-row: auto; position: absolute; right: var(--palacio-pad); bottom: var(--palacio-pad); }
+  .p5 .pal-graf { width: min(240px, 62cqi); }
+  .p7 .pal-graf { width: 192px; }
+  .p1 .pal-graf { left: var(--palacio-pad); width: auto; }
+
+  .meta-nota {
+    display: block; position: absolute; left: var(--palacio-pad); right: var(--palacio-pad);
+    bottom: calc(var(--palacio-pad) + 38.4px);
+    border-bottom: var(--linea) solid var(--filete);
+    font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-2);
+  }
+
+  .fuentes3 { gap: 0; }
+  .fuentes3 svg { width: 96px; }
+  .fuentes3 span { display: block; margin-top: var(--s-1); font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-2); }
+
+  .mini-arbol { width: 120px; height: 120px; }
+}
+</style>
+</head>
+<body class="hoy">
+
+<svg class="simbolos" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- Localizador: el palacio dentro del cuadrado -->
+    <symbol id="loc" viewBox="0 0 25 25">
+      <path d="M.5 .5h24v24h-24zM8.5 .5v24M16.5 .5v24M.5 8.5h24M.5 16.5h24" fill="none" stroke="currentColor"/>
+    </symbol>
+    <!-- La moneda: disco de 3 × 3 con el palacio central abierto -->
+    <symbol id="moneda" viewBox="0 0 96 96">
+      <path fill-rule="evenodd" vector-effect="non-scaling-stroke" d="M48 1a47 47 0 1 0 0 94a47 47 0 1 0 0-94zM32 32h32v32H32z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<a class="salto" href="#contenido">Saltar al contenido</a>
+
+<header class="cab pagina">
+  <a class="marca" href="hoy.html" aria-label="Shefa, inicio">
+    <svg class="marca-moneda" viewBox="0 0 36 36" aria-hidden="true">
+      <path fill-rule="evenodd" d="M18 0a18 18 0 1 0 0 36a18 18 0 1 0 0-36zM12 12h12v12H12z"/>
+    </svg>
+    <span class="marca-n">Shefa</span>
+    <span class="marca-he he" lang="he" dir="rtl">שפע</span>
+  </a>
+  <button class="tema" type="button" aria-label="Cambiar entre tema claro y oscuro">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><rect x=".75" y=".75" width="14.5" height="14.5"/><circle cx="8" cy="8" r="4"/></svg>
+    <span class="tema-a-oscuro">Tema oscuro</span><span class="tema-a-claro">Tema claro</span>
+  </button>
+  <nav class="nav" aria-label="Principal">
+    <ol>
+      <li><a href="hoy.html" aria-current="page"><span class="nav-n">1</span>Hoy</a></li>
+      <li><a href="arbol.html"><span class="nav-n">2</span>Árbol</a></li>
+      <li><a href="#"><span class="nav-n">3</span>Ritual</a></li>
+      <li><a href="#"><span class="nav-n">4</span>Tradición</a></li>
+      <li><a href="#"><span class="nav-n">5</span>Espacio</a></li>
+      <li><a href="#"><span class="nav-n">6</span>Datos</a></li>
+      <li><a href="#"><span class="nav-n">7</span>Videoteca</a></li>
+      <li><a href="#"><span class="nav-n">8</span>Colores</a></li>
+      <li><a href="#"><span class="nav-n">9</span>Agentes</a></li>
+    </ol>
+  </nav>
+</header>
+
+<div class="portada pagina">
+  <h1><time datetime="2026-11-14">sábado <span class="sello cifra">14</span> de noviembre de 2026</time></h1>
+</div>
+
+<main id="contenido" class="loshu pagina">
+
+  <!-- 2 · Kun · suroeste · Tierra: lo receptivo -->
+  <section class="pal p2" aria-labelledby="h-p2">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">2</span>
+      <h2 id="h-p2">Sefirá del día</h2>
+      <span class="pal-area">Recepción</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x="16.5" y=".5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <div class="pal-cuerpo">
+      <p class="sef-dia">
+        <span class="sef-dia-n">Maljut</span>
+        <span class="he" lang="he" dir="rtl">מלכות</span>
+        <span class="sef-dia-c">Manifestación</span>
+      </p>
+    </div>
+    <footer class="sef-pie">
+      <div>
+        <p class="rotulo">Práctica</p>
+        <p>Hoy se descansa y se revisa lo recibido</p>
+      </div>
+      <a href="arbol.html" aria-label="Ver Maljut en el Árbol">
+        <svg class="mini-arbol" viewBox="-3 -1 106 103" aria-hidden="true">
+          <path d="M82 19H18M82 41H18M82 70H18M50 5V96M82 19V70M18 19V70M50 5L82 19M50 5L18 19M82 19L50 53M18 19L50 53M82 19L18 41M18 19L82 41M82 41L50 53M18 41L50 53M50 53L82 70M50 53L18 70M82 70L50 81M18 70L50 81"/>
+          <circle cx="50" cy="5" r="4.5"/><circle cx="82" cy="19" r="4.5"/><circle cx="18" cy="19" r="4.5"/>
+          <circle cx="82" cy="41" r="4.5"/><circle cx="18" cy="41" r="4.5"/><circle cx="50" cy="53" r="4.5"/>
+          <circle cx="82" cy="70" r="4.5"/><circle cx="18" cy="70" r="4.5"/><circle cx="50" cy="81" r="4.5"/>
+          <circle class="hoy-nodo" cx="50" cy="96" r="4.5"/>
+        </svg>
+      </a>
+    </footer>
+  </section>
+
+  <!-- 9 · Li · sur · Fuego: lo que se ve de uno -->
+  <section class="pal p9" aria-labelledby="h-p9">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">9</span>
+      <h2 id="h-p9">Declaración</h2>
+      <span class="pal-area">Reputación</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x="8.5" y=".5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <div class="pal-cuerpo">
+      <p class="voz">
+        <span>Soy un profesional que cumple lo que promete.</span>
+        <span>Cada semana sirvo mejor y cobro lo justo.</span>
+        <span>Voy a dominar mi oficio.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- 4 · Xun · sureste · Madera: el palacio de la riqueza -->
+  <section class="pal p4" aria-labelledby="h-p4">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">4</span>
+      <h2 id="h-p4">La cifra</h2>
+      <span class="pal-area">Riqueza</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x=".5" y=".5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <div class="pal-cuerpo">
+      <p><span class="cifra fig-xl">10.000</span> <span class="cifra-unidad">al mes</span></p>
+    </div>
+    <footer class="cifra-pie">
+      <div class="regla" role="img" aria-label="Avance hacia la cifra: 38 %">
+        <span class="regla-oro" style="width:38%"></span>
+        <svg viewBox="0 0 100 16" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0V16M10 11V16M20 11V16M30 11V16M40 11V16M50 6V16M60 11V16M70 11V16M80 11V16M90 11V16M100 0V16"/></svg>
+      </div>
+      <p class="pares">
+        <span>para el <b>30 de junio de 2027</b></span>
+        <span>avance <span class="cifra">38&#8239;%</span></span>
+      </p>
+    </footer>
+  </section>
+
+  <!-- 3 · Zhen · este · Madera: el impulso de cada mañana -->
+  <section class="pal p3" aria-labelledby="h-p3">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">3</span>
+      <h2 id="h-p3">Ritual de hoy</h2>
+      <span class="pal-area">Impulso</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x=".5" y="8.5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <ol class="ritual">
+      <li><label class="paso"><input type="checkbox" checked><span>Respirar</span><span class="paso-d">2 min</span></label></li>
+      <li><label class="paso"><input type="checkbox" checked><span>Leer la declaración en voz alta</span><span class="paso-d">2 min</span></label></li>
+      <li><label class="paso"><input type="checkbox"><span>Visualizar el proceso de hoy</span><span class="paso-d">5 min</span></label></li>
+      <li><label class="paso"><input type="checkbox"><span>Dar primero</span><span class="paso-d">apartar el 10&#8239;%</span></label></li>
+      <li><label class="paso"><input type="checkbox"><span>Bloque de trabajo sin distracciones</span><span class="paso-d">90 min</span></label></li>
+    </ol>
+    <footer class="ritual-pie">
+      <p class="racha">
+        <span>Racha:</span> <b>6 días</b>
+        <svg viewBox="0 0 76 8" aria-hidden="true"><circle cx="4" cy="4" r="4"/><circle cx="15" cy="4" r="4"/><circle cx="26" cy="4" r="4"/><circle cx="37" cy="4" r="4"/><circle cx="48" cy="4" r="4"/><circle cx="59" cy="4" r="4"/><circle cx="71.5" cy="4" r="3.5"/></svg>
+      </p>
+      <p class="rotulo" id="ritual-cuenta">2 de 5</p>
+    </footer>
+  </section>
+
+  <!-- 5 · centro · Tierra: lo real -->
+  <section class="pal tira p5" aria-labelledby="h-p5">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">5</span>
+      <h2 id="h-p5">Ingreso real</h2>
+      <span class="pal-area">Centro</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x="8.5" y="8.5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <div class="pal-cuerpo">
+      <p class="dato"><span class="cifra fig-l">3.800</span> <span class="dato-nota">de 10.000 al mes</span></p>
+    </div>
+    <div class="pal-graf">
+      <svg class="moneda-medida" viewBox="0 0 240 240" role="img" aria-label="Moneda medidora: 38 % de la cifra">
+        <circle class="canto" cx="120" cy="120" r="119.25"/>
+        <circle class="listel" cx="120" cy="120" r="103.5"/>
+        <circle class="arco" cx="120" cy="120" r="111.5" pathLength="100" stroke-dasharray="38 62" transform="rotate(-90 120 120)"/>
+        <rect class="hueco" x="80" y="80" width="80" height="80"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 1 · Kan · norte · Agua: lo que fluye -->
+  <section class="pal tira p1" aria-labelledby="h-p1">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">1</span>
+      <h2 id="h-p1">Fuentes que ingresan</h2>
+      <span class="pal-area">Flujo</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x="8.5" y="16.5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <div class="pal-cuerpo">
+      <p class="dato"><span class="cifra fig-l">1 <span class="fig-de">de</span> 3</span></p>
+    </div>
+    <div class="pal-graf">
+      <div class="fuentes3" role="img" aria-label="Tres fuentes: una ingresando, una probando, una idea">
+        <div><svg class="m-ingresa" viewBox="0 0 96 96" aria-hidden="true"><use href="#moneda"/></svg><span aria-hidden="true">ingresando</span></div>
+        <div><svg class="m-prueba" viewBox="0 0 96 96" aria-hidden="true"><use href="#moneda"/></svg><span aria-hidden="true">probando</span></div>
+        <div><svg class="m-idea" viewBox="0 0 96 96" aria-hidden="true"><use href="#moneda"/></svg><span aria-hidden="true">idea</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · Dui · oeste · Metal: la cosecha guardada -->
+  <section class="pal tira p7" aria-labelledby="h-p7">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">7</span>
+      <h2 id="h-p7">Ahorro</h2>
+      <span class="pal-area">Cosecha</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x="16.5" y="8.5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <div class="pal-cuerpo">
+      <p class="dato"><span class="cifra fig-l">12&#8239;%</span> <span class="dato-nota solo-tira">meta 20&#8239;%</span></p>
+    </div>
+    <p class="meta-nota" aria-hidden="true">meta 20&#8239;%</p>
+    <div class="pal-graf">
+      <svg class="puntos" viewBox="0 0 200 200" role="img" aria-label="12 de cada 100 guardados; la meta es 20">
+        <defs><pattern id="punto" width="20" height="20" patternUnits="userSpaceOnUse"><circle class="vacio" cx="10" cy="10" r="6"/></pattern></defs>
+        <rect width="200" height="200" fill="url(#punto)"/>
+        <g class="lleno">
+          <circle cx="10" cy="190" r="6.5"/><circle cx="30" cy="190" r="6.5"/><circle cx="50" cy="190" r="6.5"/><circle cx="70" cy="190" r="6.5"/><circle cx="90" cy="190" r="6.5"/>
+          <circle cx="110" cy="190" r="6.5"/><circle cx="130" cy="190" r="6.5"/><circle cx="150" cy="190" r="6.5"/><circle cx="170" cy="190" r="6.5"/><circle cx="190" cy="190" r="6.5"/>
+          <circle cx="10" cy="170" r="6.5"/><circle cx="30" cy="170" r="6.5"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 8 · Gen · noreste · Tierra: el conocimiento heredado -->
+  <section class="pal p8" aria-labelledby="h-p8">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">8</span>
+      <h2 id="h-p8">Tradición</h2>
+      <span class="pal-area">Conocimiento</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x=".5" y="16.5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <blockquote class="pal-cuerpo">
+      <p class="voz">«Diezma para que te enriquezcas»</p>
+    </blockquote>
+    <footer><cite class="fuente-cita">Talmud, Taanit 9a</cite></footer>
+  </section>
+
+  <!-- 6 · Qian · noroeste · Metal: quien ayuda desde fuera -->
+  <section class="pal p6" aria-labelledby="h-p6">
+    <header class="pal-cab">
+      <span class="pal-n cifra" aria-hidden="true">6</span>
+      <h2 id="h-p6">Dato</h2>
+      <span class="pal-area">Apoyo</span>
+      <svg class="loc" viewBox="0 0 25 25" aria-hidden="true"><rect x="16.5" y="16.5" width="8" height="8"/><use href="#loc"/></svg>
+    </header>
+    <div class="pal-cuerpo">
+      <p class="voz">Gastar en otros aumenta el bienestar más que gastar en uno mismo</p>
+    </div>
+    <footer><cite class="fuente-cita">Dunn, Aknin y Norton, Science, 2008</cite></footer>
+  </section>
+
+</main>
+
+<footer class="pie pagina">
+  <p class="aviso">Información general, no asesoramiento financiero</p>
+  <div>
+    <h2>Cuadrado Lo Shu</h2>
+    <div class="clave-loshu">
+      <table aria-label="Cuadrado Lo Shu">
+        <tr><td>4</td><td>9</td><td>2</td></tr>
+        <tr><td>3</td><td>5</td><td>7</td></tr>
+        <tr><td>8</td><td>1</td><td>6</td></tr>
+      </table>
+      <p>Nueve palacios, un asunto en cada uno. Cada fila, columna y diagonal suma 15.</p>
+    </div>
+  </div>
+  <div>
+    <h2>Cinco elementos, cinco colores</h2>
+    <ul class="elementos">
+      <li><svg class="el el-madera" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="5"/></svg><span class="han" lang="zh-Hans">木</span><b>Madera</b><span>tinta: texto y estructura</span></li>
+      <li><svg class="el el-fuego" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="5"/></svg><span class="han" lang="zh-Hans">火</span><b>Fuego</b><span>sello: el día de hoy</span></li>
+      <li><svg class="el el-tierra" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="4.5"/></svg><span class="han" lang="zh-Hans">土</span><b>Tierra</b><span>papel: el fondo</span></li>
+      <li><svg class="el el-metal" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="5"/></svg><span class="han" lang="zh-Hans">金</span><b>Metal</b><span>oro: lo medido</span></li>
+      <li><svg class="el el-agua" viewBox="0 0 16 16" aria-hidden="true"><rect x=".5" y=".5" width="15" height="15"/><circle cx="8" cy="8" r="5"/></svg><span class="han" lang="zh-Hans">水</span><b>Agua</b><span>azul de Zúrich: flujo y acción</span></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var raiz = document.documentElement, clave = 'shefa-tema';
+  try { var t = localStorage.getItem(clave); if (t) raiz.dataset.theme = t; } catch (e) {}
+  document.querySelector('.tema').addEventListener('click', function () {
+    var oscuro = raiz.dataset.theme ? raiz.dataset.theme === 'dark'
+      : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    raiz.dataset.theme = oscuro ? 'light' : 'dark';
+    try { localStorage.setItem(clave, raiz.dataset.theme); } catch (e) {}
+  });
+  var pasos = document.querySelectorAll('.ritual input'), cuenta = document.getElementById('ritual-cuenta');
+  function contar() {
+    cuenta.textContent = document.querySelectorAll('.ritual input:checked').length + ' de ' + pasos.length;
+  }
+  if (cuenta) { pasos.forEach(function (p) { p.addEventListener('change', contar); }); contar(); }
+})();
+</script>
+</body>
+</html>

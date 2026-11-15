@@ -1,0 +1,45 @@
+---
+// EntradaDiario: una entrada del diario de conocimiento: fecha, título y sus secciones
+// (una por pilar), cada hallazgo con su etiqueta de evidencia y su fuente enlazada.
+//
+//   <EntradaDiario entrada={e} />
+import Etiqueta from '../Etiqueta.astro';
+import { fechaTexto, nombreDia } from '../../lib/formato';
+import type { EntradaDiario } from '../../lib/videoteca-diario';
+
+interface Props {
+  entrada: EntradaDiario;
+}
+const { entrada: e } = Astro.props;
+const mesAnio = e.fecha ? fechaTexto(e.fecha).split(' de ').slice(1).join(' de ') : '';
+---
+<article class="ag-dia" id={e.clave ? `dia-${e.clave}` : undefined}>
+  <header class="ag-dia-cab">
+    {e.fecha && (
+      <p class="ag-dia-f">
+        <time datetime={e.clave}>
+          <span class="cifra">{e.fecha.getDate()}</span>
+          <span><span class="ag-dia-d">{nombreDia(e.fecha)}</span> <span class="oculto">de </span>{mesAnio}</span>
+        </time>
+      </p>
+    )}
+    <h3 class="voz-m">{e.titulo || (e.fecha ? `Entrada del ${fechaTexto(e.fecha)}` : 'Entrada sin título')}</h3>
+  </header>
+  {e.secciones.length > 0
+    ? (
+      <div class="ag-dia-s">
+        {e.secciones.map((s) => (
+          <section>
+            {s.titulo && <h4>{s.titulo}</h4>}
+            {s.bloques.map((b) => (
+              <div class="ag-hallazgo">
+                {b.etiqueta && <p class="ag-hallazgo-e"><Etiqueta tipo={b.etiqueta} /></p>}
+                <Fragment set:html={b.html} />
+              </div>
+            ))}
+          </section>
+        ))}
+      </div>
+    )
+    : <p class="lista-vacia">Esta entrada no tiene hallazgos.</p>}
+</article>

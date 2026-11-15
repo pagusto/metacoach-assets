@@ -1,0 +1,188 @@
+/* ==========================================================================
+   Videoteca · ruta de inicio en el cuadrado y biblioteca completa debajo
+   Reproductor: palacios 4·9·3·5 · Pasos: 2·7 · Tamaño: 8 · Categorías: 1 · Canales: 6
+   Solo tokens: ningún color ni tamaño suelto.
+   ========================================================================== */
+
+/* ---------- Fachada y reproductor ---------- */
+.vt-marco { min-width: 0; }
+.vt-ver {
+  position: relative; display: block; width: 100%; aspect-ratio: 16 / 9;
+  padding: 0; border: 0; background: var(--filete-suave); overflow: hidden;
+}
+.vt-ver img { width: 100%; height: 100%; object-fit: cover; }
+.vt-ver img[data-caida] { visibility: hidden; }
+.vt-play {
+  position: absolute; left: 0; bottom: 0;
+  display: block; width: var(--s-3); height: var(--s-3);
+  background: var(--texto);
+}
+.vt-play svg { width: 100%; height: 100%; fill: var(--fondo); }
+.vt-ver:hover .vt-play, .vt-ver:focus-visible .vt-play { background: var(--accion); }
+.vt-marco-g .vt-play { width: var(--s-4); height: var(--s-4); }
+
+.vt-reproductor iframe {
+  display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
+  border: 0; background: var(--filete-suave);
+}
+.vt-reproductor p { margin-top: var(--s-1); font-size: var(--t-0); line-height: var(--lh-0); }
+
+/* ---------- Piezas comunes de un video ---------- */
+.vt-meta {
+  display: flex; flex-wrap: wrap; column-gap: var(--s-2);
+  font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2);
+}
+.vt-meta .medio { color: var(--texto); }
+.vt-acciones {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-3);
+  font-size: var(--t-0); line-height: var(--lh-0);
+}
+.vt-visto { display: inline-flex; align-items: center; gap: var(--s-1); min-height: 32px; cursor: pointer; }
+.vt-visto:hover .casilla { border-color: var(--accion); }
+.vt-texto { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1); align-content: start; text-wrap: pretty; }
+.vt-porque .rotulo { display: block; }
+
+/* ---------- 4·9·3·5 · El reproductor de la ruta ---------- */
+.vt-paso { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.vt-paso-txt { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.vt-paso-cab { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1); align-content: start; }
+.vt-pasos-nav { display: flex; gap: var(--s-1); margin-top: var(--s-2); }
+
+/* ---------- 2·7 · Los pasos ---------- */
+.vt-orden .pal-cuerpo { padding-top: 0; }
+.vt-ruta { border-top: var(--linea) solid var(--filete); }
+.vt-ruta li { border-bottom: var(--linea) solid var(--filete-suave); }
+.vt-ruta-b {
+  display: grid; grid-template-columns: var(--s-3) minmax(0, 1fr); column-gap: 12px;
+  width: 100%; padding: 11px 0 12px; border: 0; background: none; text-align: left;
+}
+.vt-ruta-n {
+  grid-row: 1 / span 2;
+  display: inline-grid; place-items: center; width: var(--s-3); height: var(--s-3); margin: 0; padding: 0;
+  font-size: var(--t-1); line-height: 1;
+}
+.vt-ruta-t { text-wrap: pretty; }
+.vt-ruta-m { grid-column: 2; font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3); }
+.vt-ruta-b:hover .vt-ruta-t { color: var(--accion); }
+.vt-ruta-b[aria-pressed="true"] .vt-ruta-t { font-weight: var(--peso-medio); }
+.vt-ruta-pie { margin-top: var(--s-2); }
+
+/* ---------- 8 · Tamaño ---------- */
+.vt-unidad { font-size: var(--t-2); line-height: var(--lh-2); }
+.vt-tam .pal-pie { margin-top: var(--s-3); }
+.vt-pares { border-bottom: var(--linea) solid var(--filete-suave); }
+.vt-pares .pares { padding-block: 7px 8px; border-top: var(--linea) solid var(--filete-suave); }
+.vt-pares .pares:first-child { border-top-color: var(--filete); }
+
+/* ---------- 1 · Por categoría: barras de oro, una cuenta medida ---------- */
+.vt-cats .pal-cuerpo { padding-top: var(--s-1); }
+.vt-barras button {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; align-items: baseline;
+  width: 100%; padding: var(--s-1) 0 0; border: 0; background: none; text-align: left;
+}
+.vt-barras .cifra { font-size: var(--t-1m); line-height: var(--lh-1); }
+.vt-barra { grid-column: 1 / -1; display: block; height: var(--s-1); border-bottom: var(--linea) solid var(--filete); }
+.vt-barra span { display: block; height: 100%; background: var(--medida); }
+.vt-barras button:hover .vt-barra-t { color: var(--accion); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.vt-cats .pal-pie { margin-top: var(--s-2); }
+
+/* ---------- 6 · Quién publica ---------- */
+.vt-tipos-l { display: grid; gap: 12px; }
+.vt-tipos-l > div { display: grid; grid-template-columns: var(--s-4) minmax(0, 1fr); column-gap: var(--s-1); }
+.vt-tipos-l dt { display: contents; }
+.vt-tipos-l .cifra { font-size: var(--t-2); line-height: var(--lh-1); }
+.vt-tipos-l dd { grid-column: 2; font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.vt-tipos .pal-pie { margin-top: var(--s-2); }
+
+/* ---------- Biblioteca ---------- */
+.vt-bib { margin-top: var(--s-5); }
+.vt-sec-cab {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 var(--s-3);
+  padding-top: 14px; border-top: var(--marco) solid var(--filete);
+}
+.vt-sec-cab h2 { font-size: var(--t-2); line-height: var(--lh-2); letter-spacing: -0.015em; }
+.vt-sec-cab h2:focus-visible { outline-offset: 4px; }
+.vt-estado { font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+
+/* Filtros: una columna en la tira; tres columnas de palacio en escritorio */
+.vt-filtros {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2);
+  padding-block: var(--s-2) var(--s-3); border-bottom: var(--linea) solid var(--filete);
+}
+html:not(.js) .vt-filtros { display: none; }
+.vt-filtros legend { margin-bottom: var(--s-1); font-size: var(--t-0); line-height: var(--lh-0); font-weight: var(--peso-medio); }
+.vt-ops { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.vt-op {
+  display: inline-flex; align-items: center; gap: var(--s-1);
+  min-height: 40px; padding: 0 12px;
+  border: var(--linea) solid var(--texto); background: none; color: var(--texto);
+  font-size: 0.9375rem; line-height: 1.2; font-weight: 500;
+}
+.vt-op .cifra { color: var(--texto-2); }
+.vt-op:hover { border-color: var(--accion); color: var(--accion); }
+.vt-op:hover .cifra { color: inherit; }
+.vt-op[aria-pressed="true"], .vt-op[aria-pressed="true"]:hover { border-color: var(--texto); background: var(--texto); color: var(--fondo); }
+.vt-op[aria-pressed="true"] .cifra { color: inherit; }
+.vt-op-cero { border-color: var(--trazo); color: var(--texto-3); }
+.vt-op-cero .cifra { color: inherit; }
+.vt-f-vistos { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-2); min-height: var(--campo); }
+.vt-f-vistos .boton-texto { margin-left: auto; font-size: var(--t-0); line-height: var(--lh-0); }
+
+/* Lista de videos */
+.vt-lista > li { border-bottom: var(--linea) solid var(--filete-suave); }
+.vt {
+  display: grid; grid-template-columns: clamp(112px, 36%, 160px) minmax(0, 1fr); gap: var(--s-1) var(--s-2);
+  grid-template-areas: "media titulo" "meta meta" "temas temas" "texto texto" "lado lado" "acciones acciones";
+  padding-block: var(--s-3);
+  scroll-margin-top: var(--s-2);
+}
+.vt-activo { grid-template-areas: "media media" "titulo titulo" "meta meta" "temas temas" "texto texto" "lado lado" "acciones acciones"; }
+.vt-media { grid-area: media; min-width: 0; }
+.vt-cab { display: contents; }
+.vt-titulo { grid-area: titulo; font-weight: var(--peso-medio); text-wrap: pretty; }
+.vt > .vt-cab > .vt-meta { grid-area: meta; }
+.vt-temas { grid-area: temas; font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3); }
+.vt-cat { margin-right: var(--s-1); font-weight: var(--peso-medio); color: var(--texto); }
+.vt > .vt-cab > .vt-acciones { grid-area: acciones; }
+.vt > .vt-texto { grid-area: texto; margin-top: var(--s-1); }
+.vt-lado { grid-area: lado; font-size: var(--t-0); line-height: var(--lh-0); }
+.vt-lado .rotulo { line-height: var(--lh-0); }
+.vt-nota { color: var(--texto-2); text-wrap: pretty; }
+.vt[data-visto-si] .vt-titulo { color: var(--texto-2); }
+
+/* Sin resultados */
+.vt-vacio {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2);
+  max-width: 44rem; padding-block: var(--s-4) var(--s-5);
+}
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 1280px) {
+  .vt-paso { gap: var(--s-3); }
+  .vt-paso-txt { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-3); }
+  .vt-pasos-nav { margin-top: var(--s-3); }
+  .vt-marco-g .vt-play { width: var(--s-5); height: var(--s-5); }
+  .vt-lista .vt-play { width: 32px; height: 32px; }
+
+  .vt-ruta-t { font-size: var(--t-0); line-height: var(--lh-0); }
+  .vt-ruta-b { padding-block: 9px 10px; }
+
+  .vt-bib { margin-top: var(--s-6); }
+  .vt-sec-cab h2 { font-size: var(--t-3); line-height: var(--s-4); font-weight: 400; letter-spacing: -0.02em; }
+
+  /* Tres columnas con medianil de un módulo, como los palacios */
+  .vt-filtros { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-3) var(--s-4); padding-block: var(--s-3); }
+  .vt-f-cat, .vt-f-vistos { grid-column: 1 / -1; }
+  .vt-op { min-height: var(--campo); padding-inline: var(--s-2); }
+
+  /* Fila de cuatro columnas: 6 M · 6,5 M · 8,5 M · 4,5 M, con medianiles de M/2 */
+  .vt {
+    grid-template-columns: 288px 312px minmax(0, 408px) minmax(0, 1fr); gap: 0 var(--s-3);
+    grid-template-areas: "media cab texto lado";
+  }
+  .vt-activo { grid-template-areas: "media media texto lado" "cab cab texto lado"; row-gap: var(--s-2); }
+  .vt-cab { grid-area: cab; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; gap: var(--s-1); }
+  .vt-titulo, .vt-temas, .vt > .vt-cab > .vt-meta, .vt > .vt-cab > .vt-acciones { grid-area: auto; }
+  .vt > .vt-cab > .vt-acciones { align-self: end; }
+  .vt > .vt-texto { margin-top: 0; }
+}

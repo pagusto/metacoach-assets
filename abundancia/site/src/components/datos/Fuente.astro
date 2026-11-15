@@ -1,0 +1,26 @@
+---
+// Fuente (datos): línea de fuente que abre el enlace en otra pestaña.
+// Misma forma que <Cita> (clase .fuente-cita), con target="_blank" y rel="noopener".
+//   <Fuente fuente={cifra.fuente} />
+//   <Fuente fuente={x.fuente} rotulo="Fuente" />
+interface Props {
+  /** Objeto Fuente de los JSON: { cita, url }. */
+  fuente?: { cita: string; url: string | null } | null;
+  /** Rótulo pequeño encima. */
+  rotulo?: string;
+  /** Clases extra. */
+  clase?: string;
+}
+const { fuente, rotulo, clase = '' } = Astro.props;
+// Espacio fino sin corte antes de «%», para que «4 %» no se parta entre dos líneas.
+const cita = (fuente?.cita ?? '').replace(/ %/g, '\u202f%');
+const url = fuente?.url ?? null;
+---
+{cita && (
+  <cite class:list={['fuente-cita', clase]}>
+    {rotulo && <span class="rotulo">{rotulo}</span>}
+    {url
+      ? <a href={url} target="_blank" rel="noopener external">{cita}<span class="oculto"> (se abre en otra pestaña)</span></a>
+      : cita}
+  </cite>
+)}

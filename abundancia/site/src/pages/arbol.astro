@@ -1,0 +1,315 @@
+---
+// Árbol: el tablero. El Árbol de la Vida ocupa los palacios 4·9·3·5; el detalle de la
+// sefirá elegida, 2·7; el libro de fuentes, 8·1; el medidor de meta, 6.
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import Moneda from '../components/Moneda.astro';
+import Medidor from '../components/Medidor.astro';
+import Cita from '../components/Cita.astro';
+import AvisoMuestra from '../components/AvisoMuestra.astro';
+import '../styles/arbol.css';
+
+import cabala from '../data/cabala.json';
+import { TIPOS_FUENTE, estadoInicial, ingresoReal, medidas, fmt, claveDia, type SefiraId } from '../lib/store';
+import { COLUMNA, CUALIDAD, ORDEN, POS, SENDEROS } from '../lib/sefirot';
+import { fechaLarga, fino, pct } from '../lib/formato';
+import { sefiraDelDia } from '../lib/rotacion';
+import { nodoSVG } from '../lib/moneda';
+import { ruta } from '../lib/ruta';
+
+// Se construye con los datos de muestra; el cliente repinta con el estado guardado.
+const hoy = new Date();
+const s = estadoInicial();
+const m = medidas(s, hoy);
+const total = ingresoReal(s);
+const avance = s.cifra ? Math.min(1, total / s.cifra) : 0;
+
+const sefirot = ORDEN.map((id) => {
+  const d = cabala.sefirot.find((x) => x.id === id);
+  if (!d) throw new Error(`Falta la sefirá «${id}» en cabala.json`);
+  return { ...d, id, cualidad: CUALIDAD[id], col: COLUMNA[id], x: POS[id][0], y: POS[id][1] };
+});
+const delDia = (sefiraDelDia(cabala.sefirot, hoy)?.id ?? 'jesed') as SefiraId;
+
+// Desplazamiento vertical del rótulo en la columna central (escritorio y móvil).
+const DY: Partial<Record<SefiraId, [string, string]>> = {
+  keter: ['0px', '-22px'], tiferet: ['12px', '-17px'], yesod: ['20px', '-10px'], maljut: ['8px', '-16px'],
+};
+const AL_LIBRO: Partial<Record<SefiraId, string>> = {
+  bina: 'El plan se escribe en el libro: da a cada fuente su próxima acción.',
+  yesod: 'Los canales son las fuentes del libro que están en estado «ingresando» y ya traen dinero.',
+  maljut: 'Lo que se manifiesta es la suma mensual de las fuentes del libro frente a tu cifra.',
+};
+---
+<Base title="Árbol" description="El tablero de Shefa: diez cualidades medibles en forma de Árbol de la Vida, el libro de fuentes de ingreso y el medidor de tu cifra.">
+  <TituloPagina titulo="Árbol de la Vida">
+    Diez cualidades y su medida al <time class="vivo" datetime={claveDia(hoy)} data-fecha>{fechaLarga(hoy)}</time>
+  </TituloPagina>
+
+  <AvisoMuestra />
+
+  <Cuadrado clase="arbol-pag vivo">
+    <!-- Palacios 4 · 9 · 3 · 5 -->
+    <Palacio n={4} celdas={[4, 9, 3, 5]} titulo="Las diez sefirot" etiqueta="Elige un nodo" clase="a-arbol">
+      <div class="arbol">
+        <!-- Disposición del Arí. Coordenadas en % del marco: 3 horizontales, 7 verticales, 12 diagonales. -->
+        <svg class="senderos" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          {SENDEROS.map(([a, b]) => <line x1={POS[a][0]} y1={POS[a][1]} x2={POS[b][0]} y2={POS[b][1]} />)}
+        </svg>
+        <ol class="sefirot">
+          {sefirot.map((x) => (
+            <li class:list={['sef', x.col]} style={`--x:${x.x};--y:${x.y}${DY[x.id] ? `;--dy:${DY[x.id]![0]};--dy-movil:${DY[x.id]![1]}` : ''}`}>
+              <button
+                class="nodo" type="button" data-id={x.id} data-nombre={x.nombre} data-cualidad={x.cualidad}
+                aria-pressed={x.id === delDia ? 'true' : 'false'} aria-controls="detalle"
+                aria-label={`${x.nombre}, ${x.cualidad}. ${m[x.id].detalle}`}
+              >
+                <Fragment set:html={nodoSVG(m[x.id].avance)} />
+                <span class="nodo-v cifra">{fino(m[x.id].valor)}</span>
+              </button>
+              <p class="rot" aria-hidden="true">
+                <span class="fondo"><b>{x.nombre}</b> <span class="he" lang="he" dir="rtl">{x.hebreo}</span></span>
+                <span class="rot-c">{x.cualidad}</span>
+                <span class="rot-m" data-frase={x.id}>{fino(m[x.id].detalle)}</span>
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <p class="al-detalle"><a href="#detalle">Ver el detalle de <span data-v="elegida">{sefirot.find((x) => x.id === delDia)?.nombre}</span></a></p>
+
+      <table class="indice">
+        <caption class="oculto">Las diez sefirot: cualidad y métrica</caption>
+        <thead class="oculto"><tr><th scope="col">Sefirá y cualidad</th><th scope="col">Métrica</th></tr></thead>
+        <tbody>
+          {sefirot.map((x) => (
+            <tr>
+              <th scope="row"><b>{x.nombre}</b> <span class="he" lang="he" dir="rtl">{x.hebreo}</span><span class="cual">{x.cualidad}</span></th>
+              <td data-frase={x.id}>{fino(m[x.id].detalle)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div slot="pie" class="arbol-nota">
+        <p class="rotulo">Sobre esta disposición</p>
+        <p>{cabala.arbol_nota}</p>
+      </div>
+    </Palacio>
+
+    <!-- Palacios 2 · 7 -->
+    <Palacio n={2} celdas={[2, 7]} titulo="Sefirá seleccionada" etiqueta="Detalle" id="detalle" clase="a-det">
+      {sefirot.map((x) => (
+        <article class="det" data-det={x.id} data-dia={x.dia ?? undefined} hidden={x.id !== delDia}>
+          <div class="det-titulo">
+            <h3>{x.nombre} <span class="he" lang="he" dir="rtl">{x.hebreo}</span></h3>
+            <p>{x.cualidad}</p>
+            <p class="rotulo">En hebreo, {x.significado.toLowerCase()}</p>
+          </div>
+
+          <div class="det-sec">
+            <h4>Métrica</h4>
+            <p class="det-cifra"><span class="cifra fig-l" data-valor>{fino(m[x.id].valor)}</span> <span data-resto>{fino(m[x.id].detalle)}</span></p>
+            <Medidor valor={m[x.id].avance} etiqueta="Avance hacia la meta" desde="0" hasta="meta" clase="det-regla" />
+
+            {x.id === 'keter' && (
+              <form class="campo control" data-form="keter">
+                <label for="k-declaracion">Declaración</label>
+                <textarea id="k-declaracion" name="declaracion" rows="3" placeholder="Quién eres, a quién sirves y qué vas a dominar."></textarea>
+                <div class="campo-par">
+                  <div class="campo">
+                    <label for="k-cifra">Cifra al mes</label>
+                    <input id="k-cifra" name="cifra" type="text" inputmode="numeric" autocomplete="off" />
+                  </div>
+                  <div class="campo">
+                    <label for="k-fecha">Para el</label>
+                    <input id="k-fecha" name="fechaMeta" type="date" />
+                  </div>
+                </div>
+                <div class="campo-fila">
+                  <button class="boton" type="submit">Guardar</button>
+                  <p class="campo-estado" role="status"></p>
+                </div>
+              </form>
+            )}
+
+            {x.id === 'jojma' && (
+              <div class="control">
+                <form class="campo" data-form="jojma">
+                  <label for="j-idea">Captura una idea</label>
+                  <div class="campo-fila sin-salto">
+                    <input id="j-idea" name="idea" type="text" autocomplete="off" placeholder="Una idea de servicio o producto" />
+                    <button class="boton" type="submit">Añadir</button>
+                  </div>
+                </form>
+                <ul class="lista-ed" data-lista="ideas"></ul>
+                <p class="rotulo">También cuentan las fuentes del libro que están en estado «idea».</p>
+              </div>
+            )}
+
+            {AL_LIBRO[x.id] && (
+              <div class="control pila pila-1">
+                <p class="nota">{AL_LIBRO[x.id]}</p>
+                <p><a class="boton-2" href="#libro">Ir al libro de fuentes</a></p>
+              </div>
+            )}
+
+            {(x.id === 'jesed' || x.id === 'guevura') && (
+              <form class="campo control" data-form={x.id}>
+                <label for={`c-${x.id}`}>{x.id === 'jesed' ? 'Donado este mes, en % de tus ingresos' : 'Ahorro este mes, en % de tus ingresos'}</label>
+                <div class="campo-fila sin-salto">
+                  <input id={`c-${x.id}`} class="entrada-cifra" name="valor" type="text" inputmode="decimal" autocomplete="off" />
+                  <span class="campo-u">%</span>
+                  <button class="boton empuja" type="submit">Guardar</button>
+                </div>
+                <p class="campo-estado" role="status"></p>
+              </form>
+            )}
+
+            {x.id === 'netsaj' && (
+              <div class="control pila pila-1">
+                <p class="campo-rot">Últimos 14 días</p>
+                <div class="dias" data-v="dias14"></div>
+                <p class="rotulo">Hoy está a la derecha. Un día cuenta cuando completas 4 de los 5 pasos.</p>
+                <p><a class="boton-2" href={ruta('/ritual')}>Abrir el ritual</a></p>
+              </div>
+            )}
+
+            {x.id === 'hod' && (
+              <div class="control">
+                <form class="campo" data-form="hod">
+                  <label for="h-evidencia">Anota una evidencia de hoy</label>
+                  <div class="campo-fila sin-salto">
+                    <input id="h-evidencia" name="texto" type="text" autocomplete="off" placeholder="Un ingreso, una ayuda o un aprendizaje" />
+                    <button class="boton" type="submit">Añadir</button>
+                  </div>
+                </form>
+                <ul class="lista-ed" data-lista="evidencias"></ul>
+              </div>
+            )}
+
+            {x.id === 'tiferet' && (
+              <div class="control pila pila-1">
+                <p class="campo-rot">De dónde sale el índice</p>
+                <ul class="desglose" data-v="desglose"></ul>
+                <p class="rotulo">Es la media del avance de las otras nueve cualidades.</p>
+              </div>
+            )}
+          </div>
+
+          <div class="det-sec">
+            <h4>En la tradición</h4>
+            <p>{fino(x.tradicion)}</p>
+          </div>
+          <div class="det-sec">
+            <h4>Aplicación moderna</h4>
+            <p>{fino(x.aplicacion)}</p>
+          </div>
+          <div class="det-sec">
+            <h4>Práctica de hoy</h4>
+            <p>{fino(x.practica)}</p>
+          </div>
+          <div class="det-sec">
+            <h4>Fuente</h4>
+            <Cita fuente={x.fuente} />
+          </div>
+        </article>
+      ))}
+    </Palacio>
+
+    <!-- Palacios 8 · 1 -->
+    <Palacio n={8} celdas={[8, 1]} titulo="Libro de fuentes de ingreso" etiqueta="3 fuentes" id="libro" clase="a-libro libro">
+      <table>
+        <colgroup><col class="c1" /><col class="c2" /><col class="c3" /><col class="c4" /><col class="c5" /><col class="c6" /></colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Fuente</th><th scope="col">Tipo</th><th scope="col">Estado</th>
+            <th scope="col" class="c-monto">Al mes</th><th scope="col" class="c-accion">Próxima acción</th>
+            <th scope="col"><span class="oculto">Quitar</span></th>
+          </tr>
+        </thead>
+        <tbody data-v="filas"></tbody>
+      </table>
+      <p class="lista-vacia" data-v="libro-vacio" hidden>Aún no hay fuentes. Añade la primera: puede ser solo una idea.</p>
+      <p class="libro-pie"><button class="boton" type="button" data-v="anadir">Añadir fuente</button></p>
+
+      <template id="fila-fuente">
+        <tr>
+          <th scope="row" class="c-fuente">
+            <textarea class="celda" data-campo="nombre" rows="1" aria-label="Nombre de la fuente" placeholder="Nombre de la fuente"></textarea>
+          </th>
+          <td class="c-tipo">
+            <span class="selector">
+              <select class="celda" data-campo="tipo" aria-label="Tipo">
+                {TIPOS_FUENTE.map((t) => <option value={t}>{t}</option>)}
+              </select>
+            </span>
+          </td>
+          <td class="c-estado">
+            <span class="estado">
+              <span data-moneda></span>
+              <span class="selector">
+                <select class="celda" data-campo="estado" aria-label="Estado">
+                  <option value="idea">idea</option>
+                  <option value="probando">probando</option>
+                  <option value="ingresando">ingresando</option>
+                </select>
+              </span>
+            </span>
+          </td>
+          <td class="c-monto">
+            <input class="celda cifra" data-campo="mensual" type="text" inputmode="numeric" autocomplete="off" aria-label="Ingreso al mes" />
+          </td>
+          <td class="c-accion">
+            <textarea class="celda" data-campo="accion" rows="1" aria-label="Próxima acción" placeholder="Próxima acción"></textarea>
+            <div class="confirma" hidden>
+              <p>¿Quitar esta fuente?</p>
+              <p class="fila">
+                <button class="boton boton-s" type="button" data-si>Sí, quitar</button>
+                <button class="boton-2 boton-s" type="button" data-no>Cancelar</button>
+              </p>
+            </div>
+          </td>
+          <td class="c-quitar"><button class="boton-texto" type="button" data-quitar>Quitar</button></td>
+        </tr>
+      </template>
+    </Palacio>
+
+    <!-- Palacio 6 -->
+    <Palacio n={6} titulo="Medidor de meta" etiqueta="La cifra" forma="cuadrado" clase="meta">
+      <p class="dato">
+        <span class="cifra fig-l" data-v="meta-total">{fmt(total)}</span>
+        <span class="dato-nota" data-v="meta-nota">de {fmt(s.cifra)} al mes</span>
+      </p>
+      <p class="meta-pct"><span class="cifra" data-v="meta-pct">{pct(avance * 100)}</span><span class="rotulo">de la cifra</span></p>
+      <div slot="graf" data-v="meta-moneda"><Moneda valor={avance} etiqueta={`Moneda medidora: ${fmt(total)} de ${fmt(s.cifra)}`} /></div>
+    </Palacio>
+  </Cuadrado>
+
+  <section class="datos-ctl" aria-labelledby="h-datos">
+    <div>
+      <h2 id="h-datos">Tus datos</h2>
+      <p class="nota">Se guardan solo en este dispositivo. Exporta una copia para llevarlos a otro o para no perderlos.</p>
+    </div>
+    <div class="datos-botones">
+      <button class="boton-2" type="button" data-v="exportar">Exportar</button>
+      <label class="boton-2 importar">Importar<input class="oculto" type="file" accept="application/json,.json" data-v="importar" /></label>
+      <button class="boton-2" type="button" data-v="reiniciar">Reiniciar</button>
+    </div>
+    <div class="datos-confirma" data-v="confirma" hidden>
+      <p>¿Borrar todo lo guardado y volver a los datos de muestra? No se puede deshacer.</p>
+      <p class="fila">
+        <button class="boton" type="button" data-v="si-reiniciar">Sí, reiniciar</button>
+        <button class="boton-2" type="button" data-v="no-reiniciar">Cancelar</button>
+      </p>
+    </div>
+    <p class="campo-estado" role="status" data-v="estado-datos"></p>
+  </section>
+</Base>
+
+<script>
+  import '../lib/arbol-cliente';
+</script>

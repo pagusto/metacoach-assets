@@ -1,0 +1,100 @@
+---
+// Barras (datos): barras horizontales a escala, en SVG. Cada fila lleva su rótulo y una o dos
+// barras; el origen es siempre cero y la escala es común a todas las filas.
+//   - serie «oro» (por defecto): barra de 8 px, el valor medido.
+//   - serie «tinta»: filete de 2 px con tope, la referencia.
+//   - pista: la barra va sobre una regla de 0 a «max» con marcas cada décima (como <Medidor>).
+//   - cifraAparte: la cifra se escribe a la derecha del rótulo y no en la punta de la barra.
+//   - clase «bh-lado»: en escritorio el rótulo va a la izquierda de la barra, y se ven el eje
+//     y la rejilla de «marcas». En la tira, el rótulo va encima y cada barra lleva su cifra.
+// Las coordenadas horizontales van en porcentaje: el gráfico se adapta al ancho sin deformar
+// el texto. Las cifras se repiten como texto para lectores de pantalla; el SVG es decorativo.
+//
+//   <Barras max={8} filas={[{ rotulo: 'Acciones globales', barras: [{ valor: 5.2, texto: '5,2 %' }] }]} />
+interface Barra {
+  /** Valor en las unidades del eje. */
+  valor: number;
+  /** Cifra ya formateada. */
+  texto: string;
+  /** «oro» (por defecto) o «tinta». */
+  serie?: 'oro' | 'tinta';
+  /** Nombre de la serie, para lectores de pantalla («Mediana»). */
+  nombre?: string;
+}
+interface Fila {
+  rotulo: string;
+  /** Nota corta bajo el rótulo. */
+  nota?: string;
+  barras: Barra[];
+}
+interface Marca {
+  v: number;
+  texto?: string;
+}
+interface Props {
+  filas: Fila[];
+  /** Tope del eje (el origen es siempre cero). */
+  max: number;
+  /** Marcas del eje (solo con «bh-lado», en escritorio); las que llevan texto se rotulan. */
+  marcas?: Marca[];
+  /** Dibuja la regla completa de 0 a max bajo cada barra. */
+  pista?: boolean;
+  /** Escribe la cifra junto al rótulo, alineada a la derecha. */
+  cifraAparte?: boolean;
+  /** Barras y cifras un paso mayores (el gráfico principal). */
+  grande?: boolean;
+  /** Clases extra. */
+  clase?: string;
+}
+const { filas, max, marcas = [], pista = false, cifraAparte = false, grande = false, clase = '' } = Astro.props;
+// Geometría vertical de cada barra, en píxeles: alto de la línea, barra de oro, filete de tinta y línea base del texto.
+const G = grande
+  ? { alto: 28, oroY: 9, oroH: 12, tintaY: 14, topeY1: 8, topeY2: 22, textoY: 21 }
+  : { alto: 20, oroY: 7, oroH: 8, tintaY: 10, topeY1: 6, topeY2: 16, textoY: 16 };
+const x = (v: number) => `${Math.max(0, Math.min(100, (v / max) * 100)).toFixed(3)}%`;
+const ancla = (i: number) => (i === 0 ? 'start' : i === marcas.length - 1 ? 'end' : 'middle');
+const DECIMAS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+---
+<div class:list={['bh', pista && 'bh-pista', cifraAparte && 'bh-aparte', grande && 'bh-grande', clase]}>
+  {marcas.some((m) => m.texto) && (
+    <div class="bh-eje" aria-hidden="true">
+      <svg width="100%" height="16">
+        {marcas.map((m, i) => m.texto && <text x={x(m.v)} y="12" text-anchor={ancla(i)}>{m.texto}</text>)}
+      </svg>
+    </div>
+  )}
+  <div class="bh-cuerpo">
+    {marcas.length > 0 && (
+      <div class="bh-rejilla" aria-hidden="true">
+        <svg width="100%" height="100%">
+          {marcas.map((m) => <line x1={x(m.v)} x2={x(m.v)} y1="0" y2="100%" class={m.v === 0 ? 'cero' : undefined} />)}
+        </svg>
+      </div>
+    )}
+    <ul class="bh-filas">
+      {filas.map((f) => (
+        <li class="bh-fila">
+          <p class="bh-rot">
+            <span class="bh-nombre">{f.rotulo}{f.nota && <span class="bh-nota">{f.nota}</span>}</span>
+            {cifraAparte && <span class="bh-cifra cifra" aria-hidden="true">{f.barras.map((b) => b.texto).join(' · ')}</span>}
+          </p>
+          <div class="bh-zona">
+            {f.barras.map((b) => (
+              <svg class:list={['bh-barra', `bh-${b.serie ?? 'oro'}`]} width="100%" height={G.alto} aria-hidden="true">
+                {pista && <line class="bh-base" x1="0" x2="100%" y1="15.5" y2="15.5" />}
+                {pista && DECIMAS.map((t) => (
+                  <line class="bh-base" x1={`${t}%`} x2={`${t}%`} y1={t % 100 === 0 ? 0 : t === 50 ? 5 : 10} y2="16" />
+                ))}
+                {(b.serie ?? 'oro') === 'oro'
+                  ? <rect x="0" y={G.oroY} width={x(b.valor)} height={G.oroH} />
+                  : <><rect x="0" y={G.tintaY} width={x(b.valor)} height="2" /><line x1={x(b.valor)} x2={x(b.valor)} y1={G.topeY1} y2={G.topeY2} /></>}
+                {!cifraAparte && <text x={x(b.valor)} y={G.textoY} dx="8">{b.texto}</text>}
+              </svg>
+            ))}
+          </div>
+          <span class="oculto">{f.barras.map((b) => `${b.nombre ? `${b.nombre}: ` : ''}${b.texto}`).join('; ')}.</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

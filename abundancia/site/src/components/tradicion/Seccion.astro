@@ -1,0 +1,24 @@
+---
+// Seccion: la navegación de segundo nivel de Tradición (las cuatro páginas), bajo el menú.
+//   <Seccion actual="cabala" />
+import { PAGINAS } from '../../lib/tradicion';
+import { ruta } from '../../lib/ruta';
+
+interface Props {
+  /** id de la página actual: cabala, hermetismo, maestros o practicas. */
+  actual: string;
+}
+const { actual } = Astro.props;
+---
+<nav class="tr-sub" aria-label="Sección Tradición">
+  <ol>
+    <li class="tr-sub-raiz"><a href={ruta('/tradicion')}>Tradición</a></li>
+    {PAGINAS.map((p, i) => (
+      <li>
+        <a href={ruta(p.href)} aria-current={p.id === actual ? 'page' : undefined}>
+          <span class="tr-sub-n" aria-hidden="true">4.{i + 1}</span>{p.nombre}
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>

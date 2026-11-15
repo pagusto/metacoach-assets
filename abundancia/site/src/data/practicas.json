@@ -1,0 +1,293 @@
+{
+  "resumen": "Dieciséis prácticas ordenadas por respaldo empírico, ocho tradiciones de energía con lo que se ha medido de cada una y el único estudio directo sobre creer en la manifestación. Ninguna práctica se ha probado midiendo patrimonio: los estudios miden conducta, logro de metas, ahorro o estado de ánimo.",
+  "practicas": [
+    {
+      "id": "ahorro-automatico",
+      "nombre": "Ahorro automático con subidas programadas",
+      "que_hacer": "Programa una transferencia automática el día que cobras y decide hoy que el porcentaje subirá con cada aumento de ingresos.",
+      "tradicion_afin": "El diezmo y el «págate primero a ti»: apartar una parte antes de gastar.",
+      "efecto": "Tasa de ahorro de 3,5 % a 13,6 % en 40 meses",
+      "calidad": "alta",
+      "estudio": { "cita": "Thaler y Benartzi (2004), Journal of Political Economy 112(S1): S164-S187", "url": "https://doi.org/10.1086/380085" },
+      "momento": "continuo",
+      "riesgo": "El estudio se hizo con planes de pensiones de empresa en Estados Unidos; adapta la idea a tu situación."
+    },
+    {
+      "id": "registro-progreso",
+      "nombre": "Registrar el progreso",
+      "que_hacer": "Cada noche anota el dinero que entró y salió y la acción clave del día. Hazlo por escrito y comparte el resumen semanal con alguien.",
+      "tradicion_afin": "El examen de conciencia nocturno y el libro de cuentas de los maestros del Nuevo Pensamiento.",
+      "efecto": "d+ = 0,40 en 138 experimentos (N = 19.951)",
+      "calidad": "alta",
+      "estudio": { "cita": "Harkin, Webb, Chang y otros (2016), Psychological Bulletin 142(2): 198-229", "url": "https://doi.org/10.1037/bul0000025" },
+      "momento": "noche",
+      "riesgo": "La mayoría de los estudios son de salud, no de finanzas."
+    },
+    {
+      "id": "plan-si-entonces",
+      "nombre": "Plan «si… entonces…»",
+      "que_hacer": "Escribe una frase con momento, lugar y acción: «Si son las 7:00 y estoy en mi mesa, entonces llamo al primer cliente de la lista».",
+      "tradicion_afin": "El voto o propósito con hora fija de las reglas monásticas.",
+      "efecto": "d = 0,65 en 94 pruebas; menor al corregir sesgo",
+      "calidad": "alta",
+      "estudio": { "cita": "Gollwitzer y Sheeran (2006), Advances in Experimental Social Psychology 38: 69-119", "url": "https://doi.org/10.1016/S0065-2601(06)38002-1" },
+      "momento": "mañana",
+      "riesgo": "Un plan demasiado rígido falla si la señal no aparece; ten una señal alternativa."
+    },
+    {
+      "id": "meta-especifica",
+      "nombre": "Meta específica y difícil",
+      "que_hacer": "Define una meta medible con fecha y cifra, exigente pero alcanzable, en lugar de «hacer lo que pueda». Revísala cada semana.",
+      "tradicion_afin": "El «propósito definido» escrito de Napoleon Hill y la meta única de Wattles.",
+      "efecto": "Revisión de 35 años de estudios; sin cifra verificada aquí",
+      "calidad": "alta",
+      "estudio": { "cita": "Locke y Latham (2002), American Psychologist 57(9): 705-717", "url": "https://doi.org/10.1037/0003-066X.57.9.705" },
+      "momento": "semanal",
+      "riesgo": "Una meta sola no basta: necesita registro del progreso y un plan concreto."
+    },
+    {
+      "id": "woop",
+      "nombre": "Contraste mental (WOOP)",
+      "que_hacer": "Escribe tu deseo, imagina el mejor resultado, identifica el principal obstáculo interno y redacta un plan «si aparece el obstáculo, entonces haré…».",
+      "tradicion_afin": "La visualización del deseo cumplido, completada con la meditación sobre el obstáculo de los estoicos.",
+      "efecto": "g = 0,336 en 21 estudios (N = 15.907)",
+      "calidad": "media",
+      "estudio": { "cita": "Wang, Wang y Gai (2021), Frontiers in Psychology 12: 565202", "url": "https://doi.org/10.3389/fpsyg.2021.565202" },
+      "momento": "semanal",
+      "riesgo": "Los autores avisan de sesgo de publicación: el efecto real puede ser menor."
+    },
+    {
+      "id": "lazos-debiles",
+      "nombre": "Cultivar lazos débiles",
+      "que_hacer": "Escribe cada semana a dos conocidos lejanos: antiguos colegas, clientes pasados, contactos de segundo grado. Pregunta, comparte algo útil y no pidas nada todavía.",
+      "tradicion_afin": "La hospitalidad y la red de favores de las cofradías y gremios.",
+      "efecto": "Más movilidad laboral con lazos moderadamente débiles; más de 20 millones de personas",
+      "calidad": "alta",
+      "estudio": { "cita": "Rajkumar, Saint-Jacques, Bojinov y otros (2022), Science 377: 1304-1310", "url": "https://doi.org/10.1126/science.abl4476" },
+      "momento": "semanal",
+      "riesgo": "Mide cambios de empleo en LinkedIn, no ingresos; el efecto es mayor en sectores digitales."
+    },
+    {
+      "id": "grupo-de-pares",
+      "nombre": "Grupo de pares de negocio",
+      "que_hacer": "Reúnete una vez al mes con tres a cinco personas que también llevan un negocio. Cada una trae sus cifras, un problema y un compromiso.",
+      "tradicion_afin": "El «Master Mind» de Napoleon Hill y el estudio en pareja (javruta).",
+      "efecto": "Ingresos +8,1 % en 2.820 empresas tras un año de reuniones",
+      "calidad": "media",
+      "estudio": { "cita": "Cai y Szeidl (2018), Quarterly Journal of Economics 133(3): 1229-1282", "url": "https://doi.org/10.1093/qje/qjx049" },
+      "momento": "semanal",
+      "riesgo": "Un solo experimento, con empresas chinas; otras versiones del artículo dan 7,8 %."
+    },
+    {
+      "id": "meditacion",
+      "nombre": "Meditación de atención plena",
+      "que_hacer": "Siéntate diez minutos, atiende a la respiración y vuelve a ella cada vez que la mente se vaya. Un programa guiado de ocho semanas ayuda.",
+      "tradicion_afin": "La meditación budista y la contemplación silenciosa de muchas tradiciones.",
+      "efecto": "Ansiedad 0,38 y depresión 0,30 a 8 semanas; 47 ensayos",
+      "calidad": "alta",
+      "estudio": { "cita": "Goyal, Singh, Sibinga y otros (2014), JAMA Internal Medicine 174(3): 357-368", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4142584/" },
+      "momento": "mañana",
+      "riesgo": "No supera a otros tratamientos activos ni mejora la atención de forma demostrada."
+    },
+    {
+      "id": "respiracion-lenta",
+      "nombre": "Respiración lenta con exhalación larga",
+      "que_hacer": "Durante cinco minutos inspira por la nariz, añade una segunda inspiración corta y suelta el aire despacio por la boca. Repite sin forzar.",
+      "tradicion_afin": "El pranayama del yoga y el qigong, que cultivan el aliento.",
+      "efecto": "Mejor ánimo y menos frecuencia respiratoria que meditar (p < 0,05)",
+      "calidad": "media",
+      "estudio": { "cita": "Balban, Neri, Kogon y otros (2023), Cell Reports Medicine 4(1): 100895", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9873947/" },
+      "momento": "mañana",
+      "riesgo": "Un ensayo de un mes; si te mareas, para y respira normal."
+    },
+    {
+      "id": "autoeficacia",
+      "nombre": "Registro de evidencias de capacidad",
+      "que_hacer": "Anota cada noche una prueba concreta de que puedes: una venta, una llamada difícil, una tarea terminada. Reléelas antes de un reto.",
+      "tradicion_afin": "El «actuar con fe» del Nuevo Pensamiento, apoyado aquí en hechos propios.",
+      "efecto": "r = 0,38 con rendimiento laboral; 114 estudios (N = 21.616)",
+      "calidad": "media",
+      "estudio": { "cita": "Stajkovic y Luthans (1998), Psychological Bulletin 124(2): 240-261", "url": "https://doi.org/10.1037/0033-2909.124.2.240" },
+      "momento": "noche",
+      "riesgo": "Es una correlación: rendir bien también aumenta la confianza."
+    },
+    {
+      "id": "visualizar-proceso",
+      "nombre": "Visualizar el proceso",
+      "que_hacer": "Dedica tres a cinco minutos a ver con detalle los pasos de hoy: dónde te sientas, qué abres, qué dices. No el premio, el trabajo.",
+      "tradicion_afin": "La visualización creativa de Neville Goddard, aplicada a la acción y no al resultado.",
+      "efecto": "Más estudio y mejor nota que visualizar el resultado",
+      "calidad": "media",
+      "estudio": { "cita": "Pham y Taylor (1999), Personality and Social Psychology Bulletin 25(2): 250-260", "url": "https://doi.org/10.1177/0146167299025002010" },
+      "momento": "mañana",
+      "riesgo": "Fantasear solo con el resultado puede restar esfuerzo."
+    },
+    {
+      "id": "habito-contexto-fijo",
+      "nombre": "Repetición en contexto fijo",
+      "que_hacer": "Ata la acción a una señal estable: «después del café, abro el registro». Repite a diario y no te castigues por un día perdido.",
+      "tradicion_afin": "La oración a horas fijas y el ritual diario de casi todas las tradiciones.",
+      "efecto": "Automatismo entre 18 y 254 días (N = 96)",
+      "calidad": "media",
+      "estudio": { "cita": "Lally, van Jaarsveld, Potts y Wardle (2010), European Journal of Social Psychology 40(6): 998-1009", "url": "https://doi.org/10.1002/ejsp.674" },
+      "momento": "continuo",
+      "riesgo": "Los hábitos estudiados eran sencillos: comer, beber, moverse."
+    },
+    {
+      "id": "gratitud",
+      "nombre": "Gratitud escrita",
+      "que_hacer": "Escribe de noche tres cosas concretas por las que estás agradecido, una de ellas relacionada con tu trabajo o tu dinero.",
+      "tradicion_afin": "Las bendiciones diarias del judaísmo y la acción de gracias de Wattles.",
+      "efecto": "g = −0,29 en síntomas de ansiedad y depresión; 27 estudios",
+      "calidad": "media",
+      "estudio": { "cita": "Cregg y Cheavens (2021), Journal of Happiness Studies 22: 413-445", "url": "https://doi.org/10.1007/s10902-020-00236-6" },
+      "momento": "noche",
+      "riesgo": "Efecto pequeño; no sustituye un tratamiento si hay ansiedad o depresión."
+    },
+    {
+      "id": "gasto-prosocial",
+      "nombre": "Dar a otros",
+      "que_hacer": "Reserva cada semana una cantidad pequeña para otra persona o una causa, y fíjate en cómo te sientes después.",
+      "tradicion_afin": "La tzedaká, el diezmo y la limosna: dar forma parte de la práctica.",
+      "efecto": "Más felicidad al gastar en otros que en uno mismo",
+      "calidad": "media",
+      "estudio": { "cita": "Dunn, Aknin y Norton (2008), Science 319: 1687-1688", "url": "https://doi.org/10.1126/science.1150952" },
+      "momento": "semanal",
+      "riesgo": "Mide felicidad, no ingresos: dar no hace que vuelva más dinero."
+    },
+    {
+      "id": "afirmacion-de-valores",
+      "nombre": "Afirmación de valores",
+      "que_hacer": "Escribe diez minutos sobre un valor que te importa y por qué. Usa declaraciones creíbles y de proceso, no frases que no te crees.",
+      "tradicion_afin": "Las afirmaciones del Nuevo Pensamiento, cambiando la frase grandiosa por valores propios.",
+      "efecto": "Revisión narrativa; el efecto depende del contexto",
+      "calidad": "media",
+      "estudio": { "cita": "Cohen y Sherman (2014), Annual Review of Psychology 65: 333-371", "url": "https://doi.org/10.1146/annurev-psych-010213-115137" },
+      "momento": "semanal",
+      "riesgo": "Repetir frases positivas empeoró el ánimo de personas con baja autoestima (Wood y otros, 2009)."
+    },
+    {
+      "id": "postura-erguida",
+      "nombre": "Postura erguida antes de actuar",
+      "que_hacer": "Antes de una llamada o reunión, ponte de pie, abre el pecho y respira dos veces. Úsalo como señal de inicio, no como truco.",
+      "tradicion_afin": "La postura recta del zazen, el yoga y las artes marciales.",
+      "efecto": "g = 0,35 en autopercepción; 88 estudios (N = 9.779)",
+      "calidad": "baja",
+      "estudio": { "cita": "Körner, Röseler, Schütz y Bushman (2022), Psychological Bulletin 148(1-2): 67-85", "url": "https://doi.org/10.1037/bul0000356" },
+      "momento": "continuo",
+      "riesgo": "El efecto sobre hormonas no se replicó; cambia cómo te sientes, no tu fisiología."
+    }
+  ],
+  "energias": [
+    {
+      "tradicion": "Qi",
+      "origen": "China",
+      "afirma": "La tradición enseña que el qi, literalmente «vapor» o «aliento», es la fuerza vital de todo ser vivo y que la salud depende de que fluya sin obstáculos. Se cultiva con el qigong.",
+      "medido": "No hay evidencia empírica de una fuerza vital. Sí está medida la respiración lenta que usan estas prácticas: aumenta la variabilidad cardiaca y reduce la ansiedad en una revisión de 15 estudios.",
+      "fuente": { "cita": "Zaccaro, Piarulli, Laurino y otros (2018), Frontiers in Human Neuroscience 12: 353", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6137615/" }
+    },
+    {
+      "tradicion": "Prana",
+      "origen": "India",
+      "afirma": "En el yoga y el ayurveda, el prana es el aliento o principio vital que impregna la realidad. Se describe en cinco «vientos» y se regula con el pranayama, uno de los ocho miembros del yoga.",
+      "medido": "El prana no se ha medido. Los ejercicios de respiración sí: cinco minutos diarios durante un mes mejoraron el ánimo y bajaron la frecuencia respiratoria más que la meditación en un ensayo aleatorizado.",
+      "fuente": { "cita": "Balban, Neri, Kogon y otros (2023), Cell Reports Medicine 4(1): 100895", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9873947/" }
+    },
+    {
+      "tradicion": "Chakras",
+      "origen": "India y Tíbet",
+      "afirma": "El yoga tántrico hindú y budista enseña que hay centros de energía en el cuerpo sutil que se visualizan al meditar. Los textos antiguos dan cuatro, cinco, seis u ocho.",
+      "medido": "No existe medición de los chakras. El esquema de siete con plexos, glándulas y colores del arcoíris es occidental y reciente: décadas de 1880, 1920 y 1930. Lo medible es la meditación que los acompaña.",
+      "fuente": { "cita": "Wikipedia, «Chakra» (cronología documentada del artículo)", "url": "https://en.wikipedia.org/wiki/Chakra" }
+    },
+    {
+      "tradicion": "Vibración (Kybalion)",
+      "origen": "Estados Unidos, 1908",
+      "afirma": "El Kybalion enseña como tercer principio hermético que «nada reposa; todo se mueve; todo vibra», y que cambiar el propio estado mental cambia la vibración.",
+      "medido": "Es una metáfora filosófica, no una magnitud física medida. El libro es de 1908, probablemente de William Walker Atkinson, autor del Nuevo Pensamiento, y no un texto del antiguo Egipto.",
+      "fuente": { "cita": "Three Initiates (1908), The Kybalion, cap. IX, Project Gutenberg n.º 14209", "url": "https://www.gutenberg.org/cache/epub/14209/pg14209.txt" }
+    },
+    {
+      "tradicion": "Ley de la atracción",
+      "origen": "Estados Unidos, siglo XIX",
+      "afirma": "El Nuevo Pensamiento, y hoy Abraham-Hicks, enseñan que los pensamientos y emociones atraen experiencias afines. La expresión aparece en 1855 y Prentice Mulford la formula como principio general en 1886-1887.",
+      "medido": "Quienes creen en ella se sienten más exitosos, pero no tienen más ingresos ni estudios, y sí más probabilidad de quiebra y de inversiones de riesgo (tres estudios, N = 1.023).",
+      "fuente": { "cita": "Dixon, Hornsey y Hartley (2023), Personality and Social Psychology Bulletin 51(1): 49-65", "url": "https://doi.org/10.1177/01461672231181162" }
+    },
+    {
+      "tradicion": "Reiki",
+      "origen": "Japón, década de 1920",
+      "afirma": "Los practicantes del método creado por Mikao Usui enseñan que una energía universal pasa por las palmas del practicante a la otra persona y favorece la sanación física o emocional.",
+      "medido": "Una revisión de ensayos aleatorizados no halló eficacia demostrada frente a placebo. No hay evidencia de la energía descrita. La relajación de una sesión tranquila es real, pero no específica del reiki.",
+      "fuente": { "cita": "Lee, Pittler y Ernst (2008), International Journal of Clinical Practice 62(6): 947-954", "url": "https://doi.org/10.1111/j.1742-1241.2008.01729.x" }
+    },
+    {
+      "tradicion": "Afinación a 432 Hz",
+      "origen": "Europa y Estados Unidos",
+      "afirma": "Sus defensores sostienen que la música afinada con el la a 432 Hz armoniza mejor con el cuerpo. La idea la difunde el Schiller Institute desde los años ochenta.",
+      "medido": "Solo hay estudios piloto pequeños y con resultados mixtos sobre el pulso. La afinación con do a 256 Hz la propuso Sauveur en 1713 y la apoyó Verdi; no era una norma antigua.",
+      "fuente": { "cita": "Wikipedia, «Scientific pitch»", "url": "https://en.wikipedia.org/wiki/Scientific_pitch" }
+    },
+    {
+      "tradicion": "Pulsos binaurales (Hemi-Sync)",
+      "origen": "Estados Unidos, siglo XX",
+      "afirma": "El Monroe Institute enseña que dos tonos ligeramente distintos, uno en cada oído, sincronizan los hemisferios y llevan a estados de conciencia favorables al enfoque.",
+      "medido": "De 14 estudios con electroencefalograma, 5 apoyan que el cerebro se sincronice con el pulso, 8 lo contradicen y 1 es mixto. Sirven como sonido de fondo; el efecto prometido no está demostrado.",
+      "fuente": { "cita": "Ingendoh, Posny y Heine (2023), PLOS ONE 18(5): e0286023", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10198548/" }
+    }
+  ],
+  "manifestacion": {
+    "estudio": { "cita": "Dixon, Hornsey y Hartley (2023), «\"The Secret\" to Success? The Psychology of Belief in Manifestation», Personality and Social Psychology Bulletin 51(1): 49-65", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11616226/" },
+    "muestra": "N = 1.023 en tres estudios con adultos de Estados Unidos",
+    "hallazgos": [
+      "Más de un tercio de los participantes respalda creencias de manifestación, medidas con una escala nueva de dos factores: poder personal y colaboración cósmica.",
+      "Quienes puntúan alto se ven más exitosos y creen más probable su éxito futuro, pero no tienen más ingresos ni más estudios.",
+      "Por cada punto más en la escala, la probabilidad de haber quebrado es 1,42 veces mayor y la de haber sufrido un fraude, 1,28 veces.",
+      "También es 1,33 veces más probable que tengan criptomonedas, sin diferencia en acciones tradicionales, y su propensión al riesgo es mayor (r = 0,24).",
+      "Creen más en hacerse rico rápido y esperan alcanzar un éxito improbable en menos tiempo."
+    ],
+    "lectura": "Son correlaciones pequeñas y de un solo momento: no prueban que creer cause la quiebra. La lectura prudente es conservar el ánimo que da la práctica y separar esa confianza de las decisiones de dinero, que piden cifras, plazos realistas y margen de error."
+  },
+  "mitos": [
+    {
+      "afirmacion": "Un estudio de Yale de 1953 mostró que el 3 % con metas escritas ganó más que el 97 % restante.",
+      "realidad": "La biblioteca de Yale investigó y concluyó que ese estudio nunca se hizo. El rastro lleva a una revista de 1991 y a una cinta de un orador motivacional.",
+      "fuente": { "cita": "Yale University Library, «Where can I find information on Yale's 1953 goal study?»", "url": "https://ask.library.yale.edu/faq/175224" }
+    },
+    {
+      "afirmacion": "Si te comprometes con alguien tienes un 65 % de éxito, y un 95 % si fijas una cita de seguimiento.",
+      "realidad": "No se localiza ningún informe original con esas cifras. Lo que sí está medido es que registrar el progreso y hacerlo público mejora el logro de metas (d+ = 0,40).",
+      "fuente": { "cita": "Harkin, Webb, Chang y otros (2016), Psychological Bulletin 142(2): 198-229", "url": "https://doi.org/10.1037/bul0000025" }
+    },
+    {
+      "afirmacion": "Un hábito se forma en 21 días.",
+      "realidad": "En el estudio de referencia, con 96 voluntarios, alcanzar el automatismo llevó entre 18 y 254 días según la persona y la conducta. Faltar un día no lo estropeó.",
+      "fuente": { "cita": "Lally, van Jaarsveld, Potts y Wardle (2010), European Journal of Social Psychology 40(6): 998-1009", "url": "https://doi.org/10.1002/ejsp.674" }
+    },
+    {
+      "afirmacion": "Dos minutos en pose de poder suben la testosterona y bajan el cortisol.",
+      "realidad": "El efecto hormonal no se replicó y una de las autoras originales lo abandonó en 2016. Un metaanálisis de 88 estudios solo halla un efecto en cómo se siente la persona.",
+      "fuente": { "cita": "Körner, Röseler, Schütz y Bushman (2022), Psychological Bulletin 148(1-2): 67-85", "url": "https://doi.org/10.1037/bul0000356" }
+    },
+    {
+      "afirmacion": "Un amuleto de la suerte mejora el rendimiento.",
+      "realidad": "El experimento original de 2010 no se replicó: en dos réplicas de alta potencia, quienes recibieron la «bola de la suerte» rindieron casi igual que el grupo de control.",
+      "fuente": { "cita": "Calin-Jageman y Caldwell (2014), Social Psychology 45(3): 239-245", "url": "https://doi.org/10.1027/1864-9335/a000190" }
+    },
+    {
+      "afirmacion": "Está demostrado que un ritual antes de actuar mejora el rendimiento porque reduce la ansiedad.",
+      "realidad": "El artículo de 2016 que se cita para sostenerlo figura hoy como retractado en el registro de la revista. Un ritual puede servirte de señal de inicio, sin esa prueba.",
+      "fuente": { "cita": "Brooks, Schroeder, Risen y otros (2016), Organizational Behavior and Human Decision Processes 137: 71-85 [retractado]", "url": "https://doi.org/10.1016/j.obhdp.2016.07.004" }
+    },
+    {
+      "afirmacion": "Repetir afirmaciones positivas siempre sube el ánimo.",
+      "realidad": "En dos experimentos, repetir una frase positiva sobre uno mismo hizo sentirse peor a las personas con baja autoestima y ayudó poco a las de autoestima alta.",
+      "fuente": { "cita": "Wood, Perunovic y Lee (2009), Psychological Science 20(7): 860-866", "url": "https://doi.org/10.1111/j.1467-9280.2009.02370.x" }
+    },
+    {
+      "afirmacion": "Con suficiente práctica deliberada cualquiera llega a la cima de su profesión.",
+      "realidad": "Un metaanálisis halló que la práctica deliberada explica el 26 % de las diferencias en juegos y el 21 % en música, pero menos del 1 % en las profesiones.",
+      "fuente": { "cita": "Macnamara, Hambrick y Oswald (2014), Psychological Science 25(8): 1608-1618", "url": "https://doi.org/10.1177/0956797614535810" }
+    }
+  ]
+}

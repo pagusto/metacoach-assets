@@ -1,0 +1,33 @@
+---
+// Medidor: regla lineal con marcas cada décima; el oro llega hasta «valor» (0 a 1).
+//   <Medidor valor={0.4} etiqueta="Avance: 40 %" desde="0" hasta="meta 10 %" />
+// Para repintarlo en el cliente: cambia el ancho de .regla-oro (style.width = '40%').
+interface Props {
+  /** Avance de 0 a 1. */
+  valor?: number;
+  /** Texto para lectores de pantalla. */
+  etiqueta?: string;
+  /** Nota bajo el extremo izquierdo. */
+  desde?: string;
+  /** Nota bajo el extremo derecho. */
+  hasta?: string;
+  /** Regla fina de 8 px (para listas). */
+  fina?: boolean;
+  /** Clases extra. */
+  clase?: string;
+}
+const { valor = 0, etiqueta, desde, hasta, fina = false, clase = '' } = Astro.props;
+const p = Math.max(0, Math.min(1, Number(valor) || 0)) * 100;
+const marcas = fina
+  ? 'M0 0V8M50 4V8M100 0V8'
+  : 'M0 0V16M10 11V16M20 11V16M30 11V16M40 11V16M50 6V16M60 11V16M70 11V16M80 11V16M90 11V16M100 0V16';
+---
+<div class:list={['medidor', clase]}>
+  <div class:list={['regla', fina && 'regla-s']} role="img" aria-label={etiqueta ?? `Avance: ${Math.round(p)} %`}>
+    <span class="regla-oro" style={`width:${p}%`}></span>
+    <svg viewBox={fina ? '0 0 100 8' : '0 0 100 16'} preserveAspectRatio="none" aria-hidden="true"><path d={marcas} /></svg>
+  </div>
+  {(desde || hasta) && (
+    <p class="regla-notas"><span data-desde>{desde}</span><span data-hasta>{hasta}</span></p>
+  )}
+</div>

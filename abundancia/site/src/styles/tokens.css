@@ -1,0 +1,158 @@
+/* ==========================================================================
+   Shefa · sistema «Lo Shu» · tokens de diseño
+   --------------------------------------------------------------------------
+   Un almanaque impreso por un tipógrafo de Zúrich.
+   Todo sale del 3: módulo de 48 px, palacio de 9 módulos, cuadrado de 27.
+   Escala tipográfica en potencias de 3:2. Cinco colores, cinco elementos.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* ---------- Cinco elementos · tema claro (yang: tinta sobre papel) ------ */
+  /* Madera 木 · tinta de hollín de pino: texto y estructura                  */
+  --madera: #141412;
+  --madera-2: #4A4843;          /* texto secundario            8,68:1 */
+  --madera-3: #6B6862;          /* rótulos y notas             5,27:1 */
+  /* Tierra 土 · papel: el suelo de la página                                */
+  --tierra: #FAF9F6;
+  --tierra-2: #C8C5BD;          /* filete suave, solo separación          */
+  --tierra-3: #8F8C85;          /* contorno de marcas vacías   3,19:1 */
+  /* Metal 金 · oro: valor medido (avances, medidores)                       */
+  --metal: #A07F2A;             /* solo gráfico                3,58:1 */
+  /* Agua 水 · azul de Zúrich (acento del cantón): flujo e interacción       */
+  --agua: #0070B4;              /* enlaces, foco, campos       5,02:1 */
+  /* Fuego 火 · sello bermellón: el presente (hoy, la selección). Uno solo.  */
+  --fuego: #D5281B;
+  --sobre-fuego: #FFFFFF;       /* cifra dentro del sello      5,06:1 */
+
+  /* ---------- Papeles semánticos ---------------------------------------- */
+  --fondo: var(--tierra);
+  --texto: var(--madera);
+  --texto-2: var(--madera-2);
+  --texto-3: var(--madera-3);
+  --filete: var(--madera);
+  --filete-suave: var(--tierra-2);
+  --trazo: var(--tierra-3);
+  --medida: var(--metal);
+  --accion: var(--agua);
+  --sello: var(--fuego);
+  --sobre-sello: var(--sobre-fuego);
+
+  /* ---------- Tipografía ------------------------------------------------- */
+  /* Una familia: Archivo. Las palabras van en ancho normal (yin);
+     las cifras, en negrita estrecha (yang). Hebreo: Frank Ruhl Libre,
+     la letra de los lujot y los libros impresos. Las dos se sirven desde el
+     propio sitio (@fontsource-variable). Los cinco caracteres chinos del pie
+     usan la fuente CJK del sistema: no se envía una fuente web para ellos. */
+  --fuente: "Archivo Variable", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --fuente-he: "Frank Ruhl Libre Variable", "Frank Ruhl Libre", "Noto Serif Hebrew", serif;
+  --fuente-han: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+
+  --ancho-texto: 100%;
+  --ancho-cifra: 75%;
+  --peso-texto: 400;
+  --peso-medio: 600;
+  --peso-cifra: 700;
+
+  /* Escala 3:2 desde 16 px: 16 · 24 · 36 · 54 · 81 · 121,5 (+ 13 y 14 para rótulos) */
+  --t-00: 0.8125rem;   /* 13 */
+  --t-0: 0.875rem;     /* 14 */
+  --t-1: 1rem;         /* 16 */
+  --t-1m: 1.25rem;     /* 20 · medio paso (16 × √1,5), solo para la voz larga */
+  --t-2: 1.5rem;       /* 24 */
+  --t-3: 2.25rem;      /* 36 */
+  --t-4: 3.375rem;     /* 54 */
+  --t-5: 5.0625rem;    /* 81 */
+  --t-6: 7.59375rem;   /* 121,5 */
+
+  /* Interlíneas sobre una línea base de 8 px */
+  --lh-00: 1rem;       /* 16 */
+  --lh-0: 1.5rem;      /* 24 */
+  --lh-1: 1.5rem;      /* 24 */
+  --lh-1m: 1.75rem;    /* 28 */
+  --lh-2: 2rem;        /* 32 */
+  --lh-3: 2.5rem;      /* 40 */
+  --lh-4: 3.5rem;      /* 56 */
+  --lh-5: 5rem;        /* 80 */
+  --lh-6: 7.5rem;      /* 120 */
+
+  /* ---------- Espacio ---------------------------------------------------- */
+  --u: 8px;            /* línea base */
+  --s-1: 8px;          /* M/6 */
+  --s-2: 16px;         /* M/3 */
+  --s-3: 24px;         /* M/2 */
+  --s-4: 48px;         /* M   */
+  --s-5: 72px;         /* 1,5 M */
+  --s-6: 96px;         /* 2 M */
+  --s-7: 144px;        /* 3 M */
+
+  /* ---------- Retícula --------------------------------------------------- */
+  --M: 48px;                 /* módulo */
+  --cuadrado: 1296px;        /* 27 M = 3 palacios de 9 M */
+  --margen: 72px;            /* 1,5 M */
+  --palacio-pad: 24px;       /* M/2 */
+  --marco: 2px;              /* marco exterior del cuadrado */
+  --linea: 1px;              /* filete entre palacios */
+  --campo: 48px;             /* alto de campos y botones: un módulo */
+
+  /* ---------- Marcas ------------------------------------------------------ */
+  --nodo: 72px;              /* sefirá: círculo de 1,5 M */
+  --foco: 2px solid var(--accion);
+}
+
+/* ---------- Tema oscuro (yin: calco en negativo, papel sobre tinta) ------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --madera: #F1EFE9;          /* 16,30:1 */
+    --madera-2: #B9B6AE;        /*  9,25:1 */
+    --madera-3: #98958D;        /*  6,26:1 */
+    --tierra: #121211;
+    --tierra-2: #3A3936;
+    --tierra-3: #6F6C66;        /*  3,58:1 */
+    --metal: #D9B65A;           /*  9,63:1 */
+    --agua: #58AEE8;            /*  7,71:1 */
+    --fuego: #D5281B;
+    --sobre-fuego: #FFFFFF;     /*  5,06:1 */
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --madera: #F1EFE9;
+  --madera-2: #B9B6AE;
+  --madera-3: #98958D;
+  --tierra: #121211;
+  --tierra-2: #3A3936;
+  --tierra-3: #6F6C66;
+  --metal: #D9B65A;
+  --agua: #58AEE8;
+  --fuego: #D5281B;
+  --sobre-fuego: #FFFFFF;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* ---------- Retícula por ancho de página ---------------------------------
+   Desde 1440 px: el cuadrado completo de 1296 px con márgenes de 1,5 M.
+   De 1280 a 1439 px: el mismo cuadrado con márgenes de M/2.
+   Por debajo de 1280 px: el cuadrado se despliega en una tira de una columna
+   (palacio entero, dos tercios o un tercio según el contenido). */
+@media (max-width: 1439px) {
+  :root {
+    --margen: 24px;
+  }
+}
+
+@media (max-width: 1279px) {
+  :root {
+    --cuadrado: 560px;
+    --margen: 16px;
+    --palacio-pad: 16px;
+    --nodo: 48px;
+    --t-00: 0.875rem;   /* en móvil ningún rótulo baja de 14 px; el cuerpo, de 16 */
+  }
+}

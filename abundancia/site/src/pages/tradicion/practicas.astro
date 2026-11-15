@@ -1,0 +1,200 @@
+---
+// Prácticas y evidencia (practicas.json). Dos cuadrados:
+//   I  · 4·9·2 la tabla de prácticas por respaldo (con filtro por momento) · 3·5·7 energías
+//   II · 4 muestra del estudio · 9·2 hallazgos · 3·5·7 lectura · 8·1·6 mitos
+import Base from '../../layouts/Base.astro';
+import TituloPagina from '../../components/TituloPagina.astro';
+import Cuadrado from '../../components/Cuadrado.astro';
+import Palacio from '../../components/Palacio.astro';
+import Etiqueta from '../../components/Etiqueta.astro';
+import Seccion from '../../components/tradicion/Seccion.astro';
+import Indice from '../../components/tradicion/Indice.astro';
+import Paso from '../../components/tradicion/Paso.astro';
+import Fuente from '../../components/tradicion/Fuente.astro';
+import Mito from '../../components/tradicion/Mito.astro';
+import '../../styles/tradicion.css';
+
+import datos from '../../data/practicas.json';
+import { PAGINAS, afinar as fino, enLetras } from '../../lib/tradicion';
+
+const pagina = PAGINAS.find((p) => p.id === 'practicas')!;
+const mayus = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+// Calidad de la evidencia, dicha con el peso de la letra y tres barras.
+const NIVEL: Record<string, number> = { alta: 3, media: 2, baja: 1 };
+const calidades = ['alta', 'media', 'baja'].filter((c) => datos.practicas.some((p) => p.calidad === c));
+
+// Momentos presentes en los datos, en el orden del día.
+const ORDEN_MOMENTO = ['mañana', 'noche', 'semanal', 'continuo'];
+const momentos = [
+  ...ORDEN_MOMENTO.filter((m) => datos.practicas.some((p) => p.momento === m)),
+  ...Array.from(new Set(datos.practicas.map((p) => p.momento))).filter((m) => !ORDEN_MOMENTO.includes(m)),
+].map((m) => ({ valor: m, n: datos.practicas.filter((p) => p.momento === m).length }));
+
+// Muestra del estudio: se separa la cifra para componerla en grande.
+const muestra = /^N\s*=\s*([\d.]+)\s*(.*)$/.exec(datos.manifestacion.muestra);
+
+const indice = [
+  { ancla: 'practicas', texto: 'Prácticas', n: datos.practicas.length },
+  { ancla: 'energias', texto: 'Energías', n: datos.energias.length },
+  { ancla: 'manifestacion', texto: 'Estudio sobre la manifestación' },
+  { ancla: 'mitos', texto: 'Mitos', n: datos.mitos.length },
+];
+---
+<Base
+  title="Prácticas"
+  description="Dieciséis prácticas ordenadas por respaldo empírico, con su efecto medido, su riesgo y su fuente; ocho tradiciones de energía frente a lo que se ha medido, y el estudio sobre creer en la manifestación."
+  clase="tr"
+>
+  <Seccion actual="practicas" />
+  <TituloPagina titulo={pagina.titulo} nota={fino(datos.resumen)} />
+  <Indice entradas={indice} />
+
+  <Cuadrado>
+    <Palacio n={4} celdas={[4, 9, 2]} titulo={`${enLetras(datos.practicas.length, true)} prácticas, de más a menos respaldo`} etiqueta="Efecto medido" id="practicas" clase="tr-bandas">
+      <div class="tr-filtros" role="group" aria-label="Filtrar las prácticas por momento" data-filtros="practicas">
+        <span class="rotulo">Momento</span>
+        <button class="boton-2 boton-s" type="button" data-filtro="" aria-pressed="true">Todas <span class="cifra">{datos.practicas.length}</span></button>
+        {momentos.map((m) => (
+          <button class="boton-2 boton-s" type="button" data-filtro={m.valor} aria-pressed="false">{mayus(m.valor)} <span class="cifra">{m.n}</span></button>
+        ))}
+        <p class="tr-filtro-estado" role="status" data-filtro-estado="practicas"></p>
+      </div>
+
+      <table class="tabla tr-tabla tr-prac" role="table">
+        <caption class="oculto">Prácticas ordenadas de mayor a menor respaldo empírico: qué hacer, efecto medido y estudio, calidad de la evidencia, momento, tradición afín y riesgo</caption>
+        <colgroup>
+          <col class="c-n" /><col class="c-pra" /><col class="c-efe" /><col class="c-cal" /><col class="c-mom" /><col class="c-afi" /><col class="c-rie" />
+        </colgroup>
+        <thead role="rowgroup">
+          <tr role="row">
+            <th role="columnheader" scope="col"><span class="oculto">Puesto</span></th>
+            <th role="columnheader" scope="col">Práctica y qué hacer</th>
+            <th role="columnheader" scope="col">Efecto medido y estudio <span class="tr-th-etq"><Etiqueta tipo="estudio" /></span></th>
+            <th role="columnheader" scope="col">Calidad</th>
+            <th role="columnheader" scope="col">Momento</th>
+            <th role="columnheader" scope="col">Tradición afín <span class="tr-th-etq"><Etiqueta tipo="tradicion" /></span></th>
+            <th role="columnheader" scope="col">Riesgo o límite</th>
+          </tr>
+        </thead>
+        <tbody role="rowgroup">
+          {datos.practicas.map((p, i) => (
+            <tr role="row" id={`practica-${p.id}`} data-fila="practicas" data-valor={p.momento}>
+              <td role="cell" class="tr-td-n"><span class="tr-num cifra">{i + 1}</span></td>
+              <th role="rowheader" scope="row">
+                <span class="tr-prac-nombre">{p.nombre}</span>
+                <span class="tr-prac-que">{fino(p.que_hacer)}</span>
+              </th>
+              <td role="cell" data-rot="Efecto medido">
+                <span class="tr-efecto">{fino(p.efecto)}</span>
+                <Fuente fuente={p.estudio} />
+              </td>
+              <td role="cell" data-rot="Calidad de la evidencia" class="tr-medio">
+                <span class:list={['tr-cal', `tr-cal-${p.calidad}`]}>
+                  <svg viewBox="0 0 18 12" aria-hidden="true">
+                    {[0, 1, 2].map((b) => <rect class={b < (NIVEL[p.calidad] ?? 0) ? 'si' : undefined} x={0.5 + b * 6.5} y="0.5" width="4" height="11" />)}
+                  </svg>
+                  {mayus(p.calidad)}
+                </span>
+              </td>
+              <td role="cell" data-rot="Momento" class="tr-medio">{mayus(p.momento)}</td>
+              <td role="cell" data-rot="Tradición afín" class="tr-menor">{fino(p.tradicion_afin)}</td>
+              <td role="cell" data-rot="Riesgo o límite" class:list={['tr-menor', !p.riesgo && 'tr-vacia']}>
+                {p.riesgo ? fino(p.riesgo) : <><span aria-hidden="true">—</span><span class="oculto">Sin riesgo anotado</span></>}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <ul slot="pie" class="tr-clave" aria-label="Calidad de la evidencia">
+        {calidades.map((c) => (
+          <li>
+            <span class:list={['tr-cal', `tr-cal-${c}`]}>
+              <svg viewBox="0 0 18 12" aria-hidden="true">
+                {[0, 1, 2].map((b) => <rect class={b < NIVEL[c] ? 'si' : undefined} x={0.5 + b * 6.5} y="0.5" width="4" height="11" />)}
+              </svg>
+              {mayus(c)}
+            </span>
+            <span>{datos.practicas.filter((p) => p.calidad === c).length} de {datos.practicas.length}</span>
+          </li>
+        ))}
+        <li>La calidad es la de los estudios que respaldan cada práctica, no la de su efecto sobre el dinero.</li>
+      </ul>
+    </Palacio>
+
+    <Palacio n={3} celdas={[3, 5, 7]} titulo="Energías: lo que se afirma y lo que se ha medido" etiqueta={`${datos.energias.length} tradiciones`} id="energias" clase="tr-bandas">
+      <table class="tabla tr-tabla tr-ener" role="table">
+        <caption class="oculto">Tradiciones de energía: qué afirma cada una y qué efectos se han medido</caption>
+        <colgroup><col class="c-1" /><col class="c-2" /><col class="c-3" /></colgroup>
+        <thead role="rowgroup">
+          <tr role="row">
+            <th role="columnheader" scope="col">Tradición y origen</th>
+            <th role="columnheader" scope="col">Lo que afirma <span class="tr-th-etq"><Etiqueta tipo="tradicion" /></span></th>
+            <th role="columnheader" scope="col">Lo que se ha medido <span class="tr-th-etq"><Etiqueta tipo="estudio" /></span></th>
+          </tr>
+        </thead>
+        <tbody role="rowgroup">
+          {datos.energias.map((e) => (
+            <tr role="row">
+              <th role="rowheader" scope="row">
+                <span class="tr-ener-nombre">{e.tradicion}</span>
+                <span class="tr-ener-origen rotulo">{e.origen}</span>
+              </th>
+              <td role="cell" data-rot="Lo que afirma la tradición">{fino(e.afirma)}</td>
+              <td role="cell" data-rot="Lo que se ha medido">
+                {fino(e.medido)}
+                <Fuente fuente={e.fuente} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </Palacio>
+  </Cuadrado>
+
+  <Cuadrado>
+    <Palacio n={4} titulo="Creer en la manifestación: el estudio" etiqueta="Muestra" id="manifestacion">
+      {muestra ? (
+        <p>
+          <span class="rotulo">N =</span>
+          <span class="cifra fig-xl tr-muestra-n" style={`--n:${muestra[1].length}`}>{muestra[1]}</span>
+          <span class="voz-m tr-muestra-t">{muestra[2]}</span>
+        </p>
+      ) : (
+        <p class="voz-m">{datos.manifestacion.muestra}</p>
+      )}
+      <div slot="pie" class="tr-muestra-pie">
+        <Etiqueta tipo="estudio" />
+        <Fuente fuente={datos.manifestacion.estudio} />
+      </div>
+    </Palacio>
+
+    <Palacio n={9} celdas={[9, 2]} titulo="Hallazgos" etiqueta={`${datos.manifestacion.hallazgos.length} resultados`} clase="tr-bandas">
+      <ol class="tr-hallazgos">
+        {datos.manifestacion.hallazgos.map((h) => <li><span class="voz-m">{fino(h)}</span></li>)}
+      </ol>
+    </Palacio>
+
+    <Palacio n={3} celdas={[3, 5, 7]} titulo="Lectura prudente" etiqueta="Qué hacer con esto">
+      <p class="voz tr-lectura">{fino(datos.manifestacion.lectura)}</p>
+    </Palacio>
+
+    <Palacio n={8} celdas={[8, 1, 6]} titulo={`${enLetras(datos.mitos.length)} mitos`} etiqueta="Lo que se repite y lo que hay" id="mitos" clase="tr-bandas">
+      <ol class="tr-lista">
+        {datos.mitos.map((m, i) => <Mito m={m} n={i + 1} />)}
+      </ol>
+    </Palacio>
+  </Cuadrado>
+
+  <Paso actual="practicas" />
+</Base>
+
+<script>
+  import { iniciarIndice, iniciarFiltro } from '../../lib/tradicion-cliente';
+  iniciarIndice();
+  iniciarFiltro('practicas', (visibles, total, valor) =>
+    valor ? `${visibles} de ${total} prácticas: ${valor}` : '',
+  );
+  document.documentElement.classList.add('listo');
+</script>

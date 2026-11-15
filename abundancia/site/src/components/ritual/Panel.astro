@@ -1,0 +1,35 @@
+---
+// Panel: un paso de una sesión del ritual. Cabecera con el sello del número, el título y la
+// regla de avance; el contenido va en la ranura. El cliente (ritual-cliente.ts) deja visible
+// uno solo; sin JavaScript se ven todos, uno tras otro.
+//   <Panel sesion="manana" i={0}>…</Panel>
+import Sello from '../Sello.astro';
+import { SESIONES, type SesionId } from '../../lib/ritual';
+
+interface Props {
+  sesion: SesionId;
+  /** Índice del paso dentro de la sesión, desde 0. */
+  i: number;
+  /** Clases extra para el cuerpo. */
+  clase?: string;
+}
+const { sesion, i, clase = '' } = Astro.props;
+const pasos = SESIONES[sesion].pasos;
+const paso = pasos[i];
+const idTitulo = `rt-t-${sesion}-${i}`;
+---
+<section class="rt-panel" data-panel={`${sesion}:${i}`} aria-labelledby={idTitulo}>
+  <header class="rt-cab">
+    <h3 id={idTitulo} class="rt-titulo" tabindex="-1">
+      <span class="oculto">Paso </span><Sello>{i + 1}</Sello><span class="oculto"> de {pasos.length}: </span>
+      <span class="rt-titulo-t">{paso.titulo}</span>
+    </h3>
+    <div class="rt-avance">
+      <ol class="rt-regla" aria-hidden="true">
+        {pasos.map((_, j) => <li data-seg={`${sesion}:${j}`} class:list={[j === i && 'actual']}></li>)}
+      </ol>
+      <p class="rt-cuenta"><span>Paso {i + 1} de {pasos.length}</span><span>{paso.detalle}</span></p>
+    </div>
+  </header>
+  <div class:list={['rt-cuerpo', clase]}><slot /></div>
+</section>

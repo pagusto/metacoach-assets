@@ -1,0 +1,214 @@
+{
+  "titulo": "Riquezas y colores",
+  "resumen": "Casi todos los colores de la riqueza nacen de un hecho material y fechable: un metal, un tinte carísimo, una tinta de imprenta. Aquí van ocho, con su fecha y su fuente, junto a lo que enseñan las tradiciones y lo que ha medido la investigación. El color no crea riqueza: ayuda a ordenar la atención.",
+  "muestras_nota": "Los tonos de las muestras son aproximaciones de pantalla elegidas por Shefa, las mismas de la película. No son colores históricos exactos.",
+  "colores": [
+    {
+      "id": "oro", "nombre": "Oro", "hex": "#D9B65A", "fecha": "550 a. C.", "aprox": true,
+      "historia": "Hacia 550 a. C., en Sardes, se atribuyen a Creso, rey de Lidia, las primeras monedas de oro de pureza estandarizada. Antes se acuñaba en electro, una aleación de oro y plata de composición variable.",
+      "fuente": { "cita": "Wikipedia (en), Croeseid (cita a Metcalf, 2016, The Oxford Handbook of Greek and Roman Coinage)", "url": "https://en.wikipedia.org/wiki/Croeseid" },
+      "etiqueta": "documentado"
+    },
+    {
+      "id": "purpura", "nombre": "Púrpura", "hex": "#4A1942", "fecha": "301",
+      "historia": "Doce mil caracoles múrice dan como mucho 1,4 gramos de tinte, lo justo para el ribete de una prenda (Friedländer, 1909). En el año 301, el edicto de precios de Diocleciano fijó la libra de seda púrpura en 150.000 denarios, el mismo tope legal que un león macho.",
+      "fuente": { "cita": "Wolk y Frimer (2010), Molecules, sobre el experimento de Friedländer (1909)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6264235" },
+      "fuente_2": { "cita": "Wikipedia (en), Edict on Maximum Prices (cita la traducción de Kropff, 2016)", "url": "https://en.wikipedia.org/wiki/Edict_on_Maximum_Prices" },
+      "etiqueta": "documentado"
+    },
+    {
+      "id": "malva", "nombre": "Malva", "hex": "#B48CC2", "fecha": "1856",
+      "historia": "En 1856 William Henry Perkin intentaba sintetizar quinina y dio por accidente con la mauveína, un púrpura de anilina. Fue uno de los primeros tintes sintéticos y de los primeros que se fabricaron en masa.",
+      "fuente": { "cita": "Wikipedia (en), Mauveine (cita a St Clair, 2016, The Secret Lives of Colour)", "url": "https://en.wikipedia.org/wiki/Mauveine" },
+      "etiqueta": "documentado"
+    },
+    {
+      "id": "verde", "nombre": "Verde", "hex": "#1E5C45", "fecha": "1861",
+      "historia": "El 17 de julio de 1861 el Congreso de Estados Unidos autorizó los Demand Notes. Llevaban el reverso impreso en tinta verde y de ahí viene el apodo «greenback». Que el verde signifique dinero es una convención estadounidense, no universal.",
+      "fuente": { "cita": "Wikipedia (en), Demand Note", "url": "https://en.wikipedia.org/wiki/Demand_Note" },
+      "etiqueta": "documentado"
+    },
+    {
+      "id": "rojo", "nombre": "Rojo", "hex": "#D5281B", "fecha": "2014",
+      "historia": "En China el dinero se regala en sobres rojos (hongbao) en las bodas y en el Año Nuevo; la tradición enseña que el rojo del sobre trae buena suerte. En el Año Nuevo chino de 2014 WeChat lanzó el sobre rojo digital.",
+      "fuente": { "cita": "Wikipedia (en), Red envelope", "url": "https://en.wikipedia.org/wiki/Red_envelope" },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "azafran", "nombre": "Oro de Dhanteras", "hex": "#E0932A", "fecha": "2026",
+      "historia": "Dhanteras abre el festival de Diwali. Su nombre une «dhana», riqueza en sánscrito, y «teras», el día trece en hindi. La tradición hindú lo considera un día propicio para comprar oro y plata. En 2026 cayó el 6 de noviembre.",
+      "fuente": { "cita": "Wikipedia (en), Dhanteras", "url": "https://en.wikipedia.org/wiki/Dhanteras" },
+      "fuente_2": { "cita": "Business Today (6 de noviembre de 2026), Dhanteras 2026", "url": "https://www.businesstoday.in/india/story/dhanteras-2026-cait-expects-rs1-lakh-crore-in-gold-silver-sales-aijgf-projects-10-yoy-increase-566100-2026-11-06" },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "negro", "nombre": "Negro", "hex": "#141412", "fecha": "1926",
+      "historia": "En 1926 la edición estadounidense de Vogue publicó un vestido negro, corto y sencillo, de Coco Chanel y lo comparó con un Ford. El pie se cita como «Here is a Ford signed “Chanel”»; la redacción exacta varía de una fuente a otra.",
+      "fuente": { "cita": "FIDM Museum (2015), Fundraising Friday: Chanel's Little Black Dress", "url": "https://fidmmuseum.org/2015/06/fundraising-friday-chanels-little-black-dress.html" },
+      "fuente_2": { "cita": "Wikipedia (en), Little black dress", "url": "https://en.wikipedia.org/wiki/Little_black_dress" },
+      "etiqueta": "documentado"
+    },
+    {
+      "id": "azul", "nombre": "Azul", "hex": "#0070B4", "fecha": "2010",
+      "historia": "En 2010, 48 personas de la bahía de San Francisco puntuaron 32 colores. La preferencia tuvo un pico amplio en el azul y un mínimo en el amarillo oscuro: gustan los colores de las cosas que gustan, como el cielo despejado y el agua limpia.",
+      "fuente": { "cita": "Palmer y Schloss (2010), PNAS 107(19): 8877–8882", "url": "https://doi.org/10.1073/pnas.0906172107" },
+      "etiqueta": "estudio"
+    }
+  ],
+  "tradiciones_nota": "Cada tradición asocia colores por correspondencia simbólica, no por experimento, y no coinciden entre sí. Los tonos de las muestras son orientativos.",
+  "tradiciones": [
+    {
+      "sistema": "Cinco elementos (wuxing)", "etiqueta": "tradicion", "verificado": false,
+      "nota": "Correspondencias clásicas del Huainanzi y del Libro de los Ritos. El término qing (青) cubre tanto el verde como el azul. El blanco es, además, el color tradicional del luto.",
+      "fuente": { "cita": "Wikipedia (en), Wuxing (Chinese philosophy)", "url": "https://en.wikipedia.org/wiki/Wuxing_(Chinese_philosophy)" },
+      "filas": [
+        { "nombre": "Madera", "original": "木", "lang": "zh-Hans", "color": "qing, azul verdoso", "hex": "#2E7D6B", "nota": "Este" },
+        { "nombre": "Fuego", "original": "火", "lang": "zh-Hans", "color": "rojo", "hex": "#C8281E", "nota": "Sur" },
+        { "nombre": "Tierra", "original": "土", "lang": "zh-Hans", "color": "amarillo", "hex": "#E2B83A", "nota": "Centro; el amarillo era el color del emperador" },
+        { "nombre": "Metal", "original": "金", "lang": "zh-Hans", "color": "blanco", "hex": "#F4F2EC", "nota": "Oeste" },
+        { "nombre": "Agua", "original": "水", "lang": "zh-Hans", "color": "negro", "hex": "#141412", "nota": "Norte" }
+      ]
+    },
+    {
+      "sistema": "Sefirot según Cordovero", "etiqueta": "tradicion", "verificado": false,
+      "nota": "En Pardés Rimonim (1548), Cordovero advierte que los colores son metáforas de la función de cada sefirá, no colores reales. Lista difundida por fuentes secundarias, sin cotejar con el texto. De Nétsaj, Hod y Yesod no hay dato fiable.",
+      "fuente": { "cita": "Mayim Achronim, Colours of the Sefirot (fuente secundaria)", "url": "https://www.mayimachronim.com/colours-of-the-sefirot/" },
+      "filas": [
+        { "nombre": "Kéter", "original": "כתר", "lang": "he", "color": "blanco", "hex": "#FFFFFF", "nota": "Otras lecturas: sin color" },
+        { "nombre": "Jojmá", "original": "חכמה", "lang": "he", "color": "un color que incluye todos", "hex": null, "nota": null },
+        { "nombre": "Biná", "original": "בינה", "lang": "he", "color": "amarillo y verde", "hex": "#E2B83A", "hex_2": "#3F8F4A", "nota": null },
+        { "nombre": "Jésed", "original": "חסד", "lang": "he", "color": "blanco y plata", "hex": "#FFFFFF", "hex_2": "#BFC3C7", "nota": null },
+        { "nombre": "Guevurá", "original": "גבורה", "lang": "he", "color": "rojo y oro", "hex": "#C8281E", "hex_2": "#D9B65A", "nota": null },
+        { "nombre": "Tiféret", "original": "תפארת", "lang": "he", "color": "amarillo y púrpura", "hex": "#E2B83A", "hex_2": "#6B2D7B", "nota": null },
+        { "nombre": "Maljut", "original": "מלכות", "lang": "he", "color": "azul", "hex": "#1F4FA3", "nota": null }
+      ]
+    },
+    {
+      "sistema": "Etapas de la obra alquímica", "etiqueta": "tradicion", "verificado": false,
+      "nota": "Cuatro fases de color de la magnum opus. Zósimo de Panópolis las atribuye a María la Judía. Después del siglo XV muchos autores fundieron la citrinitas en la rubedo y hablaron de tres etapas.",
+      "fuente": { "cita": "Wikipedia (en), Magnum opus (alchemy) (cita a Bogdan, Western Esotericism and Rituals of Initiation, p. 197)", "url": "https://en.wikipedia.org/wiki/Magnum_opus_(alchemy)" },
+      "filas": [
+        { "nombre": "Nigredo", "original": null, "lang": null, "color": "negro", "hex": "#141412", "nota": "Ennegrecimiento" },
+        { "nombre": "Albedo", "original": null, "lang": null, "color": "blanco", "hex": "#FFFFFF", "nota": "Blanqueamiento" },
+        { "nombre": "Citrinitas", "original": null, "lang": null, "color": "amarillo", "hex": "#E2B83A", "nota": "Amarilleamiento" },
+        { "nombre": "Rubedo", "original": null, "lang": null, "color": "rojo", "hex": "#B3261E", "nota": "Enrojecimiento o purpuración" }
+      ]
+    },
+    {
+      "sistema": "Chakras, esquema moderno", "etiqueta": "tradicion", "verificado": true,
+      "mito": "Que los siete colores del arcoíris sean una enseñanza india antigua.",
+      "nota": "Los siete colores del arcoíris no aparecen en ningún sistema indio antiguo. Se añadieron en Occidente en el siglo XX, a partir del sistema de colores de The Chakras (1927), de C. W. Leadbeater.",
+      "fuente": { "cita": "Wikipedia (en), Chakra (tabla «Modern colour»)", "url": "https://en.wikipedia.org/wiki/Chakra" },
+      "filas": [
+        { "nombre": "Séptimo, corona", "original": null, "lang": null, "color": "violeta o blanco", "hex": "#8E44AD", "hex_2": "#FFFFFF", "nota": null },
+        { "nombre": "Sexto", "original": null, "lang": null, "color": "índigo", "hex": "#3F3A9E", "nota": null },
+        { "nombre": "Quinto", "original": null, "lang": null, "color": "azul", "hex": "#2F7BD0", "nota": null },
+        { "nombre": "Cuarto, corazón", "original": null, "lang": null, "color": "verde", "hex": "#3A9A4B", "nota": null },
+        { "nombre": "Tercero", "original": null, "lang": null, "color": "amarillo", "hex": "#F2C81E", "nota": null },
+        { "nombre": "Segundo", "original": null, "lang": null, "color": "naranja", "hex": "#EF7D1A", "nota": null },
+        { "nombre": "Primero, raíz", "original": null, "lang": null, "color": "rojo", "hex": "#D32F2F", "nota": null }
+      ]
+    }
+  ],
+  "investigacion": [
+    {
+      "hallazgo": "Seis estudios con entre 42 y 208 participantes: el rojo mejoró el rendimiento en tareas de detalle y el azul en tareas creativas. Una réplica directa del primer experimento, con 263 personas en lugar de 69, no encontró el efecto.",
+      "estado": "no replicado",
+      "fuente": { "cita": "Mehta y Zhu (2009), Science 323(5918): 1226–1229", "url": "https://doi.org/10.1126/science.1169144" },
+      "fuente_2": { "cita": "Réplica: Steele (2014), Psychonomic Bulletin & Review 21: 771–776", "url": "https://doi.org/10.3758/s13423-013-0548-3" }
+    },
+    {
+      "hallazgo": "Cuatro experimentos con entre 30 y 71 participantes: ver rojo un momento antes de una prueba empeoró el resultado en dos de ellos (d = −1,11 y −1,14). En los otros dos (d = −0,14 y −0,51) la diferencia no fue significativa.",
+      "estado": "discutido",
+      "fuente": { "cita": "Elliot, Maier, Moller, Friedman y Meinhardt (2007), Journal of Experimental Psychology: General 136: 154–168", "url": "https://doi.org/10.1037/0096-3445.136.1.154" },
+      "fuente_2": { "cita": "Cifras por experimento: tabla 1 de Gnambs (2020)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7704521/" }
+    },
+    {
+      "hallazgo": "Metaanálisis de 22 estudios, 38 muestras y 67 tamaños de efecto: el rojo baja el rendimiento Δ = −0,13 (IC 95 %: de −0,23 a −0,03). Corregido el sesgo de publicación, el efecto queda cerca de cero.",
+      "estado": "confirmado",
+      "fuente": { "cita": "Gnambs (2020), Psychonomic Bulletin & Review 27: 1374–1382", "url": "https://doi.org/10.3758/s13423-020-01772-1" }
+    },
+    {
+      "hallazgo": "Con 187 adultos británicos, ver rojo antes de la prueba no cambió el resultado: d = −0,04 en razonamiento verbal y d = −0,01 en conocimientos generales.",
+      "estado": "confirmado",
+      "fuente": { "cita": "Larsson y von Stumm (2015); cifras en la tabla 1 de Gnambs (2020)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7704521/" }
+    },
+    {
+      "hallazgo": "48 personas valoraron 32 colores. Lo que sentían por los objetos de cada color explicó el 80 % de la variación de sus preferencias (r = 0,893). La muestra es de Estados Unidos y los autores advierten que el resultado depende de cada cultura.",
+      "estado": "confirmado",
+      "fuente": { "cita": "Palmer y Schloss (2010), PNAS 107(19): 8877–8882", "url": "https://doi.org/10.1073/pnas.0906172107" }
+    }
+  ],
+  "efecto_rojo": {
+    "titulo": "El efecto del rojo se encoge al sumar estudios",
+    "nota": "Diferencia de rendimiento al ver rojo antes de una prueba, en desviaciones típicas (d). Por debajo de cero, peor con rojo. Son valores promediados entre condiciones de color, según la tabla 1 de Gnambs (2020).",
+    "filas": [
+      { "estudio": "Elliot et al. (2007), experimento 1", "n": 71, "d": -0.14, "ic": null },
+      { "estudio": "Elliot et al. (2007), experimento 2", "n": 46, "d": -1.11, "ic": null },
+      { "estudio": "Elliot et al. (2007), experimento 3", "n": 30, "d": -1.14, "ic": null },
+      { "estudio": "Elliot et al. (2007), experimento 4", "n": 57, "d": -0.51, "ic": null },
+      { "estudio": "Larsson y von Stumm (2015), razonamiento verbal", "n": 187, "d": -0.04, "ic": null },
+      { "estudio": "Larsson y von Stumm (2015), conocimientos", "n": 187, "d": -0.01, "ic": null },
+      { "estudio": "Gnambs (2020), 67 efectos reunidos", "n": null, "d": -0.13, "ic": [-0.23, -0.03] },
+      { "estudio": "Gnambs (2020), corregido el sesgo de publicación", "n": null, "d": 0, "ic": null }
+    ],
+    "fuente": { "cita": "Gnambs (2020), Psychonomic Bulletin & Review 27: 1374–1382, texto completo", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7704521/" }
+  },
+  "billetes_nota": "Novena serie del franco suizo, diseñada por Manuela Pfrunder y emitida entre 2016 y 2019. El color distingue cada valor de un vistazo. Los tonos de las muestras son orientativos: no son valores oficiales del Banco Nacional Suizo.",
+  "billetes_fuente": { "cita": "Wikipedia (en), Banknotes of the Swiss franc (cita al Banco Nacional Suizo)", "url": "https://en.wikipedia.org/wiki/Banknotes_of_the_Swiss_franc" },
+  "billetes": [
+    { "valor": "10", "color": "amarillo", "hex": "#FFE080", "tema": "El tiempo", "emision": "2017-10-18" },
+    { "valor": "20", "color": "rojo", "hex": "#FF8080", "tema": "La luz", "emision": "2017-05-17" },
+    { "valor": "50", "color": "verde", "hex": "#80C080", "tema": "El viento", "emision": "2016-04-12" },
+    { "valor": "100", "color": "azul", "hex": "#80C0FF", "tema": "El agua", "emision": "2019-09-12" },
+    { "valor": "200", "color": "marrón", "hex": "#C0A080", "tema": "La materia", "emision": "2018-08-22" },
+    { "valor": "1000", "color": "púrpura", "hex": "#C080FF", "tema": "El lenguaje", "emision": "2019-03-13" }
+  ],
+  "zurich": [
+    {
+      "nombre": "Azul del cantón de Zúrich", "hex": "#0070B4", "verificado": false,
+      "nota": "Color de acento del sistema de diseño web del cantón. No pudimos abrir la página oficial para comprobar el valor. Es el azul de interacción de Shefa.",
+      "fuente": { "cita": "Kanton Zürich, Designsystem: Farben", "url": "https://www.zh.ch/de/webangebote-entwickeln-und-gestalten/inhalt/designsystem/design-grundlagen/farben.html" }
+    },
+    {
+      "nombre": "Azul oscuro del cantón", "hex": "#00407C", "verificado": false,
+      "nota": "«Dunkelblau» en el mismo sistema de diseño. Valor sin comprobar en la fuente oficial.",
+      "fuente": { "cita": "Kanton Zürich, Designsystem: Farben", "url": "https://www.zh.ch/de/webangebote-entwickeln-und-gestalten/inhalt/designsystem/design-grundlagen/farben.html" }
+    },
+    {
+      "nombre": "Azul tradicional de Zúrich, Pantone 300", "hex": "#0066CC", "verificado": false,
+      "nota": "Equivalente RGB de Pantone 300 según un documento municipal de Dübendorf de 2012. Valor sin comprobar en la fuente.",
+      "fuente": { "cita": "Stadt Dübendorf (2012), Farbdefinitionen Stadtwappen und -fahne", "url": "https://www.duebendorf.ch/_docn/5521753/Farbdefinitionen_Stadtwappen_und_-fahne.pdf" }
+    },
+    {
+      "nombre": "Rojo de los ferrocarriles suizos (SBB)", "hex": "#EB0000", "verificado": false,
+      "nota": "Rojo de marca según el sistema de diseño digital de los SBB, que lo reserva para lo importante. Valor sin comprobar en la fuente oficial.",
+      "fuente": { "cita": "SBB, Digital Design System: Base colors", "url": "https://digital.sbb.ch/en/foundation/colors/base-colors/" }
+    },
+    {
+      "nombre": "Rojo de la bandera suiza", "hex": "#FF0000", "verificado": true,
+      "nota": "Rojo puro, definido por ley desde 2017: Pantone 485, CMYK 0/100/100/0. Antes no tenía definición legal.",
+      "fuente": { "cita": "Wikipedia (en), Flag of Switzerland (cita a Fedlex, RO 2015 3679)", "url": "https://en.wikipedia.org/wiki/Flag_of_Switzerland" }
+    },
+    {
+      "nombre": "Reloj de estación suizo", "hex": null, "verificado": true,
+      "nota": "Hans Hilfiker lo diseñó en 1944 para los ferrocarriles suizos: esfera blanca, agujas negras y un segundero rojo que da la vuelta en unos 58,5 segundos. Sin valores de color publicados.",
+      "fuente": { "cita": "Wikipedia (en), Swiss railway clock", "url": "https://en.wikipedia.org/wiki/Swiss_railway_clock" }
+    }
+  ],
+  "paleta_nota": "Shefa nombra sus cinco colores como los cinco elementos. Es una convención de diseño propia, no una afirmación de eficacia.",
+  "paleta": [
+    { "elemento": "madera", "nombre": "Tinta", "papel": "texto y estructura", "claro": "#141412", "oscuro": "#F1EFE9" },
+    { "elemento": "fuego", "nombre": "Sello bermellón", "papel": "el presente: hoy y lo elegido; uno por pantalla", "claro": "#D5281B", "oscuro": "#D5281B" },
+    { "elemento": "tierra", "nombre": "Papel", "papel": "el fondo de la página", "claro": "#FAF9F6", "oscuro": "#121211" },
+    { "elemento": "metal", "nombre": "Oro", "papel": "lo medido: avances y medidores; solo en gráficos", "claro": "#A07F2A", "oscuro": "#D9B65A" },
+    { "elemento": "agua", "nombre": "Azul de Zúrich", "papel": "flujo e interacción: enlaces, foco y campos", "claro": "#0070B4", "oscuro": "#58AEE8" }
+  ],
+  "pelicula": {
+    "titulo": "Riquezas y colores",
+    "archivo": "/media/riquezas-y-colores.mp4",
+    "poster": "/media/riquezas-y-colores.jpg",
+    "subtitulos": "/media/riquezas-y-colores.es.vtt",
+    "nota": "Película tipográfica, sin voz: nueve hechos sobre el color y la riqueza, cada uno con su fuente en pantalla. Los subtítulos repiten el texto de cada escena."
+  }
+}

@@ -1,0 +1,17 @@
+---
+// TituloPagina: el titular de cada página, bajo la navegación.
+//   <TituloPagina titulo="Árbol de la Vida" nota="Diez cualidades y su medida" />
+// Para un titular con marcado propio (la fecha con el sello), usa la ranura «titulo»;
+// para una nota con marcado, la ranura principal.
+interface Props {
+  /** Texto del h1. */
+  titulo?: string;
+  /** Línea de apoyo bajo el título. */
+  nota?: string;
+}
+const { titulo, nota } = Astro.props;
+---
+<div class="portada">
+  <h1><slot name="titulo">{titulo}</slot></h1>
+  {(nota || Astro.slots.has('default')) && <p class="portada-nota"><slot>{nota}</slot></p>}
+</div>

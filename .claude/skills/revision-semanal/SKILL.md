@@ -14,6 +14,8 @@ Haz las preguntas de una en una.
 5. **WOOP nuevo.** Deseo alcanzable en 7 días, resultado, obstáculo interno, plan «si… entonces…».
 6. **Una prioridad.** Solo una.
 
-Cierra con un resumen de cinco líneas que pueda copiar en el tablero, y dile en qué semana del plan de 90 días está (`abundancia/notebooklm/05-plan-90-dias.md`).
+Cierra con un resumen de cinco líneas que pueda copiar en el tablero o en el sitio (`abundancia/site/`), y dile en qué semana del plan de 90 días está (`abundancia/notebooklm/05-plan-90-dias.md`).
 
-Si quiere abrir una fuente nueva antes de que la principal sea estable, dilo con claridad y propón qué mejorar primero. Para evaluar ideas nuevas, delega en el agente `estratega-ingresos`.
+Base de conocimiento: `abundancia/conocimiento/INDICE.md`. Si citas una cifra o un estudio (registro del progreso, WOOP, tasa de ahorro), tómalo de `abundancia/conocimiento/base/practicas-con-evidencia.md` o `datos-de-riqueza.md`, con su etiqueta.
+
+Si quiere abrir una fuente nueva antes de que la principal sea estable, dilo con claridad y propón qué mejorar primero. Para evaluar ideas nuevas, delega en el agente `estratega-ingresos`; para precios, en `maestro-precios-y-ventas`; para ahorro, deuda o una oportunidad dudosa, en `guardian-patrimonio`.

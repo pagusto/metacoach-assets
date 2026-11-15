@@ -1,0 +1,108 @@
+/* ==========================================================================
+   Hoy · nueve funciones en nueve palacios
+   ========================================================================== */
+
+/* Texto de marcador cuando aún no hay dato propio */
+.vacia { color: var(--texto-3); }
+.fig-xl.vacia { font-size: var(--t-3); line-height: var(--lh-3); font-stretch: 100%; font-weight: 500; letter-spacing: -0.01em; }
+
+/* Formulario de edición dentro de un palacio */
+.ed { gap: var(--s-2); }
+.ed textarea { font-size: var(--t-1); }
+
+/* 4 · La cifra */
+.cifra-unidad { display: block; font-size: var(--t-2); line-height: var(--lh-2); }
+.cifra-pie { display: grid; gap: 12px; margin-top: var(--s-2); }
+.pares b { font-weight: 600; }
+
+/* 9 · Declaración */
+.p9 .editable { display: block; width: 100%; }
+
+/* 2 · Sefirá del día */
+.p2 .pal-cuerpo { display: grid; }
+.sef-hoy { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto; gap: var(--s-2); }
+.sef-dia { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: var(--s-2); }
+.sef-dia-n { font-size: var(--t-4); line-height: var(--lh-4); font-weight: 700; letter-spacing: -0.025em; }
+.sef-dia .he { font-size: var(--t-3); line-height: var(--lh-4); color: var(--texto-2); }
+.sef-dia-c { flex-basis: 100%; font-size: var(--t-2); line-height: var(--lh-2); }
+.sef-hoy .rotulo { margin-top: 4px; }
+.conv { margin-top: var(--s-1); font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-2); }
+.conv summary { display: inline-block; min-height: var(--s-3); padding-block: 4px; color: var(--accion); cursor: pointer; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; list-style: none; }
+.conv summary::-webkit-details-marker { display: none; }
+.conv[open] summary { color: var(--texto-2); }
+.conv p { max-width: 32rem; padding-top: 4px; }
+.sef-pie { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-2); align-items: end; }
+.sef-pie .rotulo { margin: 0 0 2px; }
+.mini-arbol { display: block; width: 96px; height: 96px; }
+.mini-arbol path { fill: none; stroke: var(--trazo); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mini-arbol circle { fill: var(--fondo); stroke: var(--texto); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.mini-arbol .hoy-nodo { fill: var(--texto); }
+a:hover > .mini-arbol .hoy-nodo { fill: var(--accion); stroke: var(--accion); }
+
+/* 3 · Ritual de hoy */
+.p3 .pal-cuerpo { padding-top: 0; }
+.ritual { border-top: var(--linea) solid var(--filete); }
+.ritual li { border-bottom: var(--linea) solid var(--filete-suave); }
+.paso {
+  display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; column-gap: 12px;
+  align-items: center; min-height: 47px; padding-block: var(--s-1);
+  cursor: pointer;
+}
+.paso:hover .casilla { border-color: var(--accion); }
+.paso input:checked ~ span { color: var(--texto-3); }
+.paso-d { color: var(--texto-2); white-space: nowrap; }
+.ritual-pie { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); padding-top: 12px; }
+.racha { display: flex; align-items: center; gap: var(--s-1); }
+.racha circle { fill: none; stroke: var(--trazo); }
+.racha circle.hecho { fill: var(--texto); stroke: none; }
+.racha b { font-weight: 600; }
+.ritual-enlace { margin-top: var(--s-1); font-size: var(--t-0); line-height: var(--lh-0); }
+
+/* 5 · 1 · 7 · Tres cifras */
+.dato { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: var(--s-1); }
+.dato-nota { font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-2); white-space: nowrap; }
+.p1 .fig-l { margin-left: -0.04em; }
+.meta-nota { display: none; }
+
+.fuentes-m { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.fuentes-m svg { width: 100%; height: auto; }
+.fuentes-m span { display: none; }
+.fuentes-m.muchas { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+
+/* 8 · 6 · Tradición y dato */
+.p8 .pal-cuerpo, .p6 .pal-cuerpo { display: grid; }
+.par { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto; gap: var(--s-2); }
+.par-titulo { margin-top: 4px; }
+.par-texto { margin-top: var(--s-1); color: var(--texto-2); text-wrap: pretty; }
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 1280px) {
+  .mini-arbol { width: 120px; height: 120px; }
+  .dato { flex-direction: column; align-items: flex-start; }
+  .dato-nota { font-size: var(--t-1); }
+
+  .p5 .pal-graf { width: min(240px, 62cqi); }
+  .p7 .pal-graf { width: 192px; }
+  /* El formulario de ahorro cabe a la izquierda de la matriz de puntos */
+  .p7 .ed { max-width: calc(100% - 192px - var(--s-2)); }
+  .p7 .ed .boton, .p7 .ed .boton-2 { width: 100%; }
+  .p1 .pal-graf { left: var(--palacio-pad); }
+
+  /* Línea de meta: a la altura de la fila 20 de la matriz de 192 px */
+  .meta-nota {
+    display: block; position: absolute; left: var(--palacio-pad); right: var(--palacio-pad);
+    bottom: calc(var(--palacio-pad) + 38.4px);
+    border-bottom: var(--linea) solid var(--filete);
+    font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-2);
+  }
+
+  .fuentes-m { grid-template-columns: repeat(var(--cols, 3), 96px); gap: 0; justify-content: start; row-gap: var(--s-1); }
+  .fuentes-m svg { width: calc(100% - 0px); max-width: 96px; }
+  .fuentes-m > div { padding-right: 0; }
+  .fuentes-m span { display: block; margin-top: var(--s-1); font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-2); }
+  .fuentes-m[data-n="3"], .fuentes-m[data-n="2"], .fuentes-m[data-n="1"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .fuentes-m[data-n="3"] svg, .fuentes-m[data-n="2"] svg, .fuentes-m[data-n="1"] svg { width: 96px; }
+  .fuentes-m.muchas { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s-1); }
+  .fuentes-m.muchas span { display: none; }
+  .fuentes-m:not(.muchas) svg { width: min(96px, 100% - 12px); }
+}

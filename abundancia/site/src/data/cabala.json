@@ -1,0 +1,341 @@
+{
+  "titulo": "Cábala y sustento",
+  "resumen": "La tradición judía une mística y ética del dinero: la abundancia se describe como un flujo que pide un recipiente, y ese recipiente se construye con actos concretos: dar una parte fija, negociar con fidelidad, descansar un día, agradecer y contentarse con la propia parte. Aquí tienes los textos, con su referencia exacta.",
+  "contexto": "La cábala es la corriente mística del judaísmo. Sus raíces están en textos antiguos como el Séfer Yetsirá, pero toma forma en la Edad Media: el Bahir en el siglo XII y el Zóhar en la Castilla del XIII, difundido por Moshé de León. En el siglo XVI, en Safed, Moshé Cordovero la ordena e Isaac Luria la renueva; en el XVIII el jasidismo la acerca a la gente común. Describe diez sefirot, emanaciones por las que lo infinito se relaciona con el mundo. Tradicionalmente se reservaba a adultos ya formados en Torá y Talmud. La Cábala cristiana del Renacimiento y la Qabalah hermética son adaptaciones posteriores y distintas. Acércate como invitado: toma la ética, que es universal, cita los textos con su fuente y describe los ritos sin apropiártelos. Las aplicaciones al sustento que verás junto a cada sefirá son lecturas modernas, no el sentido original.",
+  "sefirot": [
+    {
+      "id": "keter",
+      "nombre": "Kéter",
+      "hebreo": "כתר",
+      "significado": "Corona",
+      "tradicion": "La sefirá más cercana al Ein Sof, lo infinito. Se asocia con la voluntad y con niveles de fe y deleite anteriores al pensamiento consciente. Es el origen del que descienden las demás.",
+      "aplicacion": "Lectura moderna: el propósito. Antes de preguntar cuánto quieres ganar, pregunta para qué.",
+      "practica": "Escribe en una frase para qué quieres el dinero que buscas este año y a quién más beneficia.",
+      "dia": null,
+      "color_cordovero": "Blanco",
+      "fuente": { "cita": "My Jewish Learning, «What Are the Sefirot?»", "url": "https://www.myjewishlearning.com/article/sefirot/" }
+    },
+    {
+      "id": "jojma",
+      "nombre": "Jojmá",
+      "hebreo": "חכמה",
+      "significado": "Sabiduría",
+      "tradicion": "Primer destello de la mente divina: la idea en germen, todavía sin desarrollo ni forma. Con Biná forma la pareja de la que nacen las sefirot inferiores.",
+      "aplicacion": "Lectura moderna: la idea de valor. Qué necesidad real puedes atender con lo que sabes hacer.",
+      "practica": "Anota tres ideas de servicio o producto sin juzgarlas. Mañana elige una para estudiarla.",
+      "dia": null,
+      "color_cordovero": "Un color que incluye todos",
+      "fuente": { "cita": "Scholem, G. (1974), Kabbalah, Keter, parte II, «The Basic Ideas of Kabbalah»", "url": null }
+    },
+    {
+      "id": "bina",
+      "nombre": "Biná",
+      "hebreo": "בינה",
+      "significado": "Entendimiento",
+      "tradicion": "La comprensión que desarrolla la idea y le da estructura. La tradición la llama madre de las siete sefirot inferiores, y el Zóhar la vincula con el Shabat superior.",
+      "aplicacion": "Lectura moderna: el plan. Convertir la idea en pasos, cifras y plazos que puedas revisar.",
+      "practica": "Desglosa tu idea en cinco pasos con fecha y con un número que indique si avanzas.",
+      "dia": null,
+      "color_cordovero": "Amarillo y verde",
+      "fuente": { "cita": "Scholem, G. (1974), Kabbalah, Keter, parte II, «The Basic Ideas of Kabbalah»", "url": null }
+    },
+    {
+      "id": "jesed",
+      "nombre": "Jésed",
+      "hebreo": "חסד",
+      "significado": "Bondad amorosa",
+      "tradicion": "El amor que da sin medida, asociado a Abraham y al lado derecho. El Zóhar lo vincula con la plata. Es la primera de las siete sefirot inferiores.",
+      "aplicacion": "Lectura moderna: dar. Apartar una parte fija de lo que ingresas antes de gastar.",
+      "practica": "Fija un porcentaje para dar y transfiérelo el mismo día en que cobras.",
+      "dia": "domingo",
+      "color_cordovero": "Blanco y plata",
+      "fuente": { "cita": "Zóhar, Pekudé (edición en línea de Zohar.com, párrafos 131-144)", "url": "https://www.zohar.com/zohar/Pekudei/verses/131-144" }
+    },
+    {
+      "id": "guevura",
+      "nombre": "Guevurá",
+      "hebreo": "גבורה",
+      "significado": "Fuerza, juicio",
+      "tradicion": "También llamada Din, juicio: el límite y la disciplina que contienen la bondad, asociados a Isaac y al lado izquierdo. El Zóhar la vincula con el oro.",
+      "aplicacion": "Lectura moderna: contención. Presupuesto, límites de gasto y saber decir no.",
+      "practica": "Pon un tope mensual a una categoría de gasto y revisa el viernes si lo cumpliste.",
+      "dia": "lunes",
+      "color_cordovero": "Rojo y oro",
+      "fuente": { "cita": "Zóhar, Pekudé (edición en línea de Zohar.com, párrafos 131-144)", "url": "https://www.zohar.com/zohar/Pekudei/verses/131-144" }
+    },
+    {
+      "id": "tiferet",
+      "nombre": "Tiféret",
+      "hebreo": "תפארת",
+      "significado": "Belleza, armonía",
+      "tradicion": "También llamada Rajamim, compasión: armoniza la bondad y el juicio. Se asocia a Jacob y ocupa el centro del árbol.",
+      "aplicacion": "Lectura moderna: equilibrio entre dar, gastar, ahorrar e invertir, sin extremos.",
+      "practica": "Reparte tu ingreso del mes en cuatro porcentajes: dar, vivir, ahorrar e invertir. Ajusta uno.",
+      "dia": "martes",
+      "color_cordovero": "Amarillo y púrpura",
+      "fuente": { "cita": "Matt, D. C. (1995), The Essential Kabbalah, HarperOne, introducción", "url": null }
+    },
+    {
+      "id": "netsaj",
+      "nombre": "Nétsaj",
+      "hebreo": "נצח",
+      "significado": "Victoria, eternidad",
+      "tradicion": "La perseverancia que sostiene la acción en el tiempo y vence el obstáculo. Forma pareja con Hod.",
+      "aplicacion": "Lectura moderna: constancia. El ingreso crece con hábitos repetidos más que con golpes de suerte.",
+      "practica": "Elige una acción diaria de quince minutos para tu fuente principal de ingreso y márcala en un calendario.",
+      "dia": "miércoles",
+      "color_cordovero": "Rosa claro",
+      "fuente": { "cita": "AskNoah, «G-d's 7 Emotional Attributes and the Rainbow Colors» (colores según Pardés Rimonim)", "url": "https://asknoah.org/?p=738" }
+    },
+    {
+      "id": "hod",
+      "nombre": "Hod",
+      "hebreo": "הוד",
+      "significado": "Esplendor",
+      "tradicion": "Esplendor y majestad. La enseñanza posterior lo lee también desde hodaá, reconocimiento y agradecimiento: admitir de dónde viene lo recibido.",
+      "aplicacion": "Lectura moderna: gratitud y reconocimiento. Nombrar a quién debes lo que tienes.",
+      "practica": "Cada noche anota tres ingresos, ayudas o aprendizajes del día y a quién se los debes.",
+      "dia": "jueves",
+      "color_cordovero": "Rosa oscuro",
+      "fuente": { "cita": "AskNoah, «G-d's 7 Emotional Attributes and the Rainbow Colors» (colores según Pardés Rimonim)", "url": "https://asknoah.org/?p=738" }
+    },
+    {
+      "id": "yesod",
+      "nombre": "Yesod",
+      "hebreo": "יסוד",
+      "significado": "Fundamento",
+      "tradicion": "El canal que reúne lo que viene de las sefirot superiores y lo transmite a Maljut. Se asocia al justo y a José. En la disposición atribuida al Arí es el único enlace con Maljut.",
+      "aplicacion": "Lectura moderna: el canal. Fuentes de ingreso fiables, palabra cumplida y cuentas claras.",
+      "practica": "Lista tus fuentes de ingreso y anota junto a cada una qué promesa pendiente tienes que cumplir.",
+      "dia": "viernes",
+      "color_cordovero": null,
+      "fuente": { "cita": "Chabad.org, «Shabbat: Blessing for All Creation» (Zóhar II, 88a)", "url": "https://www.chabad.org/kabbalah/article_cdo/aid/565867/jewish/Shabbat-Blessing-for-All-Creation.htm" }
+    },
+    {
+      "id": "maljut",
+      "nombre": "Maljut",
+      "hebreo": "מלכות",
+      "significado": "Reino",
+      "tradicion": "La sefirá más presente en el mundo, identificada con la Shejiná, la presencia divina que habita entre las personas. Recibe de todas las demás y lo manifiesta. Se asocia con el Shabat.",
+      "aplicacion": "Lectura moderna: recibir y concretar. Cobrar lo justo, registrar lo que entra y disfrutarlo.",
+      "practica": "Un día a la semana no trabajes ni compres. Dedícalo a disfrutar de lo que ya tienes.",
+      "dia": "sábado",
+      "color_cordovero": "Azul",
+      "fuente": { "cita": "My Jewish Learning, «What Are the Sefirot?»", "url": "https://www.myjewishlearning.com/article/sefirot/" }
+    }
+  ],
+  "dias_nota": "El principio es tradicional: el Zóhar y Ramjal (siglo XVIII) enseñan que los seis días y el Shabat corresponden a las siete sefirot inferiores, de Jésed el domingo a Maljut el sábado. La tabla día por día circula sobre todo en la divulgación actual; no localizamos un pasaje clásico que la enumere completa.",
+  "arbol_nota": "No hay un único árbol judío: el diagrama aparece en el siglo XIV y varía. En la disposición atribuida al Arí, Maljut se une solo a Yesod. El árbol de Kircher (1652-1654), adoptado por la Golden Dawn, une Maljut con tres sefirot y añade letras por orden alfabético, planetas y tarot.",
+  "ensenanzas": [
+    {
+      "id": "fuerza-para-hacer-riqueza",
+      "titulo": "La fuerza para producir es recibida",
+      "tradicion": "La Torá advierte contra pensar que la riqueza es solo mérito propio. No niega el esfuerzo: recuerda que la capacidad de producir también es un don, y que olvidarlo vuelve arrogante a quien prospera.",
+      "fuente_tradicion": { "cita": "Deuteronomio 8:17-18", "url": "https://www.sefaria.org/Deuteronomy.8.17-18" },
+      "cita": {
+        "texto": "Y dirás en tu corazón: mi fuerza y el vigor de mi mano me han hecho esta riqueza. Recuerda al Señor tu Dios, pues él es quien te da fuerza para hacer riqueza.",
+        "original": "ואמרת בלבבך כחי ועצם ידי עשה לי את החיל הזה. וזכרת את ה׳ אלהיך כי הוא הנתן לך כח לעשות חיל",
+        "referencia": "Deuteronomio 8:17-18"
+      },
+      "practica": "Al registrar un ingreso, anota al lado una cosa que no dependió de ti: una persona, una oportunidad, tu salud.",
+      "dato": null,
+      "fuente_dato": null,
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "rico-el-que-se-alegra",
+      "titulo": "Rico es quien se alegra con su parte",
+      "tradicion": "Ben Zomá define la riqueza por la relación con lo que se tiene, no por la cantidad. No prohíbe querer más: enseña que sin contentamiento ninguna cifra alcanza.",
+      "fuente_tradicion": { "cita": "Mishná, Pirké Avot 4:1", "url": "https://www.sefaria.org/Pirkei_Avot.4.1" },
+      "cita": {
+        "texto": "¿Quién es rico? El que se alegra con su parte.",
+        "original": "איזהו עשיר? השמח בחלקו",
+        "referencia": "Pirké Avot 4:1"
+      },
+      "practica": "Define tu cifra de «suficiente» para este año y escríbela. Revísala solo una vez al año.",
+      "dato": null,
+      "fuente_dato": null,
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "diezma-para-enriquecerte",
+      "titulo": "Diezma para que te enriquezcas",
+      "tradicion": "Rabí Yojanán lee la repetición del verbo en Deuteronomio 14:22 como un juego de palabras entre diezmar y enriquecerse. El Talmud presenta el diezmo como el único terreno donde se permite poner a prueba a Dios. Es una promesa religiosa, no un dato empírico.",
+      "fuente_tradicion": { "cita": "Talmud de Babilonia, Taanit 9a", "url": "https://www.sefaria.org/Taanit.9a" },
+      "cita": {
+        "texto": "Diezma, para que te enriquezcas.",
+        "original": "עשר תעשר — עשר בשביל שתתעשר",
+        "referencia": "Taanit 9a"
+      },
+      "practica": "Durante tres meses, aparta un porcentaje fijo de cada ingreso para dar. Anota qué cambia en tu manera de gastar.",
+      "dato": null,
+      "fuente_dato": null,
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "ventanas-del-cielo",
+      "titulo": "Las ventanas del cielo",
+      "tradicion": "El profeta Malaquías reprocha al pueblo haber retenido el diezmo y lo invita a traerlo completo, con la promesa de una bendición sin medida. El Talmud cita este versículo junto a la enseñanza de Rabí Yojanán.",
+      "fuente_tradicion": { "cita": "Malaquías 3:10", "url": "https://www.sefaria.org/Malachi.3.10" },
+      "cita": {
+        "texto": "Traed todo el diezmo a la casa del tesoro… y probadme en esto… si no os abro las ventanas del cielo y derramo sobre vosotros bendición hasta que sobre.",
+        "original": "הביאו את כל המעשר אל בית האוצר… ובחנוני נא בזאת… אם לא אפתח לכם את ארבות השמים והריקתי לכם ברכה עד בלי די",
+        "referencia": "Malaquías 3:10"
+      },
+      "practica": "Abre una cuenta o un sobre aparte para lo que das, de modo que esa parte nunca se mezcle con el gasto.",
+      "dato": null,
+      "fuente_dato": null,
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "negociar-con-fidelidad",
+      "titulo": "¿Negociaste con fidelidad?",
+      "tradicion": "Rava enseña que, cuando una persona es llevada a juicio tras su vida, la primera pregunta de su lista es sobre la honradez en los negocios, antes incluso que sobre el estudio.",
+      "fuente_tradicion": { "cita": "Talmud de Babilonia, Shabat 31a", "url": "https://www.sefaria.org/Shabbat.31a" },
+      "cita": {
+        "texto": "¿Negociaste con fidelidad?",
+        "original": "נשאת ונתת באמונה",
+        "referencia": "Shabat 31a"
+      },
+      "practica": "Revisa tu última oferta o factura: ¿describe con exactitud lo que entregas? Corrige una cosa esta semana.",
+      "dato": null,
+      "fuente_dato": null,
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "ocho-grados-de-tsedaca",
+      "titulo": "Los ocho grados de la tsedacá",
+      "tradicion": "Maimónides ordena las formas de dar. La más alta es sostener a quien cae con un regalo, un préstamo, una sociedad o un trabajo, para que no necesite pedir. Siguen los grados de anonimato, dar antes de que pidan, dar después, dar poco con buen rostro y dar con pesar.",
+      "fuente_tradicion": { "cita": "Maimónides, Mishné Torá, Matnot Aniyim 10:7-14", "url": "https://www.sefaria.org/Mishneh_Torah%2C_Gifts_to_the_Poor.10.7" },
+      "cita": {
+        "texto": "Hay ocho grados de tsedacá, uno por encima del otro.",
+        "original": "שמונה מעלות יש בצדקה זו למעלה מזו",
+        "referencia": "Mishné Torá, Matnot Aniyim 10:7"
+      },
+      "practica": "Este mes haz una ayuda del grado más alto: una recomendación, un encargo o enseñar un oficio a alguien.",
+      "dato": "Son ocho grados. El primero busca la autonomía de quien recibe; el octavo es dar a disgusto.",
+      "fuente_dato": { "cita": "My Jewish Learning, «Maimonides' Eight Levels: A Contemporary Reading»", "url": "https://www.myjewishlearning.com/article/maimonides-eight-levels-a-comtemporary-reading/" },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "decimo-y-quinto",
+      "titulo": "Un décimo, y no más de un quinto",
+      "tradicion": "La costumbre del maaser kesafim aparta la décima parte de los ingresos. Los sabios de Ushá pusieron un techo: no dar más de la quinta parte, para no acabar dependiendo de otros. Las autoridades discuten si el décimo es obligación o costumbre.",
+      "fuente_tradicion": { "cita": "Talmud de Babilonia, Ketubot 50a; Shulján Aruj, Yoré Deá 249:1", "url": "https://www.myjewishlearning.com/article/ketubot-50/" },
+      "cita": {
+        "texto": "En Ushá establecieron: quien reparte, no reparta más de un quinto.",
+        "original": "באושא התקינו: המבזבז אל יבזבז יותר מחומש",
+        "referencia": "Ketubot 50a"
+      },
+      "practica": "Elige tu porcentaje entre el que hoy puedes sostener y el 10 %, y no pases del 20 %.",
+      "dato": "El Shulján Aruj considera ideal dar hasta un quinto (20 %) y medida media dar un décimo (10 %).",
+      "fuente_dato": { "cita": "Yeshivat Har Etzion, «Ma'aser Kesafim»", "url": "https://www.etzion.org.il/en/maaser-kesafim" },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "confianza-y-esfuerzo",
+      "titulo": "Confianza y esfuerzo",
+      "tradicion": "Bajya ibn Pakuda, en el siglo XI, enseña que la confianza (bitajón) no exime del trabajo (hishtadlut). La persona se ocupa de los medios que tiene a mano, sabiendo que el resultado no depende solo de ellos. La confianza quita la ansiedad, no la tarea.",
+      "fuente_tradicion": { "cita": "Bajya ibn Pakuda, Jovot HaLevavot, Shaar HaBitajón, caps. 3-4 (la numeración varía según la edición)", "url": "https://etzion.org.il/en/philosophy/issues-jewish-thought/issues-mussar-and-faith/divine-providence-and-natural-order-2" },
+      "cita": null,
+      "practica": "Divide una hoja en dos columnas: lo que depende de ti y lo que no. Trabaja la primera y suelta la segunda.",
+      "dato": null,
+      "fuente_dato": null,
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "shabat-fuente-de-bendicion",
+      "titulo": "El séptimo día, fuente de bendición",
+      "tradicion": "El Zóhar enseña que los seis días reciben su bendición del séptimo. Por eso, dice, el maná no caía en Shabat: el día en que no se produce es el que sostiene a los demás.",
+      "fuente_tradicion": { "cita": "Zóhar II (Yitró), 88a, trad. de Moshe Miller en Chabad.org", "url": "https://www.chabad.org/kabbalah/article_cdo/aid/565867/jewish/Shabbat-Blessing-for-All-Creation.htm" },
+      "cita": {
+        "texto": "Todas las bendiciones de arriba y de abajo dependen del séptimo día.",
+        "original": null,
+        "referencia": "Zóhar II, 88a"
+      },
+      "practica": "Reserva un día semanal sin trabajo, compras ni correo laboral. Protégelo como una cita.",
+      "dato": null,
+      "fuente_dato": null,
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "parashat-haman",
+      "titulo": "El pasaje del maná",
+      "tradicion": "El Shulján Aruj recomienda recitar a diario el relato del maná (Éxodo 16) para interiorizar que el sustento llega por la providencia. Es una observancia judía. La costumbre de leerlo un martes concreto del año se atribuye a Rabí Menajem Mendel de Rimanov sin documentación.",
+      "fuente_tradicion": { "cita": "Shulján Aruj, Óraj Jaim 1:5, con la razón del Bet Yosef; expuesto en Chabad.org, «A Knowing Heart: Parshas Beshalach»", "url": "https://www.chabad.org/therebbe/article_cdo/aid/2295030/jewish/A-Knowing-Heart-Parshas-Beshalach.htm" },
+      "cita": null,
+      "practica": "Sin adoptar el rito, toma su idea: recoge cada día lo de ese día. Revisa hoy solo las cuentas de hoy.",
+      "dato": null,
+      "fuente_dato": null,
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "dinero-como-escalera",
+      "titulo": "El dinero es una escalera",
+      "tradicion": "Una lectura atribuida al Báal HaTurim (siglo XIV) observa que mamón (dinero), sulam (escalera) y oni (pobreza) suman lo mismo en hebreo: con el dinero se sube o se baja. La guematria es un recurso para recordar una idea, no una prueba.",
+      "fuente_tradicion": { "cita": "Báal HaTurim sobre Génesis 28:12, según Aish, «The Up-and-Down Ladder»", "url": "https://aish.com/the-up-and-down-ladder/" },
+      "cita": null,
+      "practica": "Ante un gasto grande pregunta: ¿esto me sube o me baja un peldaño hacia lo que escribí como propósito?",
+      "dato": "Mamón, sulam con vav, kol (voz) y tsom (ayuno) suman 136 cada una. En la Torá sulam se escribe sin vav y suma 130.",
+      "fuente_dato": { "cita": "OzTorah, «130 or 136 – Vayyetzei»", "url": "https://oztorah.com/2007/06/130-or-136-vayyetzei/" },
+      "etiqueta": "tradicion"
+    },
+    {
+      "id": "omer-siete-semanas",
+      "titulo": "Siete semanas para pulir el carácter",
+      "tradicion": "Entre Pésaj y Shavuot se cuentan 49 días. La cábala de Safed asigna a cada semana una sefirá y a cada día una combinación, de «bondad en la bondad» a «reino en el reino», como trabajo sobre los propios rasgos. La cuenta con bendición es rito judío.",
+      "fuente_tradicion": { "cita": "My Jewish Learning, hoja de estudio del mes de Iyar (enseñanza atribuida al círculo de Isaac Luria)", "url": "https://www.myjewishlearning.com/wp-content/uploads/2021/04/MJL-Iyar-Handout.pdf" },
+      "cita": null,
+      "practica": "Toma la estructura: siete semanas, un rasgo por semana (dar, contener, equilibrar, perseverar, agradecer, cumplir, recibir).",
+      "dato": "Son 49 días: siete semanas de siete días, una combinación de dos sefirot por día.",
+      "fuente_dato": { "cita": "My Jewish Learning, «How to Count the Omer»", "url": "https://www.myjewishlearning.com/article/how-to-count-the-omer/" },
+      "etiqueta": "tradicion"
+    }
+  ],
+  "glosario": [
+    { "termino": "Shefa", "original": "שפע", "definicion": "Flujo o efusión de abundancia que, según la cábala, desciende de sefirá en sefirá hasta el mundo." },
+    { "termino": "Kli", "original": "כלי", "definicion": "Recipiente. Lo que permite contener el flujo: en la práctica, hábitos, límites y estructura." },
+    { "termino": "Berajá", "original": "ברכה", "definicion": "Bendición. En los textos, aumento que llega a lo que ya se tiene y se cuida." },
+    { "termino": "Mazal", "original": "מזל", "definicion": "En el Talmud, constelación o destino. Los sabios discuten cuánto pesa frente al mérito y la acción." },
+    { "termino": "Parnasá", "original": "פרנסה", "definicion": "Sustento, medio de vida. El ingreso necesario para vivir con dignidad." },
+    { "termino": "Sefirá", "original": "ספירה", "definicion": "Cada una de las diez emanaciones por las que lo infinito se manifiesta. Plural: sefirot." },
+    { "termino": "Ein Sof", "original": "אין סוף", "definicion": "«Sin fin». Dios en cuanto infinito e incognoscible, más allá de las sefirot." },
+    { "termino": "Tsedacá", "original": "צדקה", "definicion": "Literalmente «justicia». La obligación de dar al necesitado; no es caridad voluntaria sino deber." },
+    { "termino": "Maaser kesafim", "original": "מעשר כספים", "definicion": "Décimo del dinero: costumbre de apartar el 10 % de los ingresos para dar." },
+    { "termino": "Bitajón", "original": "בטחון", "definicion": "Confianza en que el sustento no depende solo del propio esfuerzo. No sustituye al trabajo." },
+    { "termino": "Hishtadlut", "original": "השתדלות", "definicion": "Esfuerzo. La parte que corresponde a la persona: trabajar con los medios disponibles." },
+    { "termino": "Guematria", "original": "גימטריה", "definicion": "Valor numérico de las letras hebreas. Se usa para asociar palabras y recordar enseñanzas." },
+    { "termino": "Mamón", "original": "ממון", "definicion": "Dinero, bienes. En hebreo rabínico es un término neutro, sin el matiz negativo que tiene en español." },
+    { "termino": "Segulá", "original": "סגולה", "definicion": "Práctica a la que la costumbre popular atribuye un efecto favorable. Varias son tardías y de origen incierto." }
+  ],
+  "respeto": [
+    "Toma la ética, que es universal: dar una parte fija, negociar con fidelidad, descansar un día, agradecer y contentarte con tu parte.",
+    "Describe los ritos sin adoptarlos: bendiciones, cuenta del Ómer con bendición, Shabat según la ley judía, tefilín o amuletos pertenecen a la práctica religiosa judía.",
+    "Cita cada enseñanza con su texto y su época, y di «la tradición judía enseña». No hables de un «secreto judío de la riqueza».",
+    "Evita el tropo antisemita que une a los judíos con el dinero: estos textos limitan la riqueza con deberes hacia quien tiene menos.",
+    "No presentes la cábala como técnica para atraer dinero ni compres objetos que lo prometan. El hilo rojo es costumbre popular, no precepto cabalístico.",
+    "Distingue el sentido tradicional de cada sefirá de su aplicación moderna al sustento, y dilo siempre así."
+  ],
+  "fuentes": [
+    { "cita": "My Jewish Learning, «What Are the Sefirot?»", "url": "https://www.myjewishlearning.com/article/sefirot/" },
+    { "cita": "My Jewish Learning, «Kabbalah and Mysticism 101»", "url": "https://www.myjewishlearning.com/article/kabbalah-mysticism-101/" },
+    { "cita": "My Jewish Learning, «Ask the Expert: Do I Have to be 40 to Study Kabbalah?»", "url": "https://www.myjewishlearning.com/article/ask-the-expert-do-i-have-to-be-40-to-study-kabbalah/" },
+    { "cita": "My Jewish Learning, «Ketubot 50»", "url": "https://www.myjewishlearning.com/article/ketubot-50/" },
+    { "cita": "My Jewish Learning, «Maimonides' Eight Levels: A Contemporary Reading»", "url": "https://www.myjewishlearning.com/article/maimonides-eight-levels-a-comtemporary-reading/" },
+    { "cita": "Chabad.org, «Shabbat: Blessing for All Creation» (Zóhar II, 88a, trad. Moshe Miller)", "url": "https://www.chabad.org/kabbalah/article_cdo/aid/565867/jewish/Shabbat-Blessing-for-All-Creation.htm" },
+    { "cita": "Peninei Halakha, Shabat 1:6, «Blessing and Holiness»", "url": "https://ph.yhb.org.il/en/01-01-06" },
+    { "cita": "KabbalaOnline (Chabad), «The Rose, Part 3»", "url": "https://www.kabbalaonline.org/kabbalah/article_cdo/aid/380782/jewish/The-Rose-Part-3.htm" },
+    { "cita": "Feldman, Y., «The First Three versus the Lower Seven (2)» (sobre Ramjal)", "url": "https://rabbiyaakovfeldman.aishdas.org/ramchal/2013/01/17/the-first-three-versus-the-lower-seven-2/" },
+    { "cita": "Yeshivat Har Etzion, «Ma'aser Kesafim»", "url": "https://www.etzion.org.il/en/maaser-kesafim" },
+    { "cita": "Mayim Achronim, «Colours of the Sefirot» (sobre Pardés Rimonim, Pórtico 10)", "url": "https://www.mayimachronim.com/colours-of-the-sefirot/" },
+    { "cita": "AskNoah, «G-d's 7 Emotional Attributes and the Rainbow Colors»", "url": "https://asknoah.org/?p=738" },
+    { "cita": "Hoffman, Y., «The Parsha of Mahn on Tuesdays of Beshalach», The Yeshiva World", "url": "https://www.theyeshivaworld.com/news/headlines-breaking-stories/282730/the-parsha-of-mahn-on-tuesdays-of-beshalach.html" },
+    { "cita": "Wikipedia, «Tree of life (Kabbalah)» (orientación; remite a Chajes 2020 y 2022)", "url": "https://en.wikipedia.org/wiki/Tree_of_life_(Kabbalah)" },
+    { "cita": "Wikipedia, «Zohar» (orientación; remite a Scholem, Major Trends in Jewish Mysticism)", "url": "https://en.wikipedia.org/wiki/Zohar" },
+    { "cita": "Wikipedia, «Red string (Kabbalah)» (orientación)", "url": "https://en.wikipedia.org/wiki/Red_string_(Kabbalah)" },
+    { "cita": "Scholem, G. (1974), Kabbalah, Keter Publishing House, Jerusalén", "url": null },
+    { "cita": "Matt, D. C. (1995), The Essential Kabbalah: The Heart of Jewish Mysticism, HarperOne", "url": null },
+    { "cita": "Kaplan, A. (1997), Sefer Yetzirah: The Book of Creation, ed. revisada, Weiser, cap. 1", "url": null },
+    { "cita": "Myers, J. (2007), Kabbalah and the Spiritual Quest: The Kabbalah Centre in America, Praeger", "url": null }
+  ]
+}

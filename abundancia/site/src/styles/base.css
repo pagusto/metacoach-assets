@@ -1,0 +1,491 @@
+/* ==========================================================================
+   Shefa · sistema «Lo Shu» · base
+   --------------------------------------------------------------------------
+   Reinicio, tipografía, retícula de nueve palacios, marcas de medida,
+   controles de formulario, botones, tablas y utilidades.
+   Sin degradados, sin sombras, sin esquinas redondeadas, sin emoji.
+   Los tokens viven en tokens.css; aquí no se escribe ningún color en hex.
+   ========================================================================== */
+
+/* ---------- Reinicio ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: var(--s-3); }
+body {
+  margin: 0;
+  padding-bottom: var(--s-5);
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente);
+  font-size: var(--t-1);
+  line-height: var(--lh-1);
+  font-weight: var(--peso-texto);
+  font-stretch: var(--ancho-texto);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+}
+h1, h2, h3, h4, p, ol, ul, dl, dd, figure, blockquote, fieldset, legend {
+  margin: 0; padding: 0; font-weight: inherit; font-size: inherit;
+}
+fieldset { border: 0; min-width: 0; }
+ol, ul { list-style: none; }
+button, input, select, textarea { font: inherit; color: inherit; letter-spacing: inherit; border-radius: 0; }
+button { cursor: pointer; }
+svg { display: block; }
+img { display: block; max-width: 100%; height: auto; }
+table { border-collapse: collapse; }
+cite { font-style: normal; }
+b, strong { font-weight: var(--peso-medio); }
+[hidden] { display: none !important; }
+
+/* ---------- Foco: azul de 2 px en todo elemento interactivo ---------- */
+:focus-visible { outline: var(--foco); outline-offset: 2px; }
+
+/* ---------- Enlaces: el agua es lo que fluye ---------- */
+a { color: var(--accion); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+
+/* ---------- Utilidades ---------- */
+.oculto {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.simbolos { position: absolute; width: 0; height: 0; }
+.salto {
+  position: absolute; left: var(--margen); top: -120px; z-index: 10;
+  padding: var(--s-1) var(--s-2); background: var(--texto); color: var(--fondo);
+}
+.salto:focus { top: var(--s-1); }
+
+/* Ancho de página: el cuadrado de 27 M con sus márgenes. Es contenedor,
+   para que el cuadrado calcule el lado del palacio con 100cqi. */
+.pagina { width: min(100% - 2 * var(--margen), var(--cuadrado)); margin-inline: auto; }
+main.pagina { container-type: inline-size; }
+
+/* Hebreo: Frank Ruhl Libre, siempre con lang="he" dir="rtl" */
+.he { font-family: var(--fuente-he); font-weight: 500; font-stretch: 100%; letter-spacing: 0; unicode-bidi: isolate; }
+/* Chino: fuente CJK del sistema, siempre con lang="zh-Hans" */
+.han { font-family: var(--fuente-han); font-weight: 500; font-size: var(--t-1); line-height: 1; color: var(--texto); }
+
+/* Cifras (yang): negrita estrecha, tabulares */
+.cifra {
+  font-stretch: var(--ancho-cifra);
+  font-weight: var(--peso-cifra);
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.01em;
+}
+/* Tamaños de cifra. --n es el número de caracteres: la cifra grande se
+   estrecha con el palacio para no desbordarlo. */
+.fig-xl {
+  display: inline-block; margin-left: -0.035em;
+  font-size: min(var(--t-6), calc(216cqi / var(--n, 6)));
+  line-height: 1; letter-spacing: -0.02em;
+}
+.fig-l { font-size: var(--t-4); line-height: 1; }
+.fig-m { font-size: var(--t-3); line-height: var(--lh-3); }
+.fig-s { font-size: var(--t-2); line-height: 1; }
+.fig-de { font-size: 0.45em; font-weight: 400; font-stretch: 100%; letter-spacing: 0; }
+
+/* Rótulo: la letra pequeña de la estructura */
+.rotulo { font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+.texto-2 { color: var(--texto-2); }
+.texto-3 { color: var(--texto-3); }
+.medio { font-weight: var(--peso-medio); }
+.nota { font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.sin-corte { white-space: nowrap; }
+
+/* La voz (yin): declaración, tradición, dato */
+.voz { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 500; letter-spacing: -0.01em; text-wrap: pretty; }
+.voz > span, .voz-m > span { display: block; }
+.voz > span + span, .voz-m > span + span { margin-top: var(--s-1); }
+.voz-m { font-size: var(--t-1m); line-height: var(--lh-1m); font-weight: 500; letter-spacing: -0.005em; text-wrap: pretty; }
+
+/* Pilas y filas */
+.pila { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.pila-1 { gap: var(--s-1); }
+.pila-3 { gap: var(--s-3); }
+.fila { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) var(--s-2); }
+.fila-extremos { justify-content: space-between; }
+.pares { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-2); }
+.pares .cifra { font-size: var(--t-2); line-height: 1; }
+
+/* Solo se ve cuando la página ya pintó el estado guardado (evita el
+   parpadeo de los datos de muestra). Sin JavaScript se ve siempre. */
+.js:not(.listo) .vivo { visibility: hidden; }
+
+/* ---------- Cabecera: entrada despejada ---------- */
+.cab {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  padding-top: var(--s-1);
+}
+.marca {
+  justify-self: start;
+  display: inline-flex; align-items: center; gap: 12px;
+  height: var(--s-5);
+  color: var(--texto); text-decoration: none;
+}
+.marca-moneda { width: 36px; height: 36px; fill: var(--texto); }
+.marca-n { font-size: var(--t-2); line-height: 1; font-weight: 700; letter-spacing: -0.015em; }
+.marca-he { font-size: 1.375rem; line-height: 1; color: var(--texto-2); }
+
+.tema {
+  display: inline-flex; align-items: center; gap: var(--s-1);
+  min-height: var(--s-4);
+  padding: 0;
+  border: 0; background: none;
+  font-size: var(--t-0); font-weight: 500;
+}
+.tema:hover { color: var(--accion); }
+.tema svg { width: 16px; height: 16px; }
+.tema rect { fill: none; stroke: currentColor; stroke-width: 1.5; }
+.tema circle { fill: currentColor; }
+.tema-a-claro { display: none; }
+
+/* Navegación: nueve entradas. En móvil, un 3 × 3; en escritorio, nueve
+   columnas de 3 M. */
+.nav { grid-column: 1 / -1; }
+.nav ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: var(--marco) solid var(--filete);
+}
+.nav a {
+  position: relative;
+  display: flex; align-items: baseline; gap: var(--s-1);
+  min-height: var(--s-4);
+  padding-top: 13px;
+  color: var(--texto);
+  font-size: 0.9375rem; font-weight: 500;
+  text-decoration: none;
+}
+.nav li:nth-child(n+4) a { border-top: var(--linea) solid var(--filete-suave); }
+.nav a:hover { color: var(--accion); }
+.nav-n { min-width: 1ch; font-size: var(--t-00); font-weight: 400; color: var(--texto-3); }
+.nav a[aria-current="page"] { font-weight: 700; }
+.nav a[aria-current="page"]::before {
+  content: ""; position: absolute; left: 0; right: var(--s-2); top: calc(-1 * var(--marco));
+  height: 6px; background: var(--filete);
+}
+
+/* ---------- Portada (titular de la página) ---------- */
+.portada { padding-block: var(--s-4) var(--s-3); }
+.portada h1 {
+  font-size: var(--t-3); line-height: var(--s-4);
+  font-weight: 400; letter-spacing: -0.02em;
+}
+.portada-nota { max-width: 44rem; margin-top: var(--s-1); color: var(--texto-2); }
+
+/* ---------- El sello: el presente. Uno por pantalla. ---------- */
+.sello {
+  display: inline-grid; place-items: center;
+  min-width: var(--s-4); height: var(--s-4);
+  margin-inline: 2px; padding-inline: 4px;
+  background: var(--sello); color: var(--sobre-sello);
+  font-size: 2rem; line-height: 1;
+  vertical-align: bottom;
+}
+.sello-s { min-width: var(--s-3); height: var(--s-3); padding-inline: 2px; font-size: var(--t-1); }
+
+/* ---------- El cuadrado Lo Shu ---------- */
+.loshu {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--linea);
+  padding: var(--marco);
+  background: var(--filete);
+}
+.pal {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  min-width: 0;
+  padding: var(--palacio-pad);
+  background: var(--fondo);
+  container-type: inline-size;
+}
+.pal-cab {
+  display: flex;
+  column-gap: 12px;
+  align-items: baseline;
+  min-height: var(--s-4);
+}
+.pal-n { flex: none; min-width: 14px; font-size: var(--t-2); line-height: var(--lh-0); }
+.pal-cab h2 { flex: 1; min-width: 0; font-size: var(--t-0); line-height: var(--lh-0); font-weight: 600; }
+.pal-area { flex: none; font-size: var(--t-00); line-height: var(--lh-0); color: var(--texto-3); }
+.loc { flex: none; align-self: flex-start; width: 25px; height: 25px; color: var(--trazo); }
+.loc rect { fill: var(--texto); }
+.pal-cuerpo { min-width: 0; padding-top: var(--s-2); }
+.pal-pie { min-width: 0; }
+
+/* Formas del palacio en la tira de una columna (móvil y tableta). Son alturas
+   mínimas: el palacio crece si el contenido lo pide. 100cqi es el ancho de
+   <main class="pagina">, que es el del cuadrado. */
+.loshu { --ancho-tira: calc(100cqi - 2 * var(--marco)); }
+.pal-cuadrado { min-height: var(--ancho-tira); }
+.pal-dos-tercios { min-height: calc(var(--ancho-tira) * 2 / 3); }
+/* Un tercio de palacio: rótulo y cifra a la izquierda, marca a la derecha */
+.pal-tira {
+  min-height: calc(var(--ancho-tira) / 3);
+  grid-template-columns: minmax(0, 1fr) 80px;
+  grid-template-rows: auto 1fr;
+  column-gap: var(--s-1);
+}
+.pal-tira .pal-cab { grid-column: 1; min-height: var(--lh-0); }
+.pal-tira .pal-area { display: none; }
+.pal-tira .pal-cuerpo { grid-column: 1; padding-top: 0; align-self: end; }
+.pal-tira .pal-graf { grid-column: 2; grid-row: 1 / -1; align-self: center; }
+.solo-escritorio { display: none; }
+
+/* ---------- Regla de medida: oro sobre filete, marcas cada décima ---------- */
+.regla { position: relative; height: 16px; border-bottom: var(--linea) solid var(--filete); }
+.regla svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.regla path { fill: none; stroke: var(--filete); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.regla-oro { position: absolute; left: 0; bottom: 0; height: 8px; max-width: 100%; background: var(--medida); }
+.regla-notas {
+  display: flex; justify-content: space-between; gap: var(--s-2); margin-top: 4px;
+  font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3);
+}
+.regla-s { height: 8px; }
+.regla-s .regla-oro { height: 4px; }
+
+/* ---------- La moneda como medidor: cielo redondo, tierra cuadrada ---------- */
+.moneda-medida { width: 100%; height: auto; }
+.moneda-medida .canto { fill: none; stroke: var(--filete); stroke-width: 1.5; }
+.moneda-medida .listel { fill: none; stroke: var(--filete-suave); stroke-width: 1; }
+.moneda-medida .arco { fill: none; stroke: var(--medida); stroke-width: 16; }
+.moneda-medida .hueco { fill: none; stroke: var(--filete); stroke-width: 1.5; }
+.moneda-medida text { fill: var(--texto); font-size: 34px; }
+
+/* La moneda como estado de una fuente */
+.m-ingresa { fill: var(--accion); }
+.m-prueba { fill: none; stroke: var(--texto); stroke-width: 1.5; }
+.m-idea { fill: none; stroke: var(--texto); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.estado { display: inline-flex; align-items: center; gap: var(--s-1); }
+.estado svg { width: 20px; height: 20px; flex: none; }
+
+/* Matriz de cien puntos y tira de días */
+.puntos { width: 100%; height: auto; }
+.puntos .vacio { fill: none; stroke: var(--trazo); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.puntos .lleno { fill: var(--medida); }
+.dias { display: grid; grid-template-columns: repeat(14, minmax(0, 20px)); gap: 4px; }
+.dias svg { width: 100%; height: auto; }
+.dias rect { fill: none; stroke: var(--trazo); }
+.dias circle { fill: none; stroke: var(--texto); }
+.dias .hecho circle { fill: var(--medida); stroke: none; }
+.dias .hoy rect { stroke: var(--texto); stroke-width: 1.5; }
+
+/* ---------- Etiqueta de evidencia: tipográfica, sin rellenos ---------- */
+.etiqueta {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 24px; padding: 0 8px 0 6px;
+  border: var(--linea) solid var(--texto);
+  font-size: var(--t-00); line-height: 1; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--texto); white-space: nowrap; vertical-align: middle;
+}
+.etiqueta svg { width: 10px; height: 10px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.etiqueta svg .lleno { fill: currentColor; stroke: none; }
+.etiqueta-mito { border-style: dashed; }
+.etiqueta-mito .etiqueta-t { text-decoration: line-through; text-decoration-thickness: 1px; }
+
+/* ---------- Cita: línea de fuente ---------- */
+.fuente-cita { display: block; color: var(--texto-2); font-size: var(--t-0); line-height: var(--lh-0); }
+.fuente-cita a { color: var(--accion); }
+.fuente-cita .rotulo { display: block; }
+
+/* ---------- Campos: el borde azul marca lo editable ---------- */
+.campo { display: grid; gap: var(--s-1); min-width: 0; }
+.campo > label, .campo-rot { font-size: var(--t-0); line-height: var(--lh-0); font-weight: 600; }
+.campo-fila { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-1) 12px; }
+.campo-par { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2); }
+.entrada, .campo input:not([type="checkbox"], [type="radio"], [type="file"]), .campo select, .campo textarea {
+  width: 100%; min-width: 0; height: var(--campo); padding: 0 12px;
+  border: 1.5px solid var(--accion); background: var(--fondo); color: var(--texto);
+  font-size: var(--t-1); line-height: var(--lh-1);
+}
+.campo textarea, textarea.entrada { height: auto; min-height: calc(3 * var(--lh-1) + 24px); padding-block: 11px; resize: vertical; }
+.entrada-cifra, .campo input.entrada-cifra {
+  width: 112px; flex: none;
+  font-size: var(--t-2); font-weight: 700; font-stretch: var(--ancho-cifra);
+}
+.entrada::placeholder, .campo input::placeholder, .campo textarea::placeholder { color: var(--texto-3); opacity: 1; }
+input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+select.entrada, .campo select { appearance: none; -webkit-appearance: none; padding-right: 32px; cursor: pointer; }
+/* El selector lleva su flecha dibujada con dos filetes: envuelve el <select> en .selector */
+.selector { position: relative; display: block; min-width: 0; }
+.selector::after {
+  content: ""; position: absolute; right: 14px; top: 50%;
+  width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translateY(-70%) rotate(45deg); pointer-events: none;
+}
+.campo-u { color: var(--texto-2); }
+.campo-estado { min-height: var(--lh-00); font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-2); }
+
+/* Casilla: cuadrado vacío que, al marcarse, recibe un círculo */
+.casilla {
+  appearance: none; -webkit-appearance: none;
+  display: grid; place-content: center; flex: none;
+  width: 20px; height: 20px; margin: 0;
+  border: 1.5px solid var(--texto); background: var(--fondo);
+  cursor: pointer;
+}
+.casilla::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--texto); transform: scale(0);
+  transition: transform 120ms ease-out;
+}
+.casilla:checked::before { transform: scale(1); }
+
+/* ---------- Botones ---------- */
+.boton, .boton-2 {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-1);
+  min-height: var(--campo); padding: 0 var(--s-3);
+  font-size: 0.9375rem; line-height: 1.2; font-weight: 600; text-align: center; text-decoration: none;
+  cursor: pointer;
+}
+/* Principal: tinta y papel invertidos; al pasar, papel sobre azul */
+.boton { border: 0; background: var(--texto); color: var(--fondo); }
+.boton:hover { background: var(--accion); color: var(--fondo); }
+/* Secundario: solo contorno */
+.boton-2 { border: 1.5px solid var(--texto); background: none; color: var(--texto); }
+.boton-2:hover { border-color: var(--accion); color: var(--accion); }
+.boton-s { min-height: 32px; padding: 0 12px; font-size: var(--t-0); }
+/* Botón de texto: se lee como un enlace */
+.boton-texto {
+  display: inline; min-height: 0; padding: 0; border: 0; background: none;
+  color: var(--accion); font-weight: 500;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+.boton-texto:hover { text-decoration-thickness: 2px; }
+/* Texto o cifra que se edita al pulsarlo */
+.editable {
+  display: inline-block; max-width: 100%; padding: 0; border: 0; background: none;
+  color: inherit; text-align: left; text-decoration: none; cursor: pointer;
+}
+.editable:hover { color: var(--accion); }
+
+/* ---------- Tablas ---------- */
+.tabla { width: 100%; border-top: var(--linea) solid var(--filete); }
+.tabla th, .tabla td {
+  padding: 12px var(--s-2) 12px 0; border-bottom: var(--linea) solid var(--filete-suave);
+  text-align: left; vertical-align: top; font-weight: 400;
+}
+.tabla thead th {
+  padding-block: var(--s-1); vertical-align: bottom;
+  border-bottom-color: var(--filete);
+  font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3);
+}
+.tabla tbody th { font-weight: 600; }
+.tabla tr > :last-child { padding-right: 0; }
+.tabla .num { text-align: right; font-stretch: var(--ancho-cifra); font-weight: var(--peso-cifra); white-space: nowrap; }
+.tabla thead .num { font-stretch: 100%; font-weight: 400; }
+.tabla-ancha { overflow-x: auto; }
+
+/* Lista editable (ideas, evidencias) */
+.lista-ed { border-top: var(--linea) solid var(--filete); }
+.lista-ed li {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; align-items: baseline;
+  padding-block: var(--s-1); border-bottom: var(--linea) solid var(--filete-suave);
+}
+.lista-ed .rotulo { display: block; }
+.lista-vacia { padding-block: var(--s-1); color: var(--texto-3); }
+
+/* ---------- Aviso de datos de muestra ---------- */
+.muestra {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-1) var(--s-2);
+  margin-bottom: var(--s-3); padding-block: var(--s-1);
+  border-block: var(--linea) solid var(--filete-suave);
+  color: var(--texto-2);
+}
+
+/* ---------- Pie: colofón ---------- */
+.pie {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-4);
+  padding-top: var(--s-4);
+  color: var(--texto-2);
+}
+.pie h2 { margin-bottom: var(--s-2); font-size: var(--t-00); line-height: var(--lh-00); font-weight: 600; color: var(--texto); }
+.aviso { color: var(--texto); font-size: var(--t-1); }
+.pie-metodo { margin-top: var(--s-1); }
+.clave-loshu { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--s-3); align-items: start; }
+.clave-loshu td {
+  width: 24px; height: 24px; padding: 0;
+  border: var(--linea) solid var(--trazo);
+  text-align: center; font-size: var(--t-0); line-height: 22px; color: var(--texto);
+}
+.elementos li {
+  display: grid; grid-template-columns: 16px 20px 64px minmax(0, 1fr); column-gap: var(--s-1);
+  align-items: center; min-height: var(--lh-1);
+}
+.el { width: 16px; height: 16px; }
+.el rect { fill: none; stroke: var(--trazo); }
+.el-madera circle { fill: var(--madera); }
+.el-fuego circle { fill: var(--fuego); }
+.el-tierra circle { fill: var(--tierra); stroke: var(--trazo); }
+.el-metal circle { fill: var(--metal); }
+.el-agua circle { fill: var(--agua); }
+.elementos b { font-weight: 600; color: var(--texto); }
+
+/* ---------- Tema oscuro: texto del conmutador ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tema-a-oscuro { display: none; }
+  :root:not([data-theme="light"]) .tema-a-claro { display: inline; }
+}
+:root[data-theme="dark"] .tema-a-oscuro { display: none; }
+:root[data-theme="dark"] .tema-a-claro { display: inline; }
+
+/* ---------- Escritorio: el cuadrado completo ---------- */
+@media (min-width: 1280px) {
+  .cab { padding-top: var(--s-3); }
+  .nav ol { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+  .nav li:nth-child(n+4) a { border-top: 0; }
+  .nav a[aria-current="page"]::before { right: var(--s-3); }
+
+  .portada { padding-block: var(--s-5) var(--s-4); }
+  .portada h1 { font-size: var(--t-4); line-height: var(--s-5); }
+  .sello { min-width: var(--s-5); height: var(--s-5); margin-inline: 4px; font-size: 3rem; }
+  .sello-s { min-width: var(--s-3); height: var(--s-3); margin-inline: 2px; font-size: var(--t-1); }
+
+  /* Tres columnas de 9 M. Cada fila mide, como mínimo, el lado del palacio;
+     crece si el contenido lo pide. --col y --fil los pone <Palacio>. */
+  .loshu {
+    --lado: calc((100cqi - 2 * var(--marco) - 2 * var(--linea)) / 3);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(var(--lado), auto);
+  }
+  .loshu > .pal { grid-column: var(--col, auto); grid-row: var(--fil, auto); }
+  .pal-cuadrado, .pal-dos-tercios, .pal-tira { min-height: 0; }
+  .pal-cuerpo { padding-top: var(--s-3); }
+
+  .pal-tira { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto; }
+  .pal-tira .pal-cab { min-height: var(--s-4); }
+  .pal-tira .pal-area { display: block; }
+  .pal-tira .pal-cuerpo { padding-top: var(--s-3); align-self: start; }
+  .pal-tira .pal-graf {
+    grid-column: auto; grid-row: auto;
+    position: absolute; right: var(--palacio-pad); bottom: var(--palacio-pad);
+  }
+  .solo-escritorio { display: revert; }
+  .solo-tira { display: none !important; }
+
+  .fig-l { font-size: var(--t-5); }
+  .voz { font-size: var(--t-3); line-height: var(--lh-3); font-weight: 400; letter-spacing: -0.02em; }
+  .voz > span + span { margin-top: var(--s-2); }
+  .voz-m { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 400; letter-spacing: -0.01em; }
+
+  .pie { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; font-size: var(--t-0); }
+  .pie > * { padding-right: var(--s-4); }
+  .pie > * + * { padding-left: var(--palacio-pad); }
+}
+
+/* ---------- Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
