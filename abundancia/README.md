@@ -43,8 +43,10 @@ cd abundancia/site
 npm ci
 npm run dev          # desarrollo
 npm run build        # compila a dist/shefa
-npm run capturas -- / /arbol     # capturas en claro y oscuro, escritorio y móvil
+npm run capturas -- / /arbol     # capturas en claro y oscuro: escritorio, tableta y móvil
 npm run probar       # prueba de interacciones de Hoy y Árbol
+npm run pruebas      # todas las pruebas
+npm run pruebas:tableta   # las pruebas de interacción a 1024 px (cuadrado compacto)
 ```
 
 El sitio se sirve bajo `/shefa`. Todo enlace interno pasa por `ruta()` (`src/lib/ruta.ts`).
@@ -54,8 +56,9 @@ La guía de componentes y reglas de diseño está en `site/COMPONENTES.md`.
 
 El proyecto de Vercel `shefa` compila `abundancia/site` en cada push. Lo que llega a `master`
 sale a producción en `https://shefa-prosperai.vercel.app/shefa/`, y el sitio raíz lo muestra en
-`https://pabloagusto.vercel.app/shefa/`. Una tarea programada añade cada mañana la entrada del
-diario. Los datos del tablero se guardan solo en el navegador de quien lo usa.
+`https://pabloagusto.vercel.app/shefa/`. Una tarea programada en la nube añade cada mañana la
+entrada del diario y, los lunes, comprueba los videos y pasa las pruebas. Todo se sube directo a
+`master`, sin pull requests. Los datos del tablero se guardan solo en el navegador de quien lo usa.
 
 ## Principios
 

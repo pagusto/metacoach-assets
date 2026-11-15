@@ -346,7 +346,7 @@ const nMitos = maestros.mitos.length + practicas.mitos.length + datos.mitos.leng
     const destino = document.getElementById(decodeURIComponent(location.hash.slice(1)));
     if (destino instanceof HTMLDetailsElement) destino.open = true;
   };
-  if (window.matchMedia('(min-width: 1280px)').matches) plegables.forEach((d) => { d.open = true; });
+  if (window.matchMedia('(min-width: 960px)').matches) plegables.forEach((d) => { d.open = true; });
   plegables.forEach((d) => d.addEventListener('toggle', rotular));
   if (todas) {
     todas.hidden = false;

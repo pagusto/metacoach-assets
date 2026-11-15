@@ -57,4 +57,10 @@ const DESTINOS = [
     .nf-lista li { grid-template-columns: var(--s-3) minmax(0, 1fr); }
     .nf-lista .nota { grid-column: 2; }
   }
+  /* Cuadrado compacto (de 960 a 1279 px), tramo táctil: las nueve entradas son el control principal
+     de la página. Cada una se pulsa en toda su fila, de un módulo de alto, y no solo en la palabra. */
+  @media (min-width: 960px) and (max-width: 1279px) {
+    .nf-lista li { position: relative; }
+    .nf-lista a::after { content: ""; position: absolute; inset: 0; }
+  }
 </style>

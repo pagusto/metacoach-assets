@@ -9,6 +9,9 @@
  */
 const { chromium } = require('playwright');
 const { servidor } = require('./capturas.cjs');
+// Ancho de la vista de escritorio. Con «--ancho 1024» la misma prueba recorre el cuadrado compacto.
+const iAncho = process.argv.indexOf('--ancho');
+const ANCHO = iAncho > 0 ? Number(process.argv[iAncho + 1]) : 1440;
 
 let fallos = 0;
 let pruebas = 0;
@@ -25,7 +28,7 @@ const limpio = (s) => (s || '').replace(/[  ]/g, ' ').replace(/\s+/g, ' ').tr
   const errores = [];
 
   // ---------- Escritorio ----------
-  const ctx = await navegador.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES' });
+  const ctx = await navegador.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES' });
   const p = await ctx.newPage();
   p.on('pageerror', (e) => errores.push(`excepción: ${e.message}`));
   p.on('console', (m) => { if (m.type() === 'error') errores.push(`consola: ${m.text()}`); });
@@ -179,7 +182,7 @@ const limpio = (s) => (s || '').replace(/[  ]/g, ' ').replace(/\s+/g, ' ').tr
   await ctx.close();
 
   // ---------- El ingreso del reparto sale del libro de fuentes guardado ----------
-  const ctx2 = await navegador.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES' });
+  const ctx2 = await navegador.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES' });
   await ctx2.addInitScript(() => {
     localStorage.setItem('shefa-v2', JSON.stringify({ v: 2, ejemplo: false, cifra: 9000, fuentes: [{ id: 'a', nombre: 'Clases', tipo: 'Servicio', estado: 'ingresando', mensual: 4200, accion: '' }, { id: 'b', nombre: 'Guía', tipo: 'Digital', estado: 'probando', mensual: 800, accion: '' }] }));
   });

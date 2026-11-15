@@ -149,6 +149,17 @@ export function graficoIndependencia(tasaPct: number, retornoPct: number, multip
 
 // ---------- 4 · Subir el precio ----------
 
+/**
+ * Ancho, en píxeles, del canal que piden las cifras a la derecha de las barras: 8 px de separación
+ * y unos 7,5 px por carácter, redondeado al múltiplo de 8. Hasta once caracteres caben en los 96 px
+ * de siempre. La hoja solo lo usa en el cuadrado compacto, donde un beneficio de doce cifras o más
+ * se salía del palacio.
+ */
+export function canalPrecio(r: ResultadoPrecio): number {
+  const largo = Math.max(num(r.antes).length, num(r.despues).length);
+  return Math.ceil((8 + largo * 7.5) / 8) * 8;
+}
+
 /** Dos barras a la misma escala: beneficio de ahora (tinta) y con el precio nuevo (azul). */
 export function graficoPrecio(r: ResultadoPrecio): string {
   const lo = Math.min(0, r.antes, r.despues);

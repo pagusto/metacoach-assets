@@ -61,7 +61,7 @@ nodos.forEach((b, i) => {
 });
 // En la tira el detalle queda debajo del árbol: quien llega con el enlace de una sefirá
 // (#jesed) aterriza en su detalle, donde está el formulario.
-const enTira = () => !window.matchMedia('(min-width: 1280px)').matches;
+const enTira = () => !window.matchMedia('(min-width: 960px)').matches;
 function irAlDetalle(): void {
   if (enTira()) document.getElementById('detalle')?.scrollIntoView();
 }
@@ -351,7 +351,11 @@ function pintarMeta(s: Estado): void {
   const total = ingresoReal(s);
   const avance = s.cifra ? Math.min(1, total / s.cifra) : 0;
   const t = v('meta-total');
-  if (t) t.textContent = fmt(total);
+  if (t) {
+    t.textContent = fmt(total);
+    // Siete dígitos o más: en el cuadrado compacto la cifra baja un paso de la escala (arbol.css).
+    t.classList.toggle('larga', fmt(total).length >= 9);
+  }
   const n = v('meta-nota');
   if (n) n.textContent = s.cifra ? `de ${fmt(s.cifra)} al mes` : 'al mes; aún no hay cifra';
   const p = v('meta-pct');

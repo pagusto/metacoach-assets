@@ -22,7 +22,7 @@ import {
   interesCompuesto, importesReparto, aniosIndependencia, subirPrecio, evaluarFuente, ejeRedondo,
 } from '../lib/datos-calculo';
 import {
-  graficoCompuesto, graficoIndependencia, graficoPrecio, franjaReparto, escalaEvaluador, TASA_MIN, TASA_MAX,
+  graficoCompuesto, graficoIndependencia, graficoPrecio, canalPrecio, franjaReparto, escalaEvaluador, TASA_MIN, TASA_MAX,
 } from '../lib/datos-graficos';
 import { PREGUNTAS, PARTES, TEXTO_NIVEL, veredictoBanderas, notaIndependencia } from '../lib/datos-textos';
 
@@ -183,7 +183,7 @@ const INDICE = [
   </div>
   <!-- En la tira, la nota y la fuente de cada cifra se pliegan antes de pintar (sin JavaScript quedan abiertas). -->
   <script is:inline>
-    if (!window.matchMedia('(min-width: 1280px)').matches) {
+    if (!window.matchMedia('(min-width: 960px)').matches) {
       document.querySelectorAll('.cf-d').forEach(function (d) { d.open = false; });
     }
   </script>
@@ -402,8 +402,8 @@ const INDICE = [
               <Fragment set:html={graficoCompuesto(comp)} />
             </div>
             <figcaption class="lc-lectura" data-v="c-lectura">
-              <span class="k-linea k-azul" aria-hidden="true"></span>Año {DEF.anios}: valor <b>{num(comp.final)}</b>
-              <span class="k-linea k-ref" aria-hidden="true"></span>aportado <b>{num(comp.aportado)}</b>
+              <span class="lc-par"><span class="k-linea k-azul" aria-hidden="true"></span>Año {DEF.anios}: valor <b>{num(comp.final)}</b></span>
+              <span class="lc-par"><span class="k-linea k-ref" aria-hidden="true"></span>aportado <b>{num(comp.aportado)}</b></span>
             </figcaption>
           </figure>
           <p class="rotulo">Eje horizontal: años. Pasa el cursor por el gráfico, o usa las flechas con el foco en él, para leer cada año.</p>
@@ -545,7 +545,7 @@ const INDICE = [
             <output class="cifra d-fig" for="p-precio p-coste p-unidades p-subida p-pierde" data-v="p-cambio" style={`--n:${conSigno(precio.cambio).length}`}>{conSigno(precio.cambio)}</output>
             <span class="res-u" data-v="p-cambio-pct">{precio.cambioPct != null ? `${conSigno(precio.cambioPct, 1)} %` : ''}</span>
           </p>
-          <div class="gp" data-v="p-grafico" role="img" aria-label={`Beneficio mensual: ahora ${num(precio.antes)}, con el precio nuevo ${num(precio.despues)}`}>
+          <div class="gp" data-v="p-grafico" style={`--gp-canal:${canalPrecio(precio)}px`} role="img" aria-label={`Beneficio mensual: ahora ${num(precio.antes)}, con el precio nuevo ${num(precio.despues)}`}>
             <Fragment set:html={graficoPrecio(precio)} />
           </div>
           <p class="nota" data-v="p-equilibrio">{precio.equilibrioPct != null ? `Equilibrio: ganas lo mismo que ahora si se va el ${pctFino(precio.equilibrioPct, 1)} de los clientes. Por debajo de eso, ganas más.` : ''}</p>

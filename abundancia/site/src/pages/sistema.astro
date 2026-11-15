@@ -23,7 +23,7 @@ const dias = Array.from({ length: 14 }, (_, i) => ({ clave: String(i), hechos: [
       <p><span class="cifra fig-xl" style="--n:5">3.800</span></p>
       <p class="fila"><span class="cifra fig-l">54</span><span class="cifra fig-m">36</span><span class="cifra fig-s">24</span></p>
       <p class="voz-m">La voz media sirve para textos de hasta unas cuarenta palabras.</p>
-      <p slot="pie" class="rotulo">.fig-xl · .fig-l · .fig-m · .fig-s · .voz · .voz-m · .rotulo</p>
+      <p slot="pie" class="rotulo s-pie">.fig-xl · .fig-l · .fig-m · .fig-s · .voz · .voz-m · .rotulo</p>
     </Palacio>
 
     <Palacio n={9} titulo="Texto" etiqueta="Tipografía" forma="cuadrado">
@@ -118,5 +118,22 @@ const dias = Array.from({ length: 14 }, (_, i) => ({ clave: String(i), hechos: [
   .s-puntos { width: 120px; }
   .s-racha :global(circle) { fill: none; stroke: var(--trazo); }
   .s-racha :global(circle.hecho) { fill: var(--texto); stroke: none; }
-  @media (min-width: 1280px) { .s-moneda { width: 200px; } }
+  @media (min-width: 960px) { .s-moneda { width: 200px; } }
+  /* Cuadrado compacto: medio palacio mide 127 px y el campo de cifra (112 px) no cabe con su unidad.
+     En el palacio estrecho (hasta unos 1030 px de ventana) la columna de la cifra mide lo que piden
+     el campo y su unidad, para que una cifra de siete dígitos se vea entera; el selector se queda
+     con el resto. Si aun así faltara sitio, el campo cede ancho y la unidad sigue a su lado. */
+  @media (min-width: 960px) and (max-width: 1279px) {
+    @container (max-width: 293px) {
+      .campo-par { grid-template-columns: minmax(0, 1fr) auto; }
+    }
+    .campo-par .campo { grid-template-columns: minmax(0, 1fr); }
+    .campo-fila { flex-wrap: nowrap; }
+    .campo-fila .entrada-cifra { flex: 0 1 auto; min-width: 0; }
+    /* «Cifras y voz»: la voz media ocupa tres líneas y llena el palacio; el pie quedaba pegado a ella.
+       Se separa 16 px. Sin «balance»: repartir las líneas cortaba «.fig-s» por su guion. */
+    .s-pie { margin-top: var(--s-2); text-wrap: pretty; }
+    /* Tabla de muestra: el encabezado de fila no se parte («Fila de ejemplo»); cede la columna de nota */
+    .tabla tbody th { white-space: nowrap; }
+  }
 </style>

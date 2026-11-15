@@ -12,6 +12,9 @@
  */
 const { chromium } = require('playwright');
 const { servidor } = require('./capturas.cjs');
+// Ancho de la vista de escritorio. Con «--ancho 1024» la misma prueba recorre el cuadrado compacto.
+const iAncho = process.argv.indexOf('--ancho');
+const ANCHO = iAncho > 0 ? Number(process.argv[iAncho + 1]) : 1440;
 
 let fallos = 0;
 function comprobar(nombre, ok, detalle = '') {
@@ -27,7 +30,7 @@ const DIA = '2026-11-16';
   const navegador = await chromium.launch();
 
   async function abrir(opciones = {}, hora = LUNES_8, ruta = '/ritual') {
-    const contexto = await navegador.newContext({ viewport: { width: 1440, height: 900 }, colorScheme: 'light', locale: 'es-ES', ...opciones });
+    const contexto = await navegador.newContext({ viewport: { width: ANCHO, height: 900 }, colorScheme: 'light', locale: 'es-ES', ...opciones });
     const p = await contexto.newPage();
     const errores = [];
     p.on('pageerror', (e) => errores.push(e.message));

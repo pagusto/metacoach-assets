@@ -18,13 +18,17 @@ interface Props {
   grande?: boolean;
 }
 const { id, titulo, idioma, grande = false } = Astro.props;
+// Ancho real del reproductor ancho (dos palacios menos su relleno) en cada tramo: cuadrado fijo
+// desde 1344 px, fluido con relleno de 24 px hasta 1280, cuadrado compacto (relleno de 16 px)
+// hasta 960 y, por debajo, la tira de 560 px o el ancho del móvil.
+const TAMANOS_GRANDE = '(min-width: 1344px) 813px, (min-width: 1280px) calc(66.67vw - 83px), (min-width: 960px) calc(66.67vw - 67px), (min-width: 600px) 524px, 92vw';
 ---
 <div class:list={['vt-marco', grande && 'vt-marco-g']} data-marco>
   <button class="vt-ver" type="button" data-ver={id} data-titulo={titulo}>
     <img
       src={miniatura(id)}
       srcset={grande ? `${miniatura(id)} 320w, ${miniaturaGrande(id)} 640w` : undefined}
-      sizes={grande ? '(min-width: 1280px) 816px, (min-width: 600px) 524px, 92vw' : undefined}
+      sizes={grande ? TAMANOS_GRANDE : undefined}
       alt="" width="320" height="180" loading="lazy" decoding="async" data-mini
     />
     <span class="vt-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>

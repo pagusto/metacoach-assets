@@ -226,6 +226,8 @@
 .lc-lectura b { font-stretch: var(--ancho-cifra); font-weight: var(--peso-cifra); font-size: var(--t-1); }
 .k-linea { display: inline-block; flex: none; width: 16px; height: 0; border-top: 2px solid var(--accion); }
 .k-ref { margin-left: var(--s-1); border-top: 1.5px solid var(--texto); }
+/* Cada clave con su cifra. Fuera del cuadrado compacto el par no hace caja: la lectura fluye como siempre. */
+.lc-par { display: contents; }
 
 /* Reparto */
 .d-partes { display: grid; grid-template-columns: minmax(0, 1fr); }
@@ -324,7 +326,7 @@
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .d-indice ul { grid-template-columns: repeat(9, minmax(0, 1fr)); }
   .d-indice li { grid-column: span 2; }
 
@@ -368,4 +370,78 @@
 
   /* Banderas: se leen por columnas */
   .d-banderas { grid-auto-flow: column; grid-template-rows: repeat(var(--filas, 6), auto); }
+}
+
+/* ---------- Cuadrado compacto (de 960 a 1279 px) ----------
+   La misma composición con palacios de 304 a 410 px y relleno de 16 px. */
+@media (min-width: 960px) and (max-width: 1279px) {
+  /* Títulos que parten en dos líneas: parejas, sin palabra suelta al final */
+  .d-sec h2, .pal-cab h3, .cf-t { text-wrap: balance; }
+
+  /* La etiqueta «Calculadora n» se oculta a 320 px (regla de arriba, pensada para el móvil);
+     en el cuadrado compacto cabe: el título parte en dos líneas si hace falta */
+  .d-calc .pal-area { display: block; }
+
+  /* Una cabecera con el título en dos líneas mide 52 px y no los 48 de sus vecinas (el título
+     baja 4 px para compartir línea base con el número): el cuerpo arrancaba 4 px más abajo que
+     el del palacio de al lado. Con este margen la cabecera vuelve a medir 48 (72 con tres líneas). */
+  .pal-cab h3, .pal-cab .pal-area { margin-bottom: -4px; }
+
+  /* «Pérdidas por fraude declaradas» en el palacio más estrecho: con el medianil corto, el título
+     cabe en dos líneas y su etiqueta, «Por año y país», en una. */
+  @container (max-width: 287px) {
+    #fraude .pal-cab { column-gap: var(--s-1); }
+  }
+
+  /* Tramo táctil: los enlaces que van solos en su línea (fuentes, reguladores) se pulsan
+     en toda la altura de la línea, 24 px, y no solo en la de la letra */
+  .fuente-cita a, .d-reguladores a { display: inline-block; }
+
+  /* Rótulos de campo y preguntas en dos líneas: parejas, sin el signo o la palabra suelta en la segunda */
+  .d-campos label, .d-pregunta legend { text-wrap: balance; }
+  /* Texto corrido de notas y banderas: sin palabra suelta en la última línea */
+  .d-calc .rotulo, .d-bandera { text-wrap: pretty; }
+
+  /* Selector de activo: la opción más larga («Letras del Tesoro de EE. UU.: 0,5 %») mide 252 px y
+     no cabía en la media columna de la calculadora por debajo de unos 1050 px: se cortaba la cifra.
+     El palacio ocupa dos columnas, así que la media columna mide (ancho − 33) ÷ 2. Primero cede el
+     relleno; en la más estrecha, además, la letra se estrecha un paso (el eje de ancho de Archivo). */
+  @container (max-width: 630px) {
+    #c-activo { padding-inline: var(--s-1) 26px; }
+  }
+  @container (max-width: 610px) {
+    #c-activo { font-stretch: 90%; }
+  }
+
+  /* En el palacio más estrecho (menos de 300 px útiles) dos cifras largas no caben lado a lado */
+  @container (max-width: 300px) {
+    /* Total aportado y crecimiento: una fila cada uno, rótulo a la izquierda y cifra a la derecha */
+    .res-pares { grid-template-columns: minmax(0, 1fr); gap: 0; margin-top: var(--s-2); border-bottom: var(--linea) solid var(--filete-suave); }
+    .res-pares > div {
+      display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-2);
+      padding-block: 7px 8px; border-top: var(--linea) solid var(--filete-suave);
+    }
+    .res-pares dd { white-space: nowrap; }
+    /* Reparto: medio canal entre columnas, para importes de siete cifras */
+    .d-reparto-t th, .d-reparto-t td { padding-right: var(--s-1); }
+    .d-reparto-t tr > :last-child { padding-right: 0; }
+    /* Con cien millones al año o más en una parte (data-larga lo pone datos-cliente) ni así cabe:
+       las cifras de la tabla bajan un paso de la escala y conservan su línea de 24 px */
+    .d-reparto-t[data-larga] tbody .num { font-size: var(--t-1); }
+  }
+
+  /* Unidad junto al campo: «al mes, en tu moneda» no cabía al lado del campo en la media columna
+     más estrecha y bajaba sola a otra línea. Ahora parte en dos líneas al lado del campo. */
+  @container (max-width: 610px) {
+    .d-calc .campo-fila .campo-u { flex: 1 1 0; min-width: 0; text-wrap: balance; }
+  }
+
+  /* Subir el precio: el canal de las cifras crece con ellas (--gp-canal lo calcula canalPrecio);
+     con beneficios de doce cifras o más la cifra salía del palacio y pisaba el marco */
+  .gp { padding-right: max(96px, var(--gp-canal, 96px)); }
+
+  /* Lectura del gráfico: si no cabe en una línea, baja el par entero, nunca la cifra sola */
+  .lc-lectura { column-gap: var(--s-2); align-content: flex-start; }
+  .lc-par { display: inline-flex; align-items: center; column-gap: 6px; white-space: nowrap; }
+  .lc-par .k-ref { margin-left: 0; }
 }

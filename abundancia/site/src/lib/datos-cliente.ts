@@ -9,7 +9,7 @@ import {
   interesCompuesto, ajustarReparto, importesReparto, aniosIndependencia, subirPrecio, evaluarFuente,
   type Compuesto, type ParteReparto, type Reparto,
 } from './datos-calculo';
-import { graficoCompuesto, graficoIndependencia, graficoPrecio, franjaReparto, escalaEvaluador } from './datos-graficos';
+import { graficoCompuesto, graficoIndependencia, graficoPrecio, canalPrecio, franjaReparto, escalaEvaluador } from './datos-graficos';
 import { PARTES, TEXTO_NIVEL, textoMasFloja, veredictoBanderas, notaIndependencia } from './datos-textos';
 
 const campo = (id: string) => document.getElementById(id) as HTMLInputElement | null;
@@ -33,7 +33,7 @@ const plural = (n: number, uno: string, varios: string) => (n === 1 ? uno : vari
 
 // ---------- Cifras: en la tira, la nota y la fuente se pliegan ----------
 
-const escritorio = window.matchMedia('(min-width: 1280px)');
+const escritorio = window.matchMedia('(min-width: 960px)');
 function plegarCifras(): void {
   document.querySelectorAll<HTMLDetailsElement>('.cf-d').forEach((d) => { d.open = escritorio.matches; });
   abrirCifraEnlazada();
@@ -80,8 +80,8 @@ function iniciarCompuesto(): void {
     grafico!.setAttribute('aria-valuetext', `Año ${a}: valor ${num(p.valor)}, aportado ${num(p.aportado)}`);
     if (lecturaEl) {
       lecturaEl.innerHTML =
-        `<span class="k-linea k-azul" aria-hidden="true"></span>Año ${a}: valor <b>${num(p.valor)}</b> ` +
-        `<span class="k-linea k-ref" aria-hidden="true"></span>aportado <b>${num(p.aportado)}</b>`;
+        `<span class="lc-par"><span class="k-linea k-azul" aria-hidden="true"></span>Año ${a}: valor <b>${num(p.valor)}</b></span> ` +
+        `<span class="lc-par"><span class="k-linea k-ref" aria-hidden="true"></span>aportado <b>${num(p.aportado)}</b></span>`;
     }
   }
 
@@ -164,6 +164,7 @@ function iniciarReparto(): void {
   const franja = pieza('r-franja');
   const origen = pieza('r-origen');
   const origenMuestra = pieza('r-origen-muestra');
+  const tabla = document.querySelector<HTMLTableElement>('.d-reparto-t');
   if (!ingreso) return;
   const deslizadores = new Map<ParteReparto, HTMLInputElement>();
   PARTES.forEach((p) => {
@@ -185,6 +186,8 @@ function iniciarReparto(): void {
       escribir(`r-mes-${id}`, num(imp.mes[id]));
       escribir(`r-anio-${id}`, num(imp.anio[id]));
     });
+    // Importes de nueve cifras al año: en el palacio estrecho del cuadrado compacto la hoja baja la cifra un paso
+    tabla?.toggleAttribute('data-larga', PARTES.some(({ id }) => num(imp.anio[id]).length >= 11));
     if (franja) {
       franja.innerHTML = franjaReparto(reparto);
       franja.setAttribute('aria-label', `Dar ${reparto.dar} %, ahorrar ${reparto.ahorrar} %, vivir ${reparto.vivir} %`);
@@ -268,6 +271,7 @@ function iniciarPrecio(): void {
     escribir('p-cambio-pct', r.cambioPct === null ? '' : `${conSigno(r.cambioPct, 1)} %`);
     if (grafico) {
       grafico.innerHTML = graficoPrecio(r);
+      grafico.style.setProperty('--gp-canal', `${canalPrecio(r)}px`);
       grafico.setAttribute('aria-label', `Beneficio mensual: ahora ${num(r.antes)}, con el precio nuevo ${num(r.despues)}`);
     }
     escribir(

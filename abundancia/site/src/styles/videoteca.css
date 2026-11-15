@@ -157,7 +157,7 @@ html:not(.js) .vt-filtros { display: none; }
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .vt-paso { gap: var(--s-3); }
   .vt-paso-txt { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-3); }
   .vt-pasos-nav { margin-top: var(--s-3); }
@@ -185,4 +185,49 @@ html:not(.js) .vt-filtros { display: none; }
   .vt-titulo, .vt-temas, .vt > .vt-cab > .vt-meta, .vt > .vt-cab > .vt-acciones { grid-area: auto; }
   .vt > .vt-cab > .vt-acciones { align-self: end; }
   .vt > .vt-texto { margin-top: 0; }
+}
+
+/* ---------- Cuadrado compacto (de 960 a 1279 px) ----------
+   La misma composición con palacios de 304 a 410 px. La fila de la biblioteca deja las cuatro
+   pistas de escritorio (dos de ellas fijas) y usa las tres columnas de los filtros. */
+@media (min-width: 960px) and (max-width: 1279px) {
+  /* Cabeceras de palacio: si el título parte, que parta en dos líneas parejas */
+  .vt-pag .pal-cab h2 { text-wrap: balance; }
+  /* «Los pasos, en orden»: la lista empieza pegada a la cabecera, así que el título va en una línea;
+     le basta con el medianil corto entre número, título, etiqueta y marca */
+  .vt-orden .pal-cab { column-gap: var(--s-1); }
+
+  /* Títulos de video y pasos de la ruta, en columnas de 236 a 378 px: líneas parejas,
+     sin el nombre o la última palabra sueltos al final */
+  .vt-titulo, .vt-ruta-t, .vt-paso-cab h3 { text-wrap: balance; }
+
+  /* Tramo táctil: «Paso anterior» y «Paso siguiente» conservan su dibujo de 32 px, pero se pulsan
+     en 48 px de alto (8 px por encima y por debajo) */
+  .vt-pasos-nav .boton-s { position: relative; }
+  .vt-pasos-nav .boton-s::after { content: ""; position: absolute; inset: -9.5px -1.5px; }
+
+  /* Filtros: las tres columnas arrancan arriba aunque los idiomas ocupen dos filas */
+  .vt-filtros { align-items: start; }
+
+  /* Fila de tres columnas, alineadas con los filtros: miniatura · ficha · texto.
+     La ficha reúne título, datos, temas y canal; las acciones quedan al pie de la fila. */
+  .vt {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-1) var(--s-4);
+    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-areas: "media titulo texto" "media meta texto" "media temas texto" "media lado texto" "media acciones texto";
+  }
+  .vt-cab { display: contents; }
+  .vt-titulo { grid-area: titulo; }
+  .vt > .vt-cab > .vt-meta { grid-area: meta; }
+  .vt-temas { grid-area: temas; }
+  .vt > .vt-cab > .vt-acciones { grid-area: acciones; }
+  .vt-lado { margin-top: var(--s-1); }
+
+  /* Video abierto: el reproductor ocupa dos columnas; debajo, la ficha a la izquierda y el canal a su lado */
+  .vt-activo {
+    row-gap: var(--s-1);
+    grid-template-areas: "media media texto" "titulo lado texto" "meta lado texto" "temas lado texto" "acciones lado texto";
+  }
+  .vt-activo .vt-media { margin-bottom: var(--s-1); }
+  .vt-activo .vt-lado { margin-top: 0; }
 }

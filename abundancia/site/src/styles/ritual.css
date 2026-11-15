@@ -217,7 +217,7 @@
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .rt-sesiones { column-gap: var(--rt-canal); }
 
   .rt-titulo { gap: var(--s-3); font-size: var(--t-3); line-height: var(--lh-3); letter-spacing: -0.02em; }
@@ -237,4 +237,50 @@
 
   .rt-semanal .pal-cuerpo { padding-top: var(--s-2); }
   .rt-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--rt-canal); }
+}
+
+/* ---------- Cuadrado compacto (de 960 a 1279 px) ----------
+   La composición es la de escritorio; los palacios miden de 304 a 410 px. */
+@media (min-width: 960px) and (max-width: 1279px) {
+  /* Respirar: la moneda mide lo que su columna, sin pisar la señal. */
+  .rt-moneda-caja { width: min(100%, 336px); }
+
+  /* Paneles de dos columnas: cada una mide medio palacio doble (unos 47cqi), no un palacio.
+     La cifra grande se calcula sobre esa media anchura para no salirse de su columna, y la
+     frase del plan baja un paso para no leerse en líneas de tres palabras. */
+  .rt-dos .rt-dato .fig-xl { font-size: min(var(--t-6), calc(100cqi / var(--n, 4))); }
+  .rt-dos .voz { font-size: var(--t-2); line-height: var(--lh-2); letter-spacing: -0.01em; }
+
+  /* Una evidencia: el campo ocupa la línea entera y el botón va debajo. */
+  .rt-sin-salto { flex-wrap: wrap; }
+  .rt-sin-salto input { flex: 1 1 100%; }
+
+  /* Pasos de la sesión: un título en dos líneas no deja una palabra suelta, y la casilla se
+     alinea con la primera línea, como el número y la duración (fila de 48 o de 72 px). */
+  .rt-ir-t { text-wrap: balance; }
+  .rt-fila { align-items: start; }
+  .rt-ir { align-content: start; padding-block: 11.5px; }
+
+  /* Notas, opciones y rótulos de campo que parten en dos líneas no dejan una palabra suelta. */
+  .rt-dato-n, .rt-opcion > span, .rt-cuerpo .campo > label { text-wrap: balance; }
+  .rt-q .campo > .rotulo { text-wrap: pretty; }
+
+  /* Enlaces sueltos: el relleno amplía la zona táctil a 24 px sin mover la línea. */
+  .rt-enlace a, .rt-cuerpo p > a:not([class]), .rt-fuente a { padding-block: 5px; }
+
+  /* Revisión semanal · ingresos por fuente: en un tercio del cuadrado, tres columnas dejan al
+     nombre siete letras por línea. El nombre ocupa la línea entera; debajo, a la izquierda el
+     estado y a la derecha la cifra. La cabecera «Estado» queda solo para el lector de pantalla. */
+  .rt-tabla tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-2); }
+  .rt-tabla th, .rt-tabla td { display: block; padding: 0; border-bottom: 0; }
+  .rt-tabla thead tr { border-bottom: var(--linea) solid var(--filete); }
+  .rt-tabla thead th { padding-bottom: var(--s-1); }
+  .rt-tabla thead th:nth-child(2) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .rt-tabla tbody tr { padding-block: 12px 11px; border-bottom: var(--linea) solid var(--filete-suave); }
+  .rt-tabla tbody tr:last-child { padding-bottom: 12px; border-bottom: 0; }
+  .rt-tabla tbody th, .rt-tabla tbody .rt-vacia { grid-column: 1 / -1; }
+  /* Con la línea entera para el nombre ya no hace falta partir palabras con guion. */
+  .rt-tabla tbody th { hyphens: manual; text-wrap: balance; }
+  .rt-tabla tfoot tr { align-items: baseline; border-top: var(--linea) solid var(--filete); }
+  .rt-tabla tfoot th, .rt-tabla tfoot td { padding: 12px 0; border-top: 0; }
 }

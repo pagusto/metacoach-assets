@@ -124,7 +124,7 @@
 .ag-vacio-l svg { grid-row: 1 / span 2; width: var(--s-4); height: var(--s-4); }
 
 /* ---------- Escritorio: tres columnas con medianil de un módulo, como los palacios ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .ag-sec { margin-top: var(--s-6); }
   .ag-sec-cab { margin-bottom: var(--s-3); }
   .ag-sec-cab h2 { font-size: var(--t-3); line-height: var(--s-4); font-weight: 400; letter-spacing: -0.02em; }
@@ -155,4 +155,29 @@
   .ag-vacio-l { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--s-3); }
   .ag-vacio-l li { grid-template-columns: minmax(0, 1fr); row-gap: var(--s-1); }
   .ag-vacio-l svg { grid-row: auto; }
+}
+
+/* ---------- Cuadrado compacto (de 960 a 1279 px) ----------
+   La misma composición con columnas de 272 a 378 px. */
+@media (min-width: 960px) and (max-width: 1279px) {
+  /* Títulos que parten en dos líneas: parejas, sin palabra suelta al final */
+  .ag-pag .pal-cab h2, .ag-sec-cab h2 { text-wrap: balance; }
+  /* Especialistas: los tres títulos parten igual, después de «Especialistas de» (el espacio duro
+     está en agentes.astro). Con el título en dos líneas la cabecera medía 52 px y con una, 48:
+     las tres listas no arrancaban a la misma altura. El margen la deja siempre en 48 px, y el
+     filete de la lista baja 16 px para no rozar la segunda línea. */
+  .ag-equipo .pal-cab h2 { margin-bottom: -4px; }
+  .ag-equipo .pal-cuerpo { padding-top: var(--s-2); }
+
+  /* Tramo táctil: los enlaces de «El equipo en cifras» se pulsan en toda la altura de la línea (24 px) */
+  .ag-pares a { display: inline-block; }
+
+  /* Úsalo en tu PC: en una columna de palacio el comando pide la línea entera;
+     el botón baja a la derecha, como en la línea larga, y las cuatro cajas quedan iguales. */
+  .ag-pasos .vt-copia { flex-wrap: wrap; justify-content: flex-end; padding-top: 11px; }
+  .ag-pasos .vt-copia code { flex-basis: 100%; }
+
+  /* Tramo táctil: «Copiar» conserva su dibujo de 32 px, pero se pulsa en 48 px de alto */
+  .vt-copia .boton-s { position: relative; }
+  .vt-copia .boton-s::after { content: ""; position: absolute; inset: -9.5px -1.5px; }
 }

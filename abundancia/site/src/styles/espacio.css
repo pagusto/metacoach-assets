@@ -244,8 +244,11 @@
   .esp-razon-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-3); }
 }
 
-/* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+/* ---------- Escritorio ----------
+   El medianil entre dos columnas del cuadrado mide dos rellenos de palacio: 48 px desde
+   1280 px y 32 px en el cuadrado compacto. Las columnas interiores lo usan para seguir
+   alineadas con las del cuadrado en los dos tramos. */
+@media (min-width: 960px) {
   .esp-banda { padding-block: var(--s-6) var(--s-4); }
   .esp-banda h2 { font-size: var(--t-3); line-height: var(--s-4); letter-spacing: -0.02em; }
 
@@ -269,18 +272,18 @@
   .esp-punt-moneda { width: min(240px, 62cqi); }
   .esp-punt-pie { padding-top: var(--s-2); }
 
-  .esp-lista-cab { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: var(--s-4); }
+  .esp-lista-cab { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: calc(2 * var(--palacio-pad)); }
   .esp-it { grid-template-columns: minmax(0, 1fr) auto auto; column-gap: var(--s-3); padding-bottom: 4px; }
   .esp-it-cab { grid-column: 1; }
   .esp-it-ver { margin-left: 0; }
   .esp-razon { padding-bottom: 12px; }
-  .esp-razon-cols { column-gap: var(--s-4); }
+  .esp-razon-cols { column-gap: calc(2 * var(--palacio-pad)); }
 
-  .esp-contexto { max-width: none; columns: 2; column-gap: var(--s-4); }
+  .esp-contexto { max-width: none; columns: 2; column-gap: calc(2 * var(--palacio-pad)); }
   .esp-periodo-cifra .cifra { font-size: var(--t-5); line-height: var(--lh-5); }
 
   /* Diagrama en la primera columna del cuadrado; tabla en las otras dos */
-  .esp-el { grid-template-columns: calc((100% - 2 * var(--s-4)) / 3) minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+  .esp-el { grid-template-columns: calc((100% - 4 * var(--palacio-pad)) / 3) minmax(0, 1fr); column-gap: calc(2 * var(--palacio-pad)); align-items: start; }
   .esp-apila thead { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
   .esp-apila tbody tr { display: table-row; }
   .esp-apila tbody th, .esp-apila tbody td {
@@ -291,9 +294,68 @@
   .esp-apila tbody th { width: 30%; }
   .esp-apila tr > :last-child { padding-right: 0; }
 
-  .esp-simbolos { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-4); border-top: 0; }
+  .esp-simbolos { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: calc(2 * var(--palacio-pad)); border-top: 0; }
   .esp-simbolos li { border-bottom: 0; border-top: var(--linea) solid var(--filete-suave); }
   .esp-simbolos li:nth-child(-n+2) { border-top-color: var(--filete); }
 
   .esp-fuentes ol { columns: 3; column-gap: var(--s-4); }
+}
+
+/* ---------- Cuadrado compacto (de 960 a 1279 px) ----------
+   La composición es la de escritorio con palacios de 304 a 410 px. Lo que sigue es lo que
+   no cabe a ese ancho con los tamaños de escritorio. */
+@media (min-width: 960px) and (max-width: 1279px) {
+  /* El mapa: tres filas iguales aunque un nombre de área ocupe dos líneas */
+  .esp-mapa { grid-auto-rows: 1fr; }
+
+  /* «Conocimiento» y «Benefactores» no caben enteros a 54 px en un palacio: un paso menos */
+  .esp-det-titulo h3 { font-size: var(--t-3); line-height: var(--lh-3); letter-spacing: -0.02em; }
+
+  /* «2024–2043» mide 335 px a 81 px y el palacio deja 272: un paso menos */
+  .esp-periodo-cifra .cifra { font-size: var(--t-4); line-height: var(--lh-4); }
+
+  /* El enlace al siguiente paso se pulsa con el dedo: caja de 24 px de alto, no solo el texto */
+  .esp-punt-sig a { display: inline-block; }
+
+  /* Cada símbolo arriba de su celda: la fila no reparte el hueco entre título y texto */
+  .esp-simbolos li { align-content: start; }
+
+  /* Cabecera de palacio cuyo título no cabe junto a su rótulo («Lo que dice la investigación»,
+     «Palacio elegido» con «Benefactores y viajes»): parte en dos líneas parejas. La línea base
+     del número baja el título 4 px; se descuentan para que la cabecera siga midiendo 48 px y
+     el cuerpo empiece a la misma altura que el de los palacios vecinos. Con una línea no cambia nada. */
+  .pal-cab h2, .pal-cab h3 { margin-bottom: -4px; text-wrap: balance; }
+
+  /* Notas en cuerpo pequeño dentro de piezas de dos o tres palacios: medida de 9 M
+     (unos 70 caracteres por línea) en lugar de los 110 que da el ancho de la pieza */
+  .esp-mapa-nota, .esp-lista-cab .nota, .esp-el-pie .nota { max-width: 27rem; text-wrap: pretty; }
+
+  /* Enlaces sueltos (fuentes, «Ver los dos ciclos»): zona de toque de 24 px de alto.
+     El relleno vertical de un elemento en línea no mueve nada. */
+  .esp-fuente a, .esp-det .nota a { padding-block: 5px; }
+
+  /* La flecha de «se abre fuera» no se queda sola en la línea siguiente: un espacio duro sin
+     ancho ni alto la une a la última palabra de la cita, y el span no parte entre los dos */
+  .esp-fuente-fin { white-space: nowrap; }
+  .esp-fuente-fin::before { content: "\00A0"; font-size: 0; line-height: 0; }
+}
+
+/* Mitad estrecha del tramo: seis columnas no caben en dos palacios. Cada elemento pasa a
+   ser una ficha de dos líneas: nombre y cualidad arriba, los cinco valores debajo de su
+   cabecera. La columna «Elemento» se queda sin rótulo a la vista (lo conserva el lector
+   de pantalla). */
+@media (min-width: 960px) and (max-width: 1119px) {
+  .esp-apila thead tr, .esp-apila tbody tr, .esp-apila tbody th {
+    display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 7fr) minmax(0, 3fr) minmax(0, 3fr);
+    column-gap: var(--s-2);
+  }
+  .esp-apila thead tr { border-bottom: var(--linea) solid var(--filete); }
+  .esp-apila thead th { display: block; padding: var(--s-1) 0; border: 0; }
+  .esp-apila thead th:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .esp-apila tbody tr { row-gap: 4px; padding-block: 12px; border-bottom: var(--linea) solid var(--filete-suave); }
+  .esp-apila tbody th, .esp-apila tbody td { padding: 0; border: 0; }
+  .esp-apila tbody td { display: block; }
+  .esp-apila tbody td:nth-child(4) { grid-column: auto; }
+  .esp-apila tbody th { grid-template-columns: subgrid; align-items: baseline; width: auto; }
+  .esp-el-c { grid-column: 2 / -1; }
 }

@@ -12,12 +12,15 @@ interface Props {
   clase?: string;
 }
 const { fuente, rotulo, clase = '' } = Astro.props;
+// La flecha va dentro de un <span class="esp-fuente-fin">: en el cuadrado compacto espacio.css la
+// une a la última palabra para que no se quede sola en la línea siguiente. Sin esa regla el span
+// no cambia nada.
 ---
 {fuente?.cita && (
   <cite class:list={['fuente-cita', 'esp-fuente', clase]}>
     {rotulo && <span class="rotulo">{rotulo}</span>}
     {fuente.url ? (
-      <a href={fuente.url} target="_blank" rel="noopener external">{fuente.cita}<svg class="esp-fuera" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1.5 8.5" /></svg><span class="oculto"> (se abre en otra pestaña)</span></a>
+      <a href={fuente.url} target="_blank" rel="noopener external">{fuente.cita}<span class="esp-fuente-fin"><svg class="esp-fuera" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1.5 8.5" /></svg></span><span class="oculto"> (se abre en otra pestaña)</span></a>
     ) : fuente.cita}
   </cite>
 )}

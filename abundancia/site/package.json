@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "capturas": "node scripts/capturas.cjs",
     "probar": "node scripts/interacciones.cjs",
-    "pruebas": "node scripts/datos-verificar.mjs && node scripts/interacciones.cjs && node scripts/datos-interacciones.cjs && node scripts/ritual-prueba.cjs && node scripts/tradicion.cjs && node scripts/videoteca-probar.cjs"
+    "pruebas": "node scripts/datos-verificar.mjs && node scripts/interacciones.cjs && node scripts/datos-interacciones.cjs && node scripts/ritual-prueba.cjs && node scripts/tradicion.cjs && node scripts/videoteca-probar.cjs",
+    "pruebas:tableta": "node scripts/interacciones.cjs --ancho 1024 && node scripts/datos-interacciones.cjs --ancho 1024 && node scripts/ritual-prueba.cjs --ancho 1024 && node scripts/tradicion.cjs --ancho 1024 && node scripts/videoteca-probar.cjs --ancho 1024"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "^5.3.0",

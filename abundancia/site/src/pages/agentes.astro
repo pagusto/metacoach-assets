@@ -73,7 +73,7 @@ const plural = (n: number, uno: string, varios: string) => `${fmt(n)} ${n === 1 
         </Palacio>
         <Palacio
           n={MEDIO[p.i]} celdas={p.i === menor ? [MEDIO[p.i]] : [MEDIO[p.i], ABAJO[p.i]]}
-          titulo={`Especialistas de ${p.nombre.toLowerCase()}`} etiqueta={plural(p.equipo.length, 'agente', 'agentes')} clase="ag-equipo"
+          titulo={`Especialistas\u00A0de ${p.nombre.toLowerCase()}`} etiqueta={plural(p.equipo.length, 'agente', 'agentes')} clase="ag-equipo"
         >
           {p.equipo.length > 0
             ? <ul class="ag-lista">{p.equipo.map((a) => <li><Agente agente={a} /></li>)}</ul>

@@ -4,6 +4,9 @@
 // Necesita red para las miniaturas de i.ytimg.com; el reproductor de YouTube se simula.
 const { chromium } = require('playwright');
 const { servidor } = require('./capturas.cjs');
+// Ancho de la vista de escritorio. Con «--ancho 1024» la misma prueba recorre el cuadrado compacto.
+const iAncho = process.argv.indexOf('--ancho');
+const ANCHO = iAncho > 0 ? Number(process.argv[iAncho + 1]) : 1440;
 
 const VT = require('../src/data/videoteca.json');
 const AG = require('../src/data/agentes.json');
@@ -24,7 +27,7 @@ const ok = (cond, texto, extra = '') => {
 
   // ---------- Videoteca ----------
   {
-    const c = await b.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES' });
+    const c = await b.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES' });
     const p = await c.newPage();
     const errores = [];
     p.on('pageerror', (e) => errores.push(e.message));
@@ -50,7 +53,8 @@ const ok = (cond, texto, extra = '') => {
     ok((await f.getAttribute('allow')) === 'accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen', 'allow del iframe');
     ok(await primera.locator(`a[href="https://www.youtube.com/watch?v=${V1.id}"][target="_blank"][rel="noopener"]`).count() === 1, 'enlace «Ver en YouTube»');
     const anchoIframe = await f.evaluate((el) => el.getBoundingClientRect().width);
-    ok(anchoIframe > 600, 'el reproductor se ensancha en escritorio', String(anchoIframe));
+    // Abierto, el reproductor pasa de una columna a dos: más de dos quintos de la ventana.
+    ok(anchoIframe > ANCHO * 0.4, 'el reproductor se ensancha en escritorio', String(anchoIframe));
     // Otro video cierra el anterior
     await p.locator('[data-lista] .vt').nth(1).locator('[data-ver]').click();
     ok(await p.locator('iframe').count() === 1, 'solo un reproductor a la vez');
@@ -110,7 +114,8 @@ const ok = (cond, texto, extra = '') => {
     await p.locator('.vt-paso:not([hidden]) [data-ver]').click();
     ok(await p.locator('#ruta iframe').count() === 1, 'reproductor de la ruta');
     const anchoRuta = await p.locator('#ruta iframe').evaluate((el) => el.getBoundingClientRect().width);
-    ok(anchoRuta > 800, 'reproductor de la ruta ancho', String(anchoRuta));
+    // El reproductor ocupa dos de las tres columnas del cuadrado: algo más de la mitad de la ventana.
+    ok(anchoRuta > ANCHO * 0.55, 'reproductor de la ruta ancho', String(anchoRuta));
     await p.locator('[data-ir="-1"]').click();
     ok(await p.locator('iframe').count() === 0, 'cambiar de paso cierra el reproductor');
 
@@ -145,7 +150,7 @@ const ok = (cond, texto, extra = '') => {
 
   // ---------- Miniatura caída ----------
   {
-    const c = await b.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES' });
+    const c = await b.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES' });
     const p = await c.newPage();
     const id2 = VT.videos[1].id;
     await p.route(`**/i.ytimg.com/vi/${id2}/**`, (r) => r.abort());
@@ -158,7 +163,7 @@ const ok = (cond, texto, extra = '') => {
     await c.close();
   }
   {
-    const c = await b.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES' });
+    const c = await b.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES' });
     const p = await c.newPage();
     await p.route('**/i.ytimg.com/**', (r) => r.abort());
     await p.goto(base + '/videoteca', { waitUntil: 'networkidle' });
@@ -166,13 +171,13 @@ const ok = (cond, texto, extra = '') => {
     await p.waitForTimeout(1200);
     ok(await p.locator('.vt[data-caido]').count() === 0, 'sin red para las miniaturas no se retira nada');
     ok(await p.locator('[data-lista] > li:not([hidden])').count() === N, 'siguen todas las entradas sin miniaturas');
-    await p.screenshot({ path: require('node:path').join(__dirname, '..', 'qa', 'videoteca-sin-miniaturas.png'), clip: { x: 0, y: 0, width: 1440, height: 900 } });
+    await p.screenshot({ path: require('node:path').join(__dirname, '..', 'qa', 'videoteca-sin-miniaturas.png'), clip: { x: 0, y: 0, width: ANCHO, height: 900 } });
     await c.close();
   }
 
   // ---------- Agentes ----------
   {
-    const c = await b.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES', permissions: ['clipboard-read', 'clipboard-write'] });
+    const c = await b.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES', permissions: ['clipboard-read', 'clipboard-write'] });
     const p = await c.newPage();
     const errores = [];
     p.on('pageerror', (e) => errores.push(e.message));

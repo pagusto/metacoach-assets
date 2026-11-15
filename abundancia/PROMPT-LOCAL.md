@@ -43,18 +43,20 @@ MAPA
   Canberra; existe desde el 15 de noviembre de 2026 y las entradas anteriores se escribieron a
   mano) lanza al agente nutridor-conocimiento, que escribe la entrada del día en
   abundancia/site/src/content/diario/ con la fecha de Australia/Sydney, sin tocar una que ya
-  exista, y compila y pasa las pruebas. Después la propia tarea abre el pull request
-  «Nutrición diaria AAAA-MM-DD» y lo fusiona ella misma: no queda nada por revisar. Sus
-  instrucciones solo se cambian desde la conversación de Shefa en la nube; las que debe tener
-  están en .claude/tareas/nutricion-diaria.md. Si un día la entrada no llega, la cubre el
-  paso 5.
+  exista, y compila y pasa las pruebas. Después la propia tarea la sube directa a master,
+  sin pull requests (solo abriría uno, y lo fusionaría ella misma, si el servidor rechazara
+  la subida directa): no queda nada por revisar. Los lunes comprueba además los videos de la
+  videoteca y repite las pruebas a 1024 px. Sus instrucciones solo se cambian desde la
+  conversación de Shefa en la nube; las que tiene están en .claude/tareas/nutricion-diaria.md.
+  Si un día la entrada no llega, la cubre el paso 5.
 - Guías: abundancia/README.md, abundancia/site/COMPONENTES.md, abundancia/conocimiento/INDICE.md.
 
 SIEMPRE, EN ESTE ORDEN
 1. Sincroniza: git checkout master && git pull. Luego cd abundancia/site && npm ci.
 2. Comprueba en local: npm run build; ejecuta todos los scripts de prueba de scripts/
-   (interacciones, ritual, tradición, datos, videoteca: npm run pruebas los lanza todos) y las
-   capturas de todas las rutas en 1440, 390 y 320 px. Corrige lo que falle antes de seguir.
+   (interacciones, ritual, tradición, datos, videoteca: npm run pruebas los lanza todos y
+   npm run pruebas:tableta los repite a 1024 px) y las capturas de todas las rutas en 1440,
+   1024, 390 y 320 px. Corrige lo que falle antes de seguir.
 3. Comprueba Vercel: el último despliegue de producción de «shefa» debe estar listo y
    corresponder al último commit de master. Si no, despliega producción de nuevo. Después,
    desde abundancia/site, comprueba los dos dominios con un navegador real:

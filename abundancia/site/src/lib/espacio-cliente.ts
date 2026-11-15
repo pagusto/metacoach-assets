@@ -169,7 +169,7 @@ function ponerRazones(abiertas: boolean): void {
   botonesRazon.forEach((b) => ponerRazon(b, abiertas));
   anotarRazones();
 }
-if (window.matchMedia('(max-width: 1279px)').matches) ponerRazones(false);
+if (window.matchMedia('(max-width: 959px)').matches) ponerRazones(false);
 botonRazones?.addEventListener('click', () => ponerRazones(botonRazones.getAttribute('aria-pressed') !== 'true'));
 botonesRazon.forEach((b) => b.addEventListener('click', () => {
   ponerRazon(b, b.getAttribute('aria-expanded') !== 'true');

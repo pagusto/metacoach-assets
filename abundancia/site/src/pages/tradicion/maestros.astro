@@ -38,7 +38,8 @@ const vidas = datos.maestros.map((m) => {
   const obra = anio(m.obra_clave.replace(/^[^(]*/, '')) ?? anio(m.obra_clave);
   // El título de la obra se escribe del lado donde hay más sitio. Si ni ahí cabe (cálculo con la
   // pista más estrecha de escritorio), va sin el año, que ya marca el punto de la obra, y si aún
-  // no cabe, en letra estrecha: nunca cortado con puntos suspensivos.
+  // no cabe, en letra estrecha: nunca cortado con puntos suspensivos. Entre 960 y 1279 px la pista
+  // es más corta que PISTA_MIN: ahí el título completo va en la primera columna (.tr-crono-obra).
   const izq = nace !== null ? x(nace) : 0;
   const der = 100 - x(fin);
   const lado = nace !== null && izq > der ? 'izq' : 'der';
@@ -46,7 +47,7 @@ const vidas = datos.maestros.map((m) => {
   const cabe = (t: string) => t.length * PX_LETRA <= sitio;
   const sinAnio = m.obra_clave.replace(/\s*\(\d{4}\)\s*$/, '');
   const obraTexto = cabe(m.obra_clave) ? m.obra_clave : sinAnio;
-  return { id: m.id, nombre: m.nombre, anios: m.anios, obraTexto, estrecha: !cabe(obraTexto), nace, fin, vive, obra, lado };
+  return { id: m.id, nombre: m.nombre, anios: m.anios, obraClave: m.obra_clave, obraTexto, estrecha: !cabe(obraTexto), nace, fin, vive, obra, lado };
 });
 const idDe = (nombre: string) => datos.maestros.find((m) => m.nombre === nombre)?.id;
 
@@ -95,7 +96,11 @@ const indice = [
         <ol class="tr-crono-vidas" aria-label="Los maestros y sus años de vida">
           {vidas.map((v) => (
             <li class="tr-crono-fila">
-              <span class="tr-crono-rot"><a href={`#${v.id}`}>{v.nombre}</a> <span class="rotulo">{v.anios}</span></span>
+              <span class="tr-crono-rot">
+                <a href={`#${v.id}`}>{v.nombre}</a> <span class="rotulo">{v.anios}</span>
+                {/* Solo en el cuadrado compacto (960 a 1279 px): ahí el título de la obra no cabe junto a la vida. */}
+                <span class="tr-crono-obra" lang="en" aria-hidden="true">{v.obraClave}</span>
+              </span>
               <div class="tr-crono-pista" aria-hidden="true">
                 {v.nace !== null && (
                   <>
@@ -235,7 +240,7 @@ const indice = [
               <p>{fino(c.hecho)}</p>
               <Fuente fuente={c.fuente} />
             </div>
-            <div class="tr-col">
+            <div class="tr-col tr-caso-leccion">
               <p class="rotulo tr-rot">Lección</p>
               <p class="voz-m">{fino(c.leccion)}</p>
             </div>

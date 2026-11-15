@@ -175,7 +175,7 @@ select.celda { appearance: none; -webkit-appearance: none; padding-right: 22px; 
 .datos-ctl .campo-estado:empty { display: none; }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   /* Marco del Árbol: 576 × 720 en el cuadrado completo; se estrecha con él.
      --lado es la columna de rótulos que queda a cada lado de los pilares. */
   .arbol {
@@ -228,4 +228,68 @@ select.celda { appearance: none; -webkit-appearance: none; padding-right: 22px; 
 
   .datos-ctl { grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--s-4); }
   .datos-confirma, .datos-ctl .campo-estado { grid-column: 1 / -1; }
+}
+
+/* ---------- Cuadrado compacto (de 960 a 1279 px) ----------
+   La composición es la de escritorio; los palacios miden de 304 a 410 px. */
+@media (min-width: 960px) and (max-width: 1279px) {
+  /* Árbol: con el marco estrecho, el rótulo del pilar central alcanza el sendero del pilar
+     derecho. Lleva fondo de papel, como los rótulos de la tira, y el sendero pasa por detrás. */
+  .arbol .cen .rot { width: max-content; max-width: 224px; padding-right: var(--s-1); background: var(--fondo); }
+  /* La nota bajo el árbol ocuparía todo el palacio doble (unos 88 caracteres por línea): 10 M. */
+  .arbol-nota { max-width: 30rem; }
+
+  /* Detalle. Kéter: la declaración crece con su texto, y la cifra y la fecha se apilan
+     mientras la fecha no quepa entera en media columna. */
+  .a-det .control textarea { field-sizing: content; }
+  .a-det .campo-par { grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); }
+  /* Jojmá y Hod: el campo de texto ocupa la línea entera y el botón va debajo. */
+  .sin-salto:not(:has(.entrada-cifra)) { flex-wrap: wrap; }
+  .sin-salto input:not(.entrada-cifra) { flex: 1 1 100%; }
+
+  /* Libro de fuentes: seis columnas no caben en dos palacios. Cada fuente ocupa dos líneas
+     sobre las mismas cuatro pistas: nombre, tipo, estado y cifra; debajo, la próxima acción
+     alineada con «Tipo» y, bajo la cifra, «Quitar». */
+  .libro { --libro-pistas: minmax(0, 9fr) minmax(0, 6fr) minmax(0, 7fr) minmax(0, 5fr); }
+  .libro table { table-layout: auto; }
+  .libro colgroup { display: none; }
+  .libro thead tr, .libro tbody tr {
+    display: grid; grid-template-columns: var(--libro-pistas); column-gap: var(--s-2);
+  }
+  .libro thead tr { align-items: end; min-height: var(--s-4); border-bottom: var(--linea) solid var(--filete); }
+  .libro thead th { display: block; height: auto; padding: 0 0 var(--s-1); border-bottom: 0; }
+  .libro thead .c-accion, .libro thead th:last-child {
+    position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%);
+  }
+  .libro tbody tr {
+    grid-template-areas: "fuente tipo estado monto" "accion accion accion quitar";
+    padding-block: var(--s-1) 7px;
+  }
+  .libro tbody td, .libro tbody th { display: block; height: auto; padding: 0; border-bottom: 0; }
+  .libro tbody .c-monto { padding: 0; }
+  .libro .c-monto .celda { min-height: 40px; line-height: 38px; }
+  .libro tbody .c-accion {
+    display: grid; grid-template-columns: subgrid; align-items: start;
+    margin-top: 0; padding: 0;
+  }
+  .libro .c-accion::before { content: "Próxima acción"; padding-top: var(--s-1); line-height: var(--lh-1); }
+  .libro .quitando .c-accion::before { content: none; }
+  .libro .c-accion > .celda, .libro .c-accion > .confirma { grid-column: 2 / -1; }
+  .libro .c-accion > .celda { text-wrap: pretty; }
+  .libro tbody .c-quitar { margin-top: 0; padding: var(--s-1) 0 0; }
+  .libro .c-quitar .boton-texto { display: inline-block; min-height: var(--s-3); line-height: var(--s-3); }
+
+  /* Medidor de meta: con el libro vacío la fila mide solo el lado del palacio. La moneda se
+     estrecha y el palacio guarda 7,5 M de alto para que no roce la cifra ni su nota.
+     Una cifra de siete dígitos baja un paso de la escala. */
+  .meta { min-height: 360px; }
+  .meta .pal-graf { width: min(240px, 50cqi); }
+  .meta .fig-l.larga { font-size: var(--t-4); line-height: var(--lh-4); }
+
+  /* Fuente del detalle: en una sola línea el enlace mide 15 px; el relleno amplía la zona
+     táctil a 24 px sin mover la línea. */
+  .a-det .fuente-cita a { padding-block: 5px; }
+
+  /* Tus datos: la nota no deja una palabra suelta en la segunda línea. */
+  .datos-ctl .nota { text-wrap: pretty; }
 }

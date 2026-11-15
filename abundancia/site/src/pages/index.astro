@@ -300,6 +300,8 @@ const iHoy = indiceDelDia(pares.length, hoy);
     const ing = v('ingreso');
     if (ing) {
       ing.textContent = fmt(total);
+      // Siete dígitos o más: en el cuadrado compacto la cifra baja un paso de la escala (hoy.css).
+      ing.classList.toggle('larga', fmt(total).length >= 9);
       ing.setAttribute('aria-label', `Ingreso real: ${fmt(total)} al mes. Editar en el libro de fuentes`);
     }
     poner('ingreso-nota', s.cifra ? `de ${fmt(s.cifra)} al mes` : 'al mes');

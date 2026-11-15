@@ -128,17 +128,17 @@
 }
 .mt-registros a { justify-self: start; }
 
-@media (max-width: 1279px) {
+@media (max-width: 959px) {
   .mt-colofon { padding-inline: 0; }
 }
 
 /* ---------- Tableta: la lista de fuentes en dos columnas ---------- */
-@media (min-width: 720px) and (max-width: 1279px) {
+@media (min-width: 720px) and (max-width: 959px) {
   .mt-registros { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-3); }
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .mt-voz .pal-cuerpo { gap: var(--s-3); }
 
   .mt-etiquetas .pal-cuerpo { padding-top: var(--s-2); }
@@ -163,4 +163,16 @@
   .mt-nutricion > .mt-pasos li { border-bottom: 0; border-top: var(--linea) solid var(--filete-suave); }
   .mt-nutricion > .mt-pasos li:nth-child(3n + 1) { border-top-color: var(--filete); }
   .mt-registros { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--mt-canal); }
+}
+
+/* ---------- Cuadrado compacto (de 960 a 1279 px) ---------- */
+@media (min-width: 960px) and (max-width: 1279px) {
+  /* Cabecera de palacio: si el título se parte, en líneas parejas. Con dos líneas la línea base del
+     número baja el título 4 px y la cabecera mediría 52 px («Lo que este sitio no afirma», «Cuándo
+     buscar a un profesional»), no los 48 de «Privacidad»: se descuentan para que los tres palacios
+     de la fila empiecen a la misma altura. Con una línea no cambia nada. */
+  .mt .pal-cab h2 { text-wrap: balance; margin-bottom: -4px; }
+  /* Fila 1: la voz media en un palacio de 270 a 376 px usa su medio paso, como en la tira: a 24 px
+     no llega a 28 caracteres por línea. */
+  .mt-voz .voz-m { font-size: var(--t-1m); line-height: var(--lh-1m); font-weight: 500; letter-spacing: -0.005em; }
 }

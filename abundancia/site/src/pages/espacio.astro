@@ -277,26 +277,28 @@ const conDato = items.filter((i) => i.dato).length;
         </figure>
 
         <div class="esp-el-tabla">
-          <table class="tabla esp-apila">
+          {/* Los roles van escritos porque la tabla se pinta como fichas (display: grid) en la tira y en
+              la mitad estrecha del cuadrado compacto, y así no pierde su lectura de tabla. */}
+          <table class="tabla esp-apila" role="table">
             <caption class="oculto">Los cinco elementos: color, formas, materiales y ciclos</caption>
-            <thead>
-              <tr>
-                <th scope="col">Elemento</th><th scope="col">Color</th><th scope="col">Formas</th>
-                <th scope="col">Materiales</th><th scope="col">Genera</th><th scope="col">Controla</th>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th scope="col" role="columnheader">Elemento</th><th scope="col" role="columnheader">Color</th><th scope="col" role="columnheader">Formas</th>
+                <th scope="col" role="columnheader">Materiales</th><th scope="col" role="columnheader">Genera</th><th scope="col" role="columnheader">Controla</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody role="rowgroup">
               {fengshui.elementos.map((e) => (
-                <tr>
-                  <th scope="row">
+                <tr role="row">
+                  <th scope="row" role="rowheader">
                     <span class="esp-el-n"><span class="han" lang="zh-Hans">{HAN[e.id]}</span> {e.nombre}</span>
                     <span class="esp-el-c">{e.cualidad}</span>
                   </th>
-                  <td data-th="Color">{mayus(e.color)}</td>
-                  <td data-th="Formas">{mayus(e.formas)}</td>
-                  <td data-th="Materiales">{mayus(e.materiales)}</td>
-                  <td data-th="Genera">{nombreEl(e.genera)}</td>
-                  <td data-th="Controla">{nombreEl(e.controla)}</td>
+                  <td role="cell" data-th="Color">{mayus(e.color)}</td>
+                  <td role="cell" data-th="Formas">{mayus(e.formas)}</td>
+                  <td role="cell" data-th="Materiales">{mayus(e.materiales)}</td>
+                  <td role="cell" data-th="Genera">{nombreEl(e.genera)}</td>
+                  <td role="cell" data-th="Controla">{nombreEl(e.controla)}</td>
                 </tr>
               ))}
             </tbody>

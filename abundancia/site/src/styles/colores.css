@@ -30,7 +30,7 @@
   display: block; width: 100%; height: auto; aspect-ratio: 16 / 9;
   background: var(--filete-suave); outline: var(--linea) solid var(--trazo); outline-offset: -1px;
 }
-@media (max-width: 1279px) {
+@media (max-width: 959px) {
   /* En la tira la película llega hasta el marco del palacio */
   .clr-video { width: calc(100% + 2 * var(--palacio-pad)); max-width: none; margin-inline: calc(-1 * var(--palacio-pad)); }
 }
@@ -173,29 +173,30 @@
 .clr-paleta-pie { max-width: 44rem; padding-top: var(--s-3); }
 
 /* ---------- Tableta ---------- */
-@media (min-width: 560px) and (max-width: 1279px) {
+@media (min-width: 560px) and (max-width: 959px) {
   .clr-sistemas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-3); }
 }
 
 /* ---------- Escritorio ---------- */
-@media (min-width: 1280px) {
+@media (min-width: 960px) {
   .clr-muestra { min-height: 192px; padding-top: var(--s-3); padding-bottom: var(--s-2); }
   .clr-fecha .cifra { font-size: var(--t-5); }
   .clr-fecha-h { font-size: var(--t-1); line-height: var(--lh-1); }
 
-  /* Dos columnas que coinciden con las del cuadrado: 384 + 48 + 384 */
-  .clr-sistemas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--s-4); }
-  .clr-zurich { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-4); border-top: 0; }
+  /* Dos columnas que coinciden con las del cuadrado: 384 + 48 + 384. El medianil mide dos
+     rellenos de palacio: 48 px desde 1280 px y 32 px en el cuadrado compacto. */
+  .clr-sistemas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) calc(2 * var(--palacio-pad)); }
+  .clr-zurich { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: calc(2 * var(--palacio-pad)); border-top: 0; }
   .clr-zurich li { border-bottom: 0; border-top: var(--linea) solid var(--filete-suave); }
   .clr-zurich li:nth-child(-n+2) { border-top-color: var(--filete); }
 
   /* El gráfico: rótulo en la primera columna del cuadrado, pista en la segunda */
-  .clr-puntos li { grid-template-columns: calc((100% - var(--s-4)) / 2) minmax(0, 1fr) 56px; column-gap: 0; align-items: center; padding-block: 6px; border-bottom: var(--linea) solid var(--filete-suave); }
-  .clr-puntos-n { padding-right: var(--s-4); }
+  .clr-puntos li { grid-template-columns: calc((100% - 2 * var(--palacio-pad)) / 2) minmax(0, 1fr) 56px; column-gap: 0; align-items: center; padding-block: 6px; border-bottom: var(--linea) solid var(--filete-suave); }
+  .clr-puntos-n { padding-right: calc(2 * var(--palacio-pad)); }
   .clr-puntos-v { grid-column: 3; grid-row: 1; text-align: right; }
   .clr-pista { grid-column: 2; grid-row: 1; margin-top: 0; border-bottom: 0; }
   .clr-pista::before { content: ""; position: absolute; left: 0; right: 0; top: 10px; height: 1px; background: var(--filete-suave); }
-  .clr-eje-fila { display: grid; grid-template-columns: calc((100% - var(--s-4)) / 2) minmax(0, 1fr) 56px; }
+  .clr-eje-fila { display: grid; grid-template-columns: calc((100% - 2 * var(--palacio-pad)) / 2) minmax(0, 1fr) 56px; }
   .clr-eje { grid-column: 2; }
 
   .clr-paleta { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-4); }
@@ -205,3 +206,31 @@
 
 /* Un carácter chino dentro de una nota sigue el cuerpo y el color de la nota. */
 .nota .han { font-size: inherit; color: inherit; }
+
+/* ---------- Cuadrado compacto (de 960 a 1279 px) ---------- */
+@media (min-width: 960px) and (max-width: 1279px) {
+  /* El rótulo de cada efecto ocupa dos líneas: que partan parejas */
+  .clr-puntos-n { text-wrap: balance; }
+
+  /* Cinco columnas en tres palacios: medianil de 24 px para que «17,5:1 sobre el fondo»
+     quepa en una línea y las diez fichas midan lo mismo */
+  .clr-paleta { gap: var(--s-3); }
+
+  /* Notas en cuerpo pequeño al pie de piezas de dos o tres palacios: medida de 9 M
+     (unos 70 caracteres por línea), como en Espacio */
+  .clr-trad-pie, .clr-efecto-nota, .clr-eje-nota, .clr-zurich-pie, .clr-paleta-pie { max-width: 27rem; text-wrap: pretty; }
+
+  /* El aviso de película ausente va en cuerpo de 16 px: 11 M, unos 73 caracteres por línea */
+  .clr-video-falta { max-width: 33rem; }
+
+  /* Enlaces sueltos al pie de un palacio: zona de toque de 24 px de alto */
+  .clr-pal-ficha .pal-pie a, .clr-inv-pie a { padding-block: 5px; }
+}
+
+/* Mitad estrecha del tramo: la fecha de emisión baja debajo del color y el tema, que así
+   caben en una línea. La fila conserva sus 56 px. */
+@media (min-width: 960px) and (max-width: 1119px) {
+  .clr-billetes li { grid-template-columns: 72px minmax(0, 1fr); align-content: center; }
+  .clr-billete { grid-row: 1 / span 2; }
+  .clr-billetes .rotulo { grid-column: 2; }
+}
