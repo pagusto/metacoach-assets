@@ -45,11 +45,14 @@ SIEMPRE, EN ESTE ORDEN
    15 rutas bajo /shefa y confirma que responden y cargan estilos, la película y los videos.
 4. Sitio raíz: asegúrate de que «pabloagusto» tiene (a) en index.html el botón
    <a class="cta" href="/shefa/">Wealth manifestation</a> en lugar del hueco «coming soon», y
-   (b) en vercel.json las reglas
-   { "source": "/shefa", "destination": "https://shefa-prosperai.vercel.app/shefa/" } y
-   { "source": "/shefa/:path*", "destination": "https://shefa-prosperai.vercel.app/shefa/:path*" }.
+   (b) en vercel.json las cuatro reglas (Vercel compara las rutas de forma estricta: sin las dos
+   últimas, las direcciones con barra final dan 404, y el botón apunta a /shefa/)
+   { "source": "/shefa", "destination": "https://shefa-prosperai.vercel.app/shefa/" },
+   { "source": "/shefa/:path*", "destination": "https://shefa-prosperai.vercel.app/shefa/:path*" },
+   { "source": "/shefa/", "destination": "https://shefa-prosperai.vercel.app/shefa/" } y
+   { "source": "/shefa/:path+/", "destination": "https://shefa-prosperai.vercel.app/shefa/:path+/" }.
    Si falta algo, cámbialo conservando todo lo demás del sitio raíz, despliega y comprueba que
-   https://pabloagusto.vercel.app/shefa/ y /shefa/arbol cargan con sus estilos.
+   https://pabloagusto.vercel.app/shefa/, /shefa/arbol y /shefa/arbol/ cargan con sus estilos.
 5. Nutrición: si falta la entrada de hoy en el diario, ejecuta /nutrir.
 6. Videoteca: python3 abundancia/tools/yt.py check sobre todos los ids de videoteca.json;
    sustituye o quita los que ya no existan.
