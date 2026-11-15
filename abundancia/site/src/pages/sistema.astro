@@ -1,0 +1,122 @@
+---
+// Sistema: muestrario vivo de los componentes y utilidades. Página interna (no está en la
+// navegación ni se indexa). La guía escrita está en COMPONENTES.md.
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import MiniLoShu from '../components/MiniLoShu.astro';
+import Moneda from '../components/Moneda.astro';
+import Sello from '../components/Sello.astro';
+import Etiqueta from '../components/Etiqueta.astro';
+import Cita from '../components/Cita.astro';
+import Medidor from '../components/Medidor.astro';
+import { puntosSVG, diasSVG, rachaSVG } from '../lib/moneda';
+
+const dias = Array.from({ length: 14 }, (_, i) => ({ clave: String(i), hechos: [5, 4, 0, 2, 5, 5, 4, 0, 0, 3, 5, 4, 5, 1][i] }));
+---
+<Base title="Sistema" description="Muestrario de componentes del sistema de diseño de Shefa." noindex>
+  <TituloPagina titulo="Sistema" nota="Muestrario de componentes y utilidades. La guía escrita está en COMPONENTES.md." />
+
+  <Cuadrado>
+    <Palacio n={4} titulo="Cifras y voz" etiqueta="Tipografía" forma="cuadrado">
+      <p><span class="cifra fig-xl" style="--n:5">3.800</span></p>
+      <p class="fila"><span class="cifra fig-l">54</span><span class="cifra fig-m">36</span><span class="cifra fig-s">24</span></p>
+      <p class="voz-m">La voz media sirve para textos de hasta unas cuarenta palabras.</p>
+      <p slot="pie" class="rotulo">.fig-xl · .fig-l · .fig-m · .fig-s · .voz · .voz-m · .rotulo</p>
+    </Palacio>
+
+    <Palacio n={9} titulo="Texto" etiqueta="Tipografía" forma="cuadrado">
+      <div class="pila">
+        <p class="voz">La voz grande, para una frase.</p>
+        <p>Cuerpo de 16 px con un <a href="#contenido">enlace en azul</a>, una <b>negrita</b> y hebreo <span class="he" lang="he" dir="rtl">שפע</span>.</p>
+        <p class="nota">Nota de 14 px en texto secundario.</p>
+        <p>Hoy es el día <Sello tam="s">14</Sello> y el sello grande es <Sello>14</Sello></p>
+      </div>
+    </Palacio>
+
+    <Palacio n={2} titulo="Etiquetas y citas" etiqueta="Evidencia" forma="cuadrado">
+      <div class="pila">
+        <p class="fila">
+          <Etiqueta tipo="tradicion" /><Etiqueta tipo="documentado" /><Etiqueta tipo="estudio" />
+          <Etiqueta tipo="anecdota" /><Etiqueta tipo="mito" /><Etiqueta tipo="tradicion" texto="Aplicación moderna" />
+        </p>
+        <Cita rotulo="Fuente con enlace" cita="Talmud de Babilonia, Taanit 9a" url="https://www.sefaria.org/Taanit.9a" />
+        <Cita rotulo="Fuente sin enlace" cita="Scholem, G. (1974), Kabbalah, Keter" />
+      </div>
+    </Palacio>
+
+    <Palacio n={3} titulo="Botones y campos" etiqueta="Formularios" forma="libre">
+      <form class="pila" onsubmit="return false">
+        <div class="campo">
+          <label for="s-texto">Campo de texto</label>
+          <input id="s-texto" type="text" placeholder="Texto de ayuda" />
+        </div>
+        <div class="campo-par">
+          <div class="campo">
+            <label for="s-sel">Selector</label>
+            <span class="selector"><select id="s-sel"><option>Servicio</option><option>Digital</option></select></span>
+          </div>
+          <div class="campo">
+            <label for="s-num">Cifra</label>
+            <div class="campo-fila"><input id="s-num" class="entrada-cifra" type="text" inputmode="decimal" value="12" /><span class="campo-u">%</span></div>
+          </div>
+        </div>
+        <label class="fila"><input class="casilla" type="checkbox" checked /> Casilla marcada</label>
+        <p class="fila">
+          <button class="boton" type="button">Principal</button>
+          <button class="boton-2" type="button">Secundario</button>
+          <button class="boton-2 boton-s" type="button">Pequeño</button>
+          <button class="boton-texto" type="button">De texto</button>
+        </p>
+      </form>
+    </Palacio>
+
+    <Palacio n={5} titulo="Moneda" etiqueta="Medida" forma="tira">
+      <p class="dato"><span class="cifra fig-l">62&#8239;%</span></p>
+      <div slot="graf" class="s-moneda"><Moneda valor={0.62} texto="62" etiqueta="62 % de la meta" /></div>
+    </Palacio>
+
+    <Palacio n={7} titulo="Medidor y marcas" etiqueta="Medida" forma="libre">
+      <div class="pila">
+        <Medidor valor={0.4} desde="0" hasta="meta 10 %" />
+        <Medidor valor={0.75} fina />
+        <p class="fila"><Moneda estado="ingresando" clase="" /><span class="s-estados"><Moneda estado="ingresando" /><Moneda estado="probando" /><Moneda estado="idea" /></span></p>
+        <div class="dias"><Fragment set:html={diasSVG(dias)} /></div>
+        <p class="racha s-racha"><Fragment set:html={rachaSVG([true, true, false, true, true, true, false])} /></p>
+        <div class="s-puntos"><Fragment set:html={puntosSVG(12)} /></div>
+        <p class="fila"><MiniLoShu celdas={[4]} /><MiniLoShu celdas={[4, 9, 3, 5]} /><MiniLoShu celdas={[2, 7]} /><MiniLoShu celdas={[8, 1]} /></p>
+      </div>
+    </Palacio>
+
+    <Palacio n={8} celdas={[8, 1]} titulo="Tabla" etiqueta="Dos palacios" forma="libre">
+      <div class="tabla-ancha">
+        <table class="tabla">
+          <thead><tr><th scope="col">País</th><th scope="col" class="num">Media</th><th scope="col" class="num">Mediana</th><th scope="col">Nota</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Fila de ejemplo</th><td class="num">687.000</td><td class="num">182.000</td><td>Las cifras van a la derecha, en negrita estrecha.</td></tr>
+            <tr><th scope="row">Otra fila</th><td class="num">12.500</td><td class="num">3.200</td><td>El encabezado de fila va en seminegra.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </Palacio>
+
+    <Palacio n={6} titulo="Lista editable" etiqueta="Listas" forma="libre">
+      <ul class="lista-ed">
+        <li><span><span class="rotulo">14 nov</span>Un elemento con fecha</span><button class="boton-texto" type="button">Quitar</button></li>
+        <li><span>Otro elemento</span><button class="boton-texto" type="button">Quitar</button></li>
+      </ul>
+      <p class="lista-vacia">Texto de lista vacía.</p>
+    </Palacio>
+  </Cuadrado>
+</Base>
+
+<style>
+  .s-moneda { width: 80px; }
+  .s-estados { display: inline-flex; gap: 8px; }
+  .s-estados :global(svg), .fila > :global(svg.m-ingresa) { width: 32px; height: 32px; }
+  .s-puntos { width: 120px; }
+  .s-racha :global(circle) { fill: none; stroke: var(--trazo); }
+  .s-racha :global(circle.hecho) { fill: var(--texto); stroke: none; }
+  @media (min-width: 1280px) { .s-moneda { width: 200px; } }
+</style>

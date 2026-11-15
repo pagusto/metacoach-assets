@@ -87,13 +87,13 @@ p, h1, h2 { margin: 0; font-weight: inherit; }
 .prog i { display: block; width: 100%; height: 100%; background: var(--fg); transform-origin: 0 50%; }
 
 /* ---------- Tipografía ---------- */
-.l { display: block; overflow: hidden; white-space: nowrap; padding: .16em .12em .24em 0; margin: -.16em -.12em -.24em 0; }
+.l { display: block; overflow: hidden; white-space: nowrap; padding: .16em .12em .24em .12em; margin: -.16em -.12em -.24em -.12em; }
 .l > span { display: inline-block; }
 .cifra {
   position: absolute; left: 96px;
   font: 700 480px/0.9 var(--fuente); font-stretch: 75%; letter-spacing: -0.012em; white-space: nowrap;
 }
-.cifra .l { padding: 0 .1em .14em 0; margin: 0 -.1em -.14em 0; }
+.cifra .l { padding: 0 .1em .14em .1em; margin: 0 -.1em -.14em -.1em; }
 .cifra .c { display: inline-block; }
 .cifra .u {
   display: inline-block; margin-left: 30px;
@@ -108,7 +108,7 @@ i, cite { font-style: italic; }
 
 /* ---------- 1 · Título ---------- */
 .titulo { position: absolute; left: 96px; top: 276px; font: 600 212px/1.03 var(--fuente); letter-spacing: -0.038em; }
-.titulo .l { padding: .1em .12em .16em 0; margin: -.1em -.12em -.16em 0; }
+.titulo .l { padding: .1em .12em .16em .12em; margin: -.1em -.12em -.16em -.12em; }
 #e1 .sub { top: 752px; }
 .cons { position: absolute; left: 1284px; top: 270px; width: 540px; height: 540px; overflow: visible; }
 .cons .marco { fill: none; stroke: var(--tinta); stroke-width: 2; }
@@ -120,7 +120,7 @@ i, cite { font-style: italic; }
 #e2 .moneda-lidia { left: 1384px; top: 252px; width: 440px; height: 440px; border-radius: 50%; background: var(--tinta); }
 
 /* ---------- 3 · Púrpura ---------- */
-#e3 .cifra { font-size: 320px; }
+#e3 .cifra { font-size: 300px; }
 #e3 .puntos { left: 1408px; top: 236px; width: 416px; height: 504px; }
 #e3 .ribete { left: 1408px; top: 729px; width: 400px; height: 2px; background: var(--fg); transform-origin: 100% 50%; }
 #e3 .puntos i { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--fg); }
@@ -135,7 +135,7 @@ i, cite { font-style: italic; }
 #e4 .muestra rect { fill: none; stroke: var(--fg); stroke-width: 3; }
 
 /* ---------- 5 · Verde ---------- */
-#e5 .billete { left: 1264px; top: 318px; width: 560px; height: 239px; }
+#e5 .billete { left: 1264px; top: 252px; width: 560px; height: 239px; }
 #e5 .billete > div { position: absolute; inset: 0; }
 #e5 .anv { background: var(--papel); }
 #e5 .rev { background: #58B089; }
@@ -150,12 +150,12 @@ i, cite { font-style: italic; }
 #e6 .sobre svg.solapa path { fill: none; stroke: var(--papel); stroke-width: 3; }
 #e6 .broche { position: absolute; left: 212px; top: 182px; width: 96px; height: 96px; }
 #e6 .broche path { fill: var(--oro); }
-#e6 .movil { left: 1414px; top: 252px; width: 300px; height: 624px; overflow: visible; }
+#e6 .movil { left: 1524px; top: 252px; width: 300px; height: 624px; overflow: visible; }
 #e6 .movil rect { fill: none; stroke: var(--tinta); stroke-width: 4; }
 
 /* ---------- 7 · Dhanteras ---------- */
 #e7 .cifra { font-size: 300px; letter-spacing: -0.008em; }
-#e7 .trece { left: 96px; top: 526px; width: 1112px; height: 56px; }
+#e7 .trece { left: 96px; top: 520px; width: 1112px; height: 56px; }
 #e7 .trece i { position: absolute; top: 0; width: 56px; height: 56px; border-radius: 50%; border: 3px solid var(--fg); }
 #e7 .trece i b { position: absolute; inset: -3px; border-radius: 50%; background: var(--fg); font-size: 0; }
 
@@ -216,16 +216,16 @@ i, cite { font-style: italic; }
 <section class="esc" id="e2" data-n="1" data-color="Oro" data-clase="Historia" data-fuente="Metcalf, 2016, vía Wikipedia" style="--bg:#D9B65A;--fg:#141412">
   <p class="pre" style="top:206px" data-b><span class="l"><span>hacia</span></span></p>
   <p class="cifra" style="top:226px" data-b><span class="l"><span class="fig">550</span><span class="u">a. C.</span></span></p>
-  <p class="voz" style="top:660px" data-b><span class="l"><span>El oro puro se vuelve moneda.</span></span></p>
-  <p class="voz nota" style="top:756px" data-b><span class="l"><span>Atribuido a Creso de Lidia.</span></span></p>
+  <p class="voz" style="top:644px" data-b><span class="l"><span>El oro puro se vuelve moneda.</span></span></p>
+  <p class="voz nota" style="top:740px" data-b><span class="l"><span>Atribuido a Creso de Lidia.</span></span></p>
   <div class="g moneda-lidia"></div>
 </section>
 
 <!-- 3 · Púrpura -->
 <section class="esc" id="e3" data-n="2" data-color="Púrpura" data-clase="Historia" data-fuente="Friedländer, 1909 · Wolk y Frimer, 2010" style="--bg:#4A1942;--fg:#FAF9F6">
   <p class="cifra" style="top:200px" data-b><span class="l"><span class="fig">12.000</span><span class="u">caracoles</span></span></p>
-  <p class="cifra" style="top:488px" data-b><span class="l"><span class="fig">1,4</span><span class="u">gramos de tinte</span></span></p>
-  <p class="voz" style="top:800px" data-b><span class="l"><span>Solo el ribete de una prenda.</span></span></p>
+  <p class="cifra" style="top:474px" data-b><span class="l"><span class="fig">1,4</span><span class="u">gramos de tinte</span></span></p>
+  <p class="voz" style="top:812px" data-b><span class="l"><span>Solo el ribete de una prenda.</span></span></p>
   <div class="g puntos"></div>
   <div class="g ribete"></div>
 </section>
@@ -233,16 +233,16 @@ i, cite { font-style: italic; }
 <!-- 4 · Malva -->
 <section class="esc" id="e4" data-n="3" data-color="Malva" data-clase="Historia" data-fuente="Wikipedia, «Mauveine»" style="--bg:#B48CC2;--fg:#141412">
   <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">1856</span></span></p>
-  <p class="voz" style="top:660px" data-b><span class="l"><span>Perkin busca <span class="tachado">quinina<b></b></span>.</span></span></p>
-  <p class="voz" style="top:736px" data-b><span class="l"><span>Halla un tinte malva,</span></span><span class="l"><span>de los primeros sintéticos.</span></span></p>
+  <p class="voz" style="top:644px" data-b><span class="l"><span>Perkin busca <span class="tachado">quinina<b></b></span>.</span></span></p>
+  <p class="voz" style="top:720px" data-b><span class="l"><span>Halla un tinte malva,</span></span><span class="l"><span>de los primeros sintéticos.</span></span></p>
   <div class="g muestra"><div class="tinte"></div><div class="gota"></div><svg viewBox="0 0 440 440"><rect x="1.5" y="1.5" width="437" height="437"/></svg></div>
 </section>
 
 <!-- 5 · Verde -->
 <section class="esc" id="e5" data-n="4" data-color="Verde" data-clase="Historia" data-fuente="Wikipedia, «Demand Note»" style="--bg:#1E5C45;--fg:#FAF9F6">
   <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">1861</span></span></p>
-  <p class="voz" style="top:660px" data-b><span class="l"><span>Estados Unidos autoriza billetes</span></span><span class="l"><span>de reverso verde.</span></span></p>
-  <p class="voz" style="top:812px" data-b><span class="l"><span>De ahí «greenback».</span></span></p>
+  <p class="voz" style="top:644px" data-b><span class="l"><span>Estados Unidos autoriza billetes</span></span><span class="l"><span>de reverso verde.</span></span></p>
+  <p class="voz" style="top:796px" data-b><span class="l"><span>De ahí «greenback».</span></span></p>
   <div class="g billete">
     <div class="anv"><svg viewBox="0 0 520 222"><rect x="15" y="15" width="490" height="192"/><circle cx="260" cy="111" r="56"/><path d="M47 111H172M348 111H473"/></svg></div>
     <div class="rev"><svg viewBox="0 0 520 222"><rect x="15" y="15" width="490" height="192"/><ellipse class="lleno" cx="260" cy="111" rx="150" ry="56"/><circle cx="71" cy="71" r="24"/><circle cx="449" cy="71" r="24"/><circle cx="71" cy="151" r="24"/><circle cx="449" cy="151" r="24"/></svg></div>
@@ -252,26 +252,26 @@ i, cite { font-style: italic; }
 <!-- 6 · Rojo: el sobre -->
 <section class="esc" id="e6" data-n="5" data-color="Rojo" data-clase="Tradición" data-fuente="Wikipedia, «Red envelope»" style="--bg:#FAF9F6;--fg:#141412">
   <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">2014</span></span></p>
-  <p class="voz" style="top:660px" data-b><span class="l"><span>En China, el sobre rojo</span></span><span class="l"><span>de Año Nuevo se vuelve digital.</span></span></p>
+  <p class="voz" style="top:644px" data-b><span class="l"><span>En China, el sobre rojo</span></span><span class="l"><span>de Año Nuevo se vuelve digital.</span></span></p>
   <div class="g sobre">
     <svg class="solapa" viewBox="0 0 520 624"><path d="M0 0L260 230L520 0"/></svg>
-    <svg class="broche" viewBox="0 0 96 96"><path fill-rule="evenodd" d="M48 0a48 48 0 1 0 0 96a48 48 0 1 0 0-96zM32 32h32v32H32z"/></svg>
+    <svg class="broche" viewBox="0 0 96 96"><rect x="30" y="30" width="36" height="36" fill="#D5281B"/><path fill-rule="evenodd" d="M48 0a48 48 0 1 0 0 96a48 48 0 1 0 0-96zM32 32h32v32H32z"/></svg>
   </div>
   <svg class="g movil" viewBox="0 0 300 624"><rect x="2" y="2" width="296" height="620" rx="40"/></svg>
 </section>
 
 <!-- 7 · Oro: Dhanteras -->
 <section class="esc" id="e7" data-n="6" data-color="Oro" data-clase="Tradición" data-fuente="Wikipedia, «Dhanteras»" style="--bg:#E0932A;--fg:#141412">
-  <p class="cifra" style="top:196px" data-b><span class="l"><span class="fig">Dhanteras</span></span></p>
+  <p class="cifra" style="top:224px" data-b><span class="l"><span class="fig">Dhanteras</span></span></p>
   <div class="g trece"></div>
-  <p class="voz" style="top:660px" data-b><span class="l"><span>Dhana: riqueza. Teras: día trece.</span></span></p>
-  <p class="voz" style="top:736px" data-b><span class="l"><span>Abre Diwali: día propicio</span></span><span class="l"><span>para comprar oro.</span></span></p>
+  <p class="voz" style="top:644px" data-b><span class="l"><span>Dhana: riqueza. Teras: día trece.</span></span></p>
+  <p class="voz" style="top:720px" data-b><span class="l"><span>Abre Diwali: día propicio</span></span><span class="l"><span>para comprar oro.</span></span></p>
 </section>
 
 <!-- 8 · Negro -->
 <section class="esc" id="e8" data-n="7" data-color="Negro" data-clase="Historia" data-fuente="FIDM Museum · Wikipedia" style="--bg:#141412;--fg:#F1EFE9">
   <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">1926</span></span></p>
-  <p class="voz" style="top:660px" data-b><span class="l"><span><i>Vogue</i> publica un vestido negro</span></span><span class="l"><span>de Chanel y lo compara con un Ford.</span></span></p>
+  <p class="voz" style="top:644px" data-b><span class="l"><span><i>Vogue</i> publica un vestido negro</span></span><span class="l"><span>de Chanel y lo compara con un Ford.</span></span></p>
   <div class="g pagina">
     <svg viewBox="0 0 400 560"><rect x="1" y="1" width="398" height="558"/></svg>
     <div class="lamina"></div><div class="vestido"></div>
@@ -283,17 +283,17 @@ i, cite { font-style: italic; }
 <!-- 9 · Azul -->
 <section class="esc" id="e9" data-n="8" data-color="Azul" data-clase="Estudio" data-fuente="Palmer y Schloss, &lt;i&gt;PNAS&lt;/i&gt;, 2010 · EE. UU." style="--bg:#0070B4;--fg:#FFFFFF">
   <p class="cifra" style="top:206px" data-b><span class="l"><span class="fig">32</span><span class="u">colores</span></span></p>
-  <p class="voz" style="top:660px" data-b><span class="l"><span>48 personas los puntúan.</span></span></p>
-  <p class="voz" style="top:736px" data-b><span class="l"><span>Ganan los azules:</span></span><span class="l"><span>cielo despejado, agua limpia.</span></span></p>
+  <p class="voz" style="top:644px" data-b><span class="l"><span>48 personas los puntúan.</span></span></p>
+  <p class="voz" style="top:720px" data-b><span class="l"><span>Ganan los azules:</span></span><span class="l"><span>cielo despejado, agua limpia.</span></span></p>
   <div class="g muestrario"></div>
 </section>
 
 <!-- 10 · Rojo: el estudio -->
-<section class="esc" id="e10" data-n="9" data-color="Rojo" data-clase="Estudio" data-fuente="Gnambs, &lt;i&gt;Psychon. Bull. Rev.&lt;/i&gt;, 2020" style="--bg:#FAF9F6;--fg:#141412">
+<section class="esc" id="e10" data-n="9" data-color="Rojo" data-clase="Estudio" data-fuente="Gnambs, &lt;i&gt;Psychon. Bull. Rev.&lt;/i&gt;, 2020" style="--bg:#141412;--fg:#F1EFE9">
   <p class="voz" style="top:204px" data-b><span class="l"><span>¿Ver rojo empeora un examen?</span></span></p>
   <p class="pre" style="top:324px" data-b><span class="l"><span>Metaanálisis de 2020</span></span></p>
   <p class="cifra" style="top:352px" data-b><span class="l"><span class="fig">67</span><span class="u">efectos</span></span></p>
-  <p class="voz" style="top:716px" data-b><span class="l"><span>Corregido el sesgo de publicación:</span></span><span class="l"><span>casi cero.</span></span></p>
+  <p class="voz" style="top:700px" data-b><span class="l"><span>Corregido el sesgo de publicación:</span></span><span class="l"><span>casi cero.</span></span></p>
   <div class="g barra"></div><div class="g base"></div>
 </section>
 
@@ -328,7 +328,7 @@ i, cite { font-style: italic; }
   const escenario = $('#escenario');
 
   /* ---------- Tiempos: inicio de cada escena y duración total ---------- */
-  const T = [0, 6.5, 14, 21.5, 29, 36.5, 43.5, 51.5, 58.5, 67, 77, 85.5];
+  const T = [0, 6.5, 14, 21.5, 29, 36.5, 43, 51, 58, 66.5, 76.5, 85];
   const DUR = 94.5;
   const fin = (i) => (i + 1 < T.length ? T[i + 1] : DUR);
 
@@ -343,7 +343,7 @@ i, cite { font-style: italic; }
     { nombre: 'Oro (Dhanteras)', color: 'Azafrán #E0932A (tono propio)', hecho: 'Dhanteras abre Diwali; «dhana» es «riqueza» en sánscrito y «teras», el día trece en hindi; la tradición hindú lo considera propicio para comprar oro.', fuente: 'Wikipedia, «Dhanteras»' },
     { nombre: 'Negro', color: 'Tinta #141412', hecho: 'En 1926 la edición estadounidense de Vogue publicó un vestido negro de Chanel y lo comparó con un Ford.', fuente: 'FIDM Museum; Wikipedia, «Little black dress»' },
     { nombre: 'Azul', color: 'Azul #0070B4', hecho: '48 participantes valoraron 32 colores; la preferencia tiene un pico amplio en el azul. Gustan los colores asociados a cosas que gustan (cielo despejado, agua limpia). Muestra de EE. UU.', fuente: 'Palmer y Schloss, PNAS 107(19), 2010' },
-    { nombre: 'Rojo (estudio)', color: 'Papel con un solo rojo, sello #D5281B', hecho: 'Un metaanálisis de 67 tamaños de efecto sobre el rojo y el rendimiento deja el efecto, tras corregir el sesgo de publicación, cerca de cero.', fuente: 'Gnambs, Psychonomic Bulletin & Review 27, 2020 (PMC7704521)' },
+    { nombre: 'Rojo (estudio)', color: 'Tinta #141412 con un solo rojo, sello #D5281B', hecho: 'Un metaanálisis de 67 tamaños de efecto sobre el rojo y el rendimiento deja el efecto, tras corregir el sesgo de publicación, cerca de cero.', fuente: 'Gnambs, Psychonomic Bulletin & Review 27, 2020 (PMC7704521)' },
     { nombre: 'Paleta de Shefa', color: 'Tinta #141412, sello #D5281B, papel #FAF9F6, oro #D9B65A, azul #0070B4', hecho: 'Sin dato externo: Shefa nombra sus cinco colores como los cinco elementos. Es una convención de diseño, no una afirmación de eficacia.', fuente: 'Shefa, tokens de la dirección «Lo Shu»' },
     { nombre: 'Cierre', color: 'Papel #FAF9F6 y tinta #141412', hecho: 'Sin dato nuevo: conclusión sobria y marca.', fuente: 'Shefa' }
   ];
@@ -408,14 +408,37 @@ i, cite { font-style: italic; }
 
   // Alineación óptica: el trazo de la primera letra se apoya en el margen de 96 px
   const lienzo = document.createElement('canvas').getContext('2d');
-  $$('.cifra, .titulo, .lema, .voz, .pre').forEach((el) => {
-    const hoja = el.matches('.cifra') ? $('.c', el) : el;
+  // Se hace línea a línea, porque cada letra inicial deja un blanco distinto a su izquierda.
+  $$('.cifra .l, .titulo .l, .lema .l, .voz .l, .pre .l').forEach((l) => {
+    const hoja = $('.c', l) || l.firstElementChild;
     const cs = getComputedStyle(hoja);
     lienzo.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
     lienzo.fontStretch = cs.fontStretch === '75%' ? 'condensed' : 'normal';
-    const lado = lienzo.measureText(el.textContent.trim().charAt(0)).actualBoundingBoxLeft;
-    el.style.marginLeft = Math.round(lado * 10) / 10 + 'px';
+    const letra = l.textContent.trim().charAt(0);
+    // El lienzo estrecha la letra normal en vez de usar el eje de ancho: la D necesita un ajuste medido a mano.
+    const ajuste = cs.fontStretch === '75%' && letra === 'D' ? -0.0105 * parseFloat(cs.fontSize) : 0;
+    const lado = lienzo.measureText(letra).actualBoundingBoxLeft + ajuste;
+    l.firstElementChild.style.marginLeft = Math.round(lado * 10) / 10 + 'px';
   });
+
+  // Línea base de una línea de texto, en px del escenario (el escenario aún no está escalado)
+  const lineaBase = (l) => {
+    const s = document.createElement('span');
+    s.style.cssText = 'display:inline-block;width:0;height:0';
+    l.firstElementChild.appendChild(s);
+    const y = s.getBoundingClientRect().bottom - escenario.getBoundingClientRect().top;
+    s.remove();
+    return Math.round(y);
+  };
+  // 3 · el último punto y el ribete se apoyan en la línea base de «1,4 gramos de tinte»
+  const base3 = lineaBase($$('#e3 .cifra .l')[1]);
+  $('#e3 .puntos').style.top = base3 - 494 + 'px';
+  $('#e3 .ribete').style.top = base3 - 1 + 'px';
+  // 10 · la barra roja se apoya en la línea base de «casi cero.»
+  const base10 = lineaBase($$('#e10 .voz .l').pop());
+  const alto10 = base10 - 252;
+  $('#e10 .barra').style.height = alto10 + 'px';
+  $('#e10 .base').style.top = base10 + 'px';
 
   /* ---------- Línea de tiempo maestra ---------- */
   gsap.registerPlugin(DrawSVGPlugin);
@@ -424,11 +447,12 @@ i, cite { font-style: italic; }
   const guion = FICHA.map((f, i) => Object.assign({ n: i + 1, inicio: T[i], fin: fin(i), bloques: [] }, f));
 
   const texto = (el) => {
+    if (el.matches('.cifra')) return $('.fig', el).textContent + ($('.u', el) ? ' ' + $('.u', el).textContent : '');
     const ls = $$('.l', el);
     const t = (ls.length ? ls : [el]).map((x) => x.textContent.replace(/\s+/g, ' ').trim()).join(' / ');
     return el.matches('.marca') ? t + ' ' + $('.he', el).textContent : t;
   };
-  const anota = (i, el, entra, sale) => guion[i].bloques.push({ texto: texto(el), entra: +entra.toFixed(2), sale: +(sale == null ? fin(i) : sale).toFixed(2) });
+  const anota = (i, el, entra, sale) => guion[i].bloques.push({ texto: typeof el === 'string' ? el : texto(el), entra: +entra.toFixed(2), sale: +(sale == null ? fin(i) : sale).toFixed(2) });
   // Líneas que suben desde su propia caja
   const sube = (i, el, en, o) => {
     o = o || {};
@@ -480,7 +504,7 @@ i, cite { font-style: italic; }
     const s = esc[0];
     sube(0, $('.titulo', s), 0.45, { d: 1.1, s: 0.14 });
     sube(0, $('.sub', s), 1.5);
-    anota(0, $('.cab', s), 0); anota(0, $('.credito', s), 0);
+    anota(0, 'Shefa שפע', 0); anota(0, $('.credito', s), 0);
     master.fromTo($('.cons .marco', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.3, ease: 'power2.inOut' }, 0.5);
     master.fromTo($$('.cons .hilo', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 0.9, ease: 'power2.inOut', stagger: 0.1 }, 1.0);
     const nums = $$('.cons text', s).sort((x, y) => x.dataset.n - y.dataset.n);
@@ -495,8 +519,8 @@ i, cite { font-style: italic; }
     sube(i, $('.pre', s), a + 0.65);
     cifra(i, $('.cifra', s), a + 0.7);
     const m = $('.moneda-lidia', s);
-    master.fromTo(m, { scale: 0 }, { scale: 1, duration: 1.2 }, a + 0.85);
-    master.fromTo(m, { rotation: 0.001 }, { scale: 1.035, duration: fin(i) - a - 2.05, ease: 'none', immediateRender: false }, a + 2.05);
+    master.fromTo(m, { scale: 0 }, { scale: 0.96, duration: 1.2 }, a + 0.85);
+    master.to(m, { scale: 1, duration: fin(i) - a - 2.05, ease: 'none' }, a + 2.05);
     sube(i, $$('.voz', s)[0], a + 1.8);
     sube(i, $$('.voz', s)[1], a + 2.6);
   })();
@@ -553,7 +577,7 @@ i, cite { font-style: italic; }
     master.fromTo($('.solapa path', s), { drawSVG: '50% 50%' }, { drawSVG: '0% 100%', duration: 0.8, ease: 'power2.inOut' }, a + 1.2);
     master.fromTo($('.broche', s), { scale: 0 }, { scale: 1, duration: 0.7 }, a + 1.6);
     sube(i, $('.voz', s), a + 1.6, { s: 0.14 });
-    master.to($('.sobre', s), { scale: 0.42, duration: 1.0, ease: 'power3.inOut' }, a + 3.2);
+    master.to($('.sobre', s), { scale: 0.42, x: 110, duration: 1.0, ease: 'power3.inOut' }, a + 3.2);
     master.fromTo($('.movil rect', s), { drawSVG: '0%' }, { drawSVG: '100%', duration: 1.1, ease: 'power2.inOut' }, a + 3.45);
   })();
 
@@ -602,7 +626,7 @@ i, cite { font-style: italic; }
     cifra(i, $('.cifra', s), a + 2.7);
     master.to(b, { scaleY: 0.13 / 0.86, duration: 1.2, ease: 'power3.inOut' }, a + 3.0);
     sube(i, v[1], a + 5.4, { s: 0.14 });
-    master.to(b, { scaleY: 4 / 624, duration: 1.2, ease: 'power3.inOut' }, a + 5.7);
+    master.to(b, { scaleY: 4 / alto10, duration: 1.2, ease: 'power3.inOut' }, a + 5.7);
   })();
 
   /* ===== 11 · La paleta de Shefa ===== */

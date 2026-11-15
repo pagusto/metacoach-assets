@@ -18,6 +18,8 @@ const path = require('node:path');
 const { chromium } = require('playwright');
 
 const RAIZ = path.resolve(__dirname, '..');
+// Prefijo bajo el que se sirve el sitio (igual que `base` en astro.config.mjs).
+const PREFIJO = '/shefa';
 const DIST = path.join(RAIZ, 'dist');
 const SALIDA = path.join(RAIZ, 'qa');
 const TIPOS = {
@@ -50,7 +52,7 @@ function servidor() {
       if (e.code === 'EADDRINUSE' && puerto < 4340) srv.listen(++puerto, '127.0.0.1');
       else mal(e);
     });
-    srv.on('listening', () => ok({ srv, base: `http://127.0.0.1:${puerto}` }));
+    srv.on('listening', () => ok({ srv, base: `http://127.0.0.1:${puerto}${PREFIJO}` }));
     srv.listen(puerto, '127.0.0.1');
   });
 }

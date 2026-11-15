@@ -17,6 +17,7 @@ import { COLUMNA, CUALIDAD, ORDEN, POS, SENDEROS } from '../lib/sefirot';
 import { fechaLarga, fino, pct } from '../lib/formato';
 import { sefiraDelDia } from '../lib/rotacion';
 import { nodoSVG } from '../lib/moneda';
+import { ruta } from '../lib/ruta';
 
 // Se construye con los datos de muestra; el cliente repinta con el estado guardado.
 const hoy = new Date();
@@ -158,10 +159,10 @@ const AL_LIBRO: Partial<Record<SefiraId, string>> = {
 
             {(x.id === 'jesed' || x.id === 'guevura') && (
               <form class="campo control" data-form={x.id}>
-                <label for={`c-${x.id}`}>{x.id === 'jesed' ? 'Donado este mes' : 'Ahorro este mes'}</label>
+                <label for={`c-${x.id}`}>{x.id === 'jesed' ? 'Donado este mes, en % de tus ingresos' : 'Ahorro este mes, en % de tus ingresos'}</label>
                 <div class="campo-fila sin-salto">
                   <input id={`c-${x.id}`} class="entrada-cifra" name="valor" type="text" inputmode="decimal" autocomplete="off" />
-                  <span class="campo-u">% de lo que ingresas</span>
+                  <span class="campo-u">%</span>
                   <button class="boton empuja" type="submit">Guardar</button>
                 </div>
                 <p class="campo-estado" role="status"></p>
@@ -173,7 +174,7 @@ const AL_LIBRO: Partial<Record<SefiraId, string>> = {
                 <p class="campo-rot">Últimos 14 días</p>
                 <div class="dias" data-v="dias14"></div>
                 <p class="rotulo">Hoy está a la derecha. Un día cuenta cuando completas 4 de los 5 pasos.</p>
-                <p><a class="boton-2" href="/ritual">Abrir el ritual</a></p>
+                <p><a class="boton-2" href={ruta('/ritual')}>Abrir el ritual</a></p>
               </div>
             )}
 

@@ -98,8 +98,8 @@ main.pagina { container-type: inline-size; }
 
 /* La voz (yin): declaración, tradición, dato */
 .voz { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 500; letter-spacing: -0.01em; text-wrap: pretty; }
-.voz > span { display: block; }
-.voz > span + span { margin-top: var(--s-1); }
+.voz > span, .voz-m > span { display: block; }
+.voz > span + span, .voz-m > span + span { margin-top: var(--s-1); }
 .voz-m { font-size: var(--t-1m); line-height: var(--lh-1m); font-weight: 500; letter-spacing: -0.005em; text-wrap: pretty; }
 
 /* Pilas y filas */
@@ -222,12 +222,15 @@ main.pagina { container-type: inline-size; }
 .pal-cuerpo { min-width: 0; padding-top: var(--s-2); }
 .pal-pie { min-width: 0; }
 
-/* Formas del palacio en la tira de una columna (móvil y tableta) */
-.pal-cuadrado { aspect-ratio: 1; }
-.pal-dos-tercios { aspect-ratio: 3 / 2; }
+/* Formas del palacio en la tira de una columna (móvil y tableta). Son alturas
+   mínimas: el palacio crece si el contenido lo pide. 100cqi es el ancho de
+   <main class="pagina">, que es el del cuadrado. */
+.loshu { --ancho-tira: calc(100cqi - 2 * var(--marco)); }
+.pal-cuadrado { min-height: var(--ancho-tira); }
+.pal-dos-tercios { min-height: calc(var(--ancho-tira) * 2 / 3); }
 /* Un tercio de palacio: rótulo y cifra a la izquierda, marca a la derecha */
 .pal-tira {
-  aspect-ratio: 3 / 1;
+  min-height: calc(var(--ancho-tira) / 3);
   grid-template-columns: minmax(0, 1fr) 80px;
   grid-template-rows: auto 1fr;
   column-gap: var(--s-1);
@@ -269,8 +272,8 @@ main.pagina { container-type: inline-size; }
 .puntos { width: 100%; height: auto; }
 .puntos .vacio { fill: none; stroke: var(--trazo); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .puntos .lleno { fill: var(--medida); }
-.dias { display: flex; flex-wrap: wrap; gap: 4px; }
-.dias svg { width: 20px; height: 20px; }
+.dias { display: grid; grid-template-columns: repeat(14, minmax(0, 20px)); gap: 4px; }
+.dias svg { width: 100%; height: auto; }
 .dias rect { fill: none; stroke: var(--trazo); }
 .dias circle { fill: none; stroke: var(--texto); }
 .dias .hecho circle { fill: var(--medida); stroke: none; }
@@ -380,6 +383,7 @@ select.entrada, .campo select { appearance: none; -webkit-appearance: none; padd
 .tabla tbody th { font-weight: 600; }
 .tabla tr > :last-child { padding-right: 0; }
 .tabla .num { text-align: right; font-stretch: var(--ancho-cifra); font-weight: var(--peso-cifra); white-space: nowrap; }
+.tabla thead .num { font-stretch: 100%; font-weight: 400; }
 .tabla-ancha { overflow-x: auto; }
 
 /* Lista editable (ideas, evidencias) */
@@ -457,7 +461,7 @@ select.entrada, .campo select { appearance: none; -webkit-appearance: none; padd
     grid-auto-rows: minmax(var(--lado), auto);
   }
   .loshu > .pal { grid-column: var(--col, auto); grid-row: var(--fil, auto); }
-  .pal-cuadrado, .pal-dos-tercios, .pal-tira { aspect-ratio: auto; }
+  .pal-cuadrado, .pal-dos-tercios, .pal-tira { min-height: 0; }
   .pal-cuerpo { padding-top: var(--s-3); }
 
   .pal-tira { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto; }

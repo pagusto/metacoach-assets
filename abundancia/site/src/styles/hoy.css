@@ -83,6 +83,9 @@ a:hover > .mini-arbol .hoy-nodo { fill: var(--accion); stroke: var(--accion); }
 
   .p5 .pal-graf { width: min(240px, 62cqi); }
   .p7 .pal-graf { width: 192px; }
+  /* El formulario de ahorro cabe a la izquierda de la matriz de puntos */
+  .p7 .ed { max-width: calc(100% - 192px - var(--s-2)); }
+  .p7 .ed .boton, .p7 .ed .boton-2 { width: 100%; }
   .p1 .pal-graf { left: var(--palacio-pad); }
 
   /* Línea de meta: a la altura de la fila 20 de la matriz de 192 px */

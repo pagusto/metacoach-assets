@@ -19,6 +19,7 @@ import { CUALIDAD, ORDEN, POS, SENDEROS } from '../lib/sefirot';
 import { fechaTexto, deISO, fino, frases, nombreDia, pct } from '../lib/formato';
 import { alternar, indiceDelDia } from '../lib/rotacion';
 import { puntosSVG } from '../lib/moneda';
+import { ruta } from '../lib/ruta';
 
 // La página se construye con los datos de muestra y la fecha del día de la compilación;
 // al cargar, el cliente la repinta con el estado guardado y la fecha del dispositivo.
@@ -71,7 +72,7 @@ const iHoy = indiceDelDia(pares.length, hoy);
               <p class="rotulo">Práctica</p>
               <p>{fino(x.practica)}</p>
             </div>
-            <a href={`/arbol#${x.id}`} aria-label={`Ver ${x.nombre} en el Árbol`}>
+            <a href={ruta(`/arbol#${x.id}`)} aria-label={`Ver ${x.nombre} en el Árbol`}>
               <svg class="mini-arbol" viewBox="-3 -1 106 103" aria-hidden="true">
                 <path d={senderosD} />
                 {ORDEN.map((id) => <circle class={id === x.id ? 'hoy-nodo' : undefined} cx={POS[id][0]} cy={POS[id][1]} r="4.5" />)}
@@ -148,14 +149,14 @@ const iHoy = indiceDelDia(pares.length, hoy);
           <p class="racha"><span>Racha:</span> <b data-v="racha">0 días</b> <span data-v="racha-puntos"></span></p>
           <p class="rotulo" data-v="ritual-cuenta">0 de 5</p>
         </div>
-        <p class="ritual-enlace"><a href="/ritual">Abrir el ritual guiado</a></p>
+        <p class="ritual-enlace"><a href={ruta('/ritual')}>Abrir el ritual guiado</a></p>
       </div>
     </Palacio>
 
     <!-- 5 · centro · Tierra: lo real -->
     <Palacio n={5} titulo="Ingreso real" etiqueta="Centro" forma="tira">
       <p class="dato">
-        <a class="editable cifra fig-l" href="/arbol#libro" data-v="ingreso">{fmt(total)}</a>
+        <a class="editable cifra fig-l" href={ruta('/arbol#libro')} data-v="ingreso">{fmt(total)}</a>
         <span class="dato-nota" data-v="ingreso-nota">de {fmt(s.cifra)} al mes</span>
       </p>
       <div slot="graf" data-v="ingreso-moneda"><Moneda valor={avance} etiqueta={`Moneda medidora: ${pct(avance * 100)} de la cifra`} /></div>
@@ -164,7 +165,7 @@ const iHoy = indiceDelDia(pares.length, hoy);
     <!-- 1 · Kan · norte · Agua: lo que fluye -->
     <Palacio n={1} titulo="Fuentes que ingresan" etiqueta="Flujo" forma="tira">
       <p class="dato">
-        <a class="editable cifra fig-l" href="/arbol#libro" data-v="fuentes">1 <span class="fig-de">de</span> 3</a>
+        <a class="editable cifra fig-l" href={ruta('/arbol#libro')} data-v="fuentes">1 <span class="fig-de">de</span> 3</a>
         <span class="dato-nota" data-v="fuentes-nota" hidden></span>
       </p>
       <div slot="graf" class="fuentes-m" data-v="fuentes-monedas"></div>
@@ -228,6 +229,7 @@ const iHoy = indiceDelDia(pares.length, hoy);
   import { indiceDelDia } from '../lib/rotacion';
   import { monedaEstadoSVG, ponerArco, puntosSVG, rachaSVG } from '../lib/moneda';
   import { iniciarAvisoMuestra } from '../lib/muestra';
+  import { ruta } from '../lib/ruta';
 
   const hoy = new Date();
   const dia = claveDia(hoy);
@@ -311,7 +313,7 @@ const iHoy = indiceDelDia(pares.length, hoy);
     const nota = v('fuentes-nota');
     if (nota) {
       nota.hidden = n > 0;
-      nota.innerHTML = n ? '' : '<a href="/arbol#libro">Añade tu primera fuente</a>';
+      nota.innerHTML = n ? '' : `<a href="${ruta('/arbol#libro')}">Añade tu primera fuente</a>`;
     }
     const monedas = v('fuentes-monedas');
     if (monedas) {

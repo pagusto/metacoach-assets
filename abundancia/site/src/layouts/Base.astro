@@ -11,6 +11,7 @@ import '@fontsource-variable/frank-ruhl-libre/index.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import { LO_SHU } from '../lib/loshu';
+import { ruta, sinBase } from '../lib/ruta';
 
 interface Props {
   /** Título de la página; se completa con « · Shefa». */
@@ -19,11 +20,14 @@ interface Props {
   description?: string;
   /** Clases extra para <body>. */
   clase?: string;
+  /** Pide a los buscadores que no indexen la página (páginas internas). */
+  noindex?: boolean;
 }
 const {
   title,
   description = 'Shefa es un sistema personal de práctica de riqueza: tradición y datos, con una cifra, un ritual diario y un tablero en forma de Árbol de la Vida.',
   clase = '',
+  noindex = false,
 } = Astro.props;
 
 const NAV = [
@@ -38,10 +42,11 @@ const NAV = [
   { n: 9, texto: 'Agentes', href: '/agentes' },
 ];
 const limpia = (p: string) => (p.replace(/\/+$/, '') || '/');
-const ruta = limpia(Astro.url.pathname);
-const actual = (href: string) => (href === '/' ? ruta === '/' : ruta === href || ruta.startsWith(href + '/'));
+const aqui = limpia(sinBase(Astro.url.pathname));
+const actual = (href: string) => (href === '/' ? aqui === '/' : aqui === href || aqui.startsWith(href + '/'));
 const titulo = title === 'Shefa' ? 'Shefa' : `${title} · Shefa`;
 const canonica = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const imagen = Astro.site ? new URL(ruta('/og.png'), Astro.site).href : ruta('/og.png');
 
 const ELEMENTOS = [
   { id: 'madera', han: '木', nombre: 'Madera', papel: 'tinta: texto y estructura', r: 5 },
@@ -66,11 +71,15 @@ const ELEMENTOS = [
     <meta property="og:title" content={titulo} />
     <meta property="og:description" content={description} />
     {canonica && <meta property="og:url" content={canonica} />}
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={imagen} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href={ruta('/favicon.svg')} type="image/svg+xml" />
+    <link rel="manifest" href={ruta('/site.webmanifest')} />
     <script is:inline>
       /* Aplica el tema guardado antes de pintar. Clave «shefa-tema»: light, dark o nada (sistema). */
       (function () {
@@ -93,7 +102,7 @@ const ELEMENTOS = [
     <a class="salto" href="#contenido">Saltar al contenido</a>
 
     <header class="cab pagina">
-      <a class="marca" href="/" aria-label="Shefa, inicio">
+      <a class="marca" href={ruta('/')} aria-label="Shefa, inicio">
         <svg class="marca-moneda" viewBox="0 0 36 36" aria-hidden="true">
           <path fill-rule="evenodd" d="M18 0a18 18 0 1 0 0 36a18 18 0 1 0 0-36zM12 12h12v12H12z" />
         </svg>
@@ -108,7 +117,7 @@ const ELEMENTOS = [
         <ol>
           {NAV.map((e) => (
             <li>
-              <a href={e.href} aria-current={actual(e.href) ? 'page' : undefined}>
+              <a href={ruta(e.href)} aria-current={actual(e.href) ? 'page' : undefined}>
                 <span class="nav-n" aria-hidden="true">{e.n}</span>{e.texto}
               </a>
             </li>
@@ -124,7 +133,7 @@ const ELEMENTOS = [
     <footer class="pie pagina">
       <div>
         <p class="aviso">Información general, no asesoramiento financiero</p>
-        <p class="pie-metodo"><a href="/metodo">Método y fuentes</a></p>
+        <p class="pie-metodo"><a href={ruta('/metodo')}>Método y fuentes</a></p>
       </div>
       <div>
         <h2>Cuadrado Lo Shu</h2>

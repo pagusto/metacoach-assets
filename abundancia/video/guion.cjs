@@ -33,7 +33,7 @@ const es = (x, d = 1) => x.toFixed(d).replace('.', ',');
   let md = '';
   g.escenas.forEach((e) => {
     const dur = e.fin - e.inicio;
-    const bloques = e.bloques.slice().sort((x, y) => x.entra - y.entra);
+    const bloques = e.bloques.slice();
     const principal = bloques.reduce((n, k) => n + cuenta(k.texto), 0);
     const credito = e.credito ? cuenta(e.credito.texto) : 0;
     // comprobación 1: cada bloque, al menos 2,5 s y a lo sumo 14 c/s

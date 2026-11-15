@@ -158,7 +158,7 @@ function pintarControles(s: Estado, ms: Record<SefiraId, Medida>): void {
   const desde = claveDia(limite);
   const evid = $('[data-lista="evidencias"]');
   if (evid) {
-    const semana = s.evidencias.filter((e) => e.fecha >= desde).sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
+    const semana = s.evidencias.filter((e) => e.fecha >= desde).reverse().sort((a, b) => (a.fecha < b.fecha ? 1 : a.fecha > b.fecha ? -1 : 0));
     evid.innerHTML = semana.length
       ? semana.map((e) => {
         const d = deISO(e.fecha);
@@ -409,3 +409,7 @@ pintar(leer());
 alCambiar(pintar);
 iniciarAvisoMuestra();
 document.documentElement.classList.add('listo');
+
+// Si se llegó con un ancla de la página (#libro, #detalle), se recoloca tras el primer pintado.
+const ancla = location.hash.slice(1);
+if (ancla && !esSefira(ancla)) document.getElementById(ancla)?.scrollIntoView();
