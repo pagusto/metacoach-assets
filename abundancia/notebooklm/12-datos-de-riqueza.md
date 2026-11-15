@@ -50,7 +50,7 @@ En la cima, la mayoría de las fortunas se crean, pero la herencia marca récord
 La riqueza alta está en activos productivos (acciones, empresas); la del hogar medio, en la vivienda. El ingreso muy alto es sobre todo de capital, no de salario.
 
 ### Cited Findings
-- [DOCUMENTADO] El 1 % más rico poseía el 50,2 % de las acciones y fondos de los hogares de EE. UU. en el tercer trimestre de 2025 (49,8 % en el primero). — [Reserva Federal, DFA, vía FRED](https://fred.stlouisfed.org/series/WFRBST01122)
+- [DOCUMENTADO] El 1 % más rico poseía el 50,9 % de las acciones y fondos de los hogares de EE. UU. en el segundo trimestre de 2026 (50,5 % en el tercero de 2025; la serie se revisa, y esa cifra se publicó primero como 50,2 %). — [Reserva Federal, DFA, vía FRED](https://fred.stlouisfed.org/series/WFRBST01122) (leído en la auditoría del 15 de noviembre de 2026)
 - [DOCUMENTADO] El 10 % más rico tenía el 87,4 % de esa categoría en el primer trimestre de 2026; el 50 % inferior, cerca del 1,1 %. — [PennyCalc, sobre datos DFA](https://pennycalc.com/stock-market-ownership/history/) (fuente secundaria; confianza media)
 - [DOCUMENTADO] En declaraciones con más de 10 millones USD de ingreso bruto ajustado, los salarios son un 16 % del ingreso y las ganancias de capital y dividendos más del 62 %. — [Tax Foundation, con datos del IRS](https://taxfoundation.org/blog/importance-various-sources-income-income-group/) (año fiscal no confirmado)
 - [DOCUMENTADO] Año fiscal 2022, todos los contribuyentes: salarios 9,65 billones USD (+6,0 %); ganancias netas de capital 1,60 billones (−20,0 %). — [IRS SOI, datos preliminares 2022](https://www.irs.gov/pub/irs-soi/soi-a-inpre-id2401.pdf)
