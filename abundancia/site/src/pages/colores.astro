@@ -1,0 +1,376 @@
+---
+// Colores: «Riquezas y colores», a partir de colores.json.
+// 1) La película (4·9) y su ficha (2). 2) Los colores de la riqueza: un cuadrado de nueve
+// muestras. 3) Tradiciones (4·9·3·5), investigación (2·7), gráfico de efectos (8·1) y
+// clave de estados (6). 4) Billetes (4), Zúrich (9·2) y la paleta de Shefa (3·5·7),
+// comprobada contra tokens.css al compilar.
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import Etiqueta from '../components/Etiqueta.astro';
+import Fuente from '../components/espacio/Fuente.astro';
+import Estado from '../components/espacio/Estado.astro';
+import '../styles/espacio.css';
+import '../styles/colores.css';
+
+import colores from '../data/colores.json';
+import tokensCss from '../styles/tokens.css?raw';
+import { contraste, esHex, leerTokens, nivel, razonTexto, sobre } from '../lib/espacio';
+import { deISO, fechaCorta, fino } from '../lib/formato';
+import { ruta } from '../lib/ruta';
+
+type Tipo = 'tradicion' | 'documentado' | 'estudio' | 'anecdota' | 'mito';
+type FuenteT = { cita: string; url: string | null };
+
+// ---------- Tinta y papel del sistema, leídos de tokens.css ----------
+const tokens = leerTokens(tokensCss);
+const TINTA = tokens.claro.madera;
+const PAPEL = tokens.claro.tierra;
+if (!esHex(TINTA) || !esHex(PAPEL)) throw new Error('No se pudieron leer --madera y --tierra de tokens.css');
+
+/** Estilo en línea de una muestra con texto encima: fondo y color de texto con contraste AA. */
+const muestra = (hex: string) => {
+  const s = sobre(hex, TINTA, PAPEL);
+  return { estilo: `background:${hex};color:${s.color}`, ...s };
+};
+const HAN: Record<string, string> = { madera: '木', fuego: '火', tierra: '土', metal: '金', agua: '水' };
+const mayus = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+
+// ---------- Película ----------
+const peli = colores.pelicula;
+
+// ---------- Los colores de la riqueza: orden de lectura dentro del cuadrado ----------
+const LECTURA = [4, 9, 2, 3, 5, 7, 8, 1, 6];
+const lista = colores.colores.map((c, i) => {
+  if (!esHex(c.hex)) throw new Error(`Color sin hex válido: ${c.id}`);
+  return { ...c, n: LECTURA[i], m: muestra(c.hex), fuente_2: ('fuente_2' in c ? c.fuente_2 : null) as FuenteT | null, aprox: 'aprox' in c && c.aprox === true };
+});
+if (lista.length > 8) throw new Error('El cuadrado de muestras admite ocho colores y la clave');
+const etiquetasUsadas = [...new Set(lista.map((c) => c.etiqueta))] as Tipo[];
+const SIGNIFICA: Record<Tipo, string> = {
+  tradicion: 'Lo que enseña una tradición, dicho en sus propios términos.',
+  documentado: 'Hecho histórico o empírico con una fuente fiable.',
+  estudio: 'Hallazgo de una investigación publicada.',
+  anecdota: 'Lo cuenta la persona o su entorno.',
+  mito: 'Se repite, pero es falso o no tiene respaldo.',
+};
+
+// ---------- Investigación: gráfico de efectos ----------
+const ef = colores.efecto_rojo;
+const D_MIN = -1.25, D_MAX = 0.25;
+const aPct = (d: number) => Math.round(((d - D_MIN) / (D_MAX - D_MIN)) * 1000) / 10;
+const fmtD = (d: number) => `${d < 0 ? '−' : ''}${new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(Math.abs(d))}`;
+const ejeD = (d: number) => `${d < 0 ? '−' : ''}${new Intl.NumberFormat('es-ES', { maximumFractionDigits: 1 }).format(Math.abs(d))}`;
+const ESTADOS: { id: string; texto: string }[] = [
+  { id: 'confirmado', texto: 'Las cifras coinciden con el texto completo del estudio y no conocemos una réplica que lo contradiga.' },
+  { id: 'discutido', texto: 'El efecto se encoge o desaparece al sumar más estudios.' },
+  { id: 'no replicado', texto: 'Una réplica directa con más participantes no encontró el efecto.' },
+];
+
+// ---------- Billetes ----------
+const billetes = colores.billetes.map((b) => {
+  const d = deISO(b.emision);
+  return { ...b, m: muestra(b.hex), emitido: d ? `${fechaCorta(d)} ${d.getFullYear()}` : null };
+});
+
+// ---------- Zúrich ----------
+const zurich = colores.zurich;
+const zVerificadas = zurich.filter((z) => z.verificado).length;
+
+// ---------- Paleta: debe coincidir con tokens.css ----------
+const paleta = colores.paleta.map((p) => {
+  const claro = tokens.claro[p.elemento];
+  const oscuro = tokens.oscuro[p.elemento];
+  if (p.claro.toUpperCase() !== claro || p.oscuro.toUpperCase() !== oscuro) {
+    throw new Error(`La paleta de colores.json no coincide con tokens.css en «${p.elemento}»: ${p.claro}/${p.oscuro} frente a ${claro}/${oscuro}`);
+  }
+  const esFondo = p.elemento === 'tierra';
+  const temas = [
+    { id: 'claro', nombre: 'Tema claro', hex: claro, papel: tokens.claro.tierra, tinta: tokens.claro.madera },
+    { id: 'oscuro', nombre: 'Tema oscuro', hex: oscuro, papel: tokens.oscuro.tierra, tinta: tokens.oscuro.madera },
+  ].map((t) => {
+    const r = contraste(t.hex, t.papel);
+    return { ...t, razon: r, lectura: esFondo ? 'Es el fondo' : `${razonTexto(r)} sobre el fondo`, apto: esFondo ? 'Papel' : mayus(nivel(r)) };
+  });
+  return { ...p, temas };
+});
+---
+<Base title="Colores" description="Riquezas y colores: una película tipográfica, ocho colores de la riqueza con su fecha y su fuente, los sistemas de color de las tradiciones, lo que dice la investigación y la paleta de Shefa.">
+  <TituloPagina titulo={colores.titulo} nota={fino(colores.resumen)} />
+
+  <!-- 1 · La película -->
+  <Cuadrado clase="clr-cine">
+    <Palacio n={4} celdas={[4, 9]} titulo="La película" etiqueta="Subtitulada" id="pelicula" clase="clr-pal-video">
+      <video class="clr-video" controls preload="metadata" playsinline poster={ruta(peli.poster)} aria-label={`Película «${peli.titulo}»`} data-v="pelicula">
+        <source src={ruta(peli.archivo)} type="video/mp4" />
+        <track kind="captions" src={ruta(peli.subtitulos)} srclang="es" label="Español" default />
+        <p>Tu navegador no reproduce vídeo. <a href={ruta(peli.archivo)}>Descarga la película</a>.</p>
+      </video>
+      <p class="clr-video-falta" data-v="pelicula-falta" role="status" hidden>La película todavía no está disponible en esta copia del sitio. Los ocho hechos que cuenta están más abajo, con sus fuentes.</p>
+    </Palacio>
+
+    <Palacio n={2} titulo="En la película" etiqueta={`${lista.length} colores`} id="ficha" clase="clr-pal-ficha">
+      <p>{peli.nota}</p>
+      <ol class="clr-indice">
+        {lista.map((c) => (
+          <li>
+            <a href={`#c-${c.id}`}>
+              <span class="clr-chip" style={`background:${c.hex}`} aria-hidden="true"></span>
+              <span class="clr-indice-n">{c.nombre}</span>
+              <span class="clr-indice-f cifra">{c.fecha}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <p slot="pie" class="nota"><a href={ruta(peli.subtitulos)} download>Descargar los subtítulos</a> (texto de cada escena, formato VTT)</p>
+    </Palacio>
+  </Cuadrado>
+
+  <!-- 2 · Los colores de la riqueza -->
+  <div class="esp-banda" id="colores-riqueza">
+    <h2>Los colores de la riqueza</h2>
+    <p>{colores.muestras_nota}</p>
+  </div>
+
+  <Cuadrado clase="clr-muestras">
+    {lista.map((c) => (
+      <Palacio n={c.n} titulo={c.nombre} etiqueta={c.hex.toUpperCase()} id={`c-${c.id}`} nivel={3} clase="clr-pal">
+        <div class="clr-muestra" style={c.m.estilo}>
+          <p class="clr-fecha">
+            {c.aprox && <span class="clr-fecha-h">hacia</span>}
+            <span class="cifra">{c.fecha}</span>
+          </p>
+          <p class="clr-muestra-pie"><span>Texto en {c.m.nombre}</span><span>{razonTexto(c.m.razon)}</span></p>
+        </div>
+        <p class="clr-historia">{fino(c.historia)}</p>
+        <div slot="pie" class="clr-pie">
+          <p><Etiqueta tipo={c.etiqueta as Tipo} /></p>
+          <Fuente fuente={c.fuente} />
+          <Fuente fuente={c.fuente_2} />
+        </div>
+      </Palacio>
+    ))}
+
+    <Palacio n={LECTURA[lista.length]} celdas={LECTURA.slice(lista.length)} titulo="Cómo leer las muestras" etiqueta="Clave" id="clave" nivel={3} clase="clr-pal-clave">
+      <p>Sobre cada muestra va la fecha de su hecho. El color de ese texto se calcula al compilar la página: tinta o papel, el que dé más contraste, y nunca menos de 4,5:1 (nivel AA).</p>
+      <dl class="clr-clave">
+        {etiquetasUsadas.map((t) => (
+          <div>
+            <dt><Etiqueta tipo={t} /></dt>
+            <dd>{SIGNIFICA[t]}</dd>
+          </div>
+        ))}
+      </dl>
+    </Palacio>
+  </Cuadrado>
+
+  <!-- 3 · Tradiciones, investigación, billetes, Zúrich -->
+  <div class="esp-banda" id="sistemas">
+    <h2>Tradiciones y estudios</h2>
+    <p>{colores.tradiciones_nota}</p>
+  </div>
+
+  <Cuadrado clase="clr-saber">
+    <!-- Palacios 4 · 9 · 3 · 5 -->
+    <Palacio n={4} celdas={[4, 9, 3, 5]} titulo="Sistemas de las tradiciones" etiqueta={`${colores.tradiciones.length} sistemas`} id="tradiciones" nivel={3} clase="clr-pal-trad">
+      <div class="clr-sistemas">
+        {colores.tradiciones.map((t) => (
+          <section class="clr-sistema">
+            <h4>{t.sistema}</h4>
+            <p class="clr-sistema-marcas">
+              <Etiqueta tipo={t.etiqueta as Tipo} />
+              <span class:list={['clr-verif', !t.verificado && 'clr-verif-no']}>
+                <svg viewBox="0 0 10 10" aria-hidden="true">{t.verificado ? <path d="M1.5 5.5l2.5 2.5 4.5-6" /> : <circle cx="5" cy="5" r="4.25" />}</svg>
+                {t.verificado ? 'Cotejado' : 'Sin cotejar'}
+              </span>
+            </p>
+            <table class="clr-tabla">
+              <caption class="oculto">{t.sistema}: nombre y color</caption>
+              <thead class="oculto"><tr><th scope="col">Muestra</th><th scope="col">Nombre</th><th scope="col">Color</th></tr></thead>
+              <tbody>
+                {t.filas.map((f) => {
+                  const hex2 = 'hex_2' in f ? (f.hex_2 as string | undefined) : undefined;
+                  return (
+                    <tr>
+                      <td class="clr-tabla-m">
+                        <span class:list={['clr-cuadro', !f.hex && 'clr-cuadro-sin']} aria-hidden="true">
+                          {f.hex && <span style={`background:${f.hex}`}></span>}
+                          {hex2 && <span style={`background:${hex2}`}></span>}
+                        </span>
+                      </td>
+                      <th scope="row">
+                        {f.nombre}
+                        {f.original && f.lang === 'he' && <span class="he" lang="he" dir="rtl">{f.original}</span>}
+                        {f.original && f.lang !== 'he' && <span class="han" lang={f.lang ?? undefined}>{f.original}</span>}
+                      </th>
+                      <td>
+                        {mayus(f.color)}
+                        {f.nota && <span class="clr-tabla-nota">{f.nota}</span>}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            {'mito' in t && t.mito && (
+              <p class="clr-mito"><Etiqueta tipo="mito" /> <span>{t.mito}</span></p>
+            )}
+            <p class="nota">{fino(t.nota)}</p>
+            <Fuente fuente={t.fuente} />
+          </section>
+        ))}
+      </div>
+      <p slot="pie" class="rotulo clr-trad-pie">«Cotejado» quiere decir que el dato pasó por la verificación independiente de nuestras notas. «Sin cotejar», que se apoya en una fuente que no se revisó por segunda vez. Los tonos son orientativos.</p>
+    </Palacio>
+
+    <!-- Palacios 2 · 7 -->
+    <Palacio n={2} celdas={[2, 7]} titulo="Lo que dice la investigación" etiqueta={`${colores.investigacion.length} hallazgos`} id="investigacion" nivel={3} clase="clr-pal-inv">
+      <ol class="clr-hallazgos">
+        {colores.investigacion.map((h) => (
+          <li>
+            <p class="clr-hallazgo-marcas"><Estado estado={h.estado} /><Etiqueta tipo="estudio" /></p>
+            <p>{fino(h.hallazgo)}</p>
+            <Fuente fuente={h.fuente} />
+            <Fuente fuente={'fuente_2' in h ? (h.fuente_2 as FuenteT) : null} />
+          </li>
+        ))}
+      </ol>
+      <p slot="pie" class="nota clr-inv-pie"><a href="#estados">Qué significa cada estado</a> · <a href="#efecto">Ver los efectos en un gráfico</a></p>
+    </Palacio>
+
+    <!-- Palacios 8 · 1: el gráfico -->
+    <Palacio n={8} celdas={[8, 1]} titulo={ef.titulo} etiqueta={`${ef.filas.length} efectos`} id="efecto" nivel={3} clase="clr-pal-efecto">
+      <p class="nota clr-efecto-nota">{ef.nota}</p>
+      <ol class="clr-puntos" style={`--cero:${aPct(0)}%`}>
+        {ef.filas.map((f) => (
+          <li>
+            <span class="clr-puntos-n">{f.estudio}{f.n ? <span class="clr-puntos-m">, N = {f.n}</span> : null}</span>
+            <span class="clr-puntos-v cifra">{fmtD(f.d)}</span>
+            <span class="clr-pista" aria-hidden="true">
+              {f.ic && <span class="clr-ic" style={`left:${aPct(f.ic[0])}%;width:${Math.round((aPct(f.ic[1]) - aPct(f.ic[0])) * 10) / 10}%`}></span>}
+              <span class="clr-punto" style={`left:${aPct(f.d)}%`}></span>
+            </span>
+          </li>
+        ))}
+      </ol>
+      <div class="clr-eje-fila" aria-hidden="true">
+        <p class="clr-eje">
+          {[-1, -0.5, 0].map((t) => <span style={`left:${aPct(t)}%`}>{ejeD(t)}</span>)}
+        </p>
+      </div>
+      <div slot="pie" class="clr-pie">
+        <p class="rotulo clr-eje-nota">Cada punto es un efecto (d). La barra es el intervalo de confianza del 95 %. La línea vertical marca el cero: sin diferencia.</p>
+        <Fuente fuente={ef.fuente} />
+      </div>
+    </Palacio>
+
+    <!-- Palacio 6: la clave de los estados -->
+    <Palacio n={6} titulo="Estado de replicación" etiqueta="Clave" id="estados" nivel={3} clase="clr-pal-estados">
+      <p>Un estudio solo no basta. Junto a cada hallazgo decimos qué pasó cuando otros lo repitieron o lo sumaron a más datos.</p>
+      <dl class="clr-estados">
+        {ESTADOS.map((e) => (
+          <div>
+            <dt><Estado estado={e.id} /></dt>
+            <dd>{e.texto}</dd>
+          </div>
+        ))}
+      </dl>
+    </Palacio>
+  </Cuadrado>
+
+  <!-- 4 · Suiza, Zúrich y la paleta de Shefa -->
+  <div class="esp-banda" id="suiza">
+    <h2>De Zúrich a la paleta de Shefa</h2>
+    <p>{colores.paleta_nota}</p>
+  </div>
+
+  <Cuadrado clase="clr-final">
+    <!-- Palacio 4 -->
+    <Palacio n={4} titulo="Billetes suizos" etiqueta="Novena serie" id="billetes" nivel={3} clase="clr-pal-billetes">
+      <ul class="clr-billetes">
+        {billetes.map((b) => (
+          <li>
+            <span class="clr-billete cifra" style={b.m.estilo}>{b.valor}</span>
+            <span class="clr-billete-t"><b>{mayus(b.color)}</b> · {b.tema}</span>
+            {b.emitido && <span class="rotulo">{b.emitido}</span>}
+          </li>
+        ))}
+      </ul>
+      <div slot="pie" class="clr-pie">
+        <p><Etiqueta tipo="documentado" /></p>
+        <p class="nota">{fino(colores.billetes_nota)}</p>
+        <Fuente fuente={colores.billetes_fuente} />
+      </div>
+    </Palacio>
+
+    <!-- Palacios 9 · 2 -->
+    <Palacio n={9} celdas={[9, 2]} titulo="Referencias de Zúrich" etiqueta={`${zVerificadas} de ${zurich.length} verificadas`} id="zurich" nivel={3} clase="clr-pal-zurich">
+      <ul class="clr-zurich">
+        {zurich.map((z) => (
+          <li>
+            <span class:list={['clr-cuadro', 'clr-cuadro-l', !z.hex && 'clr-cuadro-sin']} aria-hidden="true">
+              {z.hex && <span style={`background:${z.hex}`}></span>}
+            </span>
+            <div>
+              <h4>{z.nombre}</h4>
+              <p class="clr-zurich-v">
+                <span class="cifra">{z.hex ? z.hex.toUpperCase() : 'Sin valor'}</span>
+                <span class:list={['clr-verif', !z.verificado && 'clr-verif-no']}>
+                  <svg viewBox="0 0 10 10" aria-hidden="true">{z.verificado ? <path d="M1.5 5.5l2.5 2.5 4.5-6" /> : <circle cx="5" cy="5" r="4.25" />}</svg>
+                  {z.verificado ? 'Verificado' : 'Sin verificar'}
+                </span>
+              </p>
+              <p class="nota">{fino(z.nota)}</p>
+              <Fuente fuente={'fuente' in z ? (z.fuente as FuenteT) : null} />
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p slot="pie" class="rotulo clr-zurich-pie">«Verificado»: el valor se comprobó en una segunda fuente. «Sin verificar»: no pudimos abrir la página oficial; tómalo como provisional hasta comprobarlo.</p>
+    </Palacio>
+
+    <!-- Palacios 3 · 5 · 7: la paleta -->
+    <Palacio n={3} celdas={[3, 5, 7]} titulo="La paleta de Shefa" etiqueta="Dos temas" id="paleta" nivel={3} clase="clr-pal-paleta">
+      <ol class="clr-paleta">
+        {paleta.map((p) => (
+          <li>
+            <h4><span class="han" lang="zh-Hans">{HAN[p.elemento]}</span> {mayus(p.elemento)}</h4>
+            <p class="clr-paleta-n">{p.nombre}</p>
+            <p class="clr-paleta-p">{mayus(p.papel)}</p>
+            <div class="clr-temas">
+              {p.temas.map((t) => (
+                <div class="clr-tema" style={`background:${t.papel};color:${t.tinta}`}>
+                  <span class="clr-tema-c" style={`background:${t.hex}`} aria-hidden="true"></span>
+                  <span class="clr-tema-n">{t.nombre}</span>
+                  <span class="clr-tema-h cifra">{t.hex}</span>
+                  <span class="clr-tema-r">{t.lectura}</span>
+                  <span class="clr-tema-r">{t.apto}</span>
+                </div>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p slot="pie" class="rotulo clr-paleta-pie">Los valores se leen de los tokens del sitio al compilar: si la paleta cambia, esta tabla cambia con ella. «Solo gráfico» quiere decir que el color no se usa para texto.</p>
+    </Palacio>
+  </Cuadrado>
+</Base>
+
+<script>
+  // Si el archivo de la película no está, se dice con palabras en lugar de dejar un reproductor roto.
+  const video = document.querySelector<HTMLVideoElement>('[data-v="pelicula"]');
+  const falta = document.querySelector<HTMLElement>('[data-v="pelicula-falta"]');
+  function sinPelicula(): void {
+    if (!video || !falta) return;
+    video.hidden = true;
+    falta.hidden = false;
+  }
+  if (video) {
+    const fuente = video.querySelector('source');
+    fuente?.addEventListener('error', sinPelicula);
+    video.addEventListener('error', sinPelicula);
+    if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) sinPelicula();
+  }
+  document.documentElement.classList.add('listo');
+</script>

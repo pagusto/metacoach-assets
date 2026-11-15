@@ -1,0 +1,33 @@
+---
+// Trigrama: las tres líneas del bagua dibujadas en SVG a partir del símbolo del JSON
+// (☰ a ☷). Entera = yang, partida = yin; se lee de abajo arriba. El centro (☯), que no
+// tiene trigrama, se dibuja como taijitu. Decorativo: el nombre va siempre en texto.
+//   <Trigrama simbolo="☴" />
+import { lineasTrigrama } from '../../lib/espacio';
+
+interface Props {
+  /** Carácter del trigrama tal como viene en fengshui.json. */
+  simbolo: string;
+  /** Clases extra. */
+  clase?: string;
+}
+const { simbolo, clase = '' } = Astro.props;
+const lineas = lineasTrigrama(simbolo);
+---
+{lineas ? (
+  <svg class:list={['esp-tri', clase]} viewBox="0 0 24 24" aria-hidden="true">
+    {lineas.map((entera, i) => {
+      const y = 18 - i * 8;
+      return entera
+        ? <rect x="0" y={y} width="24" height="4" />
+        : <><rect x="0" y={y} width="10" height="4" /><rect x="14" y={y} width="10" height="4" /></>;
+    })}
+  </svg>
+) : (
+  <svg class:list={['esp-tri', 'esp-taiji', clase]} viewBox="0 0 24 24" aria-hidden="true">
+    <circle class="esp-taiji-claro" cx="12" cy="12" r="11.25" />
+    <path d="M12 .75a11.25 11.25 0 0 1 0 22.5a5.625 5.625 0 0 1 0-11.25a5.625 5.625 0 0 0 0-11.25z" />
+    <circle cx="12" cy="6.375" r="1.6" />
+    <circle class="esp-taiji-punto" cx="12" cy="17.625" r="1.6" />
+  </svg>
+)}

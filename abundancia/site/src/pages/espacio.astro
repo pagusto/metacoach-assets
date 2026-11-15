@@ -1,0 +1,348 @@
+---
+// Espacio: feng shui del espacio de trabajo, a partir de fengshui.json.
+// Primer cuadrado (la herramienta): los nueve palacios en 4·9·3·5, el palacio elegido en
+// 2·7, la lista de quince comprobaciones en 8·1 y la puntuación en 6.
+// Segundo cuadrado (los fundamentos): contexto 4·9, Periodo 9 en 2, los cinco elementos
+// en 3·5·7, símbolos en 8·1 y estudios económicos en 6. Debajo, las fuentes.
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import Moneda from '../components/Moneda.astro';
+import Etiqueta from '../components/Etiqueta.astro';
+import Fuente from '../components/espacio/Fuente.astro';
+import Trigrama from '../components/espacio/Trigrama.astro';
+import '../styles/espacio.css';
+
+import fengshui from '../data/fengshui.json';
+import { acortar, pentagono, punta } from '../lib/espacio';
+import { fino } from '../lib/formato';
+
+type Tipo = 'tradicion' | 'documentado' | 'estudio' | 'anecdota' | 'mito';
+
+// Los cinco caracteres del sistema (los mismos del pie de página).
+const HAN: Record<string, string> = { madera: '木', fuego: '火', tierra: '土', metal: '金', agua: '水' };
+const mayus = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+const lista = (l: string[]) => l.join(', ');
+
+// Palacios en el orden visual del cuadrado Lo Shu (sur arriba).
+const palacios = fengshui.lo_shu.flat().map((n) => {
+  const p = fengshui.palacios.find((x) => x.numero === n);
+  if (!p) throw new Error(`Falta el palacio ${n} en fengshui.json`);
+  const el = fengshui.elementos.find((e) => e.id === p.elemento);
+  if (!el) throw new Error(`Falta el elemento «${p.elemento}» en fengshui.json`);
+  return { ...p, el, centro: p.trigrama.toLowerCase() === 'centro' };
+});
+const INICIAL = 4;
+const elegido = palacios.find((p) => p.numero === INICIAL) ?? palacios[0];
+
+// Lista: quince comprobaciones con peso.
+const items = fengshui.lista;
+const PUNTOS = items.reduce((t, i) => t + i.peso, 0);
+const PESO_MAX = Math.max(...items.map((i) => i.peso));
+const primero = [...items].sort((a, b) => b.peso - a.peso)[0];
+
+// Diagrama de los dos ciclos: pentágono en el orden de generación.
+const CX = 160, CY = 164, R = 112, RN = 32, HUELGO = 7;
+const puntos = pentagono(fengshui.elementos, CX, CY, R);
+const pos = Object.fromEntries(puntos.map((p) => [p.id, p]));
+const f1 = (n: number) => Math.round(n * 10) / 10;
+const delta = (RN + HUELGO) / R;
+const paso = (2 * Math.PI) / puntos.length;
+const arcosGenera = puntos.map((_, i) => {
+  const a0 = -Math.PI / 2 + i * paso + delta;
+  const a1 = -Math.PI / 2 + (i + 1) * paso - delta;
+  const x1 = CX + R * Math.cos(a1), y1 = CY + R * Math.sin(a1);
+  return {
+    d: `M${f1(CX + R * Math.cos(a0))} ${f1(CY + R * Math.sin(a0))}A${R} ${R} 0 0 1 ${f1(x1)} ${f1(y1)}`,
+    punta: punta(x1, y1, -Math.sin(a1), Math.cos(a1)),
+  };
+});
+const lineasControla = fengshui.elementos
+  .filter((e) => pos[e.id] && pos[e.controla])
+  .map((e) => {
+    const s = acortar(pos[e.id], pos[e.controla], RN + HUELGO, RN + HUELGO);
+    return { d: `M${f1(s.x1)} ${f1(s.y1)}L${f1(s.x2)} ${f1(s.y2)}`, punta: punta(s.x2, s.y2, s.ux, s.uy, 8, 6) };
+  });
+const nombreEl = (id: string) => fengshui.elementos.find((e) => e.id === id)?.nombre ?? id;
+const textoCiclos =
+  `Ciclo de generación: ${fengshui.elementos.map((e) => `${e.id} genera ${e.genera}`).join(', ')}. ` +
+  `Ciclo de control: ${fengshui.elementos.map((e) => `${e.id} controla ${e.controla}`).join(', ')}.`;
+
+const conDato = items.filter((i) => i.dato).length;
+---
+<Base title="Espacio" description="Feng shui del espacio de trabajo: los nueve palacios, los cinco elementos y una lista de quince comprobaciones, con lo que enseña la tradición y lo que ha medido la psicología ambiental.">
+  <TituloPagina titulo={fengshui.titulo} nota={fino(fengshui.resumen)} />
+
+  <Cuadrado clase="esp vivo">
+    <!-- Palacios 4 · 9 · 3 · 5: el cuadrado Lo Shu dentro del cuadrado -->
+    <Palacio n={4} celdas={[4, 9, 3, 5]} titulo="Los nueve palacios" etiqueta="Elige un palacio" id="palacios" clase="esp-pal-mapa">
+      <p class="esp-borde esp-borde-sup"><span>Sur</span><span>Mapa BTB: fondo de la sala</span></p>
+      <ol class="esp-mapa" data-v="mapa">
+        {palacios.map((p) => (
+          <li>
+            <button
+              class="esp-celda" type="button" data-palacio={p.numero} data-area={p.area}
+              aria-pressed={p.numero === elegido.numero ? 'true' : 'false'} aria-controls="detalle"
+              aria-label={`Palacio ${p.numero}: ${p.area}. ${p.centro ? 'Centro, sin trigrama' : `Trigrama ${p.trigrama}, ${p.direccion.toLowerCase()}`}. En el mapa BTB, ${p.posicion_btb}. Elemento ${p.elemento}.`}
+            >
+              <span class="esp-celda-cab">
+                <span class="esp-celda-n cifra">{p.numero}</span>
+                <Trigrama simbolo={p.simbolo} />
+              </span>
+              <span class="esp-celda-pie">
+                <span class="esp-celda-area" lang="es">{p.area}</span>
+                <span class="esp-celda-dir">{p.centro ? p.direccion : `${p.trigrama} · ${p.direccion}`}</span>
+                <span class="esp-celda-mas">BTB: {p.posicion_btb}</span>
+                <span class="esp-celda-mas"><span class="han" lang="zh-Hans">{HAN[p.elemento]}</span> {p.el.nombre} · {lista(p.colores)}</span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ol>
+      <p class="esp-borde esp-borde-inf"><span>Norte</span><span>Mapa BTB: pared de la entrada</span></p>
+
+      <p class="esp-al-detalle solo-tira"><a href="#detalle">Ver el detalle de <span data-v="elegido">{elegido.area}</span></a></p>
+
+      <div slot="pie" class="esp-mapa-nota">
+        <p class="rotulo">Cómo se lee</p>
+        <p>Cada palacio tiene una dirección, que usa la escuela de la Brújula, y una posición vista desde la puerta, que usa la escuela BTB. Las dos pueden señalar rincones distintos de la misma sala: <a href="#contexto">elige una escuela</a> y sé coherente. Con el teclado, muévete con las flechas y elige con Intro.</p>
+      </div>
+    </Palacio>
+
+    <!-- Palacios 2 · 7: el palacio elegido -->
+    <Palacio n={2} celdas={[2, 7]} titulo="Palacio elegido" etiqueta={elegido.area} id="detalle" clase="esp-pal-det">
+      {palacios.map((p) => (
+        <article class="esp-det" data-det={p.numero} hidden={p.numero !== elegido.numero}>
+          <div class="esp-det-titulo">
+            <p class="esp-det-marca">
+              <span class="cifra">{p.numero}</span>
+              <Trigrama simbolo={p.simbolo} />
+              <span class="esp-det-tri">{p.centro ? 'Centro, sin trigrama' : <>Trigrama <b>{p.trigrama}</b></>}</span>
+            </p>
+            <h3>{p.area}</h3>
+          </div>
+
+          <dl class="esp-ficha">
+            <div><dt>Dirección <span>escuela de la Brújula</span></dt><dd>{p.direccion}</dd></div>
+            <div><dt>Posición <span>escuela BTB, desde la puerta</span></dt><dd>{mayus(p.posicion_btb)}</dd></div>
+            <div><dt>Elemento</dt><dd><span class="han" lang="zh-Hans">{HAN[p.elemento]}</span> {p.el.nombre}</dd></div>
+            <div><dt>Colores</dt><dd>{mayus(lista(p.colores))}</dd></div>
+          </dl>
+
+          <div class="esp-sec">
+            <h4>En el trabajo <Etiqueta tipo="tradicion" /></h4>
+            <p>{fino(p.en_el_trabajo)}</p>
+          </div>
+          <div class="esp-sec">
+            <h4>Pregunta de revisión <Etiqueta tipo="tradicion" texto="Aplicación moderna" /></h4>
+            <p class="voz-m">{p.pregunta}</p>
+          </div>
+          <div class="esp-sec">
+            <h4>Su elemento: {p.el.nombre.toLowerCase()}</h4>
+            <p>{p.el.cualidad}</p>
+            <p class="nota">Formas {p.el.formas}. Materiales: {p.el.materiales}. Genera {p.el.genera} y controla {p.el.controla}.</p>
+            <p class="nota"><a href="#elementos">Ver los dos ciclos</a></p>
+          </div>
+        </article>
+      ))}
+    </Palacio>
+
+    <!-- Palacio 6: la puntuación, en vivo -->
+    <Palacio n={6} titulo="Puntuación del espacio" etiqueta={`${PUNTOS} puntos`} id="puntuacion" clase="esp-pal-punt">
+      <div class="esp-punt">
+        <div class="esp-punt-dato">
+          <p class="esp-punt-cifra"><span class="cifra fig-l" data-v="punt-pct">0 %</span></p>
+          <p data-v="punt-puntos">0 de {PUNTOS} puntos</p>
+          <p class="rotulo" data-v="punt-hechas">0 de {items.length} comprobaciones</p>
+        </div>
+        <div class="esp-punt-moneda" data-v="punt-moneda">
+          <Moneda valor={0} etiqueta={`Puntuación del espacio: 0 de ${PUNTOS} puntos`} />
+        </div>
+        <div class="esp-punt-pie">
+          <p class="esp-punt-sig">
+            <span class="rotulo" data-v="sig-rotulo">Siguiente paso</span>
+            <a href={`#it-${primero.id}`} data-v="sig">{primero.titulo}</a>
+          </p>
+          <p class="rotulo">Cada comprobación suma su peso, de 1 a {PESO_MAX}. Se guarda solo en este dispositivo.</p>
+          <p data-v="vaciar-fila"><button class="boton-texto" type="button" data-v="vaciar" hidden>Desmarcar todo</button></p>
+          <div class="esp-confirma" data-v="confirma" hidden>
+            <p>¿Desmarcar las {items.length} comprobaciones?</p>
+            <p class="fila">
+              <button class="boton boton-s" type="button" data-v="si-vaciar">Sí, desmarcar</button>
+              <button class="boton-2 boton-s" type="button" data-v="no-vaciar">Cancelar</button>
+            </p>
+          </div>
+          <p class="oculto" role="status" data-v="punt-estado"></p>
+        </div>
+      </div>
+    </Palacio>
+
+    <!-- Palacios 8 · 1: la lista -->
+    <Palacio n={8} celdas={[8, 1]} titulo="Lista del espacio de trabajo" etiqueta={`${items.length} pasos`} id="lista" clase="esp-pal-lista">
+      <div class="esp-lista-cab">
+        <p class="nota">Marca lo que ya cumple tu espacio. Cada punto dice lo que enseña la tradición y, cuando lo hay, lo que se ha medido: {conDato} de {items.length} tienen un dato al lado.</p>
+        <button class="boton-2 boton-s" type="button" data-v="razones" aria-pressed="true">Mostrar todas las razones</button>
+      </div>
+      <ol class="esp-lista">
+        {items.map((it) => (
+          <li class="esp-it" id={`it-${it.id}`}>
+            <label class="esp-it-cab">
+              <input class="casilla" type="checkbox" data-item={it.id} data-peso={it.peso} data-titulo={it.titulo} />
+              <span class="esp-it-t">{it.titulo}</span>
+            </label>
+            <button class="esp-it-ver" type="button" aria-expanded="true" aria-controls={`raz-${it.id}`}>
+              {it.dato ? 'Tradición y dato' : 'Solo tradición'}<span class="oculto">: razones de «{it.titulo}»</span>
+              <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" /></svg>
+            </button>
+            <span class="esp-peso" role="img" aria-label={`Peso ${it.peso} de ${PESO_MAX}`}>
+              <span class="rotulo" aria-hidden="true">peso</span>
+              <svg viewBox={`0 0 ${PESO_MAX * 12 - 4} 8`} width={PESO_MAX * 12 - 4} height="8" aria-hidden="true">
+                {Array.from({ length: PESO_MAX }, (_, i) => (
+                  <circle class={i < it.peso ? 'lleno' : undefined} cx={4 + i * 12} cy="4" r={i < it.peso ? 4 : 3.5} />
+                ))}
+              </svg>
+            </span>
+            <div class="esp-razon" id={`raz-${it.id}`}>
+              <div class="esp-razon-cols">
+                <div>
+                  <p class="esp-razon-rot"><Etiqueta tipo="tradicion" /></p>
+                  <p>{fino(it.tradicion)}</p>
+                </div>
+                <div>
+                  {it.dato ? (
+                    <>
+                      <p class="esp-razon-rot"><Etiqueta tipo="estudio" texto="Dato" /></p>
+                      <p>{fino(it.dato)}</p>
+                      <Fuente fuente={it.fuente_dato} />
+                    </>
+                  ) : (
+                    <>
+                      <p class="esp-razon-rot rotulo">Dato</p>
+                      <p class="texto-3">No encontramos un estudio sobre este punto. Se apoya solo en la tradición.</p>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </Palacio>
+  </Cuadrado>
+
+  <div class="esp-banda">
+    <h2>Fundamentos</h2>
+    <p>De dónde viene, cómo se ordena y qué se ha medido.</p>
+  </div>
+
+  <Cuadrado clase="esp-fund">
+    <!-- Palacios 4 · 9: contexto y escuelas -->
+    <Palacio n={4} celdas={[4, 9]} titulo="Contexto y escuelas" etiqueta="Tres escuelas" id="contexto" nivel={3}>
+      <p class="esp-contexto">{fino(fengshui.contexto)}</p>
+    </Palacio>
+
+    <!-- Palacio 2: Periodo 9 -->
+    <Palacio n={2} titulo={fengshui.periodo.nombre} etiqueta="Estrellas Voladoras" id="periodo" nivel={3} clase="esp-pal-periodo">
+      <p class="esp-periodo-cifra"><span class="cifra">{fengshui.periodo.anios}</span></p>
+      <p>{fino(fengshui.periodo.texto)}</p>
+      <p slot="pie"><Etiqueta tipo="tradicion" /></p>
+    </Palacio>
+
+    <!-- Palacios 3 · 5 · 7: los cinco elementos -->
+    <Palacio n={3} celdas={[3, 5, 7]} titulo="Los cinco elementos" etiqueta="Dos ciclos" id="elementos" nivel={3} clase="esp-pal-el">
+      <div class="esp-el">
+        <figure class="esp-ciclos">
+          <svg viewBox="0 0 320 320" role="img" aria-label={textoCiclos}>
+            <g class="esp-genera">
+              {arcosGenera.map((a) => <><path d={a.d} /><polygon points={a.punta} /></>)}
+            </g>
+            <g class="esp-controla">
+              {lineasControla.map((l) => <><path d={l.d} /><polygon points={l.punta} /></>)}
+            </g>
+            {puntos.map((p) => (
+              <g class="esp-nodo">
+                <circle cx={f1(p.x)} cy={f1(p.y)} r={RN} />
+                <text class="esp-nodo-han" x={f1(p.x)} y={f1(p.y - 5)} lang="zh-Hans">{HAN[p.id]}</text>
+                <text class="esp-nodo-n" x={f1(p.x)} y={f1(p.y + 15)}>{nombreEl(p.id)}</text>
+              </g>
+            ))}
+          </svg>
+          <figcaption class="esp-clave">
+            <span><svg viewBox="0 0 32 8" aria-hidden="true"><path class="esp-genera-m" d="M0 4h25" /><polygon points="32,4 24,7.5 24,.5" /></svg>genera</span>
+            <span><svg viewBox="0 0 32 8" aria-hidden="true"><path class="esp-controla-m" d="M0 4h25" /><polygon points="32,4 24,7.5 24,.5" /></svg>controla</span>
+          </figcaption>
+        </figure>
+
+        <div class="esp-el-tabla">
+          <table class="tabla esp-apila">
+            <caption class="oculto">Los cinco elementos: color, formas, materiales y ciclos</caption>
+            <thead>
+              <tr>
+                <th scope="col">Elemento</th><th scope="col">Color</th><th scope="col">Formas</th>
+                <th scope="col">Materiales</th><th scope="col">Genera</th><th scope="col">Controla</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fengshui.elementos.map((e) => (
+                <tr>
+                  <th scope="row">
+                    <span class="esp-el-n"><span class="han" lang="zh-Hans">{HAN[e.id]}</span> {e.nombre}</span>
+                    <span class="esp-el-c">{e.cualidad}</span>
+                  </th>
+                  <td data-th="Color">{mayus(e.color)}</td>
+                  <td data-th="Formas">{mayus(e.formas)}</td>
+                  <td data-th="Materiales">{mayus(e.materiales)}</td>
+                  <td data-th="Genera">{nombreEl(e.genera)}</td>
+                  <td data-th="Controla">{nombreEl(e.controla)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="esp-el-pie"><Etiqueta tipo="tradicion" /> <span class="nota">En la tradición, cada elemento alimenta al siguiente y frena al que está dos pasos más allá. Se busca que ninguno domine.</span></p>
+        </div>
+      </div>
+    </Palacio>
+
+    <!-- Palacios 8 · 1: símbolos -->
+    <Palacio n={8} celdas={[8, 1]} titulo="Símbolos y su historia" etiqueta={`${fengshui.simbolos.length} símbolos`} id="simbolos" nivel={3}>
+      <ul class="esp-simbolos">
+        {fengshui.simbolos.map((s) => (
+          <li>
+            <h4>{s.nombre}</h4>
+            <p>{fino(s.historia)}</p>
+            <p class="esp-simbolo-et"><Etiqueta tipo={s.etiqueta as Tipo} /></p>
+          </li>
+        ))}
+      </ul>
+    </Palacio>
+
+    <!-- Palacio 6: estudios económicos -->
+    <Palacio n={6} titulo="Estudios económicos" etiqueta={`${fengshui.estudios_economicos.length} estudios`} id="estudios" nivel={3}>
+      <p class="nota esp-estudios-nota">Lo que sí se ha medido es el efecto de la creencia en los precios, no el de la práctica en la riqueza.</p>
+      <ul class="esp-estudios">
+        {fengshui.estudios_economicos.map((e) => (
+          <li>
+            <p class="esp-estudio-et"><Etiqueta tipo="estudio" /></p>
+            <p>{fino(e.hallazgo)}</p>
+            <Fuente fuente={e.fuente} />
+          </li>
+        ))}
+      </ul>
+    </Palacio>
+  </Cuadrado>
+
+  <section class="esp-fuentes" aria-labelledby="h-fuentes">
+    <div class="esp-fuentes-cab">
+      <h2 id="h-fuentes">Fuentes</h2>
+      <p class="nota">{fengshui.fuentes.length} referencias. Los enlaces se abren en otra pestaña.</p>
+    </div>
+    <ol>
+      {fengshui.fuentes.map((f) => <li><Fuente fuente={f} /></li>)}
+    </ol>
+  </section>
+</Base>
+
+<script>
+  import '../lib/espacio-cliente';
+</script>

@@ -1,0 +1,23 @@
+---
+// Fuente: línea de fuente que abre el enlace en otra pestaña (target _blank, rel noopener)
+// y lo avisa a quien usa lector de pantalla. Misma apariencia que <Cita>.
+//   <Fuente fuente={item.fuente_dato} />
+//   <Fuente fuente={x.fuente} rotulo="Fuente" />
+interface Props {
+  /** Objeto Fuente de los JSON: { cita, url }. Si es null no pinta nada. */
+  fuente?: { cita: string; url: string | null } | null;
+  /** Rótulo pequeño encima («Fuente», «Réplica»…). */
+  rotulo?: string;
+  /** Clases extra. */
+  clase?: string;
+}
+const { fuente, rotulo, clase = '' } = Astro.props;
+---
+{fuente?.cita && (
+  <cite class:list={['fuente-cita', 'esp-fuente', clase]}>
+    {rotulo && <span class="rotulo">{rotulo}</span>}
+    {fuente.url ? (
+      <a href={fuente.url} target="_blank" rel="noopener external">{fuente.cita}<svg class="esp-fuera" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1.5 8.5" /></svg><span class="oculto"> (se abre en otra pestaña)</span></a>
+    ) : fuente.cita}
+  </cite>
+)}
