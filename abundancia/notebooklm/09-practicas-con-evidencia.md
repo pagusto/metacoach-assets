@@ -129,13 +129,13 @@ Las prácticas con mejor evidencia sobre dinero real no son mentales: automatiza
 
 ### Cited Findings
 - [ESTUDIO] Experimentos de LinkedIn con más de 20 millones de personas en 5 años, 2.000 millones de lazos y 600.000 empleos: los lazos moderadamente débiles generan más movilidad laboral, con relación en U invertida y más en sectores digitales (leído) — [Rajkumar et al. 2022](https://doi.org/10.1126/science.abl4476)
-- [ESTUDIO] 2.820 empresas chinas en grupos con reunión mensual durante un año: ingresos +8,1 % y mejoras en beneficio y gestión, persistentes un año después (secundario; otras versiones dan 7,8) — [Cai y Szeidl 2018](https://doi.org/10.1093/qje/qjx049)
-- [ESTUDIO] Cuenta de ahorro con compromiso en Filipinas: el 28 % de quienes recibieron la oferta la abrió (secundario) — [Ashraf, Karlan y Yin 2006](https://doi.org/10.1162/qjec.2006.121.2.635)
+- [ESTUDIO] 2.820 empresas chinas en grupos con reunión mensual durante un año: ingresos +8,1 % y mejoras en beneficio y gestión, persistentes un año después (secundario; el borrador NBER de 2016 dice 2.800 empresas y otras versiones dan 7,8) — [Cai y Szeidl 2018](https://doi.org/10.1093/qje/qjx049)
+- [ESTUDIO] Cuenta de ahorro con compromiso en Filipinas: el 28 % de quienes recibieron la oferta la abrió y, a los doce meses, el saldo medio del grupo con oferta había subido 81 puntos porcentuales frente al de control (secundario: resumen de la revista) — [Ashraf, Karlan y Yin 2006](https://doi.org/10.1162/qjec.2006.121.2.635)
 - [ESTUDIO] Save More Tomorrow: ahorro medio de 3,5 % a 13,6 % en 40 meses (secundario, coincide con el artículo) — [Thaler y Benartzi 2004](https://doi.org/10.1086/380085)
 - [ESTUDIO] Gastar en otros predice más felicidad en encuesta nacional, estudio de campo y experimento (leído) — [Dunn, Aknin y Norton 2008](https://doi.org/10.1126/science.1150952)
 
 ### Gaps
-- Aumento de saldo en Ashraf et al. («81 puntos»): no verificado.
+- Ashraf et al.: las cifras salen del resumen de la revista (registros de RePEc y AGRIS); falta leer el texto completo.
 
 ## 8. Práctica deliberada, perseverancia y suerte
 

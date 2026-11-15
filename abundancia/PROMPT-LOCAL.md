@@ -27,7 +27,8 @@ la CLI o el conector de Vercel. No me preguntes salvo bloqueo real.
 MAPA
 - Repositorio: pagusto/metacoach-assets. La rama master es producción.
 - Shefa: proyecto de Vercel «shefa» (equipo prosperai). Compila abundancia/site (Astro) y lo
-  sirve bajo /shefa. Público en https://shefa-prosperai.vercel.app/shefa/
+  sirve bajo /shefa. Público en https://shefa-prosperai.vercel.app/shefa/ y, a través del
+  sitio raíz, en https://pabloagusto.vercel.app/shefa/
 - Sitio raíz: proyecto de Vercel «pabloagusto» (https://pabloagusto.vercel.app). Se despliega
   desde archivos, no desde este repositorio. Su index.html tiene un centro de botones con la
   regla escrita en un comentario («HUB RULE»).
@@ -70,8 +71,11 @@ mejor evidencia tiene); tradiciones (cada cita hebrea contra Sefaria letra por l
 los maestros contra el texto original, tablas de feng shui contra una fuente académica;
 respeto y ningún estereotipo); diseño (retícula, jerarquía, coherencia, claro y oscuro);
 accesibilidad y rendimiento. En la nube no se pudieron abrir sefaria.org, chabad.org, ubs.com,
-zh.ch, bls.gov ni pubmed: empieza por lo que depende de ellos. Corrige lo confirmado y guarda
-el informe en abundancia/auditoria/AAAA-MM-DD.md.
+zh.ch, bls.gov ni pubmed: empieza por lo que depende de ellos. Coteja cada estudio con la
+versión publicada, no con el borrador: Semantic Scholar, OpenAlex y Europe PMC a veces
+devuelven el resumen del documento de trabajo bajo el DOI de la revista. Lee antes los
+informes anteriores de abundancia/auditoria/ para no deshacer lo ya resuelto. Corrige lo
+confirmado y guarda el informe en abundancia/auditoria/AAAA-MM-DD.md.
 
 SI MODO = ampliar (además de lo anterior)
 Propón tres caminos para la siguiente versión y elige con un panel de jueces (impacto en

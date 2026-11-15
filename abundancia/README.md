@@ -24,7 +24,8 @@ Cada afirmación lleva una etiqueta: tradición, documentado, estudio, anécdota
 | Cuaderno NotebookLM | `notebooklm/` | Doce fuentes listas para subir, con preguntas y prompt de video |
 | Herramientas | `tools/` | `yt.py` busca y verifica videos; `fetch.py` lee fuentes |
 | Diseño | `design/` | Brief y la dirección aprobada «Lo Shu» |
-| Prompt para PC | `PROMPT-LOCAL.md` | Prompt maestro para auditar y ampliar Shefa en tu equipo |
+| Prompt para PC | `PROMPT-LOCAL.md` | Prompt único para mantener, auditar o ampliar Shefa desde tu equipo |
+| Auditorías | `auditoria/` | Un informe por auditoría: lo corregido, lo descartado y lo que no se pudo verificar |
 
 Los agentes y comandos viven en `.claude/` en la raíz del repositorio:
 
@@ -52,7 +53,9 @@ La guía de componentes y reglas de diseño está en `site/COMPONENTES.md`.
 ## Despliegue
 
 El proyecto de Vercel `shefa` compila `abundancia/site` en cada push. Lo que llega a `master`
-sale a producción. Los datos del tablero se guardan solo en el navegador de quien lo usa.
+sale a producción en `https://shefa-prosperai.vercel.app/shefa/`, y el sitio raíz lo muestra en
+`https://pabloagusto.vercel.app/shefa/`. Una tarea programada añade cada mañana la entrada del
+diario. Los datos del tablero se guardan solo en el navegador de quien lo usa.
 
 ## Principios
 
