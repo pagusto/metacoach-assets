@@ -107,11 +107,11 @@ Arco: título → cómo un metal y un tinte caro se volvieron signos de riqueza 
 - **Texto en pantalla:**
   - «Dhanteras» — entra en 0:43,6, 7,4 s en pantalla
   - «Dhana: riqueza. Teras: día trece.» — entra en 0:45,0, 6,0 s en pantalla
-  - «Abre Diwali: día propicio» · «para comprar oro.» — entra en 0:46,6, 4,4 s en pantalla
+  - «Abre Diwali. Por tradición» · «se compra oro.» — entra en 0:46,6, 4,4 s en pantalla
 - **Crédito en pantalla:** Wikipedia, «Dhanteras»
-- **Hecho que muestra:** Dhanteras abre Diwali; «dhana» es «riqueza» en sánscrito y «teras», el día trece en hindi; la tradición hindú lo considera propicio para comprar oro.
+- **Hecho que muestra:** Dhanteras abre Diwali; «dhana» es «riqueza» en sánscrito y «teras», el día trece en hindi; por tradición hindú se compra oro ese día, que se considera propicio.
 - **Fuente:** Wikipedia, «Dhanteras»
-- **Lectura:** 85 caracteres de texto + 22 de crédito → 10,6 c/s (13,4 c/s con el crédito)
+- **Lectura:** 83 caracteres de texto + 22 de crédito → 10,4 c/s (13,1 c/s con el crédito)
 
 ### 8 · Negro · 0:51,0–0:58,0 (7,0 s)
 
@@ -186,7 +186,7 @@ Arco: título → cómo un metal y un tinte caro se volvieron signos de riqueza 
 | 4 | Malva | 0:21,5–0:29,0 | 7,5 s | 74 + 21 | 9,9 | 12,7 |
 | 5 | Verde | 0:29,0–0:36,5 | 7,5 s | 73 + 24 | 9,7 | 12,9 |
 | 6 | Rojo | 0:36,5–0:43,0 | 6,5 s | 59 + 25 | 9,1 | 12,9 |
-| 7 | Oro (Dhanteras) | 0:43,0–0:51,0 | 8,0 s | 85 + 22 | 10,6 | 13,4 |
+| 7 | Oro (Dhanteras) | 0:43,0–0:51,0 | 8,0 s | 83 + 22 | 10,4 | 13,1 |
 | 8 | Negro | 0:51,0–0:58,0 | 7,0 s | 70 + 23 | 10,0 | 13,3 |
 | 9 | Azul | 0:58,0–1:06,5 | 8,5 s | 81 + 38 | 9,5 | 14,0 |
 | 10 | Rojo (estudio) | 1:06,5–1:16,5 | 10,0 s | 103 + 33 | 10,3 | 13,6 |
