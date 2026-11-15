@@ -80,6 +80,8 @@ def emit(text, a):
 
 
 def main():
+    # En Windows la salida no es UTF-8 por defecto: comillas y rayas de las fuentes salían rotas.
+    sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("url", nargs="?")

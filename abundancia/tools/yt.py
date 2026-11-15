@@ -87,6 +87,8 @@ def check(vid):
 
 
 def main():
+    # En Windows la salida no es UTF-8 por defecto: un título con emoji rompía print().
+    sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
