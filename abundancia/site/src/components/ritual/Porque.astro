@@ -1,0 +1,42 @@
+---
+// Porque: la línea «Por qué» de un paso del ritual. Empareja la tradición afín con la
+// evidencia de una práctica de practicas.json, con su fuente y la calidad del respaldo.
+//   <Porque practica={practicas.practicas[0]} />
+import Etiqueta from '../Etiqueta.astro';
+import Fuente from './Fuente.astro';
+import { fino } from '../../lib/formato';
+
+interface Practica {
+  id: string;
+  nombre: string;
+  tradicion_afin: string;
+  efecto: string;
+  calidad: string;
+  estudio: { cita: string; url: string | null } | null;
+  riesgo: string | null;
+}
+interface Props {
+  practica: Practica;
+  /** Nivel del título «Por qué». Por defecto 4. */
+  nivel?: 3 | 4;
+}
+const { practica: p, nivel = 4 } = Astro.props;
+const H = `h${nivel}` as 'h4';
+const punto = (t: string) => (/[.!?…]$/.test(t.trim()) ? t.trim() : `${t.trim()}.`);
+// «N = 96», «p < 0,05»: el signo no se separa de sus dos lados.
+const pegar = (t: string) => fino(t).replace(/ ([=<>≤≥]) /g, '\u00a0$1\u00a0');
+---
+<div class="rt-porque">
+  <H class="rt-porque-t"><span class="rotulo">Por qué</span> <span class="rt-porque-n">{p.nombre}</span></H>
+  <div class="rt-porque-cols">
+    <p>
+      <Etiqueta tipo="tradicion" />
+      <span>{fino(punto(p.tradicion_afin))}</span>
+    </p>
+    <p>
+      <Etiqueta tipo="estudio" texto={p.calidad ? `Estudio · calidad ${p.calidad}` : 'Estudio'} />
+      <span>{pegar(punto(p.efecto))} <Fuente fuente={p.estudio} /></span>
+    </p>
+  </div>
+  {p.riesgo && <p class="rt-porque-l"><span class="rotulo">Límite</span> {fino(p.riesgo)}</p>}
+</div>

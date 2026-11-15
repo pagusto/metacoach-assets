@@ -1,0 +1,165 @@
+/* ==========================================================================
+   Método y fuentes
+   Tradición · Dato · Práctica: 4 · 9 · 2 · Etiquetas: 3·5·7 · Límites: 8 ·
+   Privacidad: 1 · Nutrición: 6. Debajo del cuadrado, el colofón de fuentes.
+   Todas las clases propias llevan el prefijo mt-.
+   ========================================================================== */
+
+/* El canal entre columnas mide lo mismo que el canal entre palacios. */
+.mt, .mt-colofon { --mt-canal: calc(2 * var(--palacio-pad) + var(--linea)); }
+
+/* ---------- Fila 1: tres párrafos ---------- */
+.mt-voz .pal-cuerpo { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); align-content: start; }
+.mt-termino { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: var(--s-2); }
+.mt-termino-n { font-size: var(--t-4); line-height: var(--lh-4); font-weight: 700; letter-spacing: -0.025em; }
+.mt-termino .he { font-size: var(--t-3); line-height: var(--lh-4); color: var(--texto-2); }
+.mt-termino .cifra { font-size: var(--t-4); line-height: var(--lh-4); }
+.mt-termino-u { font-size: var(--t-2); line-height: var(--lh-2); }
+.mt-voz .pal-pie { display: grid; gap: var(--s-1); margin-top: var(--s-3); padding-top: 12px; border-top: var(--linea) solid var(--filete-suave); }
+.mt-cuenta { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 12px; align-items: baseline; font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.mt-cuenta .cifra { min-width: 2ch; font-size: var(--t-2); line-height: var(--lh-0); color: var(--texto); }
+.mt-enlaces { display: flex; flex-wrap: wrap; gap: 4px var(--s-3); font-size: var(--t-0); line-height: var(--lh-0); }
+
+/* ---------- Fila 2: cinco etiquetas, tres columnas ---------- */
+.mt-etiquetas .pal-cuerpo { padding-top: var(--s-1); }
+.mt-tabla-cab { display: none; }
+.mt-tabla { border-top: var(--linea) solid var(--filete); }
+.mt-fila { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; padding-block: var(--s-2); border-bottom: var(--linea) solid var(--filete-suave); }
+.mt-fila:last-child { border-bottom: 0; padding-bottom: 0; }
+.mt-def { display: grid; gap: var(--s-1); align-content: start; justify-items: start; }
+.mt-def h3 { line-height: var(--lh-0); }
+.mt-ej { display: grid; gap: 4px; align-content: start; text-wrap: pretty; }
+.mt-he { font-size: var(--t-1m); line-height: var(--lh-2); color: var(--texto-2); text-align: left; }
+.mt-fu { display: grid; gap: 4px; align-content: start; }
+
+/* ---------- Fila 3: listas con filetes ---------- */
+.mt-limites .pal-cuerpo, .mt-profesional .pal-cuerpo, .mt-privacidad .pal-cuerpo { padding-top: var(--s-1); }
+.mt-lista { border-top: var(--linea) solid var(--filete); }
+.mt-lista li { padding-block: 11px 12px; border-bottom: var(--linea) solid var(--filete-suave); text-wrap: pretty; }
+.mt-lista b { display: block; }
+.mt-sub { margin-top: var(--s-3); padding-bottom: var(--s-1); font-size: var(--t-0); line-height: var(--lh-0); font-weight: 600; }
+.mt-privacidad .pal-pie .mt-sub { margin-top: var(--s-2); }
+
+.mt-guardado { border-top: var(--linea) solid var(--filete); }
+.mt-guardado > div {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-2);
+  min-height: 40px; padding-block: 7px;
+  border-bottom: var(--linea) solid var(--filete-suave);
+}
+.mt-guardado .cifra { font-size: var(--t-2); line-height: 1; }
+.mt-unidad { font-size: var(--t-0); color: var(--texto-2); }
+.mt-privacidad .rotulo { margin-top: var(--s-1); }
+.mt-accion { margin-top: var(--s-2); }
+
+.mt-pasos { border-top: var(--linea) solid var(--filete); }
+.mt-pasos li {
+  display: grid; grid-template-columns: 14px minmax(0, 1fr); column-gap: 12px; align-items: baseline;
+  padding-block: 11px 12px; border-bottom: var(--linea) solid var(--filete-suave); text-wrap: pretty;
+}
+.mt-pasos .cifra { font-size: var(--t-2); line-height: var(--lh-0); }
+.mt-profesional .pal-pie, .mt-limites .pal-pie { margin-top: var(--s-3); }
+.mt-diario { margin-top: var(--s-2); font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-2); }
+.mt-diario .cifra { color: var(--texto); }
+.mt-nutricion .mt-enlaces { margin-top: var(--s-1); }
+
+/* ---------- Colofón: fuentes, por comprobar y registros ---------- */
+.mt-colofon {
+  margin-top: var(--s-4); padding-top: var(--s-3);
+  padding-inline: calc(var(--marco) + var(--palacio-pad));
+  border-top: var(--linea) solid var(--filete-suave);
+  scroll-margin-top: var(--s-2);
+}
+.mt-col-cab { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+.mt-col-cab h2 { font-size: var(--t-2); line-height: var(--lh-2); font-weight: 400; letter-spacing: -0.01em; }
+.mt-col-cab .nota { margin-top: var(--s-1); max-width: 36rem; text-wrap: pretty; }
+.mt-total { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 12px; }
+.mt-total .cifra { line-height: 1; }
+.mt-indice { border-top: var(--linea) solid var(--filete); font-size: var(--t-0); line-height: var(--lh-0); }
+.mt-indice li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-2);
+  min-height: 32px; padding-block: 3px 4px;
+  border-bottom: var(--linea) solid var(--filete-suave);
+}
+.mt-indice .cifra { font-size: var(--t-1); }
+
+.mt-seccion { margin-top: var(--s-3); scroll-margin-top: var(--s-2); }
+.mt-seccion h3 {
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-2);
+  padding-block: 11px var(--s-1);
+  border-top: var(--linea) solid var(--filete);
+  font-size: var(--t-0); line-height: var(--lh-0); font-weight: 600;
+  break-after: avoid;
+}
+.mt-seccion h3 .cifra { font-size: var(--t-1); }
+
+/* Sección plegable de la lista de fuentes: el título es el control */
+.mt-abrir { margin-top: var(--s-3); }
+.mt-abrir + .mt-seccion { margin-top: var(--s-2); }
+.mt-plegable { border-top: var(--linea) solid var(--filete); }
+.mt-plegable + .mt-plegable { margin-top: 0; }
+.mt-plegable:last-child { border-bottom: var(--linea) solid var(--filete); }
+.mt-plegable[open] { padding-bottom: var(--s-3); }
+.mt-plegable[open]:last-child { border-bottom: 0; padding-bottom: 0; }
+.mt-plegable summary {
+  display: grid; grid-template-columns: minmax(0, 1fr) 12px; column-gap: var(--s-2); align-items: center;
+  min-height: 47px; cursor: pointer; list-style: none;
+}
+.mt-plegable summary::-webkit-details-marker { display: none; }
+.mt-plegable summary::after {
+  content: ""; width: 7px; height: 7px; justify-self: center;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+.mt-plegable[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+.mt-plegable summary:hover { color: var(--accion); }
+.mt-plegable summary h3 { padding-block: 0; border-top: 0; }
+.mt-plegable .mt-refs { border-top: var(--linea) solid var(--filete-suave); }
+.mt-refs li {
+  padding-block: 5px 6px; border-bottom: var(--linea) solid var(--filete-suave);
+  break-inside: avoid;
+}
+.mt-ninguna { margin-top: var(--s-2); font-size: var(--t-0); line-height: var(--lh-0); color: var(--texto-3); }
+
+.mt-registros { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: var(--s-3); border-top: var(--linea) solid var(--filete); }
+.mt-registros li {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; align-content: start;
+  padding-block: 7px var(--s-1); border-bottom: var(--linea) solid var(--filete-suave);
+  font-size: var(--t-0); line-height: var(--lh-0);
+}
+.mt-registros a { justify-self: start; }
+
+@media (max-width: 1279px) {
+  .mt-colofon { padding-inline: 0; }
+}
+
+/* ---------- Tableta: la lista de fuentes en dos columnas ---------- */
+@media (min-width: 720px) and (max-width: 1279px) {
+  .mt-registros { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-3); }
+}
+
+/* ---------- Escritorio ---------- */
+@media (min-width: 1280px) {
+  .mt-voz .pal-cuerpo { gap: var(--s-3); }
+
+  .mt-etiquetas .pal-cuerpo { padding-top: var(--s-2); }
+  .mt-tabla-cab, .mt-fila { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--mt-canal); }
+  .mt-tabla-cab { padding-bottom: var(--s-1); font-size: var(--t-00); line-height: var(--lh-00); color: var(--texto-3); }
+  .mt-fila { padding-block: var(--s-2) 20px; }
+
+  .mt-limites .pal-cuerpo, .mt-profesional .pal-cuerpo, .mt-privacidad .pal-cuerpo { padding-top: var(--s-2); }
+
+  .mt-col-cab { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--mt-canal); align-items: start; }
+  .mt-total { flex-direction: column; row-gap: 4px; }
+  .mt-total .cifra { font-size: var(--t-4); }
+  .mt-refs { columns: 3; column-gap: var(--mt-canal); }
+  /* Los pasos de la nutrición ocupan las columnas 2 y 3, de arriba abajo */
+  .mt-nutricion > .mt-pasos {
+    grid-column: 2 / -1;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column; column-gap: var(--mt-canal); align-content: start;
+    border-top: 0;
+  }
+  .mt-nutricion > .mt-pasos li { border-bottom: 0; border-top: var(--linea) solid var(--filete-suave); }
+  .mt-nutricion > .mt-pasos li:nth-child(3n + 1) { border-top-color: var(--filete); }
+  .mt-registros { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--mt-canal); }
+}
