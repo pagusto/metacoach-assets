@@ -11,6 +11,9 @@
  */
 const { chromium } = require('playwright');
 const { servidor } = require('./capturas.cjs');
+// Ancho de la vista de escritorio. Con «--ancho 1024» la misma prueba recorre el cuadrado compacto.
+const iAncho = process.argv.indexOf('--ancho');
+const ANCHO = iAncho > 0 ? Number(process.argv[iAncho + 1]) : 1440;
 
 const RUTAS = ['/tradicion', '/tradicion/cabala', '/tradicion/hermetismo', '/tradicion/maestros', '/tradicion/practicas'];
 let fallos = 0;
@@ -23,7 +26,7 @@ function comprobar(nombre, ok, detalle = '') {
   const { srv, base } = await servidor();
   const prefijo = new URL(base).pathname;
   const navegador = await chromium.launch();
-  const contexto = await navegador.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES' });
+  const contexto = await navegador.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES' });
   const p = await contexto.newPage();
   const errores = [];
   p.on('pageerror', (e) => errores.push(e.message));
@@ -153,7 +156,7 @@ function comprobar(nombre, ok, detalle = '') {
   comprobar('prácticas: ocho energías y el estudio', (await p.locator('.tr-ener tbody tr').count()) === 8 && (await p.locator('.tr-hallazgos li').count()) === 5);
 
   // ---------- Sin JavaScript: todo el contenido se lee igual ----------
-  const sinJs = await navegador.newContext({ viewport: { width: 1440, height: 900 }, javaScriptEnabled: false });
+  const sinJs = await navegador.newContext({ viewport: { width: ANCHO, height: 900 }, javaScriptEnabled: false });
   const q = await sinJs.newPage();
   await q.goto(base + '/tradicion/practicas', { waitUntil: 'load' });
   comprobar('sin JavaScript: la tabla se ve entera', (await q.locator('[data-fila="practicas"]:visible').count()) === 16);

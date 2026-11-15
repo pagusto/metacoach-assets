@@ -43,8 +43,9 @@ cd abundancia/site
 npm ci
 npm run dev          # desarrollo
 npm run build        # compila a dist/shefa
-npm run capturas -- / /arbol     # capturas en claro y oscuro, escritorio y móvil
+npm run capturas -- / /arbol     # capturas en claro y oscuro: escritorio, tableta y móvil
 npm run probar       # prueba de interacciones de Hoy y Árbol
+npm run probar:tableta   # la misma prueba a 1024 px (cuadrado compacto)
 ```
 
 El sitio se sirve bajo `/shefa`. Todo enlace interno pasa por `ruta()` (`src/lib/ruta.ts`).

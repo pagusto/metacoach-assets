@@ -39,8 +39,9 @@ MAPA
 SIEMPRE, EN ESTE ORDEN
 1. Sincroniza: git checkout master && git pull. Luego cd abundancia/site && npm ci.
 2. Comprueba en local: npm run build; ejecuta todos los scripts de prueba de scripts/
-   (interacciones, ritual, tradición, datos, videoteca) y las capturas de todas las rutas en
-   1440, 390 y 320 px. Corrige lo que falle antes de seguir.
+   (interacciones, ritual, tradición, datos, videoteca), una vez tal cual y otra con
+   «--ancho 1024» (tableta), y las capturas de todas las rutas en 1440, 1024, 390 y 320 px.
+   Corrige lo que falle antes de seguir.
 3. Comprueba Vercel: el último despliegue de producción de «shefa» debe estar listo y
    corresponder al último commit de master. Si no, despliega producción de nuevo. Abre las
    15 rutas bajo /shefa y confirma que responden y cargan estilos, la película y los videos.

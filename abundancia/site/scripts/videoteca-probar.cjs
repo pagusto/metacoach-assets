@@ -4,6 +4,9 @@
 // Necesita red para las miniaturas de i.ytimg.com; el reproductor de YouTube se simula.
 const { chromium } = require('playwright');
 const { servidor } = require('./capturas.cjs');
+// Ancho de la vista de escritorio. Con «--ancho 1024» la misma prueba recorre el cuadrado compacto.
+const iAncho = process.argv.indexOf('--ancho');
+const ANCHO = iAncho > 0 ? Number(process.argv[iAncho + 1]) : 1440;
 
 const VT = require('../src/data/videoteca.json');
 const AG = require('../src/data/agentes.json');
@@ -24,7 +27,7 @@ const ok = (cond, texto, extra = '') => {
 
   // ---------- Videoteca ----------
   {
-    const c = await b.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES' });
+    const c = await b.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES' });
     const p = await c.newPage();
     const errores = [];
     p.on('pageerror', (e) => errores.push(e.message));
@@ -145,7 +148,7 @@ const ok = (cond, texto, extra = '') => {
 
   // ---------- Miniatura caída ----------
   {
-    const c = await b.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES' });
+    const c = await b.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES' });
     const p = await c.newPage();
     const id2 = VT.videos[1].id;
     await p.route(`**/i.ytimg.com/vi/${id2}/**`, (r) => r.abort());
@@ -158,7 +161,7 @@ const ok = (cond, texto, extra = '') => {
     await c.close();
   }
   {
-    const c = await b.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES' });
+    const c = await b.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES' });
     const p = await c.newPage();
     await p.route('**/i.ytimg.com/**', (r) => r.abort());
     await p.goto(base + '/videoteca', { waitUntil: 'networkidle' });
@@ -166,13 +169,13 @@ const ok = (cond, texto, extra = '') => {
     await p.waitForTimeout(1200);
     ok(await p.locator('.vt[data-caido]').count() === 0, 'sin red para las miniaturas no se retira nada');
     ok(await p.locator('[data-lista] > li:not([hidden])').count() === N, 'siguen todas las entradas sin miniaturas');
-    await p.screenshot({ path: require('node:path').join(__dirname, '..', 'qa', 'videoteca-sin-miniaturas.png'), clip: { x: 0, y: 0, width: 1440, height: 900 } });
+    await p.screenshot({ path: require('node:path').join(__dirname, '..', 'qa', 'videoteca-sin-miniaturas.png'), clip: { x: 0, y: 0, width: ANCHO, height: 900 } });
     await c.close();
   }
 
   // ---------- Agentes ----------
   {
-    const c = await b.newContext({ viewport: { width: 1440, height: 900 }, locale: 'es-ES', permissions: ['clipboard-read', 'clipboard-write'] });
+    const c = await b.newContext({ viewport: { width: ANCHO, height: 900 }, locale: 'es-ES', permissions: ['clipboard-read', 'clipboard-write'] });
     const p = await c.newPage();
     const errores = [];
     p.on('pageerror', (e) => errores.push(e.message));

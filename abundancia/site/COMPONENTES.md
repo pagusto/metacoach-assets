@@ -311,7 +311,8 @@ Otros módulos de `src/lib/`: `formato.ts` (fechas en español, `fino`, `pct`, `
 
 Antes de dar una página por terminada:
 
-1. `npm run build` sin errores y `node scripts/capturas.cjs /tu-ruta` sin «REVISAR».
+1. `npm run build` sin errores y `node scripts/capturas.cjs /tu-ruta` sin «REVISAR». Los guiones
+   de prueba de `scripts/` admiten `--ancho 1024` para recorrer el cuadrado compacto.
 2. **Sin desbordamiento horizontal a 320 px** (`--ancho 320`). Las tablas anchas van dentro de
    `.tabla-ancha` o se apilan en móvil.
 3. **Mira las capturas**: escritorio, tableta (1024 px) y móvil, claro y oscuro. Alineación a la
