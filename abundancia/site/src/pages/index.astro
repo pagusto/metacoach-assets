@@ -57,7 +57,7 @@ const iHoy = indiceDelDia(pares.length, hoy);
     <Palacio n={4} titulo="La cifra" etiqueta="Riqueza" forma="cuadrado">
       <div data-ver="cifra">
         <p>
-          <button class="editable cifra fig-xl" type="button" data-editar="cifra" aria-label="Editar la cifra y la fecha" data-v="cifra" style={`--n:${fmt(s.cifra).length}`}>{fmt(s.cifra)}</button>
+          <button class="editable cifra fig-xl" type="button" data-editar="cifra" aria-describedby="ed-cifra" data-v="cifra" style={`--n:${fmt(s.cifra).length}`}>{fmt(s.cifra)}</button><span id="ed-cifra" hidden>Editar la cifra y la fecha</span>
           <span class="cifra-unidad">al mes</span>
         </p>
       </div>
@@ -87,9 +87,10 @@ const iHoy = indiceDelDia(pares.length, hoy);
     <!-- 9 · Li · sur · Fuego: lo que se ve de uno -->
     <Palacio n={9} titulo="Declaración" etiqueta="Reputación" forma="cuadrado">
       <div data-ver="declaracion">
-        <button class="editable voz" type="button" data-editar="declaracion" aria-label="Editar la declaración" data-v="declaracion">
+        <button class="editable voz" type="button" data-editar="declaracion" aria-describedby="ed-declaracion" data-v="declaracion">
           {frases(s.declaracion).map((f) => <span>{f}</span>)}
         </button>
+        <span id="ed-declaracion" hidden>Editar la declaración</span>
       </div>
       <form class="campo ed" data-form="declaracion" hidden>
         <label for="f-declaracion">Tu declaración</label>
@@ -168,7 +169,7 @@ const iHoy = indiceDelDia(pares.length, hoy);
     <Palacio n={7} titulo="Ahorro" etiqueta="Cosecha" forma="tira">
       <div data-ver="ahorro">
         <p class="dato">
-          <button class="editable cifra fig-l" type="button" data-editar="ahorro" aria-label="Editar el ahorro de este mes" data-v="ahorro">{pct(s.ahorroPct, 1)}</button>
+          <button class="editable cifra fig-l" type="button" data-editar="ahorro" aria-describedby="ed-ahorro" data-v="ahorro">{pct(s.ahorroPct, 1)}</button><span id="ed-ahorro" hidden>Editar el ahorro de este mes</span>
           <span class="dato-nota solo-tira">meta 20&#8239;%</span>
         </p>
       </div>

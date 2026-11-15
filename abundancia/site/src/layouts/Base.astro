@@ -103,12 +103,13 @@ const ELEMENTOS = [
     <a class="salto" href="#contenido">Saltar al contenido</a>
 
     <header class="cab pagina">
-      <a class="marca" href={ruta('/')} aria-label="Shefa, inicio">
+      <a class="marca" href={ruta('/')}>
         <svg class="marca-moneda" viewBox="0 0 36 36" aria-hidden="true">
           <path fill-rule="evenodd" d="M18 0a18 18 0 1 0 0 36a18 18 0 1 0 0-36zM12 12h12v12H12z" />
         </svg>
         <span class="marca-n">Shefa</span>
         <span class="marca-he he" lang="he" dir="rtl">שפע</span>
+        <span class="oculto">, inicio</span>
       </a>
       <button class="tema" type="button" data-tema>
         <svg viewBox="0 0 16 16" aria-hidden="true"><rect x=".75" y=".75" width="14.5" height="14.5" /><circle cx="8" cy="8" r="4" /></svg>
@@ -135,11 +136,12 @@ const ELEMENTOS = [
       <div>
         <p class="aviso">Información general, no asesoramiento financiero</p>
         <p class="pie-metodo"><a href={ruta('/metodo')}>Método y fuentes</a></p>
+        <p class="pie-metodo"><a href={new URL('/', Astro.site).href}>Sitio de Pablo Agusto</a></p>
       </div>
       <div>
         <h2>Cuadrado Lo Shu</h2>
         <div class="clave-loshu">
-          <table aria-label="Cuadrado Lo Shu">
+          <table role="img" aria-label={`Cuadrado Lo Shu: ${LO_SHU.map((fila) => fila.join(' ')).join('; ')}`}>
             <tbody>
               {LO_SHU.map((fila) => <tr>{fila.map((n) => <td>{n}</td>)}</tr>)}
             </tbody>
