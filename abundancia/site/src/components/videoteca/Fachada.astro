@@ -1,0 +1,33 @@
+---
+// Fachada: la miniatura de un video con su botón de reproducir. El reproductor de YouTube
+// (un iframe a youtube-nocookie.com) solo se crea cuando la persona pulsa: hasta entonces
+// la página no carga nada de YouTube salvo la imagen. Lo conecta src/lib/videoteca-cliente.ts.
+//
+//   <Fachada id="JfqDvi8b4gg" titulo="Napoleon Hill's Master Key (1954)" idioma="en" />
+//   <Fachada id="…" titulo="…" grande />     reproductor ancho: pide también la miniatura de 640 px
+import { miniatura, miniaturaGrande } from '../../lib/videoteca';
+
+interface Props {
+  /** Identificador de YouTube (11 caracteres). */
+  id: string;
+  /** Título exacto del video: nombre del botón y título del iframe. */
+  titulo: string;
+  /** Idioma del título (es, en), para que el lector de pantalla lo pronuncie bien. */
+  idioma?: string;
+  /** Reproductor ancho (ruta de inicio). */
+  grande?: boolean;
+}
+const { id, titulo, idioma, grande = false } = Astro.props;
+---
+<div class:list={['vt-marco', grande && 'vt-marco-g']} data-marco>
+  <button class="vt-ver" type="button" data-ver={id} data-titulo={titulo}>
+    <img
+      src={miniatura(id)}
+      srcset={grande ? `${miniatura(id)} 320w, ${miniaturaGrande(id)} 640w` : undefined}
+      sizes={grande ? '(min-width: 1280px) 816px, (min-width: 600px) 524px, 92vw' : undefined}
+      alt="" width="320" height="180" loading="lazy" decoding="async" data-mini
+    />
+    <span class="vt-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" /></svg></span>
+    <span class="oculto">Reproducir: <span lang={idioma}>{titulo}</span></span>
+  </button>
+</div>

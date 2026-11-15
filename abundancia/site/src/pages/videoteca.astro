@@ -1,0 +1,217 @@
+---
+// Videoteca: la ruta de inicio en el cuadrado (reproductor en 4·9·3·5, los nueve pasos en
+// 2·7, la biblioteca en cifras en 8·1·6) y, debajo, la biblioteca completa con filtros.
+// Todo se pinta al compilar; el cliente (src/lib/videoteca-cliente.ts) solo cambia atributos.
+import Base from '../layouts/Base.astro';
+import TituloPagina from '../components/TituloPagina.astro';
+import Cuadrado from '../components/Cuadrado.astro';
+import Palacio from '../components/Palacio.astro';
+import Medidor from '../components/Medidor.astro';
+import Fachada from '../components/videoteca/Fachada.astro';
+import Entrada from '../components/videoteca/Entrada.astro';
+import '../styles/videoteca.css';
+
+import datos from '../data/videoteca.json';
+import { fmt } from '../lib/store';
+import {
+  IDIOMAS, TIPOS_CANAL, duracionHablada, enYouTube, nombreCategoria, nombreIdioma, nombreTipoCanal, ordenCategorias, rotuloTipoCanal,
+  segundos, type Video,
+} from '../lib/videoteca';
+
+const videos = datos.videos as Video[];
+const total = videos.length;
+const porId = new Map(videos.map((v) => [v.id, v]));
+
+// Ruta de inicio: solo los pasos cuyo video está en la biblioteca.
+const ruta = (datos.ruta_inicio ?? [])
+  .map((r) => ({ motivo: r.motivo, v: porId.get(r.id) }))
+  .filter((r): r is { motivo: string; v: Video } => !!r.v);
+
+// La biblioteca en cifras.
+const cuenta = (campo: keyof Video) => {
+  const m = new Map<string, number>();
+  videos.forEach((v) => m.set(String(v[campo]), (m.get(String(v[campo])) ?? 0) + 1));
+  return m;
+};
+const porCategoria = cuenta('categoria');
+const porIdioma = cuenta('idioma');
+const porTipo = cuenta('tipo_canal');
+const porMaestro = cuenta('maestro');
+const categorias = ordenCategorias(videos);
+const maxCategoria = Math.max(1, ...porCategoria.values());
+const idiomas = [...Object.keys(IDIOMAS).filter((i) => porIdioma.has(i)), ...[...porIdioma.keys()].filter((i) => !(i in IDIOMAS))];
+const tipos = [...Object.keys(TIPOS_CANAL).filter((t) => porTipo.has(t)), ...[...porTipo.keys()].filter((t) => !(t in TIPOS_CANAL))];
+const maestros = [...porMaestro.keys()].sort((a, b) => a.localeCompare(b, 'es'));
+const horas = Math.round(videos.reduce((s, v) => s + segundos(v.duracion), 0) / 3600);
+---
+<Base title="Videoteca" description={`${fmt(total)} videos de YouTube comprobados uno por uno: maestros de la prosperidad, ciencia, datos y tradición, con una ruta de inicio y filtros por categoría, idioma y voz.`}>
+  <TituloPagina titulo="Videoteca">
+    {fmt(total)} videos de YouTube comprobados uno por uno: una ruta de inicio y la <a href="#biblioteca">biblioteca completa</a>.
+  </TituloPagina>
+
+  <Cuadrado clase="vt-pag vivo">
+    <!-- Palacios 4 · 9 · 3 · 5: el reproductor de la ruta -->
+    <Palacio n={4} celdas={[4, 9, 3, 5]} titulo="Ruta de inicio" etiqueta={`Paso 1 de ${ruta.length}`} id="ruta" clase="vt-escena">
+      {ruta.map(({ v }, i) => (
+        <article class="vt-paso" data-paso={i} data-video={v.id} hidden={i !== 0}>
+          <Fachada id={v.id} titulo={v.titulo} idioma={v.idioma} grande />
+          <div class="vt-paso-txt">
+            <div class="vt-paso-cab">
+              <h3 class="voz-m" lang={v.idioma}>{v.titulo}</h3>
+              <ul class="vt-meta">
+                <li class="medio">{v.maestro}</li>
+                <li><span class="oculto">Duración: {duracionHablada(v.duracion)}</span><span class="cifra" aria-hidden="true">{v.duracion}</span></li>
+                <li>{nombreIdioma(v.idioma)}</li>
+                {v.anio_original && <li><span class="oculto">Año del original: </span>{v.anio_original}</li>}
+              </ul>
+              <div class="vt-acciones">
+                <label class="vt-visto">
+                  <input class="casilla" type="checkbox" data-visto={v.id} aria-label={`Visto: ${v.titulo}`} />
+                  <span>Visto</span>
+                </label>
+                <a href={enYouTube(v.id)} target="_blank" rel="noopener">Ver en YouTube<span class="oculto"> «{v.titulo}» (se abre en otra pestaña)</span></a>
+              </div>
+            </div>
+            <div class="vt-texto">
+              <p>{v.resumen}</p>
+              <p class="vt-porque"><span class="rotulo">Por qué verlo</span>{v.por_que}</p>
+              <p class="vt-porque"><span class="rotulo">{rotuloTipoCanal(v.tipo_canal)}</span><bdi>{v.canal}</bdi>{v.nota && <>. {v.nota}</>}</p>
+            </div>
+          </div>
+        </article>
+      ))}
+      <div slot="pie" class="vt-pasos-nav">
+        <button class="boton-2 boton-s" type="button" data-ir="-1">Paso anterior</button>
+        <button class="boton-2 boton-s" type="button" data-ir="1">Paso siguiente</button>
+      </div>
+    </Palacio>
+
+    <!-- Palacios 2 · 7: los nueve pasos y su motivo -->
+    <Palacio n={2} celdas={[2, 7]} titulo="Los pasos, en orden" etiqueta={`0 de ${ruta.length} vistos`} clase="vt-orden">
+      <ol class="vt-ruta">
+        {ruta.map(({ v, motivo }, i) => (
+          <li>
+            <button class="vt-ruta-b" type="button" data-elegir={i} data-video={v.id} aria-pressed={i === 0 ? 'true' : 'false'} aria-controls="ruta">
+              <span class="oculto">Paso </span>
+              <span class:list={['vt-ruta-n', 'cifra', i === 0 && 'sello sello-s']}>{i + 1}</span>
+              <span class="vt-ruta-t">{motivo}</span>
+              <span class="vt-ruta-m">
+                <span class="oculto">Duración: {duracionHablada(v.duracion)}. </span><span aria-hidden="true">{v.duracion}</span> · {nombreIdioma(v.idioma)}<span data-marca-visto hidden> · visto</span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ol>
+      <div slot="pie" class="vt-ruta-pie" data-ruta-medidor>
+        <Medidor valor={0} etiqueta={`Videos vistos de la ruta: 0 de ${ruta.length}`} desde="0" hasta={`${ruta.length} vistos`} />
+      </div>
+    </Palacio>
+
+    <!-- Palacio 8: el tamaño de la biblioteca -->
+    <Palacio n={8} titulo="La biblioteca" etiqueta="Tamaño" forma="dos-tercios" clase="vt-tam">
+      <p><span class="cifra fig-xl" style={`--n:${Math.max(3, fmt(total).length)}`}>{fmt(total)}</span></p>
+      <p class="vt-unidad">videos comprobados</p>
+      <dl slot="pie" class="vt-pares">
+          {idiomas.map((id) => (
+            <div class="pares"><dt>En {nombreIdioma(id).toLowerCase()}</dt><dd class="cifra">{fmt(porIdioma.get(id) ?? 0)}</dd></div>
+          ))}
+          <div class="pares"><dt>Duración total</dt><dd class="cifra">{fmt(horas)} h</dd></div>
+      </dl>
+    </Palacio>
+
+    <!-- Palacio 1: reparto por categoría; cada barra filtra la biblioteca -->
+    <Palacio n={1} titulo="Por categoría" etiqueta={`${categorias.length} categorías`} forma="libre" clase="vt-cats">
+      <ul class="vt-barras">
+        {categorias.map((c) => {
+          const n = porCategoria.get(c) ?? 0;
+          return (
+            <li>
+              <button type="button" data-ir-categoria={c} aria-label={`${nombreCategoria(c)}: ${n} videos. Filtrar la biblioteca`}>
+                <span class="vt-barra-t">{nombreCategoria(c)}</span>
+                <span class="cifra">{fmt(n)}</span>
+                <span class="vt-barra" aria-hidden="true"><span style={`width:${(n / maxCategoria) * 100}%`}></span></span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <p slot="pie" class="rotulo">Pulsa una categoría para filtrar la biblioteca.</p>
+    </Palacio>
+
+    <!-- Palacio 6: quién publica -->
+    <Palacio n={6} titulo="Quién publica" etiqueta="Tipo de canal" forma="libre" clase="vt-tipos">
+      <dl class="vt-tipos-l">
+        {tipos.map((t) => (
+          <div>
+            <dt><span class="cifra">{fmt(porTipo.get(t) ?? 0)}</span> <span class="medio">{nombreTipoCanal(t)}</span></dt>
+            {TIPOS_CANAL[t] && <dd>{TIPOS_CANAL[t].glosa}</dd>}
+          </div>
+        ))}
+      </dl>
+      <p slot="pie" class="rotulo">Cada video indica su tipo de canal y, si hace falta, una nota.</p>
+    </Palacio>
+  </Cuadrado>
+
+  <section class="vt-bib" id="biblioteca" aria-labelledby="h-biblioteca">
+    <header class="vt-sec-cab">
+      <h2 id="h-biblioteca" tabindex="-1">Biblioteca</h2>
+      <p class="vt-estado" role="status" data-estado>Se muestran los {fmt(total)} videos.</p>
+    </header>
+
+    <form class="vt-filtros" role="search" aria-label="Filtrar la biblioteca" data-filtros>
+      <div class="campo vt-f-buscar">
+        <label for="vt-q">Buscar</label>
+        <input id="vt-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Título, tema, canal o quién habla" />
+      </div>
+      <div class="campo vt-f-maestro">
+        <label for="vt-maestro">Quién habla</label>
+        <span class="selector">
+          <select id="vt-maestro" name="maestro">
+            <option value="">Cualquiera</option>
+            {maestros.map((m) => <option value={m} data-nombre={m}>{m} ({porMaestro.get(m)})</option>)}
+          </select>
+        </span>
+      </div>
+      <fieldset class="vt-f-idioma">
+        <legend>Idioma</legend>
+        <div class="vt-ops">
+          <button class="vt-op" type="button" data-filtro="idioma" data-valor="" aria-pressed="true">Todos <span class="cifra" data-n>{fmt(total)}</span></button>
+          {idiomas.map((id) => (
+            <button class="vt-op" type="button" data-filtro="idioma" data-valor={id} aria-pressed="false">{nombreIdioma(id)} <span class="cifra" data-n>{fmt(porIdioma.get(id) ?? 0)}</span></button>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset class="vt-f-cat">
+        <legend>Categoría</legend>
+        <div class="vt-ops">
+          <button class="vt-op" type="button" data-filtro="categoria" data-valor="" aria-pressed="true">Todas <span class="cifra" data-n>{fmt(total)}</span></button>
+          {categorias.map((c) => (
+            <button class="vt-op" type="button" data-filtro="categoria" data-valor={c} aria-pressed="false">{nombreCategoria(c)} <span class="cifra" data-n>{fmt(porCategoria.get(c) ?? 0)}</span></button>
+          ))}
+        </div>
+      </fieldset>
+      <div class="vt-f-vistos">
+        <label class="vt-visto">
+          <input class="casilla" type="checkbox" name="ocultar" />
+          <span>Ocultar los vistos</span>
+        </label>
+        <span class="rotulo" data-n-vistos>Ninguno visto</span>
+        <button class="boton-texto" type="button" data-limpiar hidden>Quitar filtros</button>
+      </div>
+    </form>
+
+    <ul class="vt-lista" data-lista>
+      {videos.map((v) => <Entrada video={v} />)}
+    </ul>
+
+    <div class="vt-vacio" data-vacio hidden>
+      <p class="voz-m" data-vacio-titulo>Ningún video coincide con lo que buscas.</p>
+      <p class="texto-2" data-vacio-nota>Prueba con otra palabra o quita algún filtro.</p>
+      <p><button class="boton-2" type="button" data-vacio-boton>Quitar filtros</button></p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import '../lib/videoteca-cliente';
+</script>

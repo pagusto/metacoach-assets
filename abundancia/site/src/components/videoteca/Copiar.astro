@@ -1,0 +1,26 @@
+---
+// Copiar: una línea de texto literal (un comando) con su botón «Copiar».
+// El cliente (src/lib/videoteca-copiar.ts) usa navigator.clipboard y, si no puede,
+// selecciona el texto para copiarlo a mano.
+//
+//   <Copiar texto="/consejo-abundancia" />
+//   <Copiar texto="git clone https://…" nombre="el comando para clonar" larga />
+interface Props {
+  /** Texto que se muestra y se copia. */
+  texto: string;
+  /** Cómo nombrarlo en el botón para lectores de pantalla. Por defecto, el propio texto. */
+  nombre?: string;
+  /** Texto largo (una URL): el botón pasa a una segunda línea para no partir el texto. */
+  larga?: boolean;
+  /** Clases extra. */
+  clase?: string;
+}
+const { texto, nombre, larga = false, clase = '' } = Astro.props;
+// Puntos de corte tras cada barra, para que una URL no se parta por mitad de palabra.
+const trozos = texto.includes('://') ? texto.split(/(?<=\/)(?=[^/\s])/) : [texto];
+---
+<div class:list={['vt-copia', larga && 'vt-copia-larga', clase]} data-copia>
+  <code data-copia-texto>{trozos.map((t, i) => <>{i > 0 && <wbr />}{t}</>)}</code>
+  <button class="boton-2 boton-s" type="button" data-copiar aria-label={`Copiar ${nombre ?? texto}`}>Copiar</button>
+  <span class="oculto" role="status" data-copia-estado></span>
+</div>

@@ -1,0 +1,55 @@
+---
+// Entrada: un video de la biblioteca. Se pinta al compilar; el cliente solo cambia
+// atributos (hidden, data-visto) para filtrar y marcar.
+//
+//   <Entrada video={v} />
+import Fachada from './Fachada.astro';
+import {
+  duracionHablada, enYouTube, nombreCategoria, nombreIdioma, rotuloTipoCanal, type Video,
+} from '../../lib/videoteca';
+
+interface Props {
+  video: Video;
+}
+const { video: v } = Astro.props;
+---
+<li>
+  <article
+    class="vt" id={`v-${v.id}`} data-video={v.id}
+    data-categoria={v.categoria} data-idioma={v.idioma} data-maestro={v.maestro}
+  >
+    <div class="vt-media"><Fachada id={v.id} titulo={v.titulo} idioma={v.idioma} /></div>
+
+    <div class="vt-cab">
+      <h3 class="vt-titulo" lang={v.idioma} data-busca>{v.titulo}</h3>
+      <ul class="vt-meta">
+        <li class="medio" data-busca>{v.maestro}</li>
+        <li><span class="oculto">Duración: {duracionHablada(v.duracion)}</span><span class="cifra" aria-hidden="true">{v.duracion}</span></li>
+        <li>{nombreIdioma(v.idioma)}</li>
+        {v.anio_original && <li><span class="oculto">Año del original: </span>{v.anio_original}</li>}
+      </ul>
+      <p class="vt-temas">
+        <span class="vt-cat"><span class="oculto">Categoría: </span><span data-busca>{nombreCategoria(v.categoria)}</span></span>
+        {v.temas.length > 0 && <span><span class="oculto">Temas: </span><span data-busca>{v.temas.join(', ')}</span></span>}
+      </p>
+      <div class="vt-acciones">
+        <label class="vt-visto">
+          <input class="casilla" type="checkbox" data-visto={v.id} aria-label={`Visto: ${v.titulo}`} />
+          <span>Visto</span>
+        </label>
+        <a href={enYouTube(v.id)} target="_blank" rel="noopener">Ver en YouTube<span class="oculto"> «{v.titulo}» (se abre en otra pestaña)</span></a>
+      </div>
+    </div>
+
+    <div class="vt-texto">
+      <p data-busca>{v.resumen}</p>
+      <p class="vt-porque"><span class="rotulo">Por qué verlo</span><span data-busca>{v.por_que}</span></p>
+    </div>
+
+    <div class="vt-lado">
+      <p class="rotulo">{rotuloTipoCanal(v.tipo_canal)}</p>
+      <p class="vt-canal" data-busca><bdi>{v.canal}</bdi></p>
+      {v.nota && <p class="vt-nota">{v.nota}</p>}
+    </div>
+  </article>
+</li>

@@ -1,0 +1,27 @@
+---
+// Agente: la ficha de un agente del equipo (agentes.json): nombre, identificador con el que
+// se le llama, rol, cuándo usarlo y una petición de ejemplo.
+//
+//   <Agente agente={a} />
+interface Props {
+  agente: {
+    id: string;
+    nombre: string;
+    rol?: string | null;
+    cuando?: string | null;
+    ejemplo?: string | null;
+  };
+}
+const { agente: a } = Astro.props;
+---
+<article class="ag" id={`agente-${a.id}`}>
+  <h3 class="ag-nombre">{a.nombre}</h3>
+  <p class="ag-id"><span class="oculto">Identificador: </span><code>{a.id}</code></p>
+  {a.rol && <p class="ag-rol">{a.rol}</p>}
+  {(a.cuando || a.ejemplo) && (
+    <dl class="ag-uso">
+      {a.cuando && <div><dt>Cuándo</dt><dd>{a.cuando}</dd></div>}
+      {a.ejemplo && <div><dt>Ejemplo</dt><dd>{a.ejemplo}</dd></div>}
+    </dl>
+  )}
+</article>
