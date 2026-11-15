@@ -19,7 +19,38 @@ node scripts/interacciones.cjs       # prueba de humo de Hoy y Árbol
 1440 × 900 y 390 × 844 en claro y en oscuro, a página entera. Imprime el desbordamiento
 horizontal y los errores de página de cada captura y sale con código 1 si hay alguno.
 Opciones: `--ancho 320` añade ese ancho; `--sin-muestra` pulsa «Empezar con mis datos» antes
-de capturar (estado vacío). `qa/` no entra en git. Playwright está instalado de forma global.
+de capturar (estado vacío). `qa/` no entra en git. Playwright está instalado de forma global:
+antes de usar los scripts, `export NODE_PATH="$(npm root -g)"`. En Git Bash de Windows, antepón
+`MSYS_NO_PATHCONV=1` a los que reciben rutas como `/arbol`, o las convierte en rutas de disco.
+
+### Comprobar lo publicado y las fuentes
+
+```bash
+node scripts/vivo.cjs https://shefa-prosperai.vercel.app/shefa dist/shefa   # el sitio en vivo
+node scripts/vivo.cjs https://pabloagusto.vercel.app/shefa dist/shefa       # y dentro del sitio raíz
+node scripts/fuentes-verificar.mjs                                           # citas, estudios y cifras
+```
+
+**`vivo.cjs <base> [dist/shefa]`** abre con un navegador real las 15 rutas de la base indicada. En
+cada una exige respuesta 200, ningún error de página ni petición fallida y los estilos aplicados
+(la variable `--M` con valor). Si le pasas la carpeta compilada, exige además que el HTML servido sea
+idéntico, byte a byte, al de local, y que la lista de rutas coincida con las páginas compiladas. En
+`/colores` comprueba que la película carga metadatos, avanza al reproducir, carga los subtítulos y
+no muestra el aviso «todavía no está disponible»; en `/videoteca`, que todas las miniaturas
+responden, que ninguna entrada queda retirada y que el reproductor de YouTube responde. Sale con
+código 1 si algo falla. La película es H.264 y el Chromium de Playwright para Windows no lo trae:
+el script usa Edge o Chrome si están instalados. Al añadir una página, añádela a `RUTAS`.
+
+**`fuentes-verificar.mjs [hebreo] [citas] [estudios] [cifras] [--detalle]`** coteja lo que el sitio
+cita con su fuente: cada cita hebrea de `cabala.json` contra Sefaria, letra por letra; cada cita en
+inglés o latín de `maestros.json` y `hermetismo.json` contra Project Gutenberg, archive.org o
+Wikipedia; cada tamaño de efecto de `practicas.json` contra el resumen publicado; y cada cifra de
+`datos.json` contra la página que cita (la serie de la Reserva Federal, contra su último dato). Por
+cada elemento imprime `ok`, `difiere` o `no abre`, y sale con código 1 solo si algo difiere. `no
+abre` es una web que no responde a un script (BLS, FTC, APA): no la fuerces; ábrela a mano. Necesita
+`curl` y, para los PDF, `pdftotext` (Git para Windows lo trae). Qué se busca y dónde está en la
+tabla `FUENTES`, al principio del script: al cambiar una cita, un efecto o una cifra en `src/data`,
+actualiza su entrada, o saldrá como `difiere`.
 
 ## 2. Tokens (`src/styles/tokens.css`)
 

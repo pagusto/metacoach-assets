@@ -42,8 +42,12 @@ SIEMPRE, EN ESTE ORDEN
    (interacciones, ritual, tradición, datos, videoteca) y las capturas de todas las rutas en
    1440, 390 y 320 px. Corrige lo que falle antes de seguir.
 3. Comprueba Vercel: el último despliegue de producción de «shefa» debe estar listo y
-   corresponder al último commit de master. Si no, despliega producción de nuevo. Abre las
-   15 rutas bajo /shefa y confirma que responden y cargan estilos, la película y los videos.
+   corresponder al último commit de master. Si no, despliega producción de nuevo. Después,
+   desde abundancia/site, comprueba los dos dominios con un navegador real:
+   node scripts/vivo.cjs https://shefa-prosperai.vercel.app/shefa dist/shefa
+   node scripts/vivo.cjs https://pabloagusto.vercel.app/shefa dist/shefa
+   Cada uno abre las 15 rutas y mira estilos, película, videos y que el HTML servido sea el
+   que compilaste en el paso 2. Los dos deben acabar en «Todo en orden».
 4. Sitio raíz: asegúrate de que «pabloagusto» tiene (a) en index.html el botón
    <a class="cta" href="/shefa/">Wealth manifestation</a> en lugar del hueco «coming soon», y
    (b) en vercel.json las cuatro reglas (Vercel compara las rutas de forma estricta: sin las dos
@@ -55,8 +59,8 @@ SIEMPRE, EN ESTE ORDEN
    Si falta algo, cámbialo conservando todo lo demás del sitio raíz, despliega y comprueba que
    https://pabloagusto.vercel.app/shefa/, /shefa/arbol y /shefa/arbol/ cargan con sus estilos.
 5. Nutrición: si falta la entrada de hoy en el diario, ejecuta /nutrir.
-6. Videoteca: python3 abundancia/tools/yt.py check sobre todos los ids de videoteca.json;
-   sustituye o quita los que ya no existan.
+6. Videoteca: abundancia/tools/yt.py check sobre todos los ids de videoteca.json (python en
+   Windows, python3 en Linux y macOS); sustituye o quita los que ya no existan.
 7. Publica: si cambiaste algo, confirma directamente en master con mensajes claros y haz
    push (sin pull requests; yo lo autorizo). Vercel despliega solo. Vuelve al paso 3.
 8. Informe de una página: direcciones en vivo, qué cambiaste, qué comprobaste, qué no pudiste
@@ -70,8 +74,13 @@ tamaño de efecto de practicas.json contra el artículo original; que el ritual 
 mejor evidencia tiene); tradiciones (cada cita hebrea contra Sefaria letra por letra, citas de
 los maestros contra el texto original, tablas de feng shui contra una fuente académica;
 respeto y ningún estereotipo); diseño (retícula, jerarquía, coherencia, claro y oscuro);
-accesibilidad y rendimiento. En la nube no se pudieron abrir sefaria.org, chabad.org, ubs.com,
-zh.ch, bls.gov ni pubmed: empieza por lo que depende de ellos. Coteja cada estudio con la
+accesibilidad y rendimiento. Para citas, estudios y cifras empieza por
+node scripts/fuentes-verificar.mjs (desde abundancia/site): coteja cada cita hebrea con
+Sefaria, cada cita con su original, cada tamaño de efecto con el resumen publicado y cada
+cifra con su fuente, y dice «ok», «difiere» o «no abre». Corrige lo que difiere; lo que no
+abre es una web que niega el acceso a los scripts: ábrela a mano, una vez, sin forzarla. En
+la nube no se pudieron abrir sefaria.org, chabad.org, ubs.com, zh.ch, bls.gov ni pubmed:
+empieza por lo que depende de ellos. Coteja cada estudio con la
 versión publicada, no con el borrador: Semantic Scholar, OpenAlex y Europe PMC a veces
 devuelven el resumen del documento de trabajo bajo el DOI de la revista. Lee antes los
 informes anteriores de abundancia/auditoria/ para no deshacer lo ya resuelto. Corrige lo
