@@ -26,6 +26,7 @@ Cada afirmación lleva una etiqueta: tradición, documentado, estudio, anécdota
 | Diseño | `design/` | Brief y la dirección aprobada «Lo Shu» |
 | Prompt para PC | `PROMPT-LOCAL.md` | Prompt único para mantener, auditar o ampliar Shefa desde tu equipo |
 | Auditorías | `auditoria/` | Un informe por auditoría: lo corregido, lo descartado y lo que no se pudo verificar |
+| Recursos de terceros | `recursos/` | Material externo guardado tal cual para consulta; no verificado, fuera de la base |
 
 Los agentes y comandos viven en `.claude/` en la raíz del repositorio:
 
